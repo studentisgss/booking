@@ -1,6 +1,10 @@
-*.pyc
-__pycache__/
-*.pyo
-*.sqlite3
+# Temporary files
 *~
 
+# Python files
+__pycache__/
+*.pyc
+*.pyo
+
+# Database files
+*.sqlite3
