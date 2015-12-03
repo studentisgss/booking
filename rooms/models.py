@@ -53,10 +53,11 @@ class PlacePermisson(models.Model):
     def __str__(self):
         return "Place%d & Group%d" % (self.place_id, self.group_id)
 
-    PERM_LEVEL = [
-        (10, "Puo' richiedere"),
-        (30, "Puo' approvare"),
+    PERMISSION_CHOICES = [
+        (10, "Can request"),
+        (30, "Can accept"),
     ]
     place = models.ForeignKey(Place)
     group = models.ForeignKey(Group)
-    permission = models.SmallIntegerField(choices=PERM_LEVEL, default=10)
+    permission = models.SmallIntegerField(choices=PERMISSION_CHOICES,
+                                          default=10)

@@ -32,8 +32,6 @@ class Activity(models.Model):
                             self.category, self.title)
 
     title = models.CharField(max_length=80, unique_for_date="start")
-    teacher = models.CharField(max_length=80, default="")
-    classe = models.CharField(max_length=8)
     description = models.CharField(max_length=500)
     important = models.BooleanField(default=False)
     creator = models.ForeignKey(User, related_name="activity_created")

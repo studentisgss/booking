@@ -5,21 +5,6 @@ from activities.models import Activity
 
 # Create your models here.
 
-"""
-STATUS_FLAGS contiene i possibili valori per gli stati di eventi e attivita'
-Eventi e attivita' sono approvati automaticamente se creati da un utente con
-sufficienti privilegi, altrimenti devono essere approvati o rifiutati
----
-STATUS_FLAGS contains possible values for states of events and activities.
-Events and activities are automatically approved if a user has enough
-privilege level, otherwise they shound approved/denied manually.
-"""
-STATUS_FLAGS = [
-    (0, "Approved"),
-    (1, "Waiting"),
-    (2, "Rejected"),
-]
-
 
 class Event(models.Model):
     """
@@ -42,9 +27,25 @@ class Event(models.Model):
     """
     def __str__(self):
         return "%d %s" % (self.activity_id, self.start)
+
+    """
+    STATUS_CHOICES contiene i possibili valori per gli stati di eventi e
+    attivita'. Eventi e attivita' sono approvati automaticamente se creati da
+    un utente con sufficienti privilegi, altrimenti devono essere approvati o
+    rifiutati
+    ---
+    STATUS_CHOICES contains possible values for states of events and
+    activities. Events and activities are automatically approved if a user has
+    enough privilege level, otherwise they shound approved/denied manually.
+    """
+    STATUS_CHOICES = [
+        (0, "Approved"),
+        (1, "Waiting"),
+        (2, "Rejected"),
+    ]
     place = models.ForeignKey(Place)
     activity = models.ForeignKey(Activity)
-    start = models.DateTimeField("Start Time")
-    end = models.DateTimeField("End Time")
-    status = models.SmallIntegerField(choices=STATUS_FLAGS)
+    start = models.DateTimeField("Start time")
+    end = models.DateTimeField("End time")
+    status = models.SmallIntegerField(choices=STATUS_CHOICES)
     creator = models.ForeignKey(User, related_name="event_created")
