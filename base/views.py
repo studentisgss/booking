@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.utils import timezone
+from django.views.generic import TemplateView
 
 
 class BookingTemplateView(TemplateView):
@@ -17,4 +18,4 @@ class BookingTemplateView(TemplateView):
 
 class BaseBookingTemplateView(BookingTemplateView):
 
-    template_path = "base"
+    template_path = "base/"

@@ -1,0 +1,40 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="it">
+	<head>
+	<meta charset="utf-8">
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+	<title>{% block page_title %}{% endblock %}</title>
+
+	<link href="{% static 'favicon.png' %}" rel="icon" type="image/png" />
+
+	<!-- ADD CSS HERE -->
+
+	<!-- ADD SCRIPT HERE -->
+
+    {% block head-extra %}
+        <!-- ADD EXTRA CSS OR SCRIPT HERE -->
+    {% endblock %}
+
+	<style type="text/css">
+    	{% block head-css-style %}
+        {% endblock %}
+	</style>
+    <script type="text/javascript">
+        {% block head-script %}
+        {% endblock %}
+    </script>
+</head>
+
+<body>
+
+    {% block main-menu %}
+    {% endblock main-menu %}
+
+    {% block main %}
+    {% endblock main %}
+
+</body>
+{% block post-body-script %}
+{% endblock %}
+</html>
