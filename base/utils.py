@@ -3,6 +3,6 @@
 
 def localnow():
     """
-    Returns the local time
+    Return a datetime object representing the time in the local timezone
     """
-    return timezone.localtime(timezone.now(), get_default_timezone())
+    return timezone.localtime(timezone.now(), timezone.get_default_timezone())
