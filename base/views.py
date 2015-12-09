@@ -11,10 +11,6 @@ class BookingTemplateView(TemplateView):
         return [self.template_path + x
                 for x in super(BookingTemplateView, self).get_template_names()]
 
-    def localnow():
-        return timezone.localtime(timezone.now(),
-                                  timezone.get_default_timezone())
-
 
 class BaseBookingTemplateView(BookingTemplateView):
 
