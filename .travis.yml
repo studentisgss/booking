@@ -2,6 +2,10 @@ language: python
 python: 3.4
 install:
   - pip install -r requirements.txt
+before_script:
+  - python manage.py syncdb --noinput
+  - python manage.py makemigrations
+  - python manage.py migrate
 script:
   - pep8 .
   - python -Wall manage.py test
