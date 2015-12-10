@@ -4,3 +4,4 @@ install:
   - pip install pep8==1.4.6
 script:
   - pep8 .
+  - python -Wall manage.py test
