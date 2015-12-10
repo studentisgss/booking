@@ -6,5 +6,5 @@ before_script:
   - python manage.py makemigrations
   - python manage.py migrate
 script:
-  - pep8 .
+  - pep8 --exclude=migrations .
   - python -Wall manage.py test
