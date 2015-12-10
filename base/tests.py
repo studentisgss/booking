@@ -3,7 +3,7 @@ from django.views.generic import TemplateView
 from base.views import GenericTemplateView
 
 
-class TemplatePathTestCase(TestCase):
+class TemplatePathTest(TestCase):
     def setUp(self):
         class A(GenericTemplateView):
             pass
