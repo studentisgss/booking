@@ -1,10 +1,10 @@
 from django.shortcuts import render
-from base.views import BookingTemplateView
+from base.views import GenericTemplateView
 
 # Create your views here.
 
 
-class ActivitiesBookingTemplateView(BookingTemplateView):
+class ActivitiesTemplateView(GenericTemplateView):
     """
     Base class for the views of the app "activities".
     """

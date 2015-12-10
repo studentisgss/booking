@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.views.generic import TemplateView
 
 
-class BookingTemplateView(TemplateView):
+class GenericTemplateView(TemplateView):
     """
     Base class which extend django TemplateView.
 
@@ -22,7 +22,7 @@ class BookingTemplateView(TemplateView):
                 for x in super().get_template_names()]
 
 
-class BaseBookingTemplateView(BookingTemplateView):
+class BaseTemplateView(GenericTemplateView):
     """
     Base class for the views of the app "base".
     """
