@@ -8,20 +8,11 @@ from activities.models import Activity
 
 class Event(models.Model):
     """
-    Eventi associati a una "attività" per cui viene prenotato un "luogo", ad
-    esempio le lezioni dei corsi interni
-    "place" e "activity" sono le attività
-    e il luogo associati alle prenotazioni
-    "start" e "end" sono gli orari di inizio e fine
-    [NB: richiediamo che siano nella stessa data]
-    "status" è lo stato di approvazione della prenotazione
-    "creator" è l'utente che ha creato/richiesto la prenotazione
-    ---
     Events associated to an "activity" for which a "place" is booked,
     for example lessons of internal courses.
     "place" and "activity" are activity and place associated to the booking.
     "start" and "end" are time of the beginning and ending
-    [NB: we require that beginning and ending are the same date]
+    [WN: we require that beginning and ending are the same date]
     "status" is the state of acceptance of the booking.
     "creator" is the user that created/required the booking.
     """
@@ -29,14 +20,10 @@ class Event(models.Model):
         return "%d %s" % (self.activity_id, self.start)
 
     """
-    STATUS_CHOICES contiene i possibili valori per gli stati di eventi e
-    attivita'. Eventi e attivita' sono approvati automaticamente se creati da
-    un utente con sufficienti privilegi, altrimenti devono essere approvati o
-    rifiutati
-    ---
     STATUS_CHOICES contains possible values for states of events and
-    activities. Events and activities are automatically approved if a user has
-    enough privilege level, otherwise they shound approved/denied manually.
+    activities. Events and activities are automatically approved if the user that
+    has created them has enough privilege level, 
+    otherwise they shound approved/denied manually.
     """
     STATUS_CHOICES = [
         (0, "Approved"),

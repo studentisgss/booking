@@ -6,9 +6,7 @@ from django.contrib.auth.models import User
 
 class News(models.Model):
     """
-    Avvisi che verranno visualizzati sul sito e sul monitor
-    ---
-    Messages that will be shown on the website and on monitor
+    Messages that will be shown on the website and on monitor.
     """
     class Meta:
         verbose_name_plural = "News"

@@ -6,20 +6,11 @@ from django.contrib.auth.models import User
 
 class Activity(models.Model):
     """
-    Attivita' della scuola per cui vengono create prenotazioni,
-    innanzitutto i corsi interni.
-    Contengono informazioni pubbliche come nome del corso/attivita',
-    poi eventualmente altre relatore/professore, descrizione, classe
-    "status" contiene lo stato di approvazione [IGNORARE-EXTRA]
-    Quelli contrassegnati da "important" saranno evidenziati del software.
-    "creator" e' l'utente che ha creato il corso
-    "manager" sara' l'utente responsabile [IGNORARE-EXTRA]
-    ---
     Activities of the School for which bookings are created,
     in first place internal courses.
     They contain public information such as name of course/activity,
-    then eventually others: lecturer/professor, description and class.
-    "status" contains the state of acceptance [IGNORE-EXTRA]
+    then eventually others: lecturer/professor, description or class.
+    "status" contains the state of acceptance [IGNORE-EXTRA].
     "important"-tagged activities will be highlighted by software.
     "creator" is the user that created the course.
     "manager" is the manager of the course.
