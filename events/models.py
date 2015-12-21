@@ -21,8 +21,8 @@ class Event(models.Model):
 
     """
     STATUS_CHOICES contains possible values for states of events and
-    activities. Events and activities are automatically approved if 
-    the user that has created them has enough privilege level, 
+    activities. Events and activities are automatically approved if
+    the user that has created them has enough privilege level,
     otherwise they shound approved/denied manually.
     """
     STATUS_CHOICES = [
