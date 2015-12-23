@@ -6,14 +6,9 @@ from django.contrib.auth.models import User, Group
 
 class Place(models.Model):
     """
-    Luoghi nei quali si potranno tenere gli eventi,
-    innanzitutto le aule galileo, l'aula magna ecc...
-    Si potranno poi aggiungere luoghi esterni dove verrano tenuti i corsi.
-    Quelli contrassegnati da "important" saranno le aule
-    che verranno evidenziate del software.
-    ---
     Places where events will take place,
     firstable galileo rooms, aula magna and so on...
+    Others places/rooms can be added later.
     "important"-tagged rooms will be highlighted by the software.
     """
     class Meta:
@@ -41,13 +36,8 @@ class Place(models.Model):
 
 class PlacePermisson(models.Model):
     """
-    Permessi per ogni aula/luogo ed ogni gruppo
-    Ad ogni aula ed ogni gruppo e' associato un livello di permesso
-    e se le richieste per quest'aula vengono evidenziate/mostrate
-    per gli utenti del gruppo
-    ---
-    Permissions for every room/place and every group
-    Per every room and every group is associated a level of permissions
+    Permissions for every room/place and every group.
+    To every room and every group is associated a level of permissions
     and if requests of this room are highlighted/shown for users of the group.
     """
     def __str__(self):
