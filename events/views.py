@@ -14,7 +14,7 @@ class ExampleView(TemplateView):
 
 
 class Agenda(TemplateView):
-    template_name = "events/Agenda.html"
+    template_name = "events/agenda.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
