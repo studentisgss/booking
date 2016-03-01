@@ -13,7 +13,7 @@
     "model": "activities.activity",
     "pk": 2,
     "fields": {
-      "name": "Fluidodinamica",
+      "title": "Fluidodinamica",
       "description": "Prof. Roberto Turolla",
       "important": true,
       "creator_id": 1
