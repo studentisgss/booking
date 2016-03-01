@@ -20,11 +20,3 @@ class GenericTemplateView(TemplateView):
         """
         return [self.template_path + x
                 for x in super().get_template_names()]
-
-
-class BaseTemplateView(GenericTemplateView):
-    """
-    Base class for the views of the app "base".
-    """
-
-    template_path = "base/"

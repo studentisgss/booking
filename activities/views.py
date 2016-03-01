@@ -1,12 +1,4 @@
 from django.shortcuts import render
-from base.views import GenericTemplateView
+from django.views.generic import TemplateView
 
 # Create your views here.
-
-
-class ActivitiesTemplateView(GenericTemplateView):
-    """
-    Base class for the views of the app "activities".
-    """
-
-    template_path = "activities/"

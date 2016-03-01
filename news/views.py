@@ -1,12 +1,4 @@
 from django.shortcuts import render
-from base.views import GenericTemplateView
+from django.views.generic import TemplateView
 
 # Create your views here.
-
-
-class NewsTemplateView(GenericTemplateView):
-    """
-    Base class for the views of the app "news".
-    """
-
-    template_path = "news/"
