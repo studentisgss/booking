@@ -3,6 +3,7 @@ from django.views.generic import TemplateView
 
 from .models import Event
 
+
 class ExampleView(TemplateView):
     template_name = "events/example.html"
 
