@@ -3,8 +3,9 @@
     "model": "auth.user",
     "pk": 1,
     "fields": {
-      "username": "admin",
-      "password": "password"
+      "username": "fixture-loader",
+      "password": "password",
+      "is_active": false
     }
   }
 ]
