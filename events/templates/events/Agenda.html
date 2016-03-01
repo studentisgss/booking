@@ -1,0 +1,16 @@
+{% extends "base/layout.html" %}
+
+{% block main %}
+<h1>Agenda</h1>
+<p>Lista degli eventi</p>
+<ul>
+{% for event in list %}
+  <li>Aula: {{ event.place.name }} <br/>
+      Attività: {{ event.activity.title }} <br/>
+      Inizio: {{ event.start }} <br/>
+      Fine: {{ event.end }}
+  </li>
+  <br/>
+{% endfor %}
+</ul>
+{% endblock main %}

@@ -20,9 +20,9 @@ class Activity(models.Model):
 
     def __str__(self):
         return "%s%s %s" % ("* " if self.important else "",
-                            self.category, self.title)
+                            self.title, self.description)
 
-    title = models.CharField(max_length=80, unique_for_date="start")
+    title = models.CharField(max_length=80)
     description = models.CharField(max_length=500)
     important = models.BooleanField(default=False)
     creator = models.ForeignKey(User, related_name="activity_created")
