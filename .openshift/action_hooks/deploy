@@ -4,11 +4,10 @@
 # up again.  This script gets executed directly, so it could be python, php,
 # ruby, etc.
 
-echo "(*) Migrate db..."
-python "${OPENSHIFT_REPO_DIR}manage.py" migrate --noinput
+cd "${OPENSHIFT_REPO_DIR}"
 
 echo "(*) Collect static files..."
-python "${OPENSHIFT_REPO_DIR}manage.py" collectstatic --noinput
+python "manage.py" collectstatic --noinput
 
 echo "(*) Reset database..."
-make reset-db
+PYTHON=python make reset-db
