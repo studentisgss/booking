@@ -4,9 +4,14 @@
 # up again.  This script gets executed directly, so it could be python, php,
 # ruby, etc.
 
+echo "(*) Migrate db..."
 python "${OPENSHIFT_REPO_DIR}manage.py" migrate --noinput
+
+echo "(*) Collect static files..."
 python "${OPENSHIFT_REPO_DIR}manage.py" collectstatic --noinput
 
-rm -rf "${OPENSHIFT_REPO_DIR}/wsgi/static"
-mkdir -p "${OPENSHIFT_REPO_DIR}/wsgi/static"
-mv "${OPENSHIFT_REPO_DIR}static" "${OPENSHIFT_REPO_DIR}/wsgi/static"
+STATIC_DIR="${OPENSHIFT_REPO_DIR}/wsgi/static"
+echo "(*) Move static files to '${STATIC_DIR}'..."
+rm -rf "${STATIC_DIR}"
+mkdir -p "${STATIC_DIR}"
+mv "${OPENSHIFT_REPO_DIR}static" "${STATIC_DIR}"
