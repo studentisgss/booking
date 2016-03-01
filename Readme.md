@@ -13,18 +13,17 @@ Utilizzo
 
 Preparativi:
 
-	pip3 install -r requirements.txt
-    python3 manage.py makemigrations
-    python3 manage.py migrate
+	make install
+	make prepare-db
 
 Test:
 
-    pep8 --exclude=migrations .
-    python3 -Wall manage.py test
+    make linter
+    make test
 
 Avvio del server:
 
-	python3 -Wall manage.py runserver
+	make server
 
 
 Deploy su OpenShift

@@ -1,0 +1,22 @@
+[
+  {
+    "model": "rooms.place",
+    "pk": 1,
+    "fields": {
+      "name": "Galileo 4",
+      "description": "Aula del collegio Morgagni",
+      "important": true,
+      "creator_id": 1
+    }
+  },
+  {
+    "model": "rooms.place",
+    "pk": 2,
+    "fields": {
+      "name": "Galileo 3",
+      "description": "Aula del collegio Morgagni",
+      "important": true,
+      "creator_id": 1
+    }
+  }
+]

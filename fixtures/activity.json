@@ -1,0 +1,22 @@
+[
+  {
+    "model": "activities.activity",
+    "pk": 1,
+    "fields": {
+      "title": "Robotica",
+      "description": "Prof. Livia Conti",
+      "important": true,
+      "creator_id": 1
+    }
+  },
+  {
+    "model": "activities.activity",
+    "pk": 2,
+    "fields": {
+      "name": "Fluidodinamica",
+      "description": "Prof. Roberto Turolla",
+      "important": true,
+      "creator_id": 1
+    }
+  }
+]

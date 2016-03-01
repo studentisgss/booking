@@ -1,10 +1,9 @@
 language: python
-python: 3.4
+python: 3.3
 install:
-  - pip install -r requirements.txt
+  - make install
 before_script:
-  - python manage.py makemigrations
-  - python manage.py migrate
+  - PYTHON=python make prepare-db
 script:
-  - pep8 --exclude=migrations .
-  - python -Wall manage.py test
+  - make linter
+  - PYTHON=python make test
