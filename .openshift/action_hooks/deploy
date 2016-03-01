@@ -9,3 +9,6 @@ python "${OPENSHIFT_REPO_DIR}manage.py" migrate --noinput
 
 echo "(*) Collect static files..."
 python "${OPENSHIFT_REPO_DIR}manage.py" collectstatic --noinput
+
+echo "(*) Reset database..."
+make reset-db
