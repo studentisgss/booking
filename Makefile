@@ -16,6 +16,8 @@ prepare-db:
 	$(PYTHON) manage.py migrate --noinput
 	$(PYTHON) manage.py loaddata fixtures/user.json
 	$(PYTHON) manage.py loaddata fixtures/place.json
+	$(PYTHON) manage.py loaddata fixtures/activity.json
+	$(PYTHON) manage.py loaddata fixtures/event.json
 
 delete-db:
 	$(PYTHON) manage.py flush
