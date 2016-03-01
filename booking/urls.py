@@ -26,10 +26,10 @@ urlpatterns = [
     # Admin site
     url(r'^admin/', include(admin.site.urls)),
 
-    url(r'^activities/', include(activities_urls)),
-    url(r'^events/', include(events_urls)),
-    url(r'^news/', include(news_urls)),
-    url(r'^rooms/', include(rooms_urls)),
+    url(r'^activities/', include(activities_urls, namespace="activities")),
+    url(r'^events/', include(events_urls, namespace="events")),
+    url(r'^news/', include(news_urls, namespace="news")),
+    url(r'^rooms/', include(rooms_urls, namespace="rooms")),
     # If none of the above urls matches, then
     url(r'', include(base_urls)),
 ]
