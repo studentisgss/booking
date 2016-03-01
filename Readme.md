@@ -14,7 +14,9 @@ Utilizzo
 Preparativi:
 
 	make install
-	make prepare-db
+	make delete-db  # opzionale
+	make migrate-db
+	make populare-db
 
 Test:
 

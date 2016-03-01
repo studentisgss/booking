@@ -10,5 +10,4 @@ echo "(*) Collect static files..."
 python "manage.py" collectstatic --noinput
 
 echo "(*) Reset database..."
-python "manage.py" flush --noinput
-PYTHON=python make prepare-db
+PYTHON=python NOINPUT=true make reset-db
