@@ -1,0 +1,24 @@
+{% extends "base/layout.html" %}
+
+{% block main %}
+<h1>{{ activity.title }}</h1>
+<p>{{ activity.description }}</p>
+<table class="table table-striped table-hover">
+	<thead>
+		<th>Data</th>
+		<th>Orario</th>
+		<th>Luogo</th>
+		<th>Stato</th>
+	</thead>
+	<tbody>
+		{% for e in events_list %}
+			<tr>
+				<td>{{ e.start | date:'d F Y' }}</td>
+				<td>{{ e.start | date:'H:i' }} - {{ e.end | date:'H:i' }}</td>
+				<td>{{ e.place.name }}</td>
+				<td>{% if e.status == 0 %}OK{% elif e.status == 1 %}In attesa{% else %}Rifiutato{% endif %}</td>
+			</tr>
+		{% endfor %}
+	</tbody>
+</table>
+{% endblock main %}
