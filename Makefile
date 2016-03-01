@@ -12,8 +12,7 @@ test:
 	$(PYTHON) -Wall manage.py test
 
 prepare-db:
-	$(PYTHON) manage.py makemigrations
-	$(PYTHON) manage.py migrate
+	$(PYTHON) manage.py migrate --noinput
 	$(PYTHON) manage.py loaddata fixtures/user.json
 	$(PYTHON) manage.py loaddata fixtures/place.json
 
