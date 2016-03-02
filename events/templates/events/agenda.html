@@ -5,7 +5,7 @@
 <p>Lista degli eventi</p>
 <ul>
 {% for event in list %}
-  <li>Aula: {{ event.place.name }} <br/>
+  <li>Aula: {{ event.room.name }} <br/>
       Attività: <a href="{% url "activities:details" event.activity.pk %}"> {{ event.activity.title }} </a><br/>
       Inizio: {{ event.start }} <br/>
       Fine: {{ event.end }}

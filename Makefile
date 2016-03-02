@@ -20,7 +20,7 @@ delete-db:
 
 migrate-db:
 	$(PYTHON) manage.py makemigrations $(NOINPUT_OPT)
-	$(PYTHON) manage.py migrate $(NOINPUT_OPT)
+	$(PYTHON) manage.py migrate --run-syncdb $(NOINPUT_OPT)
 
 populate-db:
 	$(PYTHON) manage.py loaddata fixtures/users.json

@@ -1,6 +1,6 @@
 [
   {
-    "model": "rooms.place",
+    "model": "rooms.room",
     "pk": 1,
     "fields": {
       "name": "Galileo 1",
@@ -10,7 +10,7 @@
     }
   },
   {
-    "model": "rooms.place",
+    "model": "rooms.room",
     "pk": 2,
     "fields": {
       "name": "Galileo 2",
@@ -20,7 +20,7 @@
     }
   },
   {
-    "model": "rooms.place",
+    "model": "rooms.room",
     "pk": 3,
     "fields": {
       "name": "Galileo 3",
@@ -30,7 +30,7 @@
     }
   },
   {
-    "model": "rooms.place",
+    "model": "rooms.room",
     "pk": 4,
     "fields": {
       "name": "Galileo 4",
@@ -40,7 +40,7 @@
     }
   },
   {
-    "model": "rooms.place",
+    "model": "rooms.room",
     "pk": 5,
     "fields": {
       "name": "Aula Dante",
@@ -50,7 +50,7 @@
     }
   },
   {
-    "model": "rooms.place",
+    "model": "rooms.room",
     "pk": 6,
     "fields": {
       "name": "Aula Magna",
@@ -60,7 +60,7 @@
     }
   },
   {
-    "model": "rooms.place",
+    "model": "rooms.room",
     "pk": 7,
     "fields": {
       "name": "LuM250",
@@ -70,7 +70,7 @@
     }
   },
   {
-    "model": "rooms.place",
+    "model": "rooms.room",
     "pk": 8,
     "fields": {
       "name": "LuF1",
@@ -80,7 +80,7 @@
     }
   },
   {
-    "model": "rooms.place",
+    "model": "rooms.room",
     "pk": 9,
     "fields": {
       "name": "P200",

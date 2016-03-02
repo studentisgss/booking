@@ -3,7 +3,7 @@
     "model": "events.event",
     "pk": 1,
     "fields": {
-      "place_id": 1,
+      "room_id": 1,
       "activity_id": 1,
       "start": "2016-03-01 18:00:00+0100",
       "end": "2016-03-01 20:00:00+0100",
@@ -15,7 +15,7 @@
     "model": "events.event",
     "pk": 2,
     "fields": {
-      "place_id": 1,
+      "room_id": 1,
       "activity_id": 1,
       "start": "2016-03-02 18:00:00+0100",
       "end": "2016-03-02 20:00:00+0100",
@@ -27,7 +27,7 @@
     "model": "events.event",
     "pk": 3,
     "fields": {
-      "place_id": 2,
+      "room_id": 2,
       "activity_id": 2,
       "start": "2016-03-01 18:00:00+0100",
       "end": "2016-03-01 20:00:00+0100",
@@ -39,7 +39,7 @@
     "model": "events.event",
     "pk": 4,
     "fields": {
-      "place_id": 2,
+      "room_id": 2,
       "activity_id": 2,
       "start": "2016-03-03 18:00:00+0100",
       "end": "2016-03-03 20:00:00+0100",
