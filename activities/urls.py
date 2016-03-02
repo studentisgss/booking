@@ -17,9 +17,5 @@ from django.conf.urls import include, url
 from activities.views import *
 
 urlpatterns = [
-    url(
-        r'^detail/(?P<activity_id>[0-9]+)',
-        DetailActivityView.as_view(),
-        name="details"
-    ),
+    url(r'^detail/(?P<activity_id>[0-9]+)', DetailActivityView.as_view(), name="details"),
 ]

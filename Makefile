@@ -10,7 +10,7 @@ install:
 	$(PIP) install -r requirements.txt
 
 linter:
-	$(PEP8) --exclude=migrations .
+	$(PEP8) --exclude=migrations --config=.pep8 .
 
 test:
 	$(PYTHON) -Wall manage.py test
