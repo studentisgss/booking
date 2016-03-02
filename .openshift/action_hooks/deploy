@@ -8,7 +8,7 @@ echo "=== Executing script '.openshift/action_hooks/deploy'..."
 cd "${OPENSHIFT_REPO_DIR}"
 
 echo "(*) Prepare booking/local_settings.py file..."
-SECRET=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9!@#$%^&*(_=+)-' | fold -w 50 | head -n 1)
+SECRET=$(cat /dev/urandom | tr -dc 'a-z0-9!@#$%^&*(_=+)-' | fold -w 50 | head -n 1)
 cat > "booking/local_settings.py" <<- EOF
 	import os
 
@@ -25,4 +25,4 @@ echo "(*) Collect static files..."
 python "manage.py" collectstatic --noinput
 
 echo "(*) Reset database..."
-PYTHON=python NOINPUT=true make reset-db
+NOINPUT=true make reset-db

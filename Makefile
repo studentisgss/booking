@@ -16,7 +16,7 @@ test:
 	$(PYTHON) -Wall manage.py test
 
 delete-db:
-	$(PYTHON) manage.py flush $(NOINPUT_OPT)
+	$(PYTHON) manage.py sqlflush $(NOINPUT_OPT) | $(PYTHON) manage.py dbshell
 
 migrate-db:
 	$(PYTHON) manage.py makemigrations $(NOINPUT_OPT)
@@ -28,7 +28,7 @@ populate-db:
 	$(PYTHON) manage.py loaddata fixtures/activity.json
 	$(PYTHON) manage.py loaddata fixtures/event.json
 
-reset-db: delete-db migrate-db prepare-db
+reset-db: delete-db migrate-db populate-db
 
 server:
 	$(PYTHON) manage.py runserver
