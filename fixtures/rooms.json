@@ -1,0 +1,91 @@
+[
+  {
+    "model": "rooms.place",
+    "pk": 1,
+    "fields": {
+      "name": "Galileo 1",
+      "description": "Collegio Morgagni",
+      "important": true,
+      "creator": 1
+    }
+  },
+  {
+    "model": "rooms.place",
+    "pk": 2,
+    "fields": {
+      "name": "Galileo 2",
+      "description": "Collegio Morgagni",
+      "important": true,
+      "creator": 1
+    }
+  },
+  {
+    "model": "rooms.place",
+    "pk": 3,
+    "fields": {
+      "name": "Galileo 3",
+      "description": "Collegio Morgagni",
+      "important": true,
+      "creator": 1
+    }
+  },
+  {
+    "model": "rooms.place",
+    "pk": 4,
+    "fields": {
+      "name": "Galileo 4",
+      "description": "Collegio Morgagni",
+      "important": true,
+      "creator": 1
+    }
+  },
+  {
+    "model": "rooms.place",
+    "pk": 5,
+    "fields": {
+      "name": "Aula Dante",
+      "description": "Collegio Morgagni",
+      "important": true,
+      "creator": 1
+    }
+  },
+  {
+    "model": "rooms.place",
+    "pk": 6,
+    "fields": {
+      "name": "Aula Magna",
+      "description": "Collegio Morgagni",
+      "important": true,
+      "creator": 1
+    }
+  },
+  {
+    "model": "rooms.place",
+    "pk": 7,
+    "fields": {
+      "name": "LuM250",
+      "description": "Plesso Paolotti,via Luzzati",
+      "important": false,
+      "creator": 1
+    }
+  },
+  {
+    "model": "rooms.place",
+    "pk": 8,
+    "fields": {
+      "name": "LuF1",
+      "description": "Plesso Paolotti,via Luzzati",
+      "important": false,
+      "creator": 1
+    }
+  },
+  {
+    "model": "rooms.place",
+    "pk": 9,
+    "fields": {
+      "name": "P200",
+      "description": "Plesso Paolotti,via Belzoni",
+      "important": false,
+      "creator": 1
+  }}
+]

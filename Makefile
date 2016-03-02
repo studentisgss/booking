@@ -23,10 +23,10 @@ migrate-db:
 	$(PYTHON) manage.py migrate $(NOINPUT_OPT)
 
 populate-db:
-	$(PYTHON) manage.py loaddata fixtures/user.json
-	$(PYTHON) manage.py loaddata fixtures/place.json
-	$(PYTHON) manage.py loaddata fixtures/activity.json
-	$(PYTHON) manage.py loaddata fixtures/event.json
+	$(PYTHON) manage.py loaddata fixtures/users.json
+	$(PYTHON) manage.py loaddata fixtures/rooms.json
+	$(PYTHON) manage.py loaddata fixtures/activities.json
+	$(PYTHON) manage.py loaddata fixtures/events.json
 
 reset-db: delete-db migrate-db populate-db
 
