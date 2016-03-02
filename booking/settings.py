@@ -148,7 +148,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # Override using local (production) settings
 try:
-    from local_settings import *
+    from booking.local_settings import *
 except ImportError as e:
     import logging
     log = logging.getLogger(__name__)
