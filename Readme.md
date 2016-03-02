@@ -26,11 +26,3 @@ Test:
 Avvio del server:
 
 	make server
-
-
-Deploy su OpenShift
--------------------
-
-	git add remote openshift ssh://...
-	rhc env set OPENSHIFT_PYTHON_WSGI_APPLICATION="booking/wsgi_openshift.py" -a demo
-	git push openshift -f

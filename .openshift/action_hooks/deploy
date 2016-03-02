@@ -4,7 +4,22 @@
 # up again.  This script gets executed directly, so it could be python, php,
 # ruby, etc.
 
+echo "=== Executing script '.openshift/action_hooks/deploy'..."
 cd "${OPENSHIFT_REPO_DIR}"
+
+echo "(*) Prepare booking/local_settings.py file..."
+SECRET=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9!@#$%^&*(_=+)-' | fold -w 50 | head -n 1)
+cat > "booking/local_settings.py" <<- EOF
+	import os
+
+	BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+	STATIC_ROOT = os.path.join(BASE_DIR, 'wsgi/static')
+
+	SECRET_KEY = "$SECRET"
+
+	DEBUG = True
+EOF
+unset SECRET
 
 echo "(*) Collect static files..."
 python "manage.py" collectstatic --noinput
