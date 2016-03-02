@@ -5,9 +5,15 @@ Booking
 
 Sistema di prenotazione aule usato dagli studenti della Scuola Galileiana di Studi Superiori.
 
-* Istruzioni per l'installazione: [Installazione](https://github.com/studentisgss/booking/wiki/Installazione)
-
 Demo: <https://demo-sgss.rhcloud.com>
+
+
+Documentazione
+-------------
+
+Istruzioni per l'installazione: [Installazione](https://github.com/studentisgss/booking/wiki/Installazione)
+
+Documentazione: [wiki del progetto](https://github.com/studentisgss/booking/wiki)
 
 
 Utilizzo
@@ -16,9 +22,10 @@ Utilizzo
 Preparativi:
 
 	make install
-	make delete-db  # opzionale
+	make delete-db  # solo se necessario!
+	make delete-migrations  # solo se necessario!
 	make migrate-db
-	make populare-db
+	make populate-db
 
 Test:
 
