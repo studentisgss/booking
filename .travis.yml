@@ -1,11 +1,15 @@
 language: python
 python: 3.3
+
 install:
 - make install
+- touch booking/local_settings.py
+
 script:
 - make linter
 - PYTHON=python NOINPUT=true make reset-db
 - PYTHON=python make test
+
 deploy:
   provider: openshift
   user: studenti.galileiana@gmail.com

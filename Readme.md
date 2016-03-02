@@ -7,6 +7,8 @@ Sistema di prenotazione aule usato dagli studenti della Scuola Galileiana di Stu
 
 * Istruzioni per l'installazione: [Installazione](https://github.com/studentisgss/booking/wiki/Installazione)
 
+Demo: <https://demo-sgss.rhcloud.com>
+
 
 Utilizzo
 --------
