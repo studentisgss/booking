@@ -12,5 +12,5 @@ __pycache__/
 # Django files
 migrations/
 
-# Local settings
-booking/local_settings.py
+# Local (production) settings
+local_settings.py

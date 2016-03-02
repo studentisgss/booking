@@ -16,7 +16,8 @@ test:
 	$(PYTHON) -Wall manage.py test
 
 delete-db:
-	$(PYTHON) manage.py sqlflush $(NOINPUT_OPT) | $(PYTHON) manage.py dbshell
+	$(PYTHON) manage.py flush $(NOINPUT_OPT)
+	$(PYTHON) manage.py sqlflush | $(PYTHON) manage.py dbshell
 
 migrate-db:
 	$(PYTHON) manage.py makemigrations $(NOINPUT_OPT)
