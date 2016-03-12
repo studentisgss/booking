@@ -18,5 +18,5 @@ from events.views import ExampleView, Agenda
 
 urlpatterns = [
     url(r'example/(?P<url_parameter>\w{0,50})', ExampleView.as_view()),
-    url(r'agenda/(?P<url_parameter>\w{0,50})', Agenda.as_view())
+    url(r'agenda/(?P<url_parameter>\w{0,50})', Agenda.as_view(), name="agenda"),
 ]
