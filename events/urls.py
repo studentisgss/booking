@@ -14,9 +14,12 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include(blog_urls))
 """
 from django.conf.urls import include, url
-from events.views import ExampleView, Agenda
+from events.views import ExampleView, Agenda, Calendar
 
 urlpatterns = [
     url(r'example/(?P<url_parameter>\w{0,50})', ExampleView.as_view()),
     url(r'agenda', Agenda.as_view(), name="agenda"),
+    url(r'calendar/(?P<year>\d{4})/(?P<month>\d{2})/(?P<day>\d{2})', Calendar.as_view(),
+        name="calendar"),
+    url(r'calendar', Calendar.as_view(), name="calendar"),
 ]

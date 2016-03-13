@@ -1,7 +1,11 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView
+from django.utils import timezone
 
 from .models import Event
+from base.utils import localnow
+
+import datetime
 
 
 class ExampleView(TemplateView):
@@ -19,4 +23,19 @@ class Agenda(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["list"] = Event.objects.order_by('start')
+        return context
+
+
+class Calendar(TemplateView):
+    template_name = "events/calendar.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if "year" in kwargs and "month" in kwargs and "day" in kwargs:  # If a date is defined
+            date = datetime.datetime(int(kwargs["year"]), int(kwargs["month"]), int(kwargs["day"]),
+                                     tzinfo=timezone.get_default_timezone())
+        else:
+            date = localnow().date()
+        context["date"] = date
+        context["events"] = Event.objects.filter(start__range=(date, date + datetime.timedelta(1)))
         return context

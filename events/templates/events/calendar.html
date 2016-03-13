@@ -1,0 +1,70 @@
+{% extends "base/layout.html" %}
+
+{% load staticfiles %}
+
+{% block head-extra %}
+<script type="text/javascript" src="{% static 'js/jquery-1.12.1.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/jquery-ui.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/datepicker-it.js' %}"></script>
+
+<link href="{% static 'css/jquery-ui.css' %}" rel="stylesheet" />
+<link href="{% static 'css/jquery-ui.structure.css' %}" rel="stylesheet" />
+<link href="{% static 'css/jquery-ui.theme.css' %}" rel="stylesheet" />
+{% endblock head-extra %}
+
+{% block main %}
+<h1>Calendario delle prenotazioni</h1>
+<div class="container-fluid">
+	<div class="col-sm-6 col-md-5 col-lg-4">
+		<br/>
+		<big><div id="calendar"></div></big>
+	</div>
+	<div class="col-sm-6 col-md-7 col-lg-8">
+	<h3>Prenotazioni per <span id="date_title">{{ date | date:'d F Y' }}</span></h3>
+	<table class="table table-striped table-hover" id="table_events">
+		{% if events %}
+			{% regroup events|dictsort:"room_id" by room as events_grouped %}
+			{% for e in events_grouped %}
+				<thead>
+				<tr>
+					<td colspan="3">
+						<h4>
+							{% if not forloop.first %}<br/>{% endif %}
+							{{ e.grouper.name }}
+						</h4>
+					</td>
+				</tr>
+				<tr>
+					<td>Orario</td>
+					<td>Attività</td>
+					<td>Descrizione</td>
+				</tr>
+				</thead>
+				<tbody>
+				{% for i in e.list %}
+						<tr>
+							<td>{{ i.start|date:"G:i" }} - {{ i.end|date:"G:i" }}</td>
+							<td>{{ i.activity.title }}</td>
+							<td>{{ i.activity.description }}</td>
+						</tr>
+				{% endfor %}
+				</tbody>
+			{% endfor %}
+		{% else %}
+			<tr>Nessuna prenotazione per questo giorno.</tr>
+		{% endif %}
+	</table>
+	</div>
+</div>
+{% endblock main %}
+
+{% block post-body-script %}
+<script type="text/javascript">
+	var calendarWidget = $("#calendar").datepicker({dateFormat: "yy/mm/dd"});
+	var date = $.datepicker.parseDate("yy/mm/dd", "{{ date | date:'Y/m/d' }}");
+	calendarWidget.datepicker("setDate", date);
+	calendarWidget.datepicker("option", "onSelect", function (selectedDate) {
+		window.location.href = "{% url "events:calendar" %}" + "/" + selectedDate;
+	});
+</script>
+{% endblock %}
