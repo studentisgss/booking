@@ -18,6 +18,8 @@ cat > "booking/local_settings.py" <<- EOF
 	SECRET_KEY = "$SECRET"
 
 	DEBUG = False
+
+	ALLOWED_HOSTS = ['*']
 EOF
 unset SECRET
 
