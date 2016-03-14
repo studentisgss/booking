@@ -15,7 +15,8 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from base.views import IndexView
+from events.views import Calendar
 
 urlpatterns = [
-    url(r'^$', IndexView.as_view()),
+    url(r'^$', Calendar.as_view()),
 ]
