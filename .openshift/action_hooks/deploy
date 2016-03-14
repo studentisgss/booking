@@ -17,7 +17,7 @@ cat > "booking/local_settings.py" <<- EOF
 
 	SECRET_KEY = "$SECRET"
 
-	DEBUG = True
+	DEBUG = False
 EOF
 unset SECRET
 
