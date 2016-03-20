@@ -23,7 +23,7 @@
 				{% for i in e.list %}
 						<tr>
 							<td>{{ i.start|date:"G:i" }} - {{ i.end|date:"G:i" }}</td>
-							<td>{{ i.activity.title }}</td>
+							<td><a href="{% url "activities:details" i.activity.pk %}">{{ i.activity.title }}</a></td>
 							<td>{{ i.activity.description }}</td>
 						</tr>
 				{% endfor %}
