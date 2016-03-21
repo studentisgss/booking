@@ -39,6 +39,9 @@ class HomeLinkTest(TestCase):
         ]
 
         for url in links:
-            with self.subTest(url=url):
-                response = self.client.get(url)
-                self.assertIn(response.status_code, (200, 301))
+            response = self.client.get(url)
+            self.assertIn(
+                response.status_code,
+                (200, 301),
+                "Url {} failed".format(url)
+            )
