@@ -23,17 +23,21 @@ class Agenda(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        if "page" in kwargs:  # Number of the page to display, deafault 1 not 0
+        num_per_page = 25
+        event_list = Event.objects.order_by("start")
+        paginator = Paginator(event_list, num_per_page)
+        if "page" in kwargs:  # Number of the page to display
             page = int(kwargs["page"])
         else:
-            page = 1
-        # Display only future events
-        event_list = Event.objects.filter(start__gte=localnow().date()).order_by("start")
-        paginator = Paginator(event_list, 25)
+            num_past_events = event_list.filter(start__lt=localnow().date()).count()
+            page = num_past_events / num_per_page
+            if num_past_events % num_per_page == 0:
+                # If the past events end exactly at the end of a page then show the next page
+                page += 1
         try:
             events = paginator.page(page)
         except PageNotAnInteger:
-            # If page is not an integer, deliver first page.
+            # If page is not an integer, deliver first page which is 1 not 0.
             events = paginator.page(1)
         except EmptyPage:
             # If page is out of range (e.g. 9999), deliver last page of results.
