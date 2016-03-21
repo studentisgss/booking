@@ -31,7 +31,7 @@ class HomeLinkTest(TestCase):
         response = self.client.get("/")
         self.assertEqual(response.status_code, 200)
 
-        soup = BeautifulSoup(response.content, "lxml")
+        soup = BeautifulSoup(response.content)
         links = [
             tag.get("href")
             for tag in soup.find_all("a")
