@@ -6,17 +6,17 @@
 			{% for e in events_grouped %}
 				<thead>
 				<tr>
-					<td colspan="3">
+					<th colspan="3">
 						<h4>
 							{% if not forloop.first %}<br/>{% endif %}
 							{{ e.grouper.name }}
 						</h4>
-					</td>
+					</th>
 				</tr>
 				<tr>
-					<td>Orario</td>
-					<td>Attività</td>
-					<td>Descrizione</td>
+					<th>Orario</th>
+					<th>Attività</th>
+					<th>Descrizione</th>
 				</tr>
 				</thead>
 				<tbody>
@@ -30,7 +30,7 @@
 				</tbody>
 			{% endfor %}
 		{% else %}
-			<tr>Nessuna prenotazione per questo giorno.</tr>
+			<tr><td colspan="3">Nessuna prenotazione per questo giorno.</td></tr>
 		{% endif %}
 	</table>
 	</div>
