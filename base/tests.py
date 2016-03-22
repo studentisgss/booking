@@ -27,18 +27,20 @@ class TemplatePathTest(TestCase):
 
 
 class HomeLinkTest(TestCase):
-    def test_link_responses(self):
+    def test_root_responses(self):
         response = self.client.get("/")
         self.assertEqual(response.status_code, 200)
 
+    def test_nav_links_responses(self):
+        response = self.client.get("/")
         soup = BeautifulSoup(response.content)
-        links = [
+        nav_links = [
             tag.get("href")
-            for tag in soup.find_all("a")
+            for tag in soup.find("nav").find_all("a")
             if tag.has_attr("href")
         ]
 
-        for url in links:
+        for url in nav_links:
             response = self.client.get(url)
             self.assertIn(
                 response.status_code,
