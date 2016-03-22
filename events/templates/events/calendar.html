@@ -23,7 +23,7 @@
 </div>
 {% endblock main %}
 
-{% block post-body-script %}
+{% block end-body-script %}
 <script type="text/javascript">
 	var calendarWidget = $("#calendar").datepicker({dateFormat: "yy/mm/dd"});
 	var date = $.datepicker.parseDate("yy/mm/dd", "{{ date | date:'Y/m/d' }}");
