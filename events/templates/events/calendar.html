@@ -10,6 +10,7 @@
 <link href="{% static 'css/jquery-ui.css' %}" rel="stylesheet" />
 <link href="{% static 'css/jquery-ui.structure.css' %}" rel="stylesheet" />
 <link href="{% static 'css/jquery-ui.theme.css' %}" rel="stylesheet" />
+<link href="{% static 'events/css/custom.css' %}" rel="stylesheet" />
 {% endblock head-extra %}
 
 {% block main %}
@@ -17,7 +18,7 @@
 <div class="container-fluid">
 	<div class="col-sm-6 col-md-5 col-lg-4">
 		<br/>
-		<big><div id="calendar"></div></big>
+		<div id="calendar"></div>
 	</div>
 	{% include "events/calendar_table.html" %}
 </div>

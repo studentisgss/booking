@@ -1,0 +1,7 @@
+#calendar {
+    font-size: 17px;
+}
+
+.row-calendar:nth-of-type(odd) {
+	background-color: #f9f9f9;
+}
