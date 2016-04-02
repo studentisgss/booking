@@ -22,7 +22,7 @@ class Room(models.Model):
     name = models.CharField(max_length=30, unique=True)
     description = models.CharField(max_length=100)
     important = models.BooleanField(default=False)
-    creator = models.ForeignKey(User, related_name="room_created")
+    creator = models.ForeignKey(User, related_name="room_created", on_delete=models.CASCADE)
 
     def get_group_perm(group):
         if group.has_perm("booking.can_book_room"):
@@ -49,8 +49,8 @@ class RoomPermisson(models.Model):
         (10, "Can request"),
         (30, "Can accept"),
     ]
-    room = models.ForeignKey(Room)
-    group = models.ForeignKey(Group)
+    room = models.ForeignKey(Room, on_delete=models.CASCADE)
+    group = models.ForeignKey(Group, on_delete=models.CASCADE)
     permission = models.SmallIntegerField(
         choices=PERMISSION_CHOICES,
         default=10

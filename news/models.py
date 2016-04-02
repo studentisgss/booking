@@ -18,4 +18,4 @@ class News(models.Model):
     content = models.CharField(max_length=512)
     start = models.DateTimeField("Start date")
     end = models.DateTimeField("End date")
-    creator = models.ForeignKey(User)
+    creator = models.ForeignKey(User, on_delete=models.CASCADE)

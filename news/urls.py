@@ -15,4 +15,6 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 
+app_name = "news"
+
 urlpatterns = []
