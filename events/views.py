@@ -24,7 +24,7 @@ class Agenda(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         num_per_page = 25
-        event_list = Event.objects.order_by("start")
+        event_list = Event.objects.filter(status=0).order_by("start")
         paginator = Paginator(event_list, num_per_page)
         if "page" in kwargs:  # Number of the page to display
             page = int(kwargs["page"])
@@ -64,5 +64,6 @@ class Calendar(TemplateView):
         else:
             date = localnow().replace(hour=0, minute=0, second=0, microsecond=0)
         context["date"] = date
-        context["events"] = Event.objects.filter(start__range=(date, date + datetime.timedelta(1)))
+        context["events"] = Event.objects.filter(start__range=(date, date + datetime.timedelta(1)),
+                                                 status=0)
         return context
