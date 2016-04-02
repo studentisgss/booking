@@ -12,7 +12,7 @@
 	</thead>
 	<tbody>
 		{% for e in events_list %}
-			<tr>
+			<tr {% if e.status == 1 %}class="info"{% elif e.status == 2 %}class="danger"{% endif %}>
 				<td>{{ e.start | date:'d F Y' }}</td>
 				<td>{{ e.start | date:'H:i' }} - {{ e.end | date:'H:i' }}</td>
 				<td>{{ e.room.name }}</td>
