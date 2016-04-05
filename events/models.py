@@ -25,10 +25,13 @@ class Event(models.Model):
     the user that has created them has enough privilege level,
     otherwise they shound approved/denied manually.
     """
+    APPROVED = 0
+    WAITING = 1
+    REJECTED = 2
     STATUS_CHOICES = [
-        (0, "Approved"),
-        (1, "Waiting"),
-        (2, "Rejected"),
+        (APPROVED, "Approved"),
+        (WAITING, "Waiting"),
+        (REJECTED, "Rejected"),
     ]
     room = models.ForeignKey(Room, on_delete=models.CASCADE)
     activity = models.ForeignKey(Activity, on_delete=models.CASCADE)

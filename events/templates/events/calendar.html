@@ -19,9 +19,39 @@
 		<br/>
 		<div id="calendar"></div>
 	</div>
-	{% include "events/calendar_table.html" %}
+	<div class="col-sm-6 col-md-7 col-lg-8" id="events-table">
+		<h3>Prenotazioni per <span id="date_title">{{ date | date:'d F Y' }}</span></h3>
+		<table class="table table-hover" id="table_events">
+			{% if events %}
+				{% regroup events|dictsort:"room_id" by room as events_grouped %}
+				{% for e in events_grouped %}
+					<tr>
+						<th colspan="3" class="lead">
+							{% if not forloop.first %}<br/>{% endif %}
+							{{ e.grouper.name }}
+						</th>
+					</tr>
+					<tr>
+						<th>Orario</th>
+						<th>Attività</th>
+						<th>Descrizione</th>
+					</tr>
+					{% for i in e.list %}
+						<tr class="row-calendar">
+							<td>{{ i.start|date:"G:i" }} - {{ i.end|date:"G:i" }}</td>
+							<td><a href="{% url "activities:details" i.activity.pk %}">{{ i.activity.title }}</a></td>
+							<td>{{ i.activity.description }}</td>
+						</tr>
+					{% endfor %}
+				{% endfor %}
+			{% else %}
+				<tr><td>Nessuna prenotazione per questo giorno.</td></tr>
+			{% endif %}
+		</table>
+	</div>
 </div>
 {% endblock main %}
+
 
 {% block end-body-script %}
 <script type="text/javascript">
@@ -29,20 +59,7 @@
 	var date = $.datepicker.parseDate("yy/mm/dd", "{{ date | date:'Y/m/d' }}");
 	calendarWidget.datepicker("setDate", date);
 	calendarWidget.datepicker("option", "onSelect", function (selectedDate) {
-		var url = "{% url "events:calendar" %}" + "/" + selectedDate;
-		$.get(url).done(function (result) {
-			$("#events-table").replaceWith(result);
-			// Change the url of the page, so that reloading does not change
-			// the page. This is important for the user experience.
-			window.history.pushState({"html": result}, "", url);
-		});
+		window.location.href = "{% url 'events:calendar' %}" + "/" + selectedDate;
 	});
-
-	// Load the correct content when clicking on back/forward button
-	window.onpopstate = function(e){
-		if (e.state){
-			$("#events-table").replaceWith(e.state.html);
-		}
-	};
 </script>
 {% endblock %}
