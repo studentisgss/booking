@@ -25,4 +25,4 @@ class Activity(models.Model):
     title = models.CharField(max_length=80)
     description = models.CharField(max_length=500)
     important = models.BooleanField(default=False)
-    creator = models.ForeignKey(User, related_name="activity_created")
+    creator = models.ForeignKey(User, related_name="activity_created", on_delete=models.CASCADE)

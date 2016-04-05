@@ -24,7 +24,7 @@ from rooms import urls as rooms_urls
 
 urlpatterns = [
     # Admin site
-    url(r'^admin/', include(admin.site.urls)),
+    url(r'^admin/', admin.site.urls),
 
     url(r'^activities/', include(activities_urls, namespace="activities")),
     url(r'^events/', include(events_urls, namespace="events")),

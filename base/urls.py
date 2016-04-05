@@ -17,6 +17,8 @@ from django.conf.urls import include, url
 from base.views import IndexView
 from events.views import Calendar
 
+app_name = "base"
+
 urlpatterns = [
     url(r'^$', Calendar.as_view()),
 ]

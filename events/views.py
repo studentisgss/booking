@@ -24,12 +24,13 @@ class Agenda(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         num_per_page = 25
-        event_list = Event.objects.order_by("start")
+        event_list = Event.objects.filter(status=0).order_by("start")
         paginator = Paginator(event_list, num_per_page)
         if "page" in kwargs:  # Number of the page to display
             page = int(kwargs["page"])
         else:
-            num_past_events = event_list.filter(start__lt=localnow().date()).count()
+            now_date = localnow().replace(hour=0, minute=0, second=0, microsecond=0)
+            num_past_events = event_list.filter(start__lt=now_date).count()
             page = num_past_events // num_per_page
             if num_past_events % num_per_page == 0:
                 # If the past events end exactly at the end of a page then show the next page
@@ -61,7 +62,8 @@ class Calendar(TemplateView):
             date = datetime.datetime(int(kwargs["year"]), int(kwargs["month"]), int(kwargs["day"]),
                                      tzinfo=timezone.get_default_timezone())
         else:
-            date = localnow().date()
+            date = localnow().replace(hour=0, minute=0, second=0, microsecond=0)
         context["date"] = date
-        context["events"] = Event.objects.filter(start__range=(date, date + datetime.timedelta(1)))
+        context["events"] = Event.objects.filter(start__range=(date, date + datetime.timedelta(1)),
+                                                 status=0)
         return context

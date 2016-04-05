@@ -1,16 +1,13 @@
 <div class="col-sm-6 col-md-7 col-lg-8" id="events-table">
 	<h3>Prenotazioni per <span id="date_title">{{ date | date:'d F Y' }}</span></h3>
-	<table class="table table-striped table-hover" id="table_events">
+	<table class="table table-hover" id="table_events">
 		{% if events %}
 			{% regroup events|dictsort:"room_id" by room as events_grouped %}
 			{% for e in events_grouped %}
-				<thead>
 				<tr>
-					<th colspan="3">
-						<h4>
+					<th colspan="3" class="lead">
 							{% if not forloop.first %}<br/>{% endif %}
 							{{ e.grouper.name }}
-						</h4>
 					</th>
 				</tr>
 				<tr>
@@ -18,19 +15,16 @@
 					<th>Attività</th>
 					<th>Descrizione</th>
 				</tr>
-				</thead>
-				<tbody>
 				{% for i in e.list %}
-						<tr>
+						<tr class="row-calendar">
 							<td>{{ i.start|date:"G:i" }} - {{ i.end|date:"G:i" }}</td>
 							<td><a href="{% url "activities:details" i.activity.pk %}">{{ i.activity.title }}</a></td>
 							<td>{{ i.activity.description }}</td>
 						</tr>
 				{% endfor %}
-				</tbody>
 			{% endfor %}
 		{% else %}
-			<tr><td colspan="3">Nessuna prenotazione per questo giorno.</td></tr>
+			<tr><td>Nessuna prenotazione per questo giorno.</td></tr>
 		{% endif %}
 	</table>
 	</div>

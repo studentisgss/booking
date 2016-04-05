@@ -30,9 +30,9 @@ class Event(models.Model):
         (1, "Waiting"),
         (2, "Rejected"),
     ]
-    room = models.ForeignKey(Room)
-    activity = models.ForeignKey(Activity)
+    room = models.ForeignKey(Room, on_delete=models.CASCADE)
+    activity = models.ForeignKey(Activity, on_delete=models.CASCADE)
     start = models.DateTimeField("Start time")
     end = models.DateTimeField("End time")
     status = models.SmallIntegerField(choices=STATUS_CHOICES)
-    creator = models.ForeignKey(User, related_name="event_created")
+    creator = models.ForeignKey(User, related_name="event_created", on_delete=models.CASCADE)

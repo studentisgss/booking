@@ -16,6 +16,8 @@ Including another URLconf
 from django.conf.urls import include, url
 from events.views import ExampleView, Agenda, Calendar
 
+app_name = "events"
+
 urlpatterns = [
     url(r'^example/(?P<url_parameter>\w{0,50})$', ExampleView.as_view()),
     url(r'^agenda/(?P<page>\d+)$', Agenda.as_view(), name="agenda"),
