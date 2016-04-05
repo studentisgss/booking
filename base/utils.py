@@ -10,6 +10,7 @@ def localnow():
     """
     return timezone.localtime(timezone.now(), timezone.get_default_timezone())
 
+
 def default_datetime(*args, **kwargs):
     if 'tzinfo' not in kwargs:
         return datetime(*args, tzinfo=timezone.get_default_timezone(), **kwargs)

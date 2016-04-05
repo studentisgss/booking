@@ -4,7 +4,7 @@ from django.utils import timezone
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from .models import Event
-from base.utils import localnow
+from base.utils import localnow, default_datetime
 
 import datetime
 
@@ -45,11 +45,10 @@ class Calendar(TemplateView):
         context = super().get_context_data(**kwargs)
         # If a date is defined
         if "year" in kwargs and "month" in kwargs and "day" in kwargs:
-            date = datetime.datetime(
+            date = default_datetime(
                 int(kwargs["year"]),
                 int(kwargs["month"]),
-                int(kwargs["day"]),
-                tzinfo=timezone.get_default_timezone()
+                int(kwargs["day"])
             )
         else:
             date = localnow().replace(hour=0, minute=0, second=0, microsecond=0)
