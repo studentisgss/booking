@@ -26,18 +26,22 @@
 			{% for room_events in events_by_room %}
 				<h4>{{ room_events.grouper.name }}</h4>
 				<table class="table table-hover table-striped" id="table_events">
-					<tr>
-						<th>Orario</th>
-						<th>Attività</th>
-						<th>Descrizione</th>
-					</tr>
-					{% for e in room_events.list %}
-						<tr class="row-calendar">
-							<td>{{ e.start|date:"G:i" }} - {{ e.end|date:"G:i" }}</td>
-							<td><a href="{% url "activities:details" e.activity.pk %}">{{ e.activity.title }}</a></td>
-							<td>{{ e.activity.description }}</td>
+					<thead>
+						<tr>
+							<th>Orario</th>
+							<th>Attività</th>
+							<th>Descrizione</th>
 						</tr>
-					{% endfor %}
+					</thead>
+					<tbody>
+						{% for e in room_events.list %}
+							<tr class="row-calendar">
+								<td>{{ e.start|date:"G:i" }} - {{ e.end|date:"G:i" }}</td>
+								<td><a href="{% url "activities:details" e.activity.pk %}">{{ e.activity.title }}</a></td>
+								<td>{{ e.activity.description }}</td>
+							</tr>
+						{% endfor %}
+					</tbody>
 				</table>
 			{% endfor %}
 		{% else %}
