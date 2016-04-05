@@ -9,15 +9,6 @@ from base.utils import localnow
 import datetime
 
 
-class ExampleView(TemplateView):
-    template_name = "events/example.html"
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["extra_data"] = [1, 1, 2, 3, 5, 8, 13, 21]
-        return context
-
-
 class Agenda(TemplateView):
     template_name = "events/agenda.html"
 
@@ -59,11 +50,17 @@ class Calendar(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         if "year" in kwargs and "month" in kwargs and "day" in kwargs:  # If a date is defined
-            date = datetime.datetime(int(kwargs["year"]), int(kwargs["month"]), int(kwargs["day"]),
-                                     tzinfo=timezone.get_default_timezone())
+            date = datetime.datetime(
+                int(kwargs["year"]),
+                int(kwargs["month"]),
+                int(kwargs["day"]),
+                tzinfo=timezone.get_default_timezone()
+            )
         else:
             date = localnow().replace(hour=0, minute=0, second=0, microsecond=0)
         context["date"] = date
-        context["events"] = Event.objects.filter(start__range=(date, date + datetime.timedelta(1)),
-                                                 status=0)
+        context["events"] = Event.objects.filter(
+            start__range=(date, date + datetime.timedelta(1)),
+            status=Event.APPROVED
+        )
         return context

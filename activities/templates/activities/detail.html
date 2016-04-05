@@ -12,11 +12,11 @@
 	</thead>
 	<tbody>
 		{% for e in events_list %}
-			<tr {% if e.status == 1 %}class="info"{% elif e.status == 2 %}class="danger"{% endif %}>
+			<tr {% if e.status == e.WAITING %}class="info"{% elif e.status == e.REJECTED %}class="danger"{% endif %}>
 				<td>{{ e.start | date:'d F Y' }}</td>
 				<td>{{ e.start | date:'H:i' }} - {{ e.end | date:'H:i' }}</td>
 				<td>{{ e.room.name }}</td>
-				<td>{% if e.status == 0 %}Confermata{% elif e.status == 1 %}In attesa{% else %}Rifiutata{% endif %}</td>
+				<td>{% if e.status == e.APPROVED %}Confermata{% elif e.status == e.WAITING %}In attesa{% else %}Rifiutata{% endif %}</td>
 			</tr>
 		{% endfor %}
 	</tbody>
