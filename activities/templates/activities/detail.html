@@ -16,7 +16,7 @@
 				<td>{{ e.start | date:'d F Y' }}</td>
 				<td>{{ e.start | date:'H:i' }} - {{ e.end | date:'H:i' }}</td>
 				<td>{{ e.room.name }}</td>
-				<td>{% if e.status == 0 %}OK{% elif e.status == 1 %}In attesa{% else %}Rifiutato{% endif %}</td>
+				<td>{% if e.status == 0 %}Confermata{% elif e.status == 1 %}In attesa{% else %}Rifiutata{% endif %}</td>
 			</tr>
 		{% endfor %}
 	</tbody>
