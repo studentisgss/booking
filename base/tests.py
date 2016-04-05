@@ -47,3 +47,20 @@ class HomeLinkTest(TestCase):
                 (200, 301),
                 "Url {} failed".format(url)
             )
+
+
+class UrlPatternTest(TestCase):
+    def test_url_pattern_activities(self):
+        apps = ["activities", "events", "rooms", "news"]
+        for app_name in apps:
+            app_module = __import__(app_name, fromlist=["urls"])
+            for e in app_module.urls.urlpatterns:
+                pattern = e.regex.pattern
+                self.assertTrue(
+                    pattern.startswith("^"),
+                    "Url '{}' in app '{}' must start with '^'".format(e.regex.pattern, app_name)
+                )
+                self.assertTrue(
+                    pattern.endswith("$"),
+                    "Url '{}' in app '{}' must end with '$'".format(e.regex.pattern, app_name)
+                )
