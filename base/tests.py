@@ -33,7 +33,7 @@ class HomeLinkTest(TestCase):
 
     def test_nav_links_responses(self):
         response = self.client.get("/")
-        soup = BeautifulSoup(response.content)
+        soup = BeautifulSoup(response.content, "html.parser")
         nav_links = [
             tag.get("href")
             for tag in soup.find("nav").find_all("a")
