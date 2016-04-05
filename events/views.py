@@ -40,16 +40,11 @@ class Agenda(TemplateView):
 
 class Calendar(TemplateView):
     template_name = "events/calendar.html"
-    template_name_ajax = "events/calendar_table.html"
-
-    def get_template_names(self):
-        if self.request.is_ajax():  # If the request is ajax then return only the table
-            self.template_name = self.template_name_ajax
-        return super().get_template_names()
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        if "year" in kwargs and "month" in kwargs and "day" in kwargs:  # If a date is defined
+        # If a date is defined
+        if "year" in kwargs and "month" in kwargs and "day" in kwargs:
             date = datetime.datetime(
                 int(kwargs["year"]),
                 int(kwargs["month"]),
