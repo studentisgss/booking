@@ -6,21 +6,28 @@
 {% endblock head-extra %}
 
 {% block main %}
-<h1>Attività</h1>
+<h1>Tutte le attività</h1>
 
-<div id="filter" class="text-right">
-    <form id="filter-form" method="GET" action="{% url 'activities:listall' %}" class="form-inline">
-        <div class="input-group">
-            <span class="input-group-addon">Filtro: </span>
-            <input type="text" class="form-control" id="search" name="search" value="{{ filterText }}"/>
-            <div class="input-group-btn">
-                <input type="submit" class="btn btn-info" value="Cerca" />
-        {% if filterText %}
-                <a href="{% url 'activities:listall' %}" class="btn btn-warning">Cancella ricerca</a>
-        {% endif %}
-            </div>
+<div class="row">
+    <div class="col-md-5">
+        <p><a href="{% url "activities:list" %}" class="btn btn-default">Visualizza solo attività principali</a></p>
+    </div>
+    <div class="col-md-7">
+        <div id="filter" class="text-right">
+            <form id="filter-form" method="GET" action="{% url 'activities:listall' %}" class="form-inline">
+                <div class="input-group">
+                    <span class="input-group-addon">Filtro: </span>
+                    <input type="text" class="form-control" id="search" name="search" value="{{ filterText }}"/>
+                    <div class="input-group-btn">
+                        <input type="submit" class="btn btn-info" value="Cerca" />
+                {% if filterText %}
+                        <a href="{% url 'activities:listall' %}" class="btn btn-warning">Cancella ricerca</a>
+                {% endif %}
+                    </div>
+                </div>
+            </form>
         </div>
-    </form>
+    </div>
 </div>
 
 <table class="table table-striped table-hover" id="table_events">
@@ -41,7 +48,7 @@
     {% empty %}
         <tr>
             <td colspan="3">Nessuna attività trovata.</td>
-        </tr>  
+        </tr>
     {% endfor %}
     </tbody>
 </table>
