@@ -4,8 +4,7 @@ from django.http import Http404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from events.models import Event
 from activities.models import Activity
-
-# Create your views here.
+from django.db.models import Q
 
 
 class DetailActivityView(TemplateView):
@@ -37,7 +36,9 @@ class ListAllActivityView(TemplateView):
         if "search" in self.request.GET:
             text = self.request.GET.get("search", "")
             context["filterText"] = text
-            activities_list = activities_list.filter(title__icontains=text)
+            activities_list = activities_list.filter(
+                Q(title__icontains=text) | Q(description__icontains=text)
+            )
         paginator = Paginator(activities_list, num_per_page)
         if "page" in kwargs:  # Number of the page to display, default 1
             page = int(kwargs["page"])
@@ -65,6 +66,8 @@ class ListActivityView(TemplateView):
         if "search" in self.request.GET:
             text = self.request.GET.get("search", "")
             context["filterText"] = text
-            activities_list = activities_list.filter(title__icontains=text)
+            activities_list = activities_list.filter(
+                Q(title__icontains=text) | Q(description__icontains=text)
+            )
         context["list"] = activities_list
         return context
