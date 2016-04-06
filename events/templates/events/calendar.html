@@ -13,19 +13,17 @@
 {% endblock head-extra %}
 
 {% block main %}
-<h1>Calendario delle prenotazioni</h1>
+<h1>Calendario delle prenotazioni - <span id="date_title">{{ date | date:'d F Y' }}</span></h1>
 <div class="container-fluid">
 	<div class="col-sm-6 col-md-5 col-lg-4">
-		<br/>
-		<div id="calendar"></div>
+		<div id="calendar" class="top-buffer"></div>
 	</div>
 	<div class="col-sm-6 col-md-7 col-lg-8" id="events-table">
-		<h3>Prenotazioni per <span id="date_title">{{ date | date:'d F Y' }}</span></h3>
 		{% if events %}
 			{% regroup events|dictsort:"room_id" by room as events_by_room %}
 			{% for room_events in events_by_room %}
-				<h4>{{ room_events.grouper.name }}</h4>
-				<table class="table table-hover table-striped" id="table_events">
+				<h2>{{ room_events.grouper.name }}</h2>
+				<table class="table table-hover table-striped">
 					<thead>
 						<tr>
 							<th>Orario</th>
@@ -45,7 +43,7 @@
 				</table>
 			{% endfor %}
 		{% else %}
-			<p>Nessuna prenotazione per questo giorno.</p>
+			<p class="top-buffer">Nessuna prenotazione per questo giorno.</p>
 		{% endif %}
 	</div>
 </div>
