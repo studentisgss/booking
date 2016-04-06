@@ -38,6 +38,7 @@ populate-db:
 	$(PYTHON) manage.py loaddata fixtures/rooms.json
 	$(PYTHON) manage.py loaddata fixtures/activities.json
 	$(PYTHON) manage.py loaddata fixtures/events.json
+	$(PYTHON) manage.py loaddata fixtures/news.json
 
 reset-db: delete-db delete-migrations migrate-db populate-db
 
