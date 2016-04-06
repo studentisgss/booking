@@ -53,7 +53,7 @@ class UrlPatternTest(TestCase):
     def test_url_pattern_activities(self):
         apps = ["activities", "events", "rooms", "news"]
         for app_name in apps:
-            app_module = __import__(app_name, fromlist=["urls"])
+            app_module = __import__(app_name)
             for e in app_module.urls.urlpatterns:
                 pattern = e.regex.pattern
                 self.assertTrue(
