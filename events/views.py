@@ -23,6 +23,7 @@ class Agenda(TemplateView):
             now_date = localnow().replace(hour=0, minute=0, second=0, microsecond=0)
             num_past_events = event_list.filter(start__lt=now_date).count()
             page = num_past_events // num_per_page
+            page += 1  # Number of pages starts from 1
             if num_past_events % num_per_page == 0 and num_past_events > 0:
                 # If the past events end exactly at the end of a page then show the next page
                 page += 1
