@@ -4,7 +4,7 @@
 <h1>Agenda</h1>
 <p>Lista degli eventi</p>
 
-<div id="pagination" class="container-fluid">
+<div id="pagination" class="row-fluid">
 	<ul class="pager">
 		{% if list.has_previous %}
             <li class="previous"><a href="{% url 'events:agenda' list.previous_page_number %}"><span>&laquo; Precedenti</span></a></li>
