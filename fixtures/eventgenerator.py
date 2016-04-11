@@ -43,14 +43,14 @@ class Event:
     }}
   }}"""  # 2016-03-01 18:00:00
         return event_json.format(
-                                self.pk,
-                                self.room_id,
-                                self.activity_id,
-                                self.start,
-                                self.end,
-                                self.status,
-                                self.creator_id
-                            )
+            self.pk,
+            self.room_id,
+            self.activity_id,
+            self.start,
+            self.end,
+            self.status,
+            self.creator_id
+        )
 
 
 def get_hour_and_room(day, start_time_set):
