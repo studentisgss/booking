@@ -56,8 +56,9 @@ class Event:
 def get_hour_and_room(day, start_time_set):
     start = None
     random.shuffle(start_time)
-    i = 0
-    while start is None:
+    j = 0
+    while start is None and j < len(room_ids):
+        i = 0
         room_id = random.choice(room_ids)
         while start is None and i < len(start_time):
             start = datetime.combine(day, start_time[i])
@@ -65,6 +66,7 @@ def get_hour_and_room(day, start_time_set):
             if datetime_room_string in start_time_set:
                 start = None
                 i += 1
+        j += 1
     return (start, room_id)
 
 
