@@ -165,10 +165,11 @@
   },
   {
     "model": "activities.activity",
+    "pk": 3,
     "fields": {
       "title": "Calcolo - prof. Guiotto",
       "description": "",
-      "important": false,
+      "important": true,
       "creator_id": 1
     }
   },
@@ -417,10 +418,11 @@
   },
   {
     "model": "activities.activity",
+    "pk": 4,
     "fields": {
       "title": "Corso Inglese B2",
       "description": "",
-      "important": false,
+      "important": true,
       "creator_id": 1
     }
   },
@@ -2874,10 +2876,11 @@
   },
   {
     "model": "activities.activity",
+    "pk": 8,
     "fields": {
       "title": "SS - Principles of Microeconomics (Proff. Rocco e Moretto)",
       "description": "",
-      "important": false,
+      "important": true,
       "creator_id": 1
     }
   },
@@ -2901,10 +2904,11 @@
   },
   {
     "model": "activities.activity",
+    "pk": 7,
     "fields": {
       "title": "SS - The modern State in a multidisciplinary approach (Prof. Bortolini)",
       "description": "",
-      "important": false,
+      "important": true,
       "creator_id": 1
     }
   },
@@ -2991,10 +2995,11 @@
   },
   {
     "model": "activities.activity",
+    "pk": 6,
     "fields": {
       "title": "Storia Romana - prof. Fezzi",
       "description": "",
-      "important": false,
+      "important": true,
       "creator_id": 1
     }
   },
@@ -3027,10 +3032,11 @@
   },
   {
     "model": "activities.activity",
+    "pk": 5,
     "fields": {
       "title": "Teoria della Relatività  - prof. Lechner",
       "description": "",
-      "important": false,
+      "important": true,
       "creator_id": 1
     }
   },
