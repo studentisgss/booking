@@ -26,9 +26,8 @@
 				<table class="table table-hover table-striped">
 					<thead>
 						<tr>
-							<th>Orario</th>
-							<th>Attività</th>
-							<th>Descrizione</th>
+							<th class="col-md-3">Orario</th>
+							<th class="col-md-9">Attività</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -36,7 +35,6 @@
 							<tr class="row-calendar">
 								<td>{{ e.start|date:"G:i" }} - {{ e.end|date:"G:i" }}</td>
 								<td><a href="{% url "activities:details" e.activity.pk %}">{{ e.activity.title }}</a></td>
-								<td>{{ e.activity.description }}</td>
 							</tr>
 						{% endfor %}
 					</tbody>
