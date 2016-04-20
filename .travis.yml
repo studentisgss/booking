@@ -12,7 +12,7 @@ script:
 
 deploy:
   provider: openshift
-  user: $OPENSHIFT_USER
+  user: studenti.galileiana@gmail.com
   password: $OPENSHIFT_PASSWORD
   domain: sgss
   app: demo
