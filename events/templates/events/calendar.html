@@ -13,7 +13,7 @@
 {% endblock head-extra %}
 
 {% block main %}
-<h1>Calendario delle prenotazioni - <span id="date_title">{{ date | date:'d F Y' }}</span></h1>
+<h1>Calendario delle prenotazioni - {{ date | date:'l d F Y' }}</h1>
 <div class="row">
 	<div class="col-sm-6 col-md-5 col-lg-4">
 		<div id="calendar" class="top-buffer"></div>
@@ -41,7 +41,9 @@
 				</table>
 			{% endfor %}
 		{% else %}
-			<p class="top-buffer">Nessuna prenotazione per questo giorno.</p>
+			<div class="alert alert-info top-buffer" role="alert">
+				Nessuna prenotazione per questo giorno.
+			</div>
 		{% endif %}
 	</div>
 </div>
