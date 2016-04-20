@@ -20,7 +20,7 @@ class DetailActivityView(TemplateView):
         except:
             raise Http404
         context["activity"] = activity
-        context["events_list"] = Event.objects.filter(activity_id=activity_id)
+        context["events_list"] = Event.objects.filter(activity_id=activity_id).order_by("start")
         return context
 
 
