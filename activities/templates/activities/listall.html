@@ -35,19 +35,17 @@
         <tr>
             <th>Titolo</th>
             <th>Descrizione</th>
-            <th></th>
         </tr>
     </thead>
     <tbody>
     {% for e in list %}
         <tr>
-            <td>{{ e.title }}</td>
+            <td><a href="{% url "activities:details" e.pk %}">{{ e.title }}</a></td>
             <td>{{ e.description }}</td>
-            <td><a href="{% url "activities:details" e.pk %}" class="btn btn-info">Dettagli</a></td>
         </tr>
     {% empty %}
         <tr>
-            <td colspan="3">Nessuna attività trovata.</td>
+            <td colspan="2">Nessuna attività trovata.</td>
         </tr>
     {% endfor %}
     </tbody>
