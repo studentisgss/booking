@@ -9,7 +9,11 @@
 	<link href="{% static 'favicon.png' %}" rel="icon" type="image/png" />
 
 	<!-- ADD CSS HERE -->
+  <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet" />
+  <link href="{% static 'css/bootstrap-theme.css' %}" rel="stylesheet" />
+  <link href="{% static 'css/custom.css' %}" rel="stylesheet" />
   <link href="{% static 'events/css/custom.css' %}" rel="stylesheet" />
+  <link href="{% static 'events/css/monitor.css' %}" rel="stylesheet" />
 
 	<!-- ADD SCRIPT HERE -->
 	<script type="text/javascript" src="{% static 'js/jquery-1.12.1.min.js' %}"></script>
@@ -31,33 +35,33 @@
 
 <body>
 
-  <h1>Prenotazione Aule - {{ date | date:'d F Y' }} </h1>
   <div class="container">
     <div class="row">
       <div class="col-md-8">
+      <h3>Prenotazione Aule - {{ date | date:'d F Y' }} </h3>
       {% if events %}
     		{% regroup events|dictsort:"room_id" by room as events_by_room %}
-    		{% for room_events in events_by_room %}
-        {{ room_events.grouper.name }}
-        <table class="table table-striped" id="table_events">
+        <table d="table_events">
+          {% for room_events in events_by_room %}
 					<thead>
 						<tr>
-							<th>Orario</th>
-							<th>Attività</th>
+							<th>{{ room_events.grouper.name }}</th>
+              <th/>
 						</tr>
 					</thead>
 					<tbody>
 						{% for e in room_events.list %}
-							<tr class="row-calendar">
+							<tr>
 								<td>{{ e.start|date:"G:i" }} - {{ e.end|date:"G:i" }}</td>
 								<td>{{ e.activity.title }}</td>
+              </tr>
 						{% endfor %}
-					</tbody>
+          </tbody>
+          {% endfor %}
 				</table>
-			{% endfor %}
       {% endif %}
       </div>
-      <div class="col-md-2">
+      <div class="col-md-4">
         <!-- news -->
       </div>
     </div>
