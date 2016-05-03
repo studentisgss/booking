@@ -4,8 +4,7 @@ from django.http import Http404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from events.models import Event
 from activities.models import Activity
-
-# Create your views here.
+from django.db.models import Q
 
 
 class DetailActivityView(TemplateView):
@@ -21,7 +20,7 @@ class DetailActivityView(TemplateView):
         except:
             raise Http404
         context["activity"] = activity
-        context["events_list"] = Event.objects.filter(activity_id=activity_id)
+        context["events_list"] = Event.objects.filter(activity_id=activity_id).order_by("start")
         return context
 
 
@@ -37,7 +36,9 @@ class ListAllActivityView(TemplateView):
         if "search" in self.request.GET:
             text = self.request.GET.get("search", "")
             context["filterText"] = text
-            activities_list = activities_list.filter(title__icontains=text)
+            activities_list = activities_list.filter(
+                Q(title__icontains=text) | Q(description__icontains=text)
+            )
         paginator = Paginator(activities_list, num_per_page)
         if "page" in kwargs:  # Number of the page to display, default 1
             page = int(kwargs["page"])
@@ -60,11 +61,13 @@ class ListActivityView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        activities_list = Activity.objects.filter(important=True).order_by("title")
+        activities_list = Activity.objects.filter(archived=False).order_by("title")
         # Check for filter-text
         if "search" in self.request.GET:
             text = self.request.GET.get("search", "")
             context["filterText"] = text
-            activities_list = activities_list.filter(title__icontains=text)
+            activities_list = activities_list.filter(
+                Q(title__icontains=text) | Q(description__icontains=text)
+            )
         context["list"] = activities_list
         return context

@@ -1,0 +1,102 @@
+[
+  {
+    "model": "news.news",
+    "fields": {
+      "title": "Nuovo seminario",
+      "content": "Seminario di fisica per la classe di scienze naturali.",
+      "start": "2015-03-01 12:00:00+0100",
+      "end": "2016-03-01 12:00:00+0100",
+      "creator_id": 1
+    }
+  },
+  {
+    "model": "news.news",
+    "fields": {
+      "title": "Assemblea SN",
+      "content": "Assemblea classe di scienze naturali.",
+      "start": "2016-03-01 12:00:00+0100",
+      "end": "2016-03-04 12:00:00+0100",
+      "creator_id": 1
+    }
+  },
+  {
+    "model": "news.news",
+    "fields": {
+      "title": "Assemblea didattica SM",
+      "content": "Assemblea per la didattica per la classe di scienze morali.",
+      "start": "2016-02-01 12:00:00+0100",
+      "end": "2016-03-01 12:00:00+0100",
+      "creator_id": 1
+    }
+  },
+  {
+    "model": "news.news",
+    "fields": {
+      "title": "Seminario di storia",
+      "content": "Seminario obbligatorio per tutte le classi",
+      "start": "2015-11-01 12:00:00+0100",
+      "end": "2016-01-01 12:00:00+0100",
+      "creator_id": 1
+    }
+  },
+  {
+    "model": "news.news",
+    "fields": {
+      "title": "Nuovo seminario",
+      "content": "Seminario per tutte le classi.",
+      "start": "2016-03-10 12:00:00+0100",
+      "end": "2016-03-23 12:00:00+0100",
+      "creator_id": 1
+    }
+  },
+  {
+    "model": "news.news",
+    "fields": {
+      "title": "Assemblea SS",
+      "content": "Assemblea classe di scienze sociali.",
+      "start": "2016-05-01 12:00:00+0100",
+      "end": "2016-08-01 12:00:00+0100",
+      "creator_id": 1
+    }
+  },
+  {
+    "model": "news.news",
+    "fields": {
+      "title": "Consegna dei diplomi",
+      "content": "Bla bla bla.",
+      "start": "2015-10-01 12:00:00+0100",
+      "end": "2015-12-25 12:00:00+0100",
+      "creator_id": 1
+    }
+  },
+  {
+    "model": "news.news",
+    "fields": {
+      "title": "Festa pasquale",
+      "content": "Festa per scambiarsi le uova di cioccolato.",
+      "start": "2016-03-23 12:00:00+0100",
+      "end": "2016-05-01 12:00:00+0100",
+      "creator_id": 1
+    }
+  },
+  {
+    "model": "news.news",
+    "fields": {
+      "title": "Assemblea diadattica SM",
+      "content": "Assemblea.",
+      "start": "2016-01-03 12:00:00+0100",
+      "end": "2016-02-01 12:00:00+0100",
+      "creator_id": 1
+    }
+  },
+  {
+    "model": "news.news",
+    "fields": {
+      "title": "Torneo di Yu-Gi-Oh!",
+      "content": "torneo tra galileiani",
+      "start": "2015-01-01 12:00:00+0100",
+      "end": "2016-08-01 12:00:00+0100",
+      "creator_id": 1
+    }
+  }
+]

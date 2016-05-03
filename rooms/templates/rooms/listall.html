@@ -2,26 +2,26 @@
 {% load staticfiles %}
 
 {% block head-extra %}
-<link href="{% static 'activities/css/list.css' %}" rel="stylesheet" />
+<link href="{% static 'rooms/css/list.css' %}" rel="stylesheet" />
 {% endblock head-extra %}
 
 {% block main %}
-<h1>Tutte le attività</h1>
+<h1>Tutte le aule</h1>
 
 <div class="row">
     <div class="col-md-5">
-        <p><a href="{% url "activities:list" %}" class="btn btn-default">Visualizza solo attività principali</a></p>
+        <p><a href="{% url "rooms:list" %}" class="btn btn-default">Visualizza solo le aule principali</a></p>
     </div>
     <div class="col-md-7">
         <div id="filter" class="text-right">
-            <form id="filter-form" method="GET" action="{% url 'activities:listall' %}" class="form-inline">
+            <form id="filter-form" method="GET" action="{% url 'rooms:listall' %}" class="form-inline">
                 <div class="input-group">
                     <span class="input-group-addon">Filtro: </span>
                     <input type="text" class="form-control" id="search" name="search" value="{{ filterText }}"/>
                     <div class="input-group-btn">
                         <input type="submit" class="btn btn-info" value="Cerca" />
                 {% if filterText %}
-                        <a href="{% url 'activities:listall' %}" class="btn btn-warning">Cancella ricerca</a>
+                        <a href="{% url 'rooms:listall' %}" class="btn btn-warning">Cancella ricerca</a>
                 {% endif %}
                     </div>
                 </div>
@@ -40,7 +40,14 @@
     <tbody>
     {% for e in list %}
         <tr>
-            <td><a href="{% url "activities:details" e.pk %}">{{ e.title }}</a></td>
+            <td>
+                <a href="{% url "rooms:details" e.pk %}">{{ e.name }}</a>
+                {% if e.important %}
+                    <span class="badge badge-warning">
+                        <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                    </span>
+                {% endif %}
+            </td>
             <td>{{ e.description }}</td>
         </tr>
     {% empty %}
@@ -54,13 +61,13 @@
 <div id="pagination" class="container-fluid">
     <ul class="pager">
         {% if list.has_previous %}
-        <li class="previous"><a href="{% url 'activities:listall' list.previous_page_number %}{% if filterText %}?search={{ filterText|urlencode }}{% endif %}"><span>&laquo; Precedenti</span></a></li>
+        <li class="previous"><a href="{% url 'rooms:listall' list.previous_page_number %}{% if filterText %}?search={{ filterText|urlencode }}{% endif %}"><span>&laquo; Precedenti</span></a></li>
     {% else %}
         <li class="previous disabled"><span>&laquo; Precedenti</span></li>
     {% endif %}
         <li><span>Pagina {{ list.number }} di {{ list.paginator.num_pages }}</span></li>
     {% if list.has_next %}
-        <li class="next"><a href="{% url 'activities:listall' list.next_page_number %}{% if filterText %}?search={{ filterText|urlencode }}{% endif %}"><span>Successivi &raquo;</span></a></li>
+        <li class="next"><a href="{% url 'rooms:listall' list.next_page_number %}{% if filterText %}?search={{ filterText|urlencode }}{% endif %}"><span>Successivi &raquo;</span></a></li>
     {% else %}
         <li class="next disabled"><span>Successivi &raquo;</span></li>
     {% endif %}

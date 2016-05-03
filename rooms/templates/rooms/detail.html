@@ -1,0 +1,22 @@
+{% extends "base/layout.html" %}
+
+{% block main %}
+<h1>Dettaglio dell'aula {{ room.name }}</h1>
+<br />
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-xs-3 col-sm-2 col-lg-1">
+			<ul class="list-unstyled">
+				<li>Nome:</li>
+				<li>Descrizione:</li>
+			</ul>
+		</div>
+		<div class="col-xs-9 col-sm-10 col-lg-11">
+			<ul class="list-unstyled">
+				<li>{{ room.name }}</li>
+				<li>{{ room.description }}</li>
+			</ul>
+		</div>
+	</div>
+</div>
+{% endblock main %}
