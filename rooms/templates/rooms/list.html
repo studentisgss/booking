@@ -1,0 +1,54 @@
+{% extends "base/layout.html" %}
+{% load staticfiles %}
+
+{% block head-extra %}
+<link href="{% static 'rooms/css/list.css' %}" rel="stylesheet" />
+{% endblock head-extra %}
+
+{% block main %}
+<h1>Aule principali</h1>
+
+<div class="row">
+    <div class="col-md-5">
+        <p><a href="{% url "rooms:listall" %}" class="btn btn-default">Visualizza tutte le aule</a></p>
+    </div>
+    <div class="col-md-7">
+        <div id="filter" class="text-right">
+            <form id="filter-form" method="GET" action="{% url 'rooms:list' %}" class="form-inline">
+                <div class="input-group">
+                    <span class="input-group-addon">Filtro: </span>
+                    <input type="text" class="form-control" id="search" name="search" value="{{ filterText }}"/>
+                    <div class="input-group-btn">
+                        <input type="submit" class="btn btn-info" value="Cerca" />
+                {% if filterText %}
+                        <a href="{% url 'rooms:list' %}" class="btn btn-warning">Cancella ricerca</a>
+                {% endif %}
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<table class="table table-striped table-hover" id="table_events">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Descrizione</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for e in list %}
+        <tr>
+            <td><a href="{% url "rooms:details" e.pk %}">{{ e.name }}</a></td>
+            <td>{{ e.description }}</td>
+        </tr>
+    {% empty %}
+        <tr>
+            <td colspan="2">Nessuna aula trovata.</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+{% endblock main %}

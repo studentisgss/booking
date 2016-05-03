@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from rooms.models import Room
+from django.db.models import Q
 
 # Create your views here.
 
@@ -18,4 +20,52 @@ class DetailRoomView(TemplateView):
         except:
             raise Http404
         context["room"] = room
+        return context
+
+
+class ListAllRoomView(TemplateView):
+    template_name = "rooms/listall.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        num_per_page = 25
+        rooms_list = Room.objects.order_by("-important", "name")
+        # Check for filter-text
+        if "search" in self.request.GET:
+            text = self.request.GET.get("search", "")
+            context["filterText"] = text
+            rooms_list = rooms_list.filter(
+                Q(name__icontains=text) | Q(description__icontains=text)
+            )
+        paginator = Paginator(rooms_list, num_per_page)
+        if "page" in kwargs:  # Number of the page to display, default 1
+            page = int(kwargs["page"])
+        else:
+            page = 1
+        try:
+            rooms = paginator.page(page)
+        except PageNotAnInteger:
+            # If page is not an integer, deliver first page which is 1 not 0.
+            rooms = paginator.page(1)
+        except EmptyPage:
+            # If page is out of range (e.g. 9999), deliver last page of results.
+            rooms = paginator.page(paginator.num_pages)
+        context["list"] = rooms
+        return context
+
+
+class ListRoomView(TemplateView):
+    template_name = "rooms/list.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        rooms_list = Room.objects.filter(important=True).order_by("name")
+        # Check for filter-text
+        if "search" in self.request.GET:
+            text = self.request.GET.get("search", "")
+            context["filterText"] = text
+            rooms_list = rooms_list.filter(
+                Q(name__icontains=text) | Q(description__icontains=text)
+            )
+        context["list"] = rooms_list
         return context
