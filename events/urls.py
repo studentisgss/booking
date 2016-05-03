@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include(blog_urls))
 """
 from django.conf.urls import include, url
-from events.views import Agenda, Calendar
+from events.views import Agenda, Calendar, Monitor
 
 app_name = "events"
 
@@ -24,4 +24,5 @@ urlpatterns = [
     url(r'^calendar/(?P<year>\d{4})/(?P<month>\d{2})/(?P<day>\d{2})$', Calendar.as_view(),
         name="calendar"),
     url(r'^calendar$', Calendar.as_view(), name="calendar"),
+    url(r'^monitor$', Monitor.as_view(), name="monitor"),
 ]
