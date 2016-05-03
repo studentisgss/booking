@@ -61,7 +61,7 @@ class ListActivityView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        activities_list = Activity.objects.filter(important=True).order_by("title")
+        activities_list = Activity.objects.filter(archived=False).order_by("title")
         # Check for filter-text
         if "search" in self.request.GET:
             text = self.request.GET.get("search", "")
