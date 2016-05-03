@@ -1,7 +1,11 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils.translation import ugettext_lazy as _
+from django.core.exceptions import ValidationError
 from rooms.models import Room
 from activities.models import Activity
+from django.db.models import Q
+from datetime import timedelta
 
 # Create your models here.
 
@@ -29,9 +33,9 @@ class Event(models.Model):
     WAITING = 1
     REJECTED = 2
     STATUS_CHOICES = [
-        (APPROVED, "Approved"),
-        (WAITING, "Waiting"),
-        (REJECTED, "Rejected"),
+        (APPROVED, _("Approved")),
+        (WAITING, _("Waiting")),
+        (REJECTED, _("Rejected")),
     ]
     room = models.ForeignKey(Room, on_delete=models.CASCADE)
     activity = models.ForeignKey(Activity, on_delete=models.CASCADE)
@@ -39,3 +43,25 @@ class Event(models.Model):
     end = models.DateTimeField("End time")
     status = models.SmallIntegerField(choices=STATUS_CHOICES)
     creator = models.ForeignKey(User, related_name="event_created", on_delete=models.CASCADE)
+
+    def clean(self):
+        # Check if start_date
+        if self.start >= self.end:
+            raise ValidationError(_("Start time must precede end time"))
+        # Check
+        day_start = self.start.replace(hour=0, minute=0, second=0, microsecond=0)
+        day_end = day_start + timedelta(days=1)
+        if self.end > day_end:
+            raise ValidationError(_("Start time and end time must be in the same day"))
+        # Check
+        if self.status != self.REJECTED:
+            is_overlapping = Event.filter(
+                room_id=self.room.pk,
+                status__not=self.REJECTED,
+            ).filter(
+                Q(start < self.end) & Q(end > self.start)
+            ).exists()
+            if is_overlapping:
+                raise ValidationError(
+                    _("There cannot be two overlapping, not rejected events for the same room")
+                )

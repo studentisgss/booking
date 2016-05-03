@@ -56,3 +56,25 @@ class Calendar(TemplateView):
             status=Event.APPROVED
         )
         return context
+
+
+class Monitor(TemplateView):
+    template_name = "events/monitor.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # If a date is defined
+        if "year" in kwargs and "month" in kwargs and "day" in kwargs:
+            date = default_datetime(
+                int(kwargs["year"]),
+                int(kwargs["month"]),
+                int(kwargs["day"])
+            )
+        else:
+            date = localnow().replace(hour=0, minute=0, second=0, microsecond=0)
+        context["date"] = date
+        context["events"] = Event.objects.filter(
+            start__range=(date, date + datetime.timedelta(1)),
+            status=Event.APPROVED
+        )
+        return context
