@@ -13,15 +13,42 @@
 {% endblock head-extra %}
 
 {% block main %}
-<h1>Calendario delle prenotazioni</h1>
-<div class="container-fluid">
+<h1>Calendario delle prenotazioni - {{ date | date:'l d F Y' }}</h1>
+<div class="row">
 	<div class="col-sm-6 col-md-5 col-lg-4">
-		<br/>
-		<div id="calendar"></div>
+		<div id="calendar" class="top-buffer"></div>
 	</div>
-	{% include "events/calendar_table.html" %}
+	<div class="col-sm-6 col-md-7 col-lg-8" id="events-table">
+		{% if events %}
+			{% regroup events|dictsort:"room_id" by room as events_by_room %}
+			{% for room_events in events_by_room %}
+				<h2>{{ room_events.grouper.name }}</h2>
+				<table class="table table-hover table-striped">
+					<thead>
+						<tr>
+							<th class="col-md-3">Orario</th>
+							<th class="col-md-9">Attività</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for e in room_events.list|dictsort:"start" %}
+							<tr class="row-calendar">
+								<td>{{ e.start|date:"G:i" }} - {{ e.end|date:"G:i" }}</td>
+								<td><a href="{% url "activities:details" e.activity.pk %}">{{ e.activity.title }}</a></td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			{% endfor %}
+		{% else %}
+			<div class="alert alert-info top-buffer" role="alert">
+				Nessuna prenotazione per questo giorno.
+			</div>
+		{% endif %}
+	</div>
 </div>
 {% endblock main %}
+
 
 {% block end-body-script %}
 <script type="text/javascript">
@@ -29,20 +56,7 @@
 	var date = $.datepicker.parseDate("yy/mm/dd", "{{ date | date:'Y/m/d' }}");
 	calendarWidget.datepicker("setDate", date);
 	calendarWidget.datepicker("option", "onSelect", function (selectedDate) {
-		var url = "{% url "events:calendar" %}" + "/" + selectedDate;
-		$.get(url).done(function (result) {
-			$("#events-table").replaceWith(result);
-			// Change the url of the page, so that reloading does not change
-			// the page. This is important for the user experience.
-			window.history.pushState({"html": result}, "", url);
-		});
+		window.location.href = "{% url 'events:calendar' %}" + "/" + selectedDate;
 	});
-
-	// Load the correct content when clicking on back/forward button
-	window.onpopstate = function(e){
-		if (e.state){
-			$("#events-table").replaceWith(e.state.html);
-		}
-	};
 </script>
 {% endblock %}

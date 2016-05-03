@@ -12,7 +12,7 @@
   {
     "model": "news.news",
     "fields": {
-      "title": "Assemblea SS",
+      "title": "Assemblea SN",
       "content": "Assemblea classe di scienze naturali.",
       "start": "2016-03-01",
       "end": "2016-03-04",

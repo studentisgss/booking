@@ -4,7 +4,7 @@ from django.utils import timezone
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from .models import Event
-from base.utils import localnow
+from base.utils import localnow, default_datetime
 
 import datetime
 
@@ -23,9 +23,7 @@ class Agenda(TemplateView):
             now_date = localnow().replace(hour=0, minute=0, second=0, microsecond=0)
             num_past_events = event_list.filter(start__lt=now_date).count()
             page = num_past_events // num_per_page
-            if num_past_events % num_per_page == 0:
-                # If the past events end exactly at the end of a page then show the next page
-                page += 1
+            page += 1  # Number of pages starts from 1
         try:
             events = paginator.page(page)
         except PageNotAnInteger:
@@ -40,21 +38,15 @@ class Agenda(TemplateView):
 
 class Calendar(TemplateView):
     template_name = "events/calendar.html"
-    template_name_ajax = "events/calendar_table.html"
-
-    def get_template_names(self):
-        if self.request.is_ajax():  # If the request is ajax then return only the table
-            self.template_name = self.template_name_ajax
-        return super().get_template_names()
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        if "year" in kwargs and "month" in kwargs and "day" in kwargs:  # If a date is defined
-            date = datetime.datetime(
+        # If a date is defined
+        if "year" in kwargs and "month" in kwargs and "day" in kwargs:
+            date = default_datetime(
                 int(kwargs["year"]),
                 int(kwargs["month"]),
-                int(kwargs["day"]),
-                tzinfo=timezone.get_default_timezone()
+                int(kwargs["day"])
             )
         else:
             date = localnow().replace(hour=0, minute=0, second=0, microsecond=0)
