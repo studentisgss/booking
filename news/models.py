@@ -16,6 +16,6 @@ class News(models.Model):
 
     title = models.CharField(max_length=100, unique_for_date="start")
     content = models.CharField(max_length=512)
-    start = models.DateTimeField("Start date")
-    end = models.DateTimeField("End date")
+    start = models.DateField("Start date")
+    end = models.DateField("End date")
     creator = models.ForeignKey(User, on_delete=models.CASCADE)
