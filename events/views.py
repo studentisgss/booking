@@ -57,6 +57,7 @@ class Calendar(TemplateView):
         )
         return context
 
+
 class Monitor(TemplateView):
     template_name = "events/monitor.html"
 

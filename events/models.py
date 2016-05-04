@@ -45,21 +45,22 @@ class Event(models.Model):
     creator = models.ForeignKey(User, related_name="event_created", on_delete=models.CASCADE)
 
     def clean(self):
-        # Check if start_date
+        # Check if the start time is before the end time
         if self.start >= self.end:
             raise ValidationError(_("Start time must precede end time"))
-        # Check
+        # Check if the start and end time are in the same day
         day_start = self.start.replace(hour=0, minute=0, second=0, microsecond=0)
         day_end = day_start + timedelta(days=1)
         if self.end > day_end:
             raise ValidationError(_("Start time and end time must be in the same day"))
-        # Check
+        # If this event is not rejected check that there are not other not rejected events
+        # for the same room which overlaps with this
         if self.status != self.REJECTED:
-            is_overlapping = Event.filter(
+            is_overlapping = Event.objects.filter(
                 room_id=self.room.pk,
-                status__not=self.REJECTED,
+                status__in=(self.APPROVED, self.WAITING),
             ).filter(
-                Q(start < self.end) & Q(end > self.start)
+                Q(start__lt=self.end) & Q(end__gt=self.start)
             ).exists()
             if is_overlapping:
                 raise ValidationError(
