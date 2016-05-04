@@ -56,11 +56,11 @@ class Event(models.Model):
         # If this event is not rejected check that there are not other not rejected events
         # for the same room which overlaps with this
         if self.status != self.REJECTED:
-            is_overlapping = Event.filter(
+            is_overlapping = Event.objects.filter(
                 room_id=self.room.pk,
-                status__not=self.REJECTED,
+                status__in=(self.APPROVED, self.WAITING),
             ).filter(
-                Q(start < self.end) & Q(end > self.start)
+                Q(start__lt=self.end) & Q(end__gt=self.start)
             ).exists()
             if is_overlapping:
                 raise ValidationError(
