@@ -6,5 +6,19 @@ th, td {
   padding: 5px;
 }
 
-table { border-collapse:collapse; }
-table thead th { border-bottom: 1px solid grey; }
+table {
+  border-collapse: collapse;
+}
+
+table thead th {
+  border-top: 1px solid grey;
+}
+
+img {
+  width: 100%;
+}
+
+.lateral-border {
+  background-color: grey;
+  height: 100%;
+}
