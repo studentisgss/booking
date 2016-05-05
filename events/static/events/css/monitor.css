@@ -2,7 +2,7 @@ body {
   font-size: 180%;
 }
 
-th, td {
+td {
   padding: 5px;
 }
 
@@ -14,11 +14,11 @@ table thead th {
   border-top: 1px solid grey;
 }
 
-img {
+.top-image {
   width: 100%;
 }
 
-.lateral-border {
-  background-color: grey;
-  height: 100%;
+h2 {
+  padding-bottom: 15px;
+  font-style: italic;
 }
