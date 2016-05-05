@@ -14,11 +14,6 @@ table thead th {
   border-top: 1px solid grey;
 }
 
-img {
+.top-image {
   width: 100%;
-}
-
-.lateral-border {
-  background-color: grey;
-  height: 100%;
 }

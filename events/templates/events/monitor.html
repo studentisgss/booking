@@ -34,38 +34,53 @@
 </head>
 
 <body>
-<img src="{% static 'events/img/monitor/top.jpg' %}"></img>
-<div class="container-fluid">
+<img src="{% static 'events/img/monitor/top.jpg' %}" class="top-image"></img>
+<div class="container">
 	<div class="row">
-		<div class="col-md-1"></div>
-		<div class="col-md-7">
-    <h3>Prenotazione Aule - {{ date | date:'d F Y' }} </h3>
-	    {% if events %}
-	  		{% regroup events|dictsort:"room_id" by room as events_by_room %}
-	      <table d="table_events">
-	        {% for room_events in events_by_room %}
-					<thead>
+		{% if news %}
+		<div class="col-md-8">
+		{% else %}
+		<div class="col-md-12">
+		{% endif %}
+		{% if events %}
+    	<h3>Prenotazione Aule - {{ date | date:'d F Y' }} </h3>
+  		{% regroup events|dictsort:"room_id" by room as events_by_room %}
+      <table d="table_events">
+        {% for room_events in events_by_room %}
+				<thead>
+					<tr>
+						<th>{{ room_events.grouper.name }}</th>
+            <th/>
+					</tr>
+				</thead>
+				<tbody>
+					{% for e in room_events.list %}
 						<tr>
-							<th>{{ room_events.grouper.name }}</th>
-	            <th/>
-						</tr>
-					</thead>
-					<tbody>
-						{% for e in room_events.list %}
-							<tr>
-								<td>{{ e.start|date:"G:i" }} - {{ e.end|date:"G:i" }}</td>
-								<td>{{ e.activity.title }}</td>
-	            </tr>
-						{% endfor %}
-	        </tbody>
-	        {% endfor %}
-				</table>
-	    {% endif %}
+							<td>{{ e.start|date:"G:i" }} - {{ e.end|date:"G:i" }}</td>
+							<td>{{ e.activity.title }}</td>
+            </tr>
+					{% endfor %}
+        </tbody>
+        {% endfor %}
+			</table>
+		{% endif %}
     </div>
-    <div class="col-md-3">
-      <!-- news -->
+
+		{% if news %}
+    <div class="col-md-4">
+			<h3>Avvisi</h3>
+			<table>
+				{% for n in news %}
+				<thead>
+					<th>{{ n.title }}</th>
+				</thead>
+				<tbody>
+					<td>{{ n.content }}</td>
+				</tbody>
+				{% endfor %}
+			</table>
     </div>
-		<div class="col-md-1"></div>
+		{% endif %}
 	</div>
 </div>
 

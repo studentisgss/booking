@@ -5,6 +5,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from .models import Event
 from base.utils import localnow, default_datetime
+from news.models import News
 
 import datetime
 
@@ -76,5 +77,9 @@ class Monitor(TemplateView):
         context["events"] = Event.objects.filter(
             start__range=(date, date + datetime.timedelta(1)),
             status=Event.APPROVED
+        )
+        context["news"] = News.objects.filter(
+            start__lte=date,
+            end__gte=date,
         )
         return context
