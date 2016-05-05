@@ -20,6 +20,10 @@ class Event(models.Model):
     "status" is the state of acceptance of the booking.
     "creator" is the user that created/required the booking.
     """
+    class Meta:
+        verbose_name = _('event')
+        verbose_name_plural = _('events')
+
     def __str__(self):
         return "%d %s" % (self.activity_id, self.start)
 
@@ -37,12 +41,17 @@ class Event(models.Model):
         (WAITING, _("Waiting")),
         (REJECTED, _("Rejected")),
     ]
-    room = models.ForeignKey(Room, on_delete=models.CASCADE)
-    activity = models.ForeignKey(Activity, on_delete=models.CASCADE)
-    start = models.DateTimeField("Start time")
-    end = models.DateTimeField("End time")
-    status = models.SmallIntegerField(choices=STATUS_CHOICES)
-    creator = models.ForeignKey(User, related_name="event_created", on_delete=models.CASCADE)
+    room = models.ForeignKey(Room, on_delete=models.CASCADE, verbose_name=_("room"))
+    activity = models.ForeignKey(Activity, on_delete=models.CASCADE, verbose_name=_("activity"))
+    start = models.DateTimeField(_("Start time"))
+    end = models.DateTimeField(_("End time"))
+    status = models.SmallIntegerField(choices=STATUS_CHOICES, verbose_name=_("status"))
+    creator = models.ForeignKey(
+        User,
+        related_name="event_created",
+        on_delete=models.CASCADE,
+        verbose_name=_("creator")
+    )
 
     def clean(self):
         # Check if the start time is before the end time
