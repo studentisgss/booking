@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-04 23:14+0200\n"
+"POT-Creation-Date: 2016-05-05 23:43+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,26 +17,26 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: events/models.py:36
+#: models.py:36
 msgid "Approved"
 msgstr ""
 
-#: events/models.py:37
+#: models.py:37
 msgid "Waiting"
 msgstr ""
 
-#: events/models.py:38
+#: models.py:38
 msgid "Rejected"
 msgstr ""
 
-#: events/models.py:50
+#: models.py:50
 msgid "Start time must precede end time"
 msgstr ""
 
-#: events/models.py:55
+#: models.py:55
 msgid "Start time and end time must be in the same day"
 msgstr ""
 
-#: events/models.py:67
+#: models.py:67
 msgid "There cannot be two overlapping, not rejected events for the same room"
 msgstr ""

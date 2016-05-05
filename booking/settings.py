@@ -103,7 +103,13 @@ USE_L10N = True
 USE_TZ = True
 
 LOCALE_PATHS = [
-    os.path.join(BASE_DIR, 'locale'),
+    os.path.join(BASE_DIR, app, 'locale') for app in (
+        'activities',
+        'events',
+        'news',
+        'rooms',
+        'base',
+    )
 ]
 
 # Logging
