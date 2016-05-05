@@ -2,7 +2,7 @@ body {
   font-size: 180%;
 }
 
-th, td {
+td {
   padding: 5px;
 }
 
@@ -16,4 +16,9 @@ table thead th {
 
 .top-image {
   width: 100%;
+}
+
+h2 {
+  padding-bottom: 15px;
+  font-style: italic;
 }

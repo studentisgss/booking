@@ -43,9 +43,9 @@
 		<div class="col-md-12">
 		{% endif %}
 		{% if events %}
-    	<h3>Prenotazione Aule - {{ date | date:'d F Y' }} </h3>
+    	<h2>Prenotazione Aule - {{ date | date:'d F Y' }} </h2>
   		{% regroup events|dictsort:"room_id" by room as events_by_room %}
-      <table d="table_events">
+      <table>
         {% for room_events in events_by_room %}
 				<thead>
 					<tr>
@@ -68,7 +68,7 @@
 
 		{% if news %}
     <div class="col-md-4">
-			<h3>Avvisi</h3>
+			<h2>Avvisi</h2>
 			<table>
 				{% for n in news %}
 				<thead>
