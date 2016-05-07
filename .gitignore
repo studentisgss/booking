@@ -14,3 +14,6 @@ migrations/
 
 # Local (production) settings
 local_settings.py
+
+# Compiled translation files
+*.mo
