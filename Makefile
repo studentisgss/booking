@@ -44,3 +44,13 @@ reset-db: delete-db delete-migrations migrate-db populate-db
 
 server:
 	$(PYTHON) manage.py runserver
+
+internationalization:
+	@for d in $$( ls -d */ | cut -f1 -d'/' ); do \
+		cd $$d; \
+		if [ -d "locale" ]; then \
+			echo "Processing app $$d..."; \
+			django-admin compilemessages; \
+		fi; \
+		cd ..; \
+	done;
