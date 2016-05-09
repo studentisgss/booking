@@ -34,7 +34,7 @@
     <thead>
         <tr>
             <th>Titolo</th>
-            <th>Descrizione</th>
+            <th>Periodo</th>
         </tr>
     </thead>
     <tbody>
@@ -46,7 +46,7 @@
                 {% endif %}
                 <a href="{% url "activities:details" e.pk %}">{{ e.title }}</a>
             </td>
-            <td>{{ e.description }}</td>
+            <td>{{ e.min_start | date:'F Y' }} - {{ e.max_end | date:'F Y' }}</td>
         </tr>
     {% empty %}
         <tr>

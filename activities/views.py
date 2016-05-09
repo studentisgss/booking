@@ -5,6 +5,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from events.models import Event
 from activities.models import Activity
 from django.db.models import Q
+from django.db.models import Max, Min
 
 
 class DetailActivityView(TemplateView):
@@ -30,8 +31,10 @@ class ListAllActivityView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         num_per_page = 25
-        # .filter(important=True)?
-        activities_list = Activity.objects.order_by("archived", "title")
+        activities_list = Activity.objects \
+            .annotate(min_start=Min("event__start")) \
+            .annotate(max_end=Max("event__end")) \
+            .order_by("archived", "min_start", "title")
         # Check for filter-text
         if "search" in self.request.GET:
             text = self.request.GET.get("search", "")
@@ -61,7 +64,11 @@ class ListActivityView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        activities_list = Activity.objects.filter(archived=False).order_by("title")
+        activities_list = Activity.objects \
+            .filter(archived=False) \
+            .annotate(min_start=Min("event__start")) \
+            .annotate(max_end=Max("event__end")) \
+            .order_by("min_start", "title")
         # Check for filter-text
         if "search" in self.request.GET:
             text = self.request.GET.get("search", "")
