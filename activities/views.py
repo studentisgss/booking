@@ -31,7 +31,7 @@ class ListAllActivityView(TemplateView):
         context = super().get_context_data(**kwargs)
         num_per_page = 25
         # .filter(important=True)?
-        activities_list = Activity.objects.order_by("title")
+        activities_list = Activity.objects.order_by("archived", "title")
         # Check for filter-text
         if "search" in self.request.GET:
             text = self.request.GET.get("search", "")

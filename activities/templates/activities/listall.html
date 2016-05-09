@@ -40,7 +40,12 @@
     <tbody>
     {% for e in list %}
         <tr>
-            <td><a href="{% url "activities:details" e.pk %}">{{ e.title }}</a></td>
+            <td>
+                {% if not e.archived %}
+                    <span class="glyphicon glyphicon-star star-color" aria-hidden="true"></span>
+                {% endif %}
+                <a href="{% url "activities:details" e.pk %}">{{ e.title }}</a>
+            </td>
             <td>{{ e.description }}</td>
         </tr>
     {% empty %}
