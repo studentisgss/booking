@@ -40,7 +40,12 @@
     <tbody>
     {% for e in list %}
         <tr>
-            <td><a href="{% url "rooms:details" e.pk %}">{{ e.name }}</a></td>
+            <td>
+                {% if e.important %}
+                    <span class="glyphicon glyphicon-star star-color" aria-hidden="true"></span>
+                {% endif %}
+                <a href="{% url "rooms:details" e.pk %}">{{ e.name }}</a>
+            </td>
             <td>{{ e.description }}</td>
         </tr>
     {% empty %}

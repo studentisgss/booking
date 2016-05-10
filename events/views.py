@@ -1,13 +1,10 @@
-from django.shortcuts import render
 from django.views.generic import TemplateView
-from django.utils import timezone
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from datetime import timedelta
 
-from .models import Event
+from events.models import Event
 from base.utils import localnow, default_datetime
 from news.models import News
-
-import datetime
 
 
 class Agenda(TemplateView):
@@ -19,7 +16,7 @@ class Agenda(TemplateView):
         event_list = Event.objects.filter(status=0).order_by("start")
         paginator = Paginator(event_list, num_per_page)
         if "page" in kwargs:  # Number of the page to display
-            page = int(kwargs["page"])
+            page = kwargs["page"]
         else:
             now_date = localnow().replace(hour=0, minute=0, second=0, microsecond=0)
             num_past_events = event_list.filter(start__lt=now_date).count()
@@ -53,7 +50,7 @@ class Calendar(TemplateView):
             date = localnow().replace(hour=0, minute=0, second=0, microsecond=0)
         context["date"] = date
         context["events"] = Event.objects.filter(
-            start__range=(date, date + datetime.timedelta(1)),
+            start__range=(date, date + timedelta(1)),
             status=Event.APPROVED
         )
         return context
@@ -67,7 +64,7 @@ class Monitor(TemplateView):
         date = localnow().replace(hour=0, minute=0, second=0, microsecond=0)
         context["date"] = date
         context["events"] = Event.objects.filter(
-            start__range=(date, date + datetime.timedelta(1)),
+            start__range=(date, date + timedelta(1)),
             status=Event.APPROVED
         )
         context["news"] = News.objects.filter(

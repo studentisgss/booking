@@ -27,3 +27,7 @@ body {
 .footer p {
 	margin: 10px 0;
 }
+
+.star-color {
+	color: orange;
+}

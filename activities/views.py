@@ -1,18 +1,17 @@
-from django.shortcuts import render
 from django.views.generic import TemplateView
 from django.http import Http404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.db.models import Q, Max, Min
+
 from events.models import Event
 from activities.models import Activity
-from django.db.models import Q
 
 
 class DetailActivityView(TemplateView):
     template_name = "activities/detail.html"
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, activity_id=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        activity_id = kwargs["activity_id"]
         if activity_id is None:
             raise Http404
         try:
@@ -29,9 +28,10 @@ class ListAllActivityView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        num_per_page = 25
-        # .filter(important=True)?
-        activities_list = Activity.objects.order_by("title")
+        activities_list = Activity.objects \
+            .annotate(min_start=Min("event__start")) \
+            .annotate(max_end=Max("event__end")) \
+            .order_by("archived", "min_start", "title")
         # Check for filter-text
         if "search" in self.request.GET:
             text = self.request.GET.get("search", "")
@@ -39,11 +39,8 @@ class ListAllActivityView(TemplateView):
             activities_list = activities_list.filter(
                 Q(title__icontains=text) | Q(description__icontains=text)
             )
-        paginator = Paginator(activities_list, num_per_page)
-        if "page" in kwargs:  # Number of the page to display, default 1
-            page = int(kwargs["page"])
-        else:
-            page = 1
+        paginator = Paginator(activities_list, per_page=25)
+        page = kwargs.get("page", 1)
         try:
             activities = paginator.page(page)
         except PageNotAnInteger:
@@ -61,7 +58,11 @@ class ListActivityView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        activities_list = Activity.objects.filter(archived=False).order_by("title")
+        activities_list = Activity.objects \
+            .filter(archived=False) \
+            .annotate(min_start=Min("event__start")) \
+            .annotate(max_end=Max("event__end")) \
+            .order_by("min_start", "title")
         # Check for filter-text
         if "search" in self.request.GET:
             text = self.request.GET.get("search", "")

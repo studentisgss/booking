@@ -1,28 +1,20 @@
 {% extends "base/layout.html" %}
 
 {% block main %}
-<h1>News</h1>
-<p>Lista degli avvisi</p>
-<!-- <table class="table table-striped table-hover">
-	<thead>
-		<th>Nome</th>
-		<th>Durata visualizzazione</th>
-		<th>Creatore</th>
-	</thead>
-	<tbody> -->
+<h1>Avvisi</h1>
 
 <div class="panel-group" id="accordion" role="tablist">
   	<div class="panel panel-default">
 		{% for e in news_list %}
     		<div class="panel-heading" role="tab" id="heading{{ e.pk }}">
-      			<h4 class="panel-title">
-       				<a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ e.pk }}">
-						<div class="row">
-  							<div class="col-md-9">{{ e.title }}</div>
-  							<div class="col-md-3">{{ e.start | date:'d/m/y' }} - {{ e.end | date:'d/m/y' }}</div>
-						</div>
-        			</a>
-      			</h4>
+				<div class="row">
+      				<h4 class="panel-title">
+       					<a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ e.pk }}">
+  							<span class="col-md-9">{{ e.title }}</span>
+  							<span class="col-md-3">{{ e.start | date:'d/m/y' }} - {{ e.end | date:'d/m/y' }}</span>
+        				</a>
+      				</h4>
+				</div>
     		</div>
     		<div id="collapse{{ e.pk }}" class="panel-collapse collapse" role="tabpanel">
       			<div class="panel-body">
@@ -32,6 +24,4 @@
 		{% endfor %}
 	</div>
 </div>
-	</tbody>
-</table>
 {% endblock main %}

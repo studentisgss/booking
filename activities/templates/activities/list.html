@@ -34,14 +34,19 @@
     <thead>
         <tr>
             <th>Titolo</th>
-            <th>Descrizione</th>
+            <th>Periodo</th>
         </tr>
     </thead>
     <tbody>
     {% for e in list %}
         <tr>
-            <td><a href="{% url "activities:details" e.pk %}">{{ e.title }}</a></td>
-            <td>{{ e.description }}</td>
+            <td>
+                {% if not e.archived %}
+                    <span class="glyphicon glyphicon-star star-color" aria-hidden="true"></span>
+                {% endif %}
+                <a href="{% url "activities:details" e.pk %}">{{ e.title }}</a>
+            </td>
+            <td>{{ e.min_start | date:'F Y' }} - {{ e.max_end | date:'F Y' }}</td>
         </tr>
     {% empty %}
         <tr>

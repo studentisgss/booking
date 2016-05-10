@@ -1,10 +1,8 @@
-from django.shortcuts import render
 from django.views.generic import TemplateView
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from rooms.models import Room
 from django.db.models import Q
 
-# Create your views here.
+from rooms.models import Room
 
 
 class DetailRoomView(TemplateView):
@@ -28,7 +26,6 @@ class ListAllRoomView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        num_per_page = 25
         rooms_list = Room.objects.order_by("-important", "name")
         # Check for filter-text
         if "search" in self.request.GET:
@@ -37,11 +34,8 @@ class ListAllRoomView(TemplateView):
             rooms_list = rooms_list.filter(
                 Q(name__icontains=text) | Q(description__icontains=text)
             )
-        paginator = Paginator(rooms_list, num_per_page)
-        if "page" in kwargs:  # Number of the page to display, default 1
-            page = int(kwargs["page"])
-        else:
-            page = 1
+        paginator = Paginator(rooms_list, per_page=25)
+        page = kwargs.get("page", 1)
         try:
             rooms = paginator.page(page)
         except PageNotAnInteger:
