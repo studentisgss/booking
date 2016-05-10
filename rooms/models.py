@@ -11,23 +11,23 @@ class Room(models.Model):
     "important"-tagged rooms will be highlighted by the software.
     """
     class Meta:
-        verbose_name = _("Room")
-        verbose_name_plural = _("Rooms")
+        verbose_name = _("aula")
+        verbose_name_plural = _("aule")
         permissions = (
-            ("can_book_room", "Can book some room"),
+            ("can_book_room", _("Può prenotare qualche aula")),
         )
 
     def __str__(self):
         return "%s %s" % ("*" if self.important else "", self.name)
 
-    name = models.CharField(max_length=30, unique=True, verbose_name=_("name"))
-    description = models.CharField(max_length=100, verbose_name=_("description"))
-    important = models.BooleanField(default=False, verbose_name=_("important"))
+    name = models.CharField(max_length=30, unique=True, verbose_name=_("nome"))
+    description = models.CharField(max_length=100, verbose_name=_("descrizione"))
+    important = models.BooleanField(default=False, verbose_name=_("importante"))
     creator = models.ForeignKey(
         User,
         related_name="room_created",
         on_delete=models.CASCADE,
-        verbose_name=_("creator")
+        verbose_name=_("creatore")
     )
 
     def get_group_perm(group):
@@ -49,20 +49,20 @@ class RoomPermission(models.Model):
     and if requests of this room are highlighted/shown for users of the group.
     """
     class Meta:
-        verbose_name = _("Room Permission")
-        verbose_name_plural = _("Room Permissions")
+        verbose_name = _("permesso sull'aula")
+        verbose_name_plural = _("permessi sulle aule")
 
     def __str__(self):
-        return "Room%d & Group%d" % (self.room_id, self.group_id)
+        return "Aula%d & Gruppo%d" % (self.room_id, self.group_id)
 
     PERMISSION_CHOICES = [
-        (10, "Can request"),
-        (30, "Can accept"),
+        (10, _("Può richiedere")),
+        (30, _("Può accettare")),
     ]
-    room = models.ForeignKey(Room, on_delete=models.CASCADE, verbose_name=_("room"))
-    group = models.ForeignKey(Group, on_delete=models.CASCADE, verbose_name=_("group"))
+    room = models.ForeignKey(Room, on_delete=models.CASCADE, verbose_name=_("aula"))
+    group = models.ForeignKey(Group, on_delete=models.CASCADE, verbose_name=_("gruppo"))
     permission = models.SmallIntegerField(
         choices=PERMISSION_CHOICES,
         default=10,
-        verbose_name=_("permission")
+        verbose_name=_("permesso")
     )

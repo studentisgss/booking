@@ -20,8 +20,8 @@ class Event(models.Model):
     "creator" is the user that created/required the booking.
     """
     class Meta:
-        verbose_name = _('event')
-        verbose_name_plural = _('events')
+        verbose_name = _('evento')
+        verbose_name_plural = _('eventi')
 
     def __str__(self):
         return "%d %s" % (self.activity_id, self.start)
@@ -36,32 +36,34 @@ class Event(models.Model):
     WAITING = 1
     REJECTED = 2
     STATUS_CHOICES = [
-        (APPROVED, _("Approved")),
-        (WAITING, _("Waiting")),
-        (REJECTED, _("Rejected")),
+        (APPROVED, _("Approvato")),
+        (WAITING, _("In attesa")),
+        (REJECTED, _("Rifiutato")),
     ]
-    room = models.ForeignKey(Room, on_delete=models.CASCADE, verbose_name=_("room"))
-    activity = models.ForeignKey(Activity, on_delete=models.CASCADE, verbose_name=_("activity"))
-    start = models.DateTimeField(_("Start time"))
-    end = models.DateTimeField(_("End time"))
-    status = models.SmallIntegerField(choices=STATUS_CHOICES, verbose_name=_("status"))
+    room = models.ForeignKey(Room, on_delete=models.CASCADE, verbose_name=_("aula"))
+    activity = models.ForeignKey(Activity, on_delete=models.CASCADE, verbose_name=_("attività"))
+    start = models.DateTimeField(_("ora di inizio"))
+    end = models.DateTimeField(_("ora di fine"))
+    status = models.SmallIntegerField(choices=STATUS_CHOICES, verbose_name=_("stato"))
     creator = models.ForeignKey(
         User,
         related_name="event_created",
         on_delete=models.CASCADE,
-        verbose_name=_("creator")
+        verbose_name=_("creatore")
     )
 
     def clean(self):
         # 1. Check that the start time is before the end time
         if self.start >= self.end:
-            raise ValidationError(_("Start time must precede end time"))
+            raise ValidationError(_("L'ora di inizio deve precedere quella di fine"))
 
         # 2. Check that the start and end time are in the same day
         day_start = self.start.replace(hour=0, minute=0, second=0, microsecond=0)
         day_end = day_start + timedelta(days=1)
         if self.end > day_end:
-            raise ValidationError(_("Start time and end time must be in the same day"))
+            raise ValidationError(_(
+                "L'ora di inizio e quella di fine devono essere nello stesso giorno"
+            ))
 
         # 3. If this event is not rejected, check that it does not overlap with all
         # the other not-rejected events booked for the same room
@@ -76,5 +78,5 @@ class Event(models.Model):
             ).exists()
             if is_overlapping:
                 raise ValidationError(
-                    _("There cannot be two overlapping, not rejected events for the same room")
+                    _("Non possono esserci due eventi non rifiutati sovrapposti per la stessa aula")
                 )
