@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils.translation import ugettext_lazy as _
 
 
 class Activity(models.Model):
@@ -14,13 +15,19 @@ class Activity(models.Model):
     "manager" is the manager of the course.
     """
     class Meta:
-        verbose_name_plural = "Activities"
+        verbose_name = _("attività")
+        verbose_name_plural = _("attività")
 
     def __str__(self):
         return "%s%s %s" % ("* " if not self.archived else "",
                             self.title, self.description)
 
-    title = models.CharField(max_length=80)
-    description = models.CharField(max_length=500)
-    archived = models.BooleanField(default=False)
-    creator = models.ForeignKey(User, related_name="activity_created", on_delete=models.CASCADE)
+    title = models.CharField(max_length=80, verbose_name=_("titolo"))
+    description = models.CharField(max_length=500, verbose_name=_("descrizione"))
+    archived = models.BooleanField(default=False, verbose_name=_("archiviata"))
+    creator = models.ForeignKey(
+        User,
+        related_name="activity_created",
+        on_delete=models.CASCADE,
+        verbose_name=_("creatore")
+    )

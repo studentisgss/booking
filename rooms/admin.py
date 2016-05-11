@@ -4,4 +4,4 @@ from rooms.models import *
 # Register your models here.
 
 admin.site.register(Room)
-admin.site.register(RoomPermisson)
+admin.site.register(RoomPermission)
