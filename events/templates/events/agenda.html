@@ -9,7 +9,7 @@
     <tr>
       <th>Data</th>
       <th>Orario</th>
-      <th>Luogo</th>
+      <th>Aula</th>
       <th>Attività</th>
     </tr>
   </thead>
@@ -18,7 +18,7 @@
       <tr>
         <td>{{ e.start|date:"DATE_FORMAT" }}</td>
         <td>{{ e.start|date:"G:i" }} - {{ e.end|date:"G:i" }}</td>
-        <td>{{ e.room.name }}</td>
+        <td><a href="{% url "rooms:details" e.room.pk %}">{{ e.room.name }}</a></td>
         <td><a href="{% url "activities:details" e.activity.pk %}">{{ e.activity.title }}</a></td>
       </tr>
   {% endfor %}
