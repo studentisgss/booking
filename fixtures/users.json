@@ -4,7 +4,6 @@
     "pk": 1,
     "fields": {
       "username": "fixture-loader",
-      "password": "password",
       "is_active": false
     }
   }

@@ -24,7 +24,15 @@ class Event(models.Model):
         verbose_name_plural = _('eventi')
 
     def __str__(self):
-        return "%d %s" % (self.activity_id, self.start)
+        return _(
+            "[%(day)s, %(start)s - %(end)s] %(room)s: %(activity)s"
+        ) % {
+            "activity": self.activity.title,
+            "room": self.room.name,
+            "day": self.start.strftime("%m/%d/%Y"),
+            "start": self.start.strftime("%H:%M"),
+            "end": self.end.strftime("%H:%M"),
+        }
 
     """
     STATUS_CHOICES contains possible values for states of events and
