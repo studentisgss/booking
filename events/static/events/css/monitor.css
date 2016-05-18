@@ -10,8 +10,10 @@ table {
   border-collapse: collapse;
 }
 
-table thead th {
+table .head {
   border-top: 1px solid grey;
+  padding: 0px;
+  font-weight: bold;
 }
 
 .top-image {
