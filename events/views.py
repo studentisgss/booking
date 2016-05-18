@@ -75,5 +75,7 @@ class Monitor(TemplateView):
         # Pick 6 random images between 13
         image_nums = list(range(0, 14))
         shuffle(image_nums)
-        context["img_urls"] = ["events/img/monitor/box{}.jpg".format(num) for num in image_nums[0:6]]
+        context["img_urls"] = [
+            "events/img/monitor/box{}.jpg".format(num) for num in image_nums[0:6]
+        ]
         return context
