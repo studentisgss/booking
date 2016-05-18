@@ -1,5 +1,15 @@
 body {
   font-size: 180%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
 }
 
 td {
@@ -23,4 +33,41 @@ table .head {
 h2 {
   padding-bottom: 15px;
   font-style: italic;
+}
+
+.background {
+    background: linear-gradient(to bottom, #402919 0%,#301e13 99%);
+}
+
+.brown {
+    background: #d4cdc8;
+    height: 100%;
+}
+
+.side-shadow {
+    background: white;
+    box-shadow: -15px 0px 10px -15px inset, 15px 0px 10px -15px inset;
+    height: 100%;
+}
+
+img {
+    width: 100%;
+    height: 100%;
+}
+
+.no-gutter {
+    padding: 0;
+} 
+
+.top-buffer {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.footer-p {
+    position: absolute;
+    bottom: 0px;
+    width: 100%;    
 }

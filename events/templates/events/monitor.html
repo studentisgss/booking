@@ -34,8 +34,11 @@
 </head>
 
 <body>
-<img src="{% static 'events/img/monitor/top.jpg' %}" class="top-image" alt="Scuola Galileiana di Studi Superiori - Pannello informativo" />
-<div class="container">
+<div class="brown">
+<div class="background">
+    <img src="{% static 'events/img/monitor/top.jpg' %}" class="top-image" alt="Scuola Galileiana di Studi Superiori - Pannello informativo" />
+</div>
+<div class="container side-shadow">
 	<div class="row">
 		{% if news %}
 		<div class="col-md-8">
@@ -60,8 +63,8 @@
             {% endfor %}
             </tbody>
 		</table>
-		{% endif %}
         </div>
+		{% endif %}
 
     	{% if news %}
         <div class="col-md-4">
@@ -82,7 +85,20 @@
     	{% endif %}
 	</div>
 </div>
-
+<div class="footer-p">
+<div class="background">
+    <div class="container top-buffer">
+        <div class="row">
+        {% for u in img_urls %}
+            <div class="col-md-2 no-gutter">
+                <img src="{% static u %}" alt="" />
+            </div>
+        {% endfor %}
+        </div>
+    </div>
+</div>
+</div>
+</div>
 {% block end-body-script %}
 {% endblock %}
 
