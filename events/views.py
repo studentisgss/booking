@@ -64,9 +64,11 @@ class Monitor(TemplateView):
         context = super().get_context_data(**kwargs)
         date = localnow().replace(hour=0, minute=0, second=0, microsecond=0)
         context["date"] = date
+        # Show only approved event for the important rooms
         context["events"] = Event.objects.filter(
             start__range=(date, date + timedelta(1)),
-            status=Event.APPROVED
+            status=Event.APPROVED,
+            room__important=True
         )
         context["news"] = News.objects.filter(
             start__lte=date,
