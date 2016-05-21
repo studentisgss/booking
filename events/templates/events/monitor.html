@@ -40,12 +40,12 @@
 </div>
 <div class="container side-shadow">
 	<div class="row">
+        {% if events %}
 		{% if news %}
 		<div class="col-md-8">
 		{% else %}
 		<div class="col-md-12">
 		{% endif %}
-		{% if events %}
     	<h2>Prenotazione Aule - {{ date | date:'d F Y' }} </h2>
   		{% regroup events|dictsort:"room_id" by room as events_by_room %}
         <table>
@@ -68,7 +68,7 @@
 
     	{% if news %}
         <div class="col-md-4">
-			<h2>Avvisi</h2>
+			<h2>Avvisi {% if not events %} - {{ date | date:'d F Y' }}{% endif %}</h2>
 			<table>
             <tbody>
 				{% for n in news %}
@@ -83,6 +83,17 @@
 			</table>
         </div>
     	{% endif %}
+
+        {% if not events %}
+            {% if not news %}
+                <div class="col-md-12">
+                    <h2>Prenotazione Aule - {{ date | date:'d F Y' }} </h2>
+                    <div class="alert alert-default top-buffer" role="alert">
+                        Nessuna prenotazione per questo giorno.
+                    </div>
+                </div>
+            {% endif %}
+        {% endif %}
 	</div>
 </div>
 <div class="footer-p">
