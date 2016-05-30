@@ -34,11 +34,10 @@
 </head>
 
 <body>
-<div class="brown">
-<div class="background">
+<div>
     <img src="{% static 'events/img/monitor/top.jpg' %}" class="top-image" alt="Scuola Galileiana di Studi Superiori - Pannello informativo" />
 </div>
-<div class="container-fluid side-shadow">
+<div class="container-fluid main-container">
 	<div class="row">
         {% if events %}
 		{% if news %}
@@ -95,7 +94,6 @@
             {% endif %}
         {% endif %}
 	</div>
-</div>
 </div>
 {% block end-body-script %}
 {% endblock %}
