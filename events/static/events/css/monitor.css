@@ -39,8 +39,8 @@ h2 {
 .main-container {
     background: white;
     height: 100%;
-    padding-left: 1em;
-    padding-right: 1em;
+    padding-left: 2em;
+    padding-right: 2em;
 }
 
 .top-buffer {
