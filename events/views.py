@@ -1,5 +1,6 @@
 from django.views.generic import TemplateView
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.views.decorators.clickjacking import xframe_options_exempt
 from datetime import timedelta
 from random import shuffle
 
@@ -75,3 +76,7 @@ class Monitor(TemplateView):
             end__gte=date,
         )
         return context
+
+    @xframe_options_exempt
+    def dispatch(self, *args, **kwargs):
+        return super().dispatch(*args, **kwargs)
