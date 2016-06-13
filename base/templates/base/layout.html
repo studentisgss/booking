@@ -52,7 +52,7 @@
 				<li><a href="{% url "news:news" %}">Avvisi</a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
-				<li><p class="navbar-text" id="demo-message">Questo sito è una DEMO in continuo sviluppo.</p></li>
+				{% if DEMO %}<li><p class="navbar-text" id="demo-message">Questo sito è una DEMO in continuo sviluppo.</p></li>{% endif %}
 				<li><a href="/admin">Login</a></li>
 			</ul>
 		</div><!--/.nav-collapse -->
