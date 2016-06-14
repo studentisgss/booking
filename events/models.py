@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 from django.core.exceptions import ValidationError
 from django.db.models import Q
@@ -29,9 +30,9 @@ class Event(models.Model):
         ) % {
             "activity": self.activity.title,
             "room": self.room.name,
-            "day": self.start.strftime("%m/%d/%Y"),
-            "start": self.start.strftime("%H:%M"),
-            "end": self.end.strftime("%H:%M"),
+            "day": timezone.localtime(self.start).strftime("%m/%d/%Y"),
+            "start": timezone.localtime(self.start).strftime("%H:%M"),
+            "end": timezone.localtime(self.end).strftime("%H:%M"),
         }
 
     """
