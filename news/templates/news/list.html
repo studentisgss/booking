@@ -4,6 +4,9 @@
 <h1>Avvisi</h1>
 
 <div class="panel-group" id="accordion" role="tablist">
+	{% if not news_list %}
+		Non ci sono avvisi.
+	{% else %}
   	<div class="panel panel-default">
 		{% for e in news_list %}
     		<div class="panel-heading" role="tab" id="heading{{ e.pk }}">
@@ -23,5 +26,6 @@
 			</div>
 		{% endfor %}
 	</div>
+	{% endif %}
 </div>
 {% endblock main %}
