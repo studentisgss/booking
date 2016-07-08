@@ -62,6 +62,12 @@ class Event(models.Model):
     )
 
     def clean(self):
+        if self.start is None:
+            raise ValidationError(_("La data/ora d'inizio non è corretta"))
+
+        if self.end is None:
+            raise ValidationError(_("La data/ora di fine non è corretta"))
+
         # 1. Check that the start time is before the end time
         if self.start >= self.end:
             raise ValidationError(_("L'ora di inizio deve precedere quella di fine"))
