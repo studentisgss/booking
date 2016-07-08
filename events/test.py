@@ -209,3 +209,52 @@ class EventsCleanTest(TestCase):
             event.clean()
         except ValidationError:
             self.fail("ValidationError exception raised with not overlapping event")
+
+
+class EventsFullCleanTest(TestCase):
+    def setUp(self):
+        self.user = User.objects.create_user(username="test")
+        self.room = Room.objects.create(name="Room 1", description="", creator=self.user)
+        self.activity = Activity.objects.create(
+            title="Activity 1",
+            description="",
+            creator=self.user
+        )
+
+    def test_none_date_rejected(self):
+        """ Test that none dates are rejected """
+        # Start date is none
+        with self.assertRaises(ValidationError):
+            event = Event(
+                room=self.room,
+                activity=self.activity,
+                status=Event.REJECTED,
+                start=None,
+                end=default_datetime(2016, 5, 3, 12, 0),
+                creator=self.user
+            )
+            event.full_clean()
+
+        # End date is none
+        with self.assertRaises(ValidationError):
+            event = Event(
+                room=self.room,
+                activity=self.activity,
+                status=Event.REJECTED,
+                start=default_datetime(2016, 5, 3, 16, 0),
+                end=None,
+                creator=self.user
+            )
+            event.full_clean()
+
+        # Both dates are none
+        with self.assertRaises(ValidationError):
+            event = Event(
+                room=self.room,
+                activity=self.activity,
+                status=Event.REJECTED,
+                start=None,
+                end=None,
+                creator=self.user
+            )
+            event.full_clean()
