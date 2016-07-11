@@ -1,8 +1,6 @@
 from django.utils import timezone
 from datetime import datetime
 
-# Common utilities
-
 
 def localnow():
     """
@@ -16,3 +14,15 @@ def default_datetime(*args, **kwargs):
         return datetime(*args, tzinfo=timezone.get_default_timezone(), **kwargs)
     else:
         return datetime(*args, **kwargs)
+
+
+def collect_urls(patterns):
+    all_urls = []
+    for entry in patterns:
+        url = entry.regex.pattern
+        if hasattr(entry, "url_patterns"):
+            for url_suffix in collect_urls(entry.url_patterns):
+                all_urls.append([url] + url_suffix)
+        else:
+            all_urls.append([url])
+    return all_urls
