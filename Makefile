@@ -2,6 +2,8 @@ SHELL := /bin/bash
 PYTHON ?= python3
 PIP ?= pip3
 PEP8 ?= pep8
+FLAKE8 ?= flake8
+PYLINT ?= pylint
 NOINPUT_OPT := $(shell if [ "$$NOINPUT" = true ]; then echo "--noinput"; fi)
 
 default:
@@ -11,7 +13,23 @@ install:
 	$(PIP) install -r requirements.txt
 
 linter:
-	$(PEP8) --exclude=migrations --config=.pep8 .
+	@echo "=== Pep8 ==="
+	@$(PEP8) --max-line-length=180 $(SRC_FILES)
+	@echo "=== Flake8 ==="
+	@$(FLAKE8) --max-line-length=180 --ignore=E251,E265,F401,F403,F999 \
+		$(SRC_FILES)
+	@echo "=== Pylint ==="
+	@$(PYLINT) --output-format=colorized --reports=no --persistent=n \
+		--max-line-length=180 --ignored-modules=numpy,ujson \
+		--disable=bad-builtin,missing-docstring,wildcard-import \
+		--disable=too-many-locals,too-many-branches,unused-wildcard-import \
+		--disable=too-many-statements,unused-import,bad-whitespace,star-args \
+		--disable=unexpected-keyword-arg,no-value-for-parameter \
+		--disable=duplicate-code,invalid-name,wrong-import-order \
+		--disable=ungrouped-imports,broad-except,too-many-arguments \
+		$(SRC_FILES) \
+		|| true
+	@echo "=== Done ==="
 
 test:
 	$(PYTHON) -Wall manage.py test
