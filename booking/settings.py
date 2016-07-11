@@ -166,4 +166,4 @@ try:
 except ImportError as e:
     import logging
     log = logging.getLogger(__name__)
-    log.warning("Could not load local_settings. {}".format(e))
+    log.warning("Could not load local_settings. %s", e)

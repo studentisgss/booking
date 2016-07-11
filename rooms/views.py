@@ -1,6 +1,7 @@
 from django.views.generic import TemplateView
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
+from django.http import Http404
 
 from rooms.models import Room
 

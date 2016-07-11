@@ -79,7 +79,7 @@ def get_day_hour_and_room(days_in_period, start_time_set):
             days_to_be_added = random.randrange(days_in_period)
             day = date_interval["start"] + timedelta(days=days_to_be_added)
         start, room_id = get_hour_and_room(day, start_time_set)
-    return (day,  start, room_id)
+    return (day, start, room_id)
 
 
 def print_file(events):
@@ -92,9 +92,9 @@ def print_file(events):
         with open(output_file, "w") as out_file:
             out_file.write("[\n")
             for e in events[0:-1]:
-                out_file.write(e.str_json()+",\n")
-            out_file.write(events[-1].str_json()+"\n")
-            out_file.write("]"+"\n")
+                out_file.write(e.str_json() + ",\n")
+            out_file.write(events[-1].str_json() + "\n")
+            out_file.write("]\n")
     except:
         print("ERROR: Error writing file.")
 
@@ -105,7 +105,7 @@ def get_random_events(days_in_period, number_of_events):
     start_time_set = set()
     while len(events) < number_of_events:
         # Random date not weekend
-        day,  start, room_id = get_day_hour_and_room(days_in_period, start_time_set)
+        day, start, room_id = get_day_hour_and_room(days_in_period, start_time_set)
         start_time_set.add(str(room_id) + start.isoformat())
         activity_id = random.choice(activity_ids)
         r = random.random()
