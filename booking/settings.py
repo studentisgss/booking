@@ -39,6 +39,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_nose',
     'activities',
     'events',
     'news',
@@ -151,6 +152,10 @@ LOGGING = {
         },
     }
 }
+
+
+# Use django-nose to run tests
+TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 
 
 # Static files (CSS, JavaScript, Images)

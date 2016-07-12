@@ -35,7 +35,7 @@ linter:
 	@echo "=== Done ==="
 
 test:
-	$(PYTHON) -Wall manage.py test
+	$(PYTHON) -Wall manage.py test --logging-clear-handlers
 
 delete-db:
 	rm -f db.sqlite3

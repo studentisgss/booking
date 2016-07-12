@@ -31,10 +31,12 @@ class TemplatePathTest(TestCase):
 
 class HomeLinkTest(TestCase):
     def test_root_responses(self):
+        """Test that the home page loads without errors"""
         response = self.client.get("/")
         self.assertEqual(response.status_code, 200)
 
     def test_nav_links_responses(self):
+        """Test that each link in the home page loads without errors"""
         response = self.client.get("/")
         soup = BeautifulSoup(response.content, "html.parser")
         nav_links = [
@@ -61,30 +63,38 @@ class UrlPatternTest(TestCase):
                 pattern = e.regex.pattern
                 self.assertTrue(
                     pattern.startswith("^"),
-                    "Url '{}' in app '{}' must start with '^'".format(e.regex.pattern, app_name)
+                    "Url '{}' in app '{}' must start with '^'".format(
+                        e.regex.pattern,
+                        app_name
+                    )
                 )
                 self.assertTrue(
                     pattern.endswith("$"),
-                    "Url '{}' in app '{}' must end with '$'".format(e.regex.pattern, app_name)
+                    "Url '{}' in app '{}' must end with '$'".format(
+                        e.regex.pattern,
+                        app_name
+                    )
                 )
 
 
 class FuzzyUrlTest(TestCase):
     def setUp(self):
+        # Retrieve all the url patterns used in booking
         self.url_patterns = collect_urls(booking.urls.urlpatterns)
+        # For each url pattern, generate this amount of matching urls
         self.repeat = 50
 
     def test_url_status_code(self):
         """Generate random valid urls and test that they load without errors"""
         for url_pattern in self.url_patterns:
             for _ in range(self.repeat):
-                pieces = map(exrex.getone, url_pattern)
-                url = "/" + "".join(pieces)
+                # Generate a string that matches the url pattern
+                url = "/" + "".join(map(exrex.getone, url_pattern))
                 response = self.client.get(url)
                 self.assertIn(
                     response.status_code,
                     (200, 301, 302, 404),
-                    "Url '{}'' failed with status code {}".format(
+                    "Url '{}' failed with status code {}".format(
                         url,
                         response.status_code
                     )
