@@ -1,7 +1,9 @@
 from django.views.generic import TemplateView
+from django.http import Http404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.decorators.clickjacking import xframe_options_exempt
 from datetime import timedelta
+from calendar import monthrange
 from random import shuffle
 
 from events.models import Event
@@ -43,11 +45,17 @@ class Calendar(TemplateView):
         context = super().get_context_data(**kwargs)
         # If a date is defined
         if "year" in kwargs and "month" in kwargs and "day" in kwargs:
-            date = default_datetime(
-                int(kwargs["year"]),
-                int(kwargs["month"]),
-                int(kwargs["day"])
-            )
+            try:
+                year = int(kwargs["year"])
+                month = int(kwargs["month"])
+                day = int(kwargs["day"])
+            except:
+                raise Http404
+            # If the year or the month are not valid the function monthrange is not invoked
+            # due to shot-circuit evaluation
+            if not ((year in range(1, 9999)) and (month in range(1, 12)) and (day in range(*monthrange(year, month)))):
+                raise Http404
+            date = default_datetime(year, month, day)
         else:
             date = localnow().replace(hour=0, minute=0, second=0, microsecond=0)
         context["date"] = date
