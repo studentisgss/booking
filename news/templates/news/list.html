@@ -19,7 +19,7 @@
       				</h4>
 				</div>
     		</div>
-    		<div id="collapse{{ e.pk }}" class="panel-collapse collapse" role="tabpanel">
+    		<div id="collapse{{ e.pk }}" class="panel-collapse collapse {% if forloop.first %} in {% endif %}" role="tabpanel">
       			<div class="panel-body">
         			{{ e.content }}
       			</div>
