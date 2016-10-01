@@ -28,10 +28,10 @@ def page_not_found(request):
     response = render_to_response(
         'base/404.html',
         context_instance=None
-        )
+    )
 
     response.status_code = 404
-    
+
     return response
 
 
@@ -40,7 +40,7 @@ def server_error(request):
     response = render_to_response(
         'base/500.html',
         context_instance=RequestContext(request)
-        )
+    )
 
     response.status_code = 500
 
