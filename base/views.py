@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from django.shortcuts import render, render_to_response
+from django.template import RequestContext
 from django.views.generic import TemplateView
 
 
@@ -20,3 +21,27 @@ class GenericTemplateView(TemplateView):
         """
         return [self.template_path + x
                 for x in super().get_template_names()]
+
+
+def page_not_found(request):
+
+    response = render_to_response(
+        'base/404.html',
+        context_instance=None
+        )
+
+    response.status_code = 404
+    
+    return response
+
+
+def server_error(request):
+
+    response = render_to_response(
+        'base/500.html',
+        context_instance=RequestContext(request)
+        )
+
+    response.status_code = 500
+
+    return response

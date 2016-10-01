@@ -13,7 +13,7 @@ Including another URLconf
     1. Add an import:  from blog import urls as blog_urls
     2. Add a URL to urlpatterns:  url(r'^blog/', include(blog_urls))
 """
-from django.conf.urls import include, url
+from django.conf.urls import include, url, handler404, handler500
 from django.contrib import admin
 
 from activities import urls as activities_urls
@@ -33,3 +33,6 @@ urlpatterns = [
     # If none of the above urls matches, then
     url(r'', include(base_urls)),
 ]
+
+handler404 = "base.views.page_not_found"
+handler500 = "base.views.server_error"

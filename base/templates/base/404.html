@@ -1,0 +1,24 @@
+{% extends "base/layout.html" %}
+{% load staticfiles %}
+
+{% block main %}
+
+<div class="row lead">
+    <div class="col-md-6 jumbotron error-message" style="vertical-align: middle;">
+    <div class="">
+        <h1>Pagina non trovata</h1>
+    </div>
+    <div>
+        <p>La pagina cercata non è stata trovata,<br />
+        potrebbe essere stata spostata o non esistere.</p>
+    </div>
+    <div>
+        <a href="{% url 'events:calendar' %}" class="btn btn-info" >Torna alla pagina principale</a>
+    </div>
+    </div>
+    <div class="col-md-6">
+    <img src="{% static 'img/404.png' %}" alt="Pagina non trovata"/>
+    </div>
+</div>
+
+{% endblock main %}

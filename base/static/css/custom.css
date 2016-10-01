@@ -31,3 +31,7 @@ body {
 .star-color {
 	color: orange;
 }
+
+.error-message {
+	margin-top: 5%;
+}
