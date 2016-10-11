@@ -1,5 +1,6 @@
 from django.test import TestCase
 from django.core.exceptions import ValidationError
+from django.contrib.auth.models import User
 from base.utils import default_datetime
 from rooms.models import Room
 from django.contrib.auth.models import User
@@ -247,3 +248,20 @@ class EventsCleanTest(TestCase):
                 creator=self.user
             )
             event.clean()
+
+    def test_none_room_rejected(self):
+        """ Test that none room are rejected """
+        User.objects.create_superuser("dev", "dev@test.com", "dev")
+        self.client.login(username="dev", password="dev")
+        response = self.client.post("/admin/events/event/add/", {
+            "room": None,
+            "activity": 13,
+            "start_0": "11/10/2016",
+            "start_1": "18:52:33",
+            "end_0": "11/10/2016",
+            "end_1": "18:57:34",
+            "status": 0,
+            "creator": 1,
+            "_save": "Salva"
+            })
+        self.assertEqual(response.status_code, 200)
