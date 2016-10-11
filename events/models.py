@@ -68,6 +68,9 @@ class Event(models.Model):
         if self.end is None:
             raise ValidationError(_("La data/ora di fine non è corretta"))
 
+        if self.room_id is None:
+            raise ValidationError(_("L'aula è obbligatoria"))
+
         # 1. Check that the start time is before the end time
         if self.start >= self.end:
             raise ValidationError(_("L'ora di inizio deve precedere quella di fine"))

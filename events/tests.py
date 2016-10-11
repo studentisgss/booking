@@ -1,6 +1,5 @@
 from django.test import TestCase
 from django.core.exceptions import ValidationError
-from django.contrib.auth.models import User
 from base.utils import default_datetime
 from rooms.models import Room
 from django.contrib.auth.models import User
@@ -263,5 +262,5 @@ class EventsCleanTest(TestCase):
             "status": 0,
             "creator": 1,
             "_save": "Salva"
-            })
+        })
         self.assertEqual(response.status_code, 200)
