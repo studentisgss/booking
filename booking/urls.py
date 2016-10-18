@@ -34,6 +34,5 @@ urlpatterns = [
     url(r'', include(base_urls)),
 ]
 
-# The comment 'noqa: xxx' tells Flake8 to ignore the given error on the line
-handler404 = "base.views.page_not_found"  # noqa: F811
-handler500 = "base.views.server_error"  # noqa: F811
+handler404 = "base.views.page_not_found"
+handler500 = "base.views.server_error"
