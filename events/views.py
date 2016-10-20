@@ -53,8 +53,8 @@ class Calendar(TemplateView):
                 raise Http404
             # If the year or the month are not valid the function monthrange is not invoked
             # due to shot-circuit evaluation
-            if not ((year in range(1, 9999)) and (month in range(1, 12)) and
-                    (day in range(*monthrange(year, month)))):
+            if not ((year in range(1, 9999)) and (month in range(1, 12 + 1)) and
+                    (day in range(1, monthrange(year, month)[1] + 1))):
                 raise Http404
             date = default_datetime(year, month, day)
         else:
