@@ -23,7 +23,7 @@ class Activity(models.Model):
                             self.title, self.description)
 
     title = models.CharField(max_length=80, verbose_name=_("titolo"))
-    description = models.CharField(max_length=500, verbose_name=_("descrizione"))
+    description = models.CharField(max_length=500, blank=True, verbose_name=_("descrizione"))
     archived = models.BooleanField(default=False, verbose_name=_("archiviata"))
     creator = models.ForeignKey(
         User,
