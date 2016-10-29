@@ -86,14 +86,20 @@ class Event(models.Model):
         # 3. If this event is not rejected, check that it does not overlap with all
         # the other not-rejected events booked for the same room
         if self.status != Event.REJECTED:
-            is_overlapping = Event.objects.filter(
+            overlapping_events = Event.objects.filter(
                 ~Q(status=Event.REJECTED),
                 room_id=self.room.pk
             ).filter(
                 # Keep only overlapping events
                 Q(start__lt=self.end),
                 Q(end__gt=self.start)
-            ).exists()
+            )
+            # If the event is already in the database exclude it
+            if self.pk is not None:
+                overlapping_events = overlapping_events.filter(
+                    ~Q(pk=self.pk)
+                )
+            is_overlapping = overlapping_events.exists()
             if is_overlapping:
                 raise ValidationError(
                     _("Non possono esserci due eventi non rifiutati sovrapposti per la stessa aula")
