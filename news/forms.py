@@ -1,11 +1,11 @@
-from django.forms import ModelForm, Textarea
+from base.forms import BookingModelForm
 from news.models import News
 
 
-class NewsForm(ModelForm):
+class NewsForm(BookingModelForm):
     class Meta:
         model = News
-        fiels = [
+        fields = [
             "title",
             "content",
             "start",
