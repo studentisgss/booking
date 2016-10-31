@@ -1,0 +1,39 @@
+{% extends "base/layout.html" %}
+
+{% block main %}
+<div>
+    <h1>Conferma eliminazione avviso</h1>
+</div>
+
+<div class="panel">
+    <div class="panel">
+        <table class="table">
+            <tr>
+                <td class="col-xs-3">Titolo: </td>
+                <td class="col-xs-9">{{ news.title }}</td>
+            </tr>
+            <tr>
+                <td>Contenuto: </td>
+                <td>{{ news.content }}</td>
+            </tr>
+            <tr>
+                <td>Visualizzata dal: </td>
+                <td>{{ news.start|date:'d/m/Y' }}</td>
+            </tr>
+            <tr>
+                <td>Fino al: </td>
+                <td>{{ news.end|date:'d/m/Y' }}</td>
+            </tr>
+        </table>
+    </div>
+    <div class="panel lead">
+    <p>Sicuro di volere eliminare questo avviso?</p>
+
+    <form method="POST" action="">
+        {% csrf_token %}
+        <input type="submit" value="S&igrave;, sono sicuro." name="confirm" class="btn btn-danger">
+        <a href="{% url 'news:news' %}" class="btn btn-info">No, torna indietro.</a>
+    </form>
+    </div>
+</div>
+{% endblock main %}

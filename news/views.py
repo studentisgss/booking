@@ -60,3 +60,30 @@ class NewsEditView(TemplateView):
         else:
             return self.get(request, *args, **kwargs)
 
+
+class NewsDeleteView(TemplateView):
+    template_name = "news/delete.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Http method
+        if "pk" in kwargs and kwargs["pk"]:
+            try:
+                news = News.objects.all().get(pk=kwargs["pk"])
+            except:
+                raise Http404
+            context["news"] = news
+        else:
+            raise Http404
+        return context
+
+    def post(self, request, *args, **kwargs):
+        if "pk" in kwargs and kwargs["pk"]:
+            try:
+                news = News.objects.all().get(pk=kwargs["pk"])
+            except:
+                raise Http404
+            news.delete()
+        else:
+            raise Http404
+        return HttpResponseRedirect(reverse("news:news"))
