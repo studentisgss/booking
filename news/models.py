@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
+from django.core.exceptions import ValidationError
 
 
 class News(models.Model):
@@ -19,3 +20,14 @@ class News(models.Model):
     start = models.DateField(_("data di inizio"))
     end = models.DateField(_("data di fine"))
     creator = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name=_("creatore"))
+
+    def clean(self):
+        if self.start is None:
+            raise ValidationError(_("La data d'inizio non è corretta"))
+
+        if self.end is None:
+            raise ValidationError(_("La data di fine non è corretta"))
+
+        # 1. Check that the start date is before or equal to the end date
+        if self.start > self.end:
+            raise ValidationError(_("La data di inizio deve precedere quella di fine"))
