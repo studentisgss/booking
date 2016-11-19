@@ -1,4 +1,4 @@
-Django>=1.8, <1.9
+Django>=1.9, <1.10
 pep8>=1.4.6, <1.5
 PyYAML>=3.11, <3.12
 beautifulsoup4>=4.4.1, <4.5
