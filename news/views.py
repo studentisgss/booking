@@ -2,6 +2,8 @@ from django.views.generic import TemplateView
 from django.http import Http404, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.contrib.contenttypes.models import ContentType
+from django.contrib.admin.models import LogEntry, ADDITION, CHANGE, DELETION
 
 from news.models import News
 from news.forms import NewsForm
@@ -56,9 +58,26 @@ class NewsEditView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
             kwargs["edit"] = False
 
         if form.is_valid():
-            news = form.save(commit=False)
-            news.creator = request.user
-            news.save()
+            if kwargs["edit"]:
+                news = form.save()
+                LogEntry.objects.log_action(
+                    user_id=self.request.user.id,
+                    content_type_id=ContentType.objects.get_for_model(news).pk,
+                    object_id=news.id,
+                    object_repr=str(news),
+                    action_flag=CHANGE
+                )
+            else:
+                news = form.save(commit=False)
+                news.creator = request.user
+                news.save()
+                LogEntry.objects.log_action(
+                    user_id=self.request.user.id,
+                    content_type_id=ContentType.objects.get_for_model(news).pk,
+                    object_id=news.id,
+                    object_repr=str(news),
+                    action_flag=ADDITION
+                )
             return HttpResponseRedirect(reverse("news:news"))
         else:
             return self.get(request, *args, **kwargs)
@@ -93,6 +112,14 @@ class NewsDeleteView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
             except:
                 raise Http404
             news.delete()
+            LogEntry.objects.log_action(
+                user_id=self.request.user.id,
+                content_type_id=ContentType.objects.get_for_model(news).pk,
+                object_id=news.id,
+                object_repr=str(news),
+                action_flag=DELETION
+            )
+
         else:
             raise Http404
         return HttpResponseRedirect(reverse("news:news"))
