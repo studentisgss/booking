@@ -1,6 +1,7 @@
 from django.views.generic import TemplateView
 from django.http import Http404, HttpResponseRedirect
 from django.core.urlresolvers import reverse
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 
 from news.models import News
 from news.forms import NewsForm
@@ -16,8 +17,10 @@ class NewsView(TemplateView):
         return context
 
 
-class NewsEditView(TemplateView):
+class NewsEditView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
     template_name = "news/edit.html"
+
+    permission_required = "news.change_news"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -61,8 +64,14 @@ class NewsEditView(TemplateView):
             return self.get(request, *args, **kwargs)
 
 
-class NewsDeleteView(TemplateView):
+class NewsAddView(NewsEditView):
+    permission_required = "news.add_news"
+
+
+class NewsDeleteView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
     template_name = "news/delete.html"
+
+    permission_required = "news.delete_news"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
