@@ -104,7 +104,7 @@ class Monitor(TemplateView):
         date = localnow().replace(hour=0, minute=0, second=0, microsecond=0)
         context["date"] = date
         important_events_per_page = 6
-        other_events_per_page = 2
+        other_events_per_page = 1
         # Show only approved event
         # Important room
         important_events = Event.objects.filter(
@@ -116,6 +116,7 @@ class Monitor(TemplateView):
             important_events,
             important_events_per_page
         )
+        context["eventsImportantIndicator"] = False if len(context["eventsImportant"]) == 1 else True
         # Other events
         other_events = Event.objects.filter(
             start__range=(date, date + timedelta(1)),
@@ -126,6 +127,7 @@ class Monitor(TemplateView):
             other_events,
             other_events_per_page
         )
+        context["eventsOtherIndicator"] = False if len(context["eventsOther"]) == 1 else True
         # NEWS
         context["news"] = News.objects.filter(
             start__lte=date,
