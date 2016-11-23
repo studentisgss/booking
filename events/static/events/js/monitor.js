@@ -1,18 +1,17 @@
-function adjustIndicatorWidth(carousel)
+function adjustIndicatorWidth()
 {
-	var width = $(".item.active table", carousel).css("width");
-	$(".carousel-indicators", carousel).animate({"width": width}, 50);
+	var array = $(".item table").map(function(){ 
+		var clone = $(this).clone();
+		clone.css("visibility","hidden");
+    	$('body').append(clone);
+		var res = parseInt(clone.width());
+		clone.remove();
+		return res;
+	});
+	var width = Math.max(...array);
+	$(".carousel-indicators").css("width", width + "px");
 }
 
 $(document).ready(function() {
-	adjustIndicatorWidth($("#important-event-carousel"));
-	adjustIndicatorWidth($("#other-event-carousel"));
-
-	$("#important-event-carousel").on("slid.bs.carousel", function() {
-		adjustIndicatorWidth($("#important-event-carousel"));
-	});
-
-	$("#other-event-carousel").on("slid.bs.carousel", function() {
-		adjustIndicatorWidth($("#other-event-carousel"));
-	});
+	adjustIndicatorWidth();
 });

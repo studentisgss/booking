@@ -111,7 +111,7 @@ class Monitor(TemplateView):
             start__range=(date, date + timedelta(1)),
             status=Event.APPROVED,
             room__important=True
-        ).order_by("room__name")
+        ).order_by("room__name", "start")
         context["eventsImportant"] = get_event_list(
             important_events,
             important_events_per_page
@@ -122,7 +122,7 @@ class Monitor(TemplateView):
             start__range=(date, date + timedelta(1)),
             status=Event.APPROVED,
             room__important=False
-        ).order_by("room__name")
+        ).order_by("room__name", "start")
         context["eventsOther"] = get_event_list(
             other_events,
             other_events_per_page
