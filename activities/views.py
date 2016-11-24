@@ -8,6 +8,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib.admin.models import LogEntry, ADDITION, CHANGE, DELETION
 
 from events.models import Event
+from events.forms import EventInlineFormSet
 from activities.models import Activity
 from activities.forms import ActivityForm
 
@@ -95,7 +96,7 @@ class ActivityEditView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView
                     raise Http404
                 form = ActivityForm(instance=activity)
             else:
-                form = ActivityForm()
+                raise Http404
         elif self.request.method == "POST":
             form = ActivityForm(self.request.POST)
         else:
@@ -110,32 +111,18 @@ class ActivityEditView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView
             except:
                 raise Http404
             form = ActivityForm(request.POST, instance=activity)
-            edit = True
         else:
-            form = ActivityForm(request.POST)
-            edit = False
+            raise Http404
 
         if form.is_valid():
-            if edit:
-                nctivity = form.save()
-                LogEntry.objects.log_action(
-                    user_id=self.request.user.id,
-                    content_type_id=ContentType.objects.get_for_model(nctivity).pk,
-                    object_id=nctivity.id,
-                    object_repr=str(nctivity),
-                    action_flag=CHANGE
-                )
-            else:
-                nctivity = form.save(commit=False)
-                nctivity.creator = request.user
-                nctivity.save()
-                LogEntry.objects.log_action(
-                    user_id=self.request.user.id,
-                    content_type_id=ContentType.objects.get_for_model(nctivity).pk,
-                    object_id=nctivity.id,
-                    object_repr=str(nctivity),
-                    action_flag=ADDITION
-                )
+            activity = form.save()
+            LogEntry.objects.log_action(
+                user_id=self.request.user.id,
+                content_type_id=ContentType.objects.get_for_model(activity).pk,
+                object_id=activity.id,
+                object_repr=str(activity),
+                action_flag=CHANGE
+            )
             return HttpResponseRedirect(reverse("activities:list"))
         else:
             return self.get(request, *args, **kwargs)
@@ -143,3 +130,35 @@ class ActivityEditView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView
 
 class ActivityAddView(ActivityEditView):
     permission_required = ("activities.add_activities", "rooms.can_book_room")
+
+    template_name = "activities/add.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Http method
+        if self.request.method == "GET":
+            form = ActivityForm()
+        elif self.request.method == "POST":
+            form = ActivityForm(self.request.POST)
+        else:
+            raise Http404
+        context["form"] = form
+        return context
+
+    def post(self, request, *args, **kwargs):
+        form = ActivityForm(request.POST)
+
+        if form.is_valid():
+            activity = form.save(commit=False)
+            activity.creator = request.user
+            activity.save()
+            LogEntry.objects.log_action(
+                user_id=self.request.user.id,
+                content_type_id=ContentType.objects.get_for_model(activity).pk,
+                object_id=activity.id,
+                object_repr=str(activity),
+                action_flag=ADDITION
+            )
+            return HttpResponseRedirect(reverse("activities:list"))
+        else:
+            return self.get(request, *args, **kwargs)
