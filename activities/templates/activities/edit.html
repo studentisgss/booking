@@ -10,13 +10,14 @@
 <link href="{% static 'css/jquery-ui.css' %}" rel="stylesheet" />
 <link href="{% static 'css/jquery-ui.structure.css' %}" rel="stylesheet" />
 <link href="{% static 'css/jquery-ui.theme.css' %}" rel="stylesheet" />
+<link href="{% static 'activities/css/edit.css' %}" rel="stylesheet" />
 {% endblock head-extra %}
 
 {% block main %}
 <h1>Gestione attività</h1>
 
 <div>
-    <form method="POST" action="" class="form-horizontal">
+    <form method="POST" class="form-horizontal">
         {% csrf_token %}
         {% if form.non_field_errors %}
             <div>
@@ -52,13 +53,13 @@
             <div class="col-sm-2 col-md-1">
             <label for="{{ form.title.id_for_label }}" class="control-label">{{ form.title.label }}:</label>
             </div>
-            <div class="col-sm-6 col-md-9">
+            <div class="col-sm-6 col-md-9 {% if form.title.errors %}has-error{% endif %}">
                 {{ form.title }}
             </div>
             <div class="col-sm-2 col-md-1">
             <label for="{{ form.archived.id_for_label }}" class="control-label">{{ form.archived.label }}:</label>
             </div>
-            <div class="col-sm-2 col-md-1">
+            <div class="col-sm-2 col-md-1 {% if form.archived.errors %}has-error{% endif %}">
                 {{ form.archived }}
             </div>
         </div>
@@ -66,24 +67,80 @@
         <div class="form-group">
             {% if form.description.errors %}
                 <div class="col-sm-12 col-md-10">
-                    <ol class="list-group">
-                        {% for error in form.description.errors %}
-                            <li class="list-group-item list-group-item-danger">{{ error|escape }}</li>
-                        {% endfor %}
-                    </ol>
+                    {% for error in form.description.errors %}
+                        <p class="text-danger">{{ error|escape }}</p>
+                    {% endfor %}
                 </div>
             {% endif %}
             <label for="{{ form.description.id_for_label }}" class="col-sm-2 col-md-1 control-label">{{ form.description.label }}:</label>
-            <div class="col-sm-10 col-md-11">
+            <div class="col-sm-10 col-md-11 {% if form.description.errors %}has-error{% endif %}">
                 {{ form.description }}
             </div>
         </div>
-
-
-
-
-
-        <!-- ADD EVENTS HERE -->
+        <!-- EVENTS -->
+        <h3>Appuntamenti dell'attivit&agrave;</h3>
+        {{ eventForm.management_form }}
+        {% if eventForm.non_form_errors %}
+            <div>
+                <ol class="list-group">
+                    {% for error in eventForm.non_form_errors %}
+                        <li class="list-group-item list-group-item-danger">{{ error|escape }}</li>
+                    {% endfor %}
+                </ol>
+            </div>
+        {% endif %}
+        <table class="table">
+            <tr>
+                <th>Aula</th>
+                <th>Inizio</th>
+                <th>Fine</th>
+                <th>Rimuovi</th>
+                <th></th>
+                <th></th>
+            </tr>
+            {% for form in eventForm %}
+                {% if form.non_field_errors %}
+                    <tr>
+                        <td colspan="6">
+                            {% for error in form.non_field_errors %}
+                                <p class="text-danger no-margin-bottom">{{ error|escape }}</p>
+                            {% endfor %}
+                        </td>
+                    </tr>
+                {% endif %}
+                <tr>
+                    <td {% if form.non_field_errors %}class="no-border-top"{% endif %}>
+                        {% if form.room.errors %}
+                                {% for error in form.room.errors %}
+                                    <p class="text-danger">{{ error|escape }}</p>
+                                {% endfor %}
+                        {% endif %}
+                        {{ form.room }}
+                    </td>
+                    <td {% if form.non_field_errors %}class="no-border-top"{% endif %}>
+                        {% if form.start.errors %}
+                                {% for error in form.start.errors %}
+                                    <p class="text-danger">{{ error|escape }}</p>
+                                {% endfor %}
+                        {% endif %}
+                        {{ form.start }}
+                    </td>
+                    <td {% if form.non_field_errors %}class="no-border-top"{% endif %}>
+                        {% if form.end.errors %}
+                                {% for error in form.end.errors %}
+                                    <p class="text-danger">{{ error|escape }}</p>
+                                {% endfor %}
+                        {% endif %}
+                        {{ form.end }}
+                    </td>
+                    <td {% if form.non_field_errors %}class="no-border-top"{% endif %}>
+                        {{ form.DELETE }}
+                    </td>
+                    <td {% if form.non_field_errors %}class="no-border-top"{% endif %}></td>
+                    <td class="hidden{% if form.non_field_errors %} no-border-top{% endif %}">{{ form.id }}{{ form.activity }}</td>
+                </tr>
+            {% endfor %}
+        </table>
 
 
 

@@ -95,13 +95,16 @@ class ActivityEditView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView
                 except:
                     raise Http404
                 form = ActivityForm(instance=activity)
+                events_form = EventInlineFormSet(instance=activity)
             else:
                 raise Http404
         elif self.request.method == "POST":
             form = ActivityForm(self.request.POST)
+            events_form = EventInlineFormSet(self.request.POST)
         else:
             raise Http404
         context["form"] = form
+        context["eventForm"] = events_form
         return context
 
     def post(self, request, *args, **kwargs):
@@ -111,10 +114,10 @@ class ActivityEditView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView
             except:
                 raise Http404
             form = ActivityForm(request.POST, instance=activity)
+            events_form = EventInlineFormSet(request.POST, instance=activity)
         else:
             raise Http404
-
-        if form.is_valid():
+        if form.is_valid() and events_form.is_valid():
             activity = form.save()
             LogEntry.objects.log_action(
                 user_id=self.request.user.id,
@@ -128,7 +131,7 @@ class ActivityEditView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView
             return self.get(request, *args, **kwargs)
 
 
-class ActivityAddView(ActivityEditView):
+class ActivityAddView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
     permission_required = ("activities.add_activities", "rooms.can_book_room")
 
     template_name = "activities/add.html"
@@ -141,6 +144,7 @@ class ActivityAddView(ActivityEditView):
         elif self.request.method == "POST":
             form = ActivityForm(self.request.POST)
         else:
+            print("NO")
             raise Http404
         context["form"] = form
         return context
@@ -159,6 +163,6 @@ class ActivityAddView(ActivityEditView):
                 object_repr=str(activity),
                 action_flag=ADDITION
             )
-            return HttpResponseRedirect(reverse("activities:list"))
+            return HttpResponseRedirect(reverse("activities:edit", kwargs={"pk": activity.pk}))
         else:
             return self.get(request, *args, **kwargs)
