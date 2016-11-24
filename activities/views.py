@@ -1,10 +1,15 @@
 from django.views.generic import TemplateView
-from django.http import Http404
+from django.http import Http404, HttpResponseRedirect
+from django.core.urlresolvers import reverse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q, Max, Min
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.contrib.contenttypes.models import ContentType
+from django.contrib.admin.models import LogEntry, ADDITION, CHANGE, DELETION
 
 from events.models import Event
 from activities.models import Activity
+from activities.forms import ActivityForm
 
 
 class DetailActivityView(TemplateView):
@@ -72,3 +77,69 @@ class ListActivityView(TemplateView):
             )
         context["list"] = activities_list
         return context
+
+
+class ActivityEditView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
+    template_name = "activities/edit.html"
+
+    permission_required = ("activities.change_activities", "rooms.can_book_room")
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Http method
+        if self.request.method == "GET":
+            if "pk" in kwargs and kwargs["pk"]:
+                try:
+                    activity = Activity.objects.all().get(pk=kwargs["pk"])
+                except:
+                    raise Http404
+                form = ActivityForm(instance=activity)
+            else:
+                form = ActivityForm()
+        elif self.request.method == "POST":
+            form = ActivityForm(self.request.POST)
+        else:
+            raise Http404
+        context["form"] = form
+        return context
+
+    def post(self, request, *args, **kwargs):
+        if "pk" in kwargs and kwargs["pk"]:
+            try:
+                activity = Activity.objects.all().get(pk=kwargs["pk"])
+            except:
+                raise Http404
+            form = ActivityForm(request.POST, instance=activity)
+            edit = True
+        else:
+            form = ActivityForm(request.POST)
+            edit = False
+
+        if form.is_valid():
+            if edit:
+                nctivity = form.save()
+                LogEntry.objects.log_action(
+                    user_id=self.request.user.id,
+                    content_type_id=ContentType.objects.get_for_model(nctivity).pk,
+                    object_id=nctivity.id,
+                    object_repr=str(nctivity),
+                    action_flag=CHANGE
+                )
+            else:
+                nctivity = form.save(commit=False)
+                nctivity.creator = request.user
+                nctivity.save()
+                LogEntry.objects.log_action(
+                    user_id=self.request.user.id,
+                    content_type_id=ContentType.objects.get_for_model(nctivity).pk,
+                    object_id=nctivity.id,
+                    object_repr=str(nctivity),
+                    action_flag=ADDITION
+                )
+            return HttpResponseRedirect(reverse("activities:list"))
+        else:
+            return self.get(request, *args, **kwargs)
+
+
+class ActivityAddView(ActivityEditView):
+    permission_required = ("activities.add_activities", "rooms.can_book_room")
