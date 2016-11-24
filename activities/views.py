@@ -3,6 +3,7 @@ from django.http import Http404, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q, Max, Min
+from django.db import transaction
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.admin.models import LogEntry, ADDITION, CHANGE, DELETION
@@ -11,6 +12,7 @@ from events.models import Event
 from events.forms import EventInlineFormSet
 from activities.models import Activity
 from activities.forms import ActivityForm
+from rooms.models import RoomPermission
 
 
 class DetailActivityView(TemplateView):
@@ -126,6 +128,43 @@ class ActivityEditView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView
                 object_repr=str(activity),
                 action_flag=CHANGE
             )
+            # Save events
+            instances = events_form.save(commit=False)
+            with transaction.atomic():
+                for i in instances:
+                    perms = []
+                    for g in request.user.groups.all():
+                        perms.append(i.room.get_group_perm(g))
+                    perm = max(perms + [0])
+                    # Set sttus according to permission
+                    if perm == 10:
+                        i.status = Event.WAITING
+                    elif perm == 30:
+                        i.status = Event.APPROVED
+                    else:  # No permission
+                        try:
+                            i.delete()
+                        except:
+                            pass
+                        continue
+                    # Set creator and log action
+                    try:
+                        new = i.creator is not None
+                    except:
+                        i.creator = request.user
+                        new = False
+                    i.save()
+                    # LOG ACTION
+                    LogEntry.objects.log_action(
+                        user_id=self.request.user.id,
+                        content_type_id=ContentType.objects.get_for_model(i).pk,
+                        object_id=i.id,
+                        object_repr=str(i),
+                        action_flag=ADDITION if new else CHANGE
+                    )
+            with transaction.atomic():
+                for o in events_form.deleted_objects:
+                    o.delete()
             return HttpResponseRedirect(reverse("activities:list"))
         else:
             return self.get(request, *args, **kwargs)
