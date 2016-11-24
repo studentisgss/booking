@@ -20,6 +20,11 @@ class BookingModelForm(ModelForm):
             # If the widget is for a date and a time the add class 'datetime'
             if isinstance(self.fields[field].widget, widgets.DateTimeInput):
                 self.fields[field].widget = widgets.SplitDateTimeWidget(
-                    attrs=self.fields[field].widget.attrs
+                    attrs=self.fields[field].widget.attrs,
+                    date_format='%d/%m/%Y',
+                    time_format='%H:%M%S',
                 )
+                self.fields[field].widget.attrs['class'] += " datetime"
+
+            if isinstance(self.fields[field].widget, widgets.SplitDateTimeWidget):
                 self.fields[field].widget.attrs['class'] += " datetime"
