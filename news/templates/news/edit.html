@@ -29,15 +29,13 @@
             </div>
         {% endif %}
         {% for field in form %}
-            <div class="form-group">
+            <div class="form-group {% if field.errors %}has-error{% endif %}">
                 {{ field.label_tag }}
                 {% if field.errors %}
                     <div>
-                        <ol class="list-group">
-                            {% for error in field.errors %}
-                                <li class="list-group-item list-group-item-danger">{{ error|escape }}</li>
-                            {% endfor %}
-                        </ol>
+                        {% for error in field.errors %}
+                            <p class="text-danger">{{ error|escape }}</p>
+                        {% endfor %}
                     </div>
                 {% endif %}
                 {{ field }}
