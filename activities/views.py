@@ -12,7 +12,7 @@ from events.models import Event
 from events.forms import EventInlineFormSet
 from activities.models import Activity
 from activities.forms import ActivityForm
-from rooms.models import RoomPermission
+from rooms.models import RoomPermission, Room
 
 
 class DetailActivityView(TemplateView):
@@ -105,6 +105,12 @@ class ActivityEditView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView
             events_form = EventInlineFormSet(self.request.POST)
         else:
             raise Http404
+        rooms = Room.objects.all().filter(
+            roompermission__group__in=self.request.user.groups.all()
+        )
+        context["rooms_waiting"] = rooms.filter(roompermission__permission=10)
+        for f in events_form.forms:
+            f.fields["room"].queryset = rooms
         context["form"] = form
         context["eventForm"] = events_form
         return context

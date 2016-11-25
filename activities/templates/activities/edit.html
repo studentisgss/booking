@@ -6,11 +6,20 @@
 <script type="text/javascript" src="{% static 'js/jquery-ui.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/datepicker-it.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/forms.js' %}"></script>
+<script type="text/javascript" src="{% static 'activities/js/edit.js' %}"></script>
+
 
 <link href="{% static 'css/jquery-ui.css' %}" rel="stylesheet" />
 <link href="{% static 'css/jquery-ui.structure.css' %}" rel="stylesheet" />
 <link href="{% static 'css/jquery-ui.theme.css' %}" rel="stylesheet" />
 <link href="{% static 'activities/css/edit.css' %}" rel="stylesheet" />
+
+<script type="text/javascript">
+var waitingRooms = [] 
+{% for r in rooms_waiting %}
+waitingRooms.push("{{r.pk}}");
+{% endfor %}
+</script>
 {% endblock head-extra %}
 
 {% block main %}
@@ -79,6 +88,8 @@
         </div>
         <!-- EVENTS -->
         <h3>Appuntamenti dell'attivit&agrave;</h3>
+        <p>Per rendere effettive le modifiche, rimozioni incluse, si deve premere su 'Salva' in fondo alla pagina.<br>
+        Le prenotazioni per le aule dove non si ha il permesso di approvare la prenotazione verranno messe in attesa di approvazione (le righe saranno evidenziate in giallo).</p>
         {{ eventForm.management_form }}
         {% if eventForm.non_form_errors %}
             <div>
