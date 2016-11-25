@@ -21,7 +21,7 @@ class EventForm(BookingModelForm):
     start = SplitDateTimeField(
         input_date_formats=("%d/%m/%Y",),
         input_time_formats=("%H:%M:%S",),
-        )
+    )
 
 
 EventInlineFormSet = inlineformset_factory(Activity, Event, fields=(
