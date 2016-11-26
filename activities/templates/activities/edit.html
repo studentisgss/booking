@@ -109,46 +109,46 @@ waitingRooms.push("{{r.pk}}");
                 <th></th>
                 <th></th>
             </tr>
-            {% for form in eventForm %}
-                {% if form.non_field_errors %}
+            {% for f in eventForm.forms %}
+                {% if f.non_field_errors %}
                     <tr>
                         <td colspan="6">
-                            {% for error in form.non_field_errors %}
+                            {% for error in f.non_field_errors %}
                                 <p class="text-danger no-margin-bottom">{{ error|escape }}</p>
                             {% endfor %}
                         </td>
                     </tr>
                 {% endif %}
                 <tr>
-                    <td {% if form.non_field_errors %}class="no-border-top"{% endif %}>
-                        {% if form.room.errors %}
-                                {% for error in form.room.errors %}
+                    <td {% if f.non_field_errors %}class="no-border-top"{% endif %}>
+                        {% if f.room.errors %}
+                                {% for error in f.room.errors %}
                                     <p class="text-danger">{{ error|escape }}</p>
                                 {% endfor %}
                         {% endif %}
-                        {{ form.room }}
+                        {{ f.room }}
                     </td>
-                    <td {% if form.non_field_errors %}class="no-border-top"{% endif %}>
-                        {% if form.start.errors %}
-                                {% for error in form.start.errors %}
+                    <td {% if f.non_field_errors %}class="no-border-top"{% endif %}>
+                        {% if f.start.errors %}
+                                {% for error in f.start.errors %}
                                     <p class="text-danger">{{ error|escape }}</p>
                                 {% endfor %}
                         {% endif %}
-                        {{ form.start }}
+                        {{ f.start }}
                     </td>
-                    <td {% if form.non_field_errors %}class="no-border-top"{% endif %}>
-                        {% if form.end.errors %}
-                                {% for error in form.end.errors %}
+                    <td {% if f.non_field_errors %}class="no-border-top"{% endif %}>
+                        {% if f.end.errors %}
+                                {% for error in f.end.errors %}
                                     <p class="text-danger">{{ error|escape }}</p>
                                 {% endfor %}
                         {% endif %}
-                        {{ form.end }}
+                        {{ f.end }}
                     </td>
-                    <td {% if form.non_field_errors %}class="no-border-top"{% endif %}>
-                        {{ form.DELETE }}
+                    <td {% if f.non_field_errors %}class="no-border-top"{% endif %}>
+                        {{ f.DELETE }}
                     </td>
-                    <td {% if form.non_field_errors %}class="no-border-top"{% endif %}></td>
-                    <td class="hidden{% if form.non_field_errors %} no-border-top{% endif %}">{{ form.id }}{{ form.activity }}</td>
+                    <td {% if f.non_field_errors %}class="no-border-top"{% endif %}></td>
+                    <td class="hidden{% if f.non_field_errors %} no-border-top{% endif %}">{{ f.id }}{{ f.activity }}</td>
                 </tr>
             {% endfor %}
         </table>

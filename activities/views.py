@@ -101,8 +101,12 @@ class ActivityEditView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView
             else:
                 raise Http404
         elif self.request.method == "POST":
-            form = ActivityForm(self.request.POST)
-            events_form = EventInlineFormSet(self.request.POST)
+            try:
+                activity = Activity.objects.all().get(pk=kwargs["pk"])
+            except:
+                raise Http404
+            form = ActivityForm(self.request.POST, instance=activity)
+            events_form = EventInlineFormSet(self.request.POST, instance=activity)
         else:
             raise Http404
         rooms = Room.objects.all().filter(
