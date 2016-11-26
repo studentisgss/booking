@@ -146,6 +146,9 @@ waitingRooms.push("{{r.pk}}");
                     </td>
                     <td {% if f.non_field_errors %}class="no-border-top"{% endif %}>
                         {{ f.DELETE }}
+                        <a class="btn btn-danger btn-xs">
+                            <span class="glyphicon glyphicon-trash hidden" aria-hidden="true"></span>
+                        </a>
                     </td>
                     <td {% if f.non_field_errors %}class="no-border-top"{% endif %}></td>
                     <td class="hidden{% if f.non_field_errors %} no-border-top{% endif %}">{{ f.id }}{{ f.activity }}</td>
