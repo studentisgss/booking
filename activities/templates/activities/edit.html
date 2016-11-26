@@ -100,7 +100,7 @@ waitingRooms.push("{{r.pk}}");
                 </ol>
             </div>
         {% endif %}
-        <table class="table">
+        <table class="table" id="table-events">
             <tr>
                 <th>Aula</th>
                 <th>Inizio</th>
@@ -146,7 +146,7 @@ waitingRooms.push("{{r.pk}}");
                     </td>
                     <td {% if f.non_field_errors %}class="no-border-top"{% endif %}>
                         {{ f.DELETE }}
-                        <a class="btn btn-danger btn-xs">
+                        <a class="btn btn-danger btn-xs remover">
                             <span class="glyphicon glyphicon-trash hidden" aria-hidden="true"></span>
                         </a>
                     </td>
@@ -154,6 +154,35 @@ waitingRooms.push("{{r.pk}}");
                     <td class="hidden{% if f.non_field_errors %} no-border-top{% endif %}">{{ f.id }}{{ f.activity }}</td>
                 </tr>
             {% endfor %}
+            <tr id="tr-button">
+                <td>
+                    <input type="button" name="add-button" id="add-button" value="Aggiungi" class="form-control btn btn-success" />
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr class="hidden" id="tr-empty">
+                <td>
+                    {{ eventForm.empty_form.room }}
+                </td>
+                <td>
+                    {{ eventForm.empty_form.start }}
+                </td>
+                <td>
+                    {{ eventForm.empty_form.end }}
+                </td>
+                <td>
+                    {{ eventForm.empty_form.DELETE }}
+                    <a class="btn btn-danger btn-xs remover">
+                        <span class="glyphicon glyphicon-trash hidden" aria-hidden="true"></span>
+                    </a>
+                </td>
+                <td></td>
+                <td class="hidden">{{ eventForm.empty_form.id }}{{ eventForm.empty_form.activity }}</td>
+            </tr>
         </table>
 
 

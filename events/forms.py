@@ -47,4 +47,4 @@ EventInlineFormSet = inlineformset_factory(Activity, Event, fields=(
     "room",
     "start",
     "end",
-), form=EventForm, formset=BaseEventInlineFormset)
+), form=EventForm, formset=BaseEventInlineFormset, extra=0)
