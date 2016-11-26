@@ -38,7 +38,14 @@ class NewsEditView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
             else:
                 form = NewsForm()
         elif self.request.method == "POST":
-            form = NewsForm(self.request.POST)
+            if "pk" in kwargs and kwargs["pk"]:
+                try:
+                    news = News.objects.all().get(pk=kwargs["pk"])
+                except:
+                    raise Http404
+                form = NewsForm(self.request.POST, instance=news)
+            else:
+                form = NewsForm(self.request.POST)
             context["edit"] = kwargs["edit"]
         else:
             raise Http404
