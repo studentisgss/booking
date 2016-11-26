@@ -22,4 +22,10 @@ $(document).ready(function() {
 		$(this).siblings("input").prop("checked", true);
 		$(this).parent().parent().fadeOut();
 	});
+
+	// Set the dates of start and end automatically
+	$(".datetime:even").on("change", function(){
+		tr = $(this).parent().parent();
+		$(".datetime:even", tr).val($(this).val());
+	});
 });
