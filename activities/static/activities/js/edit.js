@@ -4,7 +4,7 @@ var repeatTarget = null;
 $(document).ready(function() {
 	// Highlight event which cannot be approved
 	$("select.form-control").on("change", function(){
-		var tr = $(this).parent().parent()
+		var tr = $(this).parent().parent();
 		if (waitingRooms.indexOf(this.value) > -1)
 		{
 			tr.addClass("warning");
@@ -19,9 +19,9 @@ $(document).ready(function() {
 
 	// Enhance delete
 	var span = $("span.glyphicon-trash");
-	span.removeClass("hidden");
+	span.parent().removeClass("hidden");
 	span.parent().siblings("input").addClass("hidden");
-	$(document).on("click", "a.remover", function(){
+	$(document).on("click", "button.remover", function(){
 		$(this).siblings("input").prop("checked", true);
 		$(this).parent().parent().fadeOut();
 	});
@@ -115,5 +115,27 @@ $(document).ready(function() {
 			date.setDate(date.getDate() + daysDiff);
 		}
 		$("#repeat-modal").modal("hide");
+	});
+
+
+	// Room without any permission
+	$("select.form-control").each(function(){
+		if (allRooms.indexOf(this.value) == -1)
+		{
+			var tr = $(this).parent().parent();
+			tr.addClass("danger");
+			tr.attr("title", "Non si possiede nessun permesso su quest'aula. Per poter modificare questa prenotazione si deve selezionare un'altra aula.");
+			$("input", tr).prop("disabled", true);
+			$("button > span.glyphicon-retweet", tr).parent().prop("disabled", true);
+			$(this).on("change", function(){
+				var tr = $(this).parent().parent();
+				tr.removeClass("danger");
+				$("input", tr).prop("disabled", false);
+				$("button > span.glyphicon-retweet", tr).parent().prop("disabled", false);
+				$("option", this).filter(function(i, el){
+					return (allRooms.indexOf(el.value) == -1) && (el.value != "");
+				}).remove();
+			});
+		}
 	});
 });

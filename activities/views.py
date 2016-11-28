@@ -112,12 +112,18 @@ class ActivityEditView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView
         rooms = Room.objects.all().filter(
             roompermission__group__in=self.request.user.groups.all()
         )
+        context["rooms_all"] = rooms
         context["rooms_waiting"] = Room.objects.filter(
             roompermission__group__in=self.request.user.groups.all(),
             roompermission__permission=10
         )
         for f in events_form.forms:
-            f.fields["room"].queryset = rooms
+            if f.instance.room in rooms:
+                f.fields["room"].queryset = rooms
+            else:
+                f.fields["room"].queryset = rooms | Room.objects.filter(
+                    pk=f.instance.room.pk
+                )
         empty_form = events_form.empty_form
         empty_form.fields["room"].queryset = rooms
         context["form"] = form

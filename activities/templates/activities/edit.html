@@ -16,8 +16,14 @@
 
 <script type="text/javascript">
 var waitingRooms = [] 
+var allRooms = []
+
 {% for r in rooms_waiting %}
 waitingRooms.push("{{r.pk}}");
+{% endfor %}
+
+{% for r in rooms_all %}
+allRooms.push("{{r.pk}}");
 {% endfor %}
 </script>
 {% endblock head-extra %}
@@ -146,9 +152,9 @@ waitingRooms.push("{{r.pk}}");
                     </td>
                     <td {% if f.non_field_errors %}class="no-border-top"{% endif %}>
                         {{ f.DELETE }}
-                        <a class="btn btn-danger btn-xs remover">
-                            <span class="glyphicon glyphicon-trash hidden" aria-hidden="true"></span>
-                        </a>
+                        <button type="button" class="btn btn-danger btn-xs remover hidden">
+                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                        </button>
                     </td>
                     <td {% if f.non_field_errors %}class="no-border-top"{% endif %}>
                         <button type="button" class="btn btn-warning btn-xs hidden" data-toggle="modal" data-target="#repeat-modal">
@@ -209,7 +215,7 @@ waitingRooms.push("{{r.pk}}");
             </div>
             <div class="modal-body">
                 <form class="form-inline">
-                    <p>Ripeti nei giorni</p>
+                    <p>Ripeti nei giorni:</p>
                     <div id="repeat-form">
                         <div class="form-group">
                             <input type="checkbox" name="day" value="1" id="day1" class="form-control"><label class="space-right" for="day1">Luned&igrave;</label>
@@ -220,9 +226,9 @@ waitingRooms.push("{{r.pk}}");
                             <input type="checkbox" name="day" value="6" id="day6" class="form-control"><label class="space-right" for="day6">Sabato</label>
                             <input type="checkbox" name="day" value="0" id="day0" class="form-control"><label class="space-right" for="day0">Domenica</label>
                         </div>
-                        <p>A partire dal (compreso)</p>
+                        <p><br>A partire dal (compreso):</p>
                         <input type="text" name="date-from" id="date-from" class="form-control date">
-                        <p>Per questo numero di volte</p>
+                        <p><br>Per questo numero di volte:</p>
                         <input type="number" name="repeat-times" id="repeat-times" class="form-control">
                     </div>
                 </form>
