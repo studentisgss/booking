@@ -97,7 +97,8 @@ class Monitor(TemplateView):
                         page = []
                         page.append((room, list_of_events))
                         events_in_current_page = len(list_of_events)
-            events_list.append(page)
+            if page:
+                events_list.append(page)
             return events_list
 
         context = super().get_context_data(**kwargs)
