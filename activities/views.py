@@ -118,7 +118,7 @@ class ActivityEditView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView
             roompermission__permission=10
         )
         for f in events_form.forms:
-            if f.instance.room in rooms:
+            if (not f.initial) or f.instance.room in rooms:
                 f.fields["room"].queryset = rooms
             else:
                 f.fields["room"].queryset = rooms | Room.objects.filter(

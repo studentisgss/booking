@@ -45,12 +45,14 @@ $(document).ready(function() {
 	}
 
 	// Add button
+	$("#tr-button").removeClass("hidden");
 	$("#add-button").on("click", function(){
 		AddForm($('#tr-empty'));
 	});
 
 	//REPEAT FUNCTION
 	$("button[data-target=\"#repeat-modal\"]").removeClass("hidden");
+	$("th").removeClass("hidden");
 
 	function clearModal(){
 		var modal = $("#repeat-modal");
@@ -120,7 +122,7 @@ $(document).ready(function() {
 
 	// Room without any permission
 	$("select.form-control").each(function(){
-		if (allRooms.indexOf(this.value) == -1)
+		if ((allRooms.indexOf(this.value) == -1) && (this.value != ""))
 		{
 			var tr = $(this).parent().parent();
 			tr.addClass("danger");

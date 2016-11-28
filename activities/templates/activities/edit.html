@@ -93,9 +93,9 @@ allRooms.push("{{r.pk}}");
             </div>
         </div>
         <!-- EVENTS -->
-        <h3>Appuntamenti dell'attivit&agrave;</h3>
+        <h3>Eventi dell'attivit&agrave;</h3>
         <p>Per rendere effettive le modifiche, rimozioni incluse, si deve premere su 'Salva' in fondo alla pagina.<br>
-        Le prenotazioni per le aule dove non si ha il permesso di approvare la prenotazione verranno messe in attesa di approvazione (le righe saranno evidenziate in giallo).</p>
+        Le prenotazioni per le aule dove non si ha il permesso di approvazione verranno messe in attesa di conferma (le righe corrispondenti saranno evidenziate in giallo).</p>
         {{ eventForm.management_form }}
         {% if eventForm.non_form_errors %}
             <div>
@@ -112,7 +112,7 @@ allRooms.push("{{r.pk}}");
                 <th>Inizio</th>
                 <th>Fine</th>
                 <th>Rimuovi</th>
-                <th>Ripeti</th>
+                <th class="hidden">Ripeti</th>
                 <th></th>
             </tr>
             {% for f in eventForm.forms %}
@@ -164,7 +164,7 @@ allRooms.push("{{r.pk}}");
                     <td class="hidden{% if f.non_field_errors %} no-border-top{% endif %}">{{ f.id }}{{ f.activity }}</td>
                 </tr>
             {% endfor %}
-            <tr id="tr-button">
+            <tr id="tr-button" class="hidden">
                 <td>
                     <input type="button" name="add-button" id="add-button" value="Aggiungi" class="form-control btn btn-success" />
                 </td>
@@ -186,9 +186,9 @@ allRooms.push("{{r.pk}}");
                 </td>
                 <td>
                     {{ emptyForm.DELETE }}
-                    <a class="btn btn-danger btn-xs remover">
-                        <span class="glyphicon glyphicon-trash hidden" aria-hidden="true"></span>
-                    </a>
+                    <button type="button" class="btn btn-danger btn-xs remover hidden">
+                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                    </button>
                 </td>
                 <td>
                     <button type="button" class="btn btn-warning btn-xs hidden" data-toggle="modal" data-target="#repeat-modal">
