@@ -43,6 +43,10 @@ class BaseEventInlineFormset(BaseInlineFormSet):
                         form.add_error(None, e)
                 instances.append(form.instance)
 
+    def get_queryset(self):
+        return super().get_queryset().order_by("start")
+
+
 EventInlineFormSet = inlineformset_factory(Activity, Event, fields=(
     "room",
     "start",
