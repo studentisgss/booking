@@ -118,8 +118,11 @@ class ActivityEditView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView
         )
         for f in events_form.forms:
             f.fields["room"].queryset = rooms
+        empty_form = events_form.empty_form
+        empty_form.fields["room"].queryset = rooms
         context["form"] = form
         context["eventForm"] = events_form
+        context["emptyForm"] = empty_form
         return context
 
     def post(self, request, *args, **kwargs):

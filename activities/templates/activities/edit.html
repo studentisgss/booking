@@ -170,16 +170,16 @@ waitingRooms.push("{{r.pk}}");
             </tr>
             <tr class="hidden" id="tr-empty">
                 <td>
-                    {{ eventForm.empty_form.room }}
+                    {{ emptyForm.room }}
                 </td>
                 <td>
-                    {{ eventForm.empty_form.start }}
+                    {{ emptyForm.start }}
                 </td>
                 <td>
-                    {{ eventForm.empty_form.end }}
+                    {{ emptyForm.end }}
                 </td>
                 <td>
-                    {{ eventForm.empty_form.DELETE }}
+                    {{ emptyForm.DELETE }}
                     <a class="btn btn-danger btn-xs remover">
                         <span class="glyphicon glyphicon-trash hidden" aria-hidden="true"></span>
                     </a>
@@ -189,7 +189,7 @@ waitingRooms.push("{{r.pk}}");
                         <span class="glyphicon glyphicon-retweet" aria-hidden="true"></span>
                     </button>
                 </td>
-                <td class="hidden">{{ eventForm.empty_form.id }}{{ eventForm.empty_form.activity }}</td>
+                <td class="hidden">{{ emptyForm.id }}{{ emptyForm.activity }}</td>
             </tr>
         </table>
 

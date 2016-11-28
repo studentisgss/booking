@@ -110,7 +110,7 @@ $(document).ready(function() {
 			var oldDay = date.getDay();
 			var index = (days.indexOf(oldDay) + 1) % days.length;
 			var daysDiff = days[index] - oldDay;
-			if (daysDiff < 0)
+			if (daysDiff <= 0)
 				daysDiff += 7;
 			date.setDate(date.getDate() + daysDiff);
 		}
