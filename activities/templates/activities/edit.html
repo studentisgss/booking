@@ -210,23 +210,22 @@ waitingRooms.push("{{r.pk}}");
             <div class="modal-body">
                 <form class="form-inline">
                     <p>Ripeti nei giorni</p>
-                    <div class="form-group">
-                        <input type="checkbox" name="day" value="1" id="day1" class="form-control"><label class="space-right" for="day1">Luned&igrave;</label>
-                        <input type="checkbox" name="day" value="2" id="day2" class="form-control"><label class="space-right" for="day2">Marted&igrave;</label>
-                        <input type="checkbox" name="day" value="3" id="day3" class="form-control"><label class="space-right" for="day3">Mercoled&igrave;</label>
-                        <input type="checkbox" name="day" value="4" id="day4" class="form-control"><label class="space-right" for="day4">Gioved&igrave;</label>
-                        <input type="checkbox" name="day" value="5" id="day5" class="form-control"><label class="space-right" for="day5">Venerd&igrave;</label>
-                        <input type="checkbox" name="day" value="6" id="day6" class="form-control"><label class="space-right" for="day6">Sabato</label>
-                        <input type="checkbox" name="day" value="0" id="day0" class="form-control"><label class="space-right" for="day0">Domenica</label>
+                    <div id="repeat-form">
+                        <div class="form-group">
+                            <input type="checkbox" name="day" value="1" id="day1" class="form-control"><label class="space-right" for="day1">Luned&igrave;</label>
+                            <input type="checkbox" name="day" value="2" id="day2" class="form-control"><label class="space-right" for="day2">Marted&igrave;</label>
+                            <input type="checkbox" name="day" value="3" id="day3" class="form-control"><label class="space-right" for="day3">Mercoled&igrave;</label>
+                            <input type="checkbox" name="day" value="4" id="day4" class="form-control"><label class="space-right" for="day4">Gioved&igrave;</label>
+                            <input type="checkbox" name="day" value="5" id="day5" class="form-control"><label class="space-right" for="day5">Venerd&igrave;</label>
+                            <input type="checkbox" name="day" value="6" id="day6" class="form-control"><label class="space-right" for="day6">Sabato</label>
+                            <input type="checkbox" name="day" value="0" id="day0" class="form-control"><label class="space-right" for="day0">Domenica</label>
+                        </div>
+                        <p>A partire dal (compreso)</p>
+                        <input type="text" name="date-from" id="date-from" class="form-control date">
+                        <p>Per questo numero di volte</p>
+                        <input type="number" name="repeat-times" id="repeat-times" class="form-control">
                     </div>
-                    <p>A partire dal (compreso)</p>
-                    <input type="text" name="date-from" id="date-from" class="form-control date">
-                    <p>Per questo numero di volte</p>
-                    <input type="number" name="repeat-times" id="repeat-times" class="form-control">
                 </form>
-
-
-
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Annulla</button>

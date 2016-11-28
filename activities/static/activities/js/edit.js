@@ -81,8 +81,7 @@ $(document).ready(function() {
 		var startDate = $("#date-from", modal).val();
 		var times = $("#repeat-times", modal).val();
 		if (!(days.length > 0 && startDate && times)){
-			// FEEDBACK
-			alert("ERROR");
+			$("#repeat-form", modal).addClass("has-error");
 			return;
 		}
 
