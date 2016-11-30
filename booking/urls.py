@@ -17,6 +17,7 @@ from django.conf.urls import include, url, handler404, handler500
 from django.contrib import admin
 
 from activities import urls as activities_urls
+from authentication import urls as auth_urls
 from base import urls as base_urls
 from events import urls as events_urls
 from news import urls as news_urls
@@ -30,6 +31,7 @@ urlpatterns = [
     url(r'^events/', include(events_urls, namespace="events")),
     url(r'^news/', include(news_urls, namespace="news")),
     url(r'^rooms/', include(rooms_urls, namespace="rooms")),
+    url(r'^auth/', include(auth_urls, namespace="auth")),
     # If none of the above urls matches, then
     url(r'', include(base_urls)),
 ]
