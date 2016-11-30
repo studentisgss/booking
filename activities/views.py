@@ -193,7 +193,7 @@ class ActivityEditView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView
 
 
 class ActivityAddView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
-    permission_required = ("activities.add_activities", "rooms.can_book_room")
+    permission_required = "activities.add_activities"
 
     template_name = "activities/add.html"
 
