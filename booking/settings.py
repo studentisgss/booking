@@ -30,11 +30,13 @@ DEMO = True
 
 ALLOWED_HOSTS = []
 
-LOGIN_URL = reverse_lazy("admin:login")
+LOGIN_URL = reverse_lazy("authentication:login")
+LOGIN_REDIRECT_URL = reverse_lazy("events:calendar")
 
 # Application definition
 
 INSTALLED_APPS = (
+    'authentication',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -47,7 +49,6 @@ INSTALLED_APPS = (
     'news',
     'rooms',
     'base',
-    'authentication',
 )
 
 MIDDLEWARE_CLASSES = (

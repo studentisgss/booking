@@ -1,0 +1,15 @@
+{% extends "base/layout.html" %}
+
+{% block head-extra %}
+{% endblock head-extra %}
+
+{% block main %}
+<h1>{{ title }}</h1>
+
+<div class="alert alert-info">
+    <p>Accesso annullato correttamente.</p>
+</div>
+
+<p><br><a href="{% url 'authentication:login' %}">Accedi di nuovo</a><br>
+<a href="{% url 'events:calendar' %}">Vai alla pagina principale</a></p>
+{% endblock main %}
