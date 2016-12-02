@@ -33,6 +33,8 @@ ALLOWED_HOSTS = []
 LOGIN_URL = reverse_lazy("authentication:login")
 LOGIN_REDIRECT_URL = reverse_lazy("events:calendar")
 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
 # Application definition
 
 INSTALLED_APPS = (
