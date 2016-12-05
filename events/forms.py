@@ -14,6 +14,7 @@ class EventForm(BookingModelForm):
             "room",
             "start",
             "end",
+            "status",
         ]
         field_classes = {
             "start": SplitDateTimeField,
@@ -32,16 +33,20 @@ class BaseEventInlineFormset(BaseInlineFormSet):
         instances = []
         for form in self.forms:
             if (form.instance.end and
-                form.instance.start and
-                    form.instance.room):
+                    form.instance.start and
+                    form.instance.room and
+                    form.instance.status is not None):
                 for i in instances:
-                    if (i.start < form.instance.end and
-                        i.end > form.instance.start and
+                    if (form.instance.status != Event.REJECTED and
+                            i.start < form.instance.end and
+                            i.end > form.instance.start and
                             i.room == form.instance.room):
-                        e = ValidationError("Non si possono inserire due eventi"
+                        e = ValidationError("Non si possono inserire due eventi non rifiutati"
                                             " sovrapposti per la stessa aula.")
                         form.add_error(None, e)
-                instances.append(form.instance)
+
+                if form.instance.status != Event.REJECTED:
+                    instances.append(form.instance)
 
     def get_queryset(self):
         return super().get_queryset().order_by("start")
@@ -51,4 +56,5 @@ EventInlineFormSet = inlineformset_factory(Activity, Event, fields=(
     "room",
     "start",
     "end",
+    "status",
 ), form=EventForm, formset=BaseEventInlineFormset, extra=2)

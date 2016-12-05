@@ -3,17 +3,28 @@ var repeatTarget = null;
 
 $(document).ready(function() {
 	// Highlight event which cannot be approved
-	$("select.form-control").on("change", function(){
+	$("select[name*='room'].form-control").on("change", function(){
 		var tr = $(this).parent().parent();
 		if (waitingRooms.indexOf(this.value) > -1)
 		{
 			tr.addClass("warning");
 			tr.attr("title", "Questa prenotazione verrà messa in attesa di approvazione.");
+			var select = $("select[name*='status']", tr);
+			if (select.val() == 0)
+			{
+				select.val(1);
+			}
+			$("option[value=0]", select).remove();
 		}
 		else
 		{
 			tr.removeClass("warning");
 			tr.attr("title", "");
+			var valOriginal = $("select[name*='status']", tr).val();
+			$("select[name*='status']", tr).html(
+				$("select[name*='status']", $("#tr-empty")).html()
+			);
+			$("select[name*='status']", tr).val(valOriginal);
 		}
 	});
 
@@ -99,7 +110,18 @@ $(document).ready(function() {
 			// Add the new event
 			var event = AddForm($('#tr-empty'))
 			event.removeAttr("id");
-			$("select", event).val($("select", repeatTarget).val());
+			var room = $("select", repeatTarget).val();
+			$("select[name*='room']", event).val(room);
+			var status = $("select[name*='status']", repeatTarget).val();
+			if (status == 0 && waitingRooms.indexOf(room) > -1)
+			{
+				$("select[name*='status']", event).val(1);
+			}
+			else
+			{
+				$("select[name*='status']", event).val(status);
+			}
+
 			$.each($(".datetime:odd", event), function(i, value){
 				$(value).val($(".datetime:odd", repeatTarget)[i].value);
 			});
@@ -121,7 +143,7 @@ $(document).ready(function() {
 
 
 	// Room without any permission
-	$("select.form-control").each(function(){
+	$("select[name*='room'].form-control").each(function(){
 		if ((allRooms.indexOf(this.value) == -1) && (this.value != ""))
 		{
 			var tr = $(this).parent().parent();
@@ -137,6 +159,11 @@ $(document).ready(function() {
 				$("option", this).filter(function(i, el){
 					return (allRooms.indexOf(el.value) == -1) && (el.value != "");
 				}).remove();
+				var valOriginal = $("select[name*='status']", tr).val();
+				$("select[name*='status']", tr).html(
+					$("select[name*='status']", $("#tr-empty")).html()
+				);
+				$("select[name*='status']", tr).val(valOriginal);
 			});
 		}
 	});

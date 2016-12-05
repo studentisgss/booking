@@ -111,6 +111,7 @@ allRooms.push("{{r.pk}}");
                 <th>Aula</th>
                 <th>Inizio</th>
                 <th>Fine</th>
+                <th>Stato</th>
                 <th>Rimuovi</th>
                 <th class="hidden">Ripeti</th>
                 <th></th>
@@ -151,6 +152,14 @@ allRooms.push("{{r.pk}}");
                         {{ f.end }}
                     </td>
                     <td {% if f.non_field_errors %}class="no-border-top"{% endif %}>
+                        {% if f.status.errors %}
+                                {% for error in f.status.errors %}
+                                    <p class="text-danger">{{ error|escape }}</p>
+                                {% endfor %}
+                        {% endif %}
+                        {{ f.status }}
+                    </td>
+                    <td {% if f.non_field_errors %}class="no-border-top"{% endif %}>
                         {{ f.DELETE }}
                         <button type="button" class="btn btn-danger btn-xs remover hidden">
                             <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
@@ -173,6 +182,7 @@ allRooms.push("{{r.pk}}");
                 <td></td>
                 <td></td>
                 <td></td>
+                <td></td>
             </tr>
             <tr class="hidden" id="tr-empty">
                 <td>
@@ -183,6 +193,9 @@ allRooms.push("{{r.pk}}");
                 </td>
                 <td>
                     {{ emptyForm.end }}
+                </td>
+                <td>
+                    {{ emptyForm.status }}
                 </td>
                 <td>
                     {{ emptyForm.DELETE }}

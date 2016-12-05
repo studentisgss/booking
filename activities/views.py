@@ -113,17 +113,37 @@ class ActivityEditView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView
             roompermission__group__in=self.request.user.groups.all()
         )
         context["rooms_all"] = rooms
-        context["rooms_waiting"] = Room.objects.filter(
+        rooms_waiting = Room.objects.filter(
             roompermission__group__in=self.request.user.groups.all(),
             roompermission__permission=10
         )
+        context["rooms_waiting"] = rooms_waiting
+
+        status_choices = {e[0]: e for e in Event.STATUS_CHOICES}
         for f in events_form.forms:
-            if (not f.initial) or f.instance.room in rooms:
+            # If empty form
+            if not f.initial:
                 f.fields["room"].queryset = rooms
+            # If room without approval permission and is not approved do not show status APPROVED
+            elif f.instance.room in rooms_waiting and f.instance.status != Event.APPROVED:
+                f.fields["room"].queryset = rooms
+                f.fields["status"].choices.remove(status_choices[Event.APPROVED])
+                # Needed to force the widget update
+                f.fields["status"].choices = f.fields["status"].choices
+            # If you con approve or is alreay approved
+            elif f.instance.room in rooms:
+                f.fields["room"].queryset = rooms
+            # If you have no permission
             else:
                 f.fields["room"].queryset = rooms | Room.objects.filter(
                     pk=f.instance.room.pk
                 )
+                if f.instance.status != Event.APPROVED:
+                    f.fields["status"].choices.remove(status_choices[Event.APPROVED])
+                if f.instance.status != Event.WAITING:
+                    f.fields["status"].choices.remove(status_choices[Event.WAITING])
+                # Needed to force the widget update
+                f.fields["status"].choices = f.fields["status"].choices
         empty_form = events_form.empty_form
         empty_form.fields["room"].queryset = rooms
         context["form"] = form
@@ -160,19 +180,15 @@ class ActivityEditView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView
                     perm = max(perms + [0])
                     # Set sttus according to permission
                     if perm == 10:
-                        i.status = Event.WAITING
-                    elif perm == 30:
-                        i.status = Event.APPROVED
-                    else:  # No permission
-                        try:
-                            i.delete()
-                        except:
-                            pass
-                        continue
+                        if i.status == Event.APPROVED:
+                            i.status = Event.WAITING
+                    # No permission
+                    elif perm == 0:
+                        i.status = Event.REJECTED
                     # Set creator and log action
                     try:
                         new = i.creator is not None
-                    except:
+                    except Event.creator.RelatedObjectDoesNotExist:
                         i.creator = request.user
                         new = False
                     i.save()
