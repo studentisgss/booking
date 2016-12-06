@@ -15,6 +15,11 @@ $(document).ready(function() {
 				select.val(1);
 			}
 			$("option[value=0]", select).remove();
+			if ($(this).data("original-value"))
+			{
+				checkInput(this);
+			}
+
 		}
 		else
 		{
@@ -141,8 +146,43 @@ $(document).ready(function() {
 		$("#repeat-modal").modal("hide");
 	});
 
+	function checkInput(obj){
+		var tr = $(obj).parent().parent();
+		if ($(obj).hasClass("hasDatepicker"))
+		{
+			$(obj).trigger("change");
+		}
+		var select = $("select[name*='status']", tr);
+		var roomVal = $("select[name*='room']", tr).val();
+		if ($("select[name*='room']", tr).data("original-value") != roomVal)
+		{
+			return;
+		}
+		var inputs = $("input", tr);
+		var originalValue = true;
+		inputs.each(function(){
+			originalValue = originalValue && ($(this).data("original-value") == this.value)
+		})
+		if (originalValue)
+		{
+			$("select[name*='status']", tr).html(
+				$("select[name*='status']", $("#tr-empty")).html()
+			);
+			$("select[name*='status']", tr).val(0);
+			tr.removeClass("warning");
+			tr.attr("title", "");
+		}
+		else
+		{
+			select.val(1);
+			$("option[value=0]", select).remove();
+			tr.addClass("warning");
+			tr.attr("title", "Questa prenotazione verrà messa in attesa di approvazione.");
+		}
+	}
 
-	// Room without any permission
+
+	// Room without any permission and set initial status
 	$("select[name*='room'].form-control").each(function(){
 		if ((allRooms.indexOf(this.value) == -1) && (this.value != ""))
 		{
@@ -151,6 +191,10 @@ $(document).ready(function() {
 			tr.attr("title", "Non si possiede nessun permesso su quest'aula. Per poter modificare questa prenotazione si deve selezionare un'altra aula.");
 			$("input", tr).prop("readonly", true);
 			$("button > span.glyphicon-retweet", tr).parent().prop("disabled", true);
+			var status = $("select[name*='status']", tr);
+			$("option:not(:selected)", status).each(function(){
+				$(this).remove();
+			});
 			$(this).on("change", function(){
 				var tr = $(this).parent().parent();
 				tr.removeClass("danger");
@@ -165,6 +209,26 @@ $(document).ready(function() {
 				);
 				$("select[name*='status']", tr).val(valOriginal);
 			});
+		}
+		if ((this.value != "") && (waitingRooms.indexOf(this.value) > -1))
+		{
+			var tr = $(this).parent().parent();
+			var select = $("select[name*='status']", tr);
+			if (select.val() != 0)
+			{
+				$("option[value=0]", select).remove();
+			}
+			if (select.val() == 1)
+			{
+				tr.addClass("warning");
+				tr.attr("title", "Questa prenotazione è in attesa di approvazione.");
+			}
+			$("input", tr).each(function(){
+				$(this).data("original-value", this.value);
+			});
+			$("select[name*='room']", tr).data("original-value", $("select[name*='room']", tr).val());
+			$("input:not(.hasDatepicker)", tr).on("change", function(){ checkInput(this); });
+			$("input.hasDatepicker", tr).datepicker("option", "onSelect", function(){ checkInput(this); });
 		}
 	});
 });

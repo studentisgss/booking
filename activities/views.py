@@ -121,29 +121,12 @@ class ActivityEditView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView
 
         status_choices = {e[0]: e for e in Event.STATUS_CHOICES}
         for f in events_form.forms:
-            # If empty form
-            if not f.initial:
+            if (not f.initial) or f.instance.room in rooms:
                 f.fields["room"].queryset = rooms
-            # If room without approval permission and is not approved do not show status APPROVED
-            elif f.instance.room in rooms_waiting and f.instance.status != Event.APPROVED:
-                f.fields["room"].queryset = rooms
-                f.fields["status"].choices.remove(status_choices[Event.APPROVED])
-                # Needed to force the widget update
-                f.fields["status"].choices = f.fields["status"].choices
-            # If you con approve or is alreay approved
-            elif f.instance.room in rooms:
-                f.fields["room"].queryset = rooms
-            # If you have no permission
             else:
                 f.fields["room"].queryset = rooms | Room.objects.filter(
                     pk=f.instance.room.pk
                 )
-                if f.instance.status != Event.APPROVED:
-                    f.fields["status"].choices.remove(status_choices[Event.APPROVED])
-                if f.instance.status != Event.WAITING:
-                    f.fields["status"].choices.remove(status_choices[Event.WAITING])
-                # Needed to force the widget update
-                f.fields["status"].choices = f.fields["status"].choices
         empty_form = events_form.empty_form
         empty_form.fields["room"].queryset = rooms
         context["form"] = form
