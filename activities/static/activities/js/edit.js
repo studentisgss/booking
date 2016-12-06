@@ -149,12 +149,12 @@ $(document).ready(function() {
 			var tr = $(this).parent().parent();
 			tr.addClass("danger");
 			tr.attr("title", "Non si possiede nessun permesso su quest'aula. Per poter modificare questa prenotazione si deve selezionare un'altra aula.");
-			$("input", tr).prop("disabled", true);
+			$("input", tr).prop("readonly", true);
 			$("button > span.glyphicon-retweet", tr).parent().prop("disabled", true);
 			$(this).on("change", function(){
 				var tr = $(this).parent().parent();
 				tr.removeClass("danger");
-				$("input", tr).prop("disabled", false);
+				$("input", tr).prop("readonly", false);
 				$("button > span.glyphicon-retweet", tr).parent().prop("disabled", false);
 				$("option", this).filter(function(i, el){
 					return (allRooms.indexOf(el.value) == -1) && (el.value != "");
