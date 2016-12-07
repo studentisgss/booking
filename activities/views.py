@@ -119,7 +119,6 @@ class ActivityEditView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView
         )
         context["rooms_waiting"] = rooms_waiting
 
-        status_choices = {e[0]: e for e in Event.STATUS_CHOICES}
         for f in events_form.forms:
             if (not f.initial) or f.instance.room in rooms:
                 f.fields["room"].queryset = rooms
