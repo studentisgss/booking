@@ -3,7 +3,7 @@ var repeatTarget = null;
 
 $(document).ready(function() {
 	// Highlight event which cannot be approved
-	$("select[name*='room'].form-control").on("change", function(){
+	$(document).on("change", "select[name*='room'].form-control", function(){
 		var tr = $(this).parent().parent();
 		if (waitingRooms.indexOf(this.value) > -1)
 		{
@@ -48,12 +48,35 @@ $(document).ready(function() {
 		$(".datetime:even", tr).val($(this).val());
 	});
 
-	function AddForm(element) {
+	function AddForm(element, before = false) {
 		var id = $("#id_event_set-TOTAL_FORMS").val();
 		$("#id_event_set-TOTAL_FORMS").val(parseInt(id) + 1);
 		var el = $($(element)[0].outerHTML.replace(/__prefix__/g, id));
 		el.removeAttr("id");
-		el.insertBefore($('#tr-button'));
+		if (before)
+		{
+			// Find the last filled form
+			var elementAfter = $("tr").filter(function()
+			{
+				var tr = $(this);
+				var filled = false;
+				$("select", tr).each(function(){
+					filled |= $(this).val() != "";
+				});
+				if (filled){ // If the form is already filled do not go further
+					return filled;
+				}
+				$("input[type='text']", tr).each(function(){
+					filled |= $(this).val() != "";
+				});
+				return filled;
+			}).last();
+			el.insertAfter(elementAfter);
+		}
+		else
+		{
+			el.insertBefore($('#tr-button'));
+		}
 		el.removeClass("hidden");
 		$(".datetime:even", el).removeClass("hasDatepicker")
 		$(".datetime:even", el).datepicker();
@@ -113,14 +136,19 @@ $(document).ready(function() {
 
 		while (times > 0) {
 			// Add the new event
-			var event = AddForm($('#tr-empty'))
+			var event = AddForm($('#tr-empty'), true);
 			event.removeAttr("id");
 			var room = $("select", repeatTarget).val();
 			$("select[name*='room']", event).val(room);
 			var status = $("select[name*='status']", repeatTarget).val();
 			if (status == 0 && waitingRooms.indexOf(room) > -1)
 			{
-				$("select[name*='status']", event).val(1);
+				var select =  $("select[name*='status']", event);
+				select.val(1);
+				$("option[value=0]", select).remove();
+				tr = select.parent().parent();
+				tr.addClass("warning");
+				tr.attr("title", "Questa prenotazione verrà messa in attesa di approvazione.");
 			}
 			else
 			{
