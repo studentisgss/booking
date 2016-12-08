@@ -185,6 +185,13 @@ class ActivityEditView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView
             with transaction.atomic():
                 for o in events_form.deleted_objects:
                     o.delete()
+                    LogEntry.objects.log_action(
+                        user_id=self.request.user.id,
+                        content_type_id=ContentType.objects.get_for_model(o).pk,
+                        object_id=o.id,
+                        object_repr=str(o),
+                        action_flag=DELETION
+                    )
             return HttpResponseRedirect(reverse("activities:list"))
         else:
             return self.get(request, *args, **kwargs)
