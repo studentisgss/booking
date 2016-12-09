@@ -109,6 +109,8 @@ class ActivityEditView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView
             events_form = EventInlineFormSet(self.request.POST, instance=activity)
         else:
             raise Http404
+
+        # Get rooms where the user has some permission
         rooms = Room.objects.all().filter(
             roompermission__group__in=self.request.user.groups.all()
         )
@@ -119,6 +121,9 @@ class ActivityEditView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView
         )
         context["rooms_waiting"] = rooms_waiting
 
+        # For each event form set the rooms to those where the user
+        # has some permission. If the user has no permission
+        # in the room of the event, add that room.
         for f in events_form.forms:
             if (not f.initial) or f.instance.room in rooms:
                 f.fields["room"].queryset = rooms
@@ -144,6 +149,7 @@ class ActivityEditView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView
         else:
             raise Http404
         if form.is_valid() and events_form.is_valid():
+            # Save the activity and log the change.
             activity = form.save()
             LogEntry.objects.log_action(
                 user_id=self.request.user.id,
@@ -152,22 +158,26 @@ class ActivityEditView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView
                 object_repr=str(activity),
                 action_flag=CHANGE
             )
-            # Save events
+            # Save the events
             instances = events_form.save(commit=False)
             with transaction.atomic():
                 for i in instances:
+                    # get the maximum permission for the room of the user
                     perms = []
                     for g in request.user.groups.all():
                         perms.append(i.room.get_group_perm(g))
                     perm = max(perms + [0])
-                    # Set sttus according to permission
+                    # Set status according to permission
+                    # If the permission is to require only
+                    # and the user set approved the change it to waiting
                     if perm == 10:
                         if i.status == Event.APPROVED:
                             i.status = Event.WAITING
-                    # No permission
+                    # If the user has no permission and modify an event
+                    # set it to rejected
                     elif perm == 0:
                         i.status = Event.REJECTED
-                    # Set creator and log action
+                    # Set creator and log the action
                     try:
                         new = i.creator is not None
                     except Event.creator.RelatedObjectDoesNotExist:
@@ -183,6 +193,7 @@ class ActivityEditView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView
                         action_flag=ADDITION if new else CHANGE
                     )
             with transaction.atomic():
+                # Delete the events marked for deletion and log the actions
                 for o in events_form.deleted_objects:
                     o.delete()
                     LogEntry.objects.log_action(
@@ -210,7 +221,6 @@ class ActivityAddView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView)
         elif self.request.method == "POST":
             form = ActivityForm(self.request.POST)
         else:
-            print("NO")
             raise Http404
         context["form"] = form
         return context
@@ -219,9 +229,11 @@ class ActivityAddView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView)
         form = ActivityForm(request.POST)
 
         if form.is_valid():
+            # Create the new activity and set the creator
             activity = form.save(commit=False)
             activity.creator = request.user
             activity.save()
+            # Log the action
             LogEntry.objects.log_action(
                 user_id=self.request.user.id,
                 content_type_id=ContentType.objects.get_for_model(activity).pk,
@@ -229,6 +241,7 @@ class ActivityAddView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView)
                 object_repr=str(activity),
                 action_flag=ADDITION
             )
+            # Redirect to the edit page
             return HttpResponseRedirect(reverse("activities:edit", kwargs={"pk": activity.pk}))
         else:
             return self.get(request, *args, **kwargs)
