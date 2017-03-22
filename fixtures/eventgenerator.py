@@ -154,7 +154,7 @@ def get_activities_ids():
         activities = json.load(source)
         activity_ids = []
         for activity in activities:
-            if activity["fields"]["important"]:
+            if not activity["fields"]["archived"]:
                 activity_ids.append(activity["pk"])
         return activity_ids
 
