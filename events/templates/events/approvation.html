@@ -1,0 +1,45 @@
+{% extends "base/layout.html" %}
+{% load staticfiles %}
+
+{% block head-extra %}
+<link href="{% static 'activities/css/list.css' %}" rel="stylesheet" />
+{% endblock head-extra %}
+
+{% block main %}
+<table class="table table-striped table-hover">
+	<thead>
+    <tr>
+		<th>Titolo</th>
+		<th>Aula</th>
+		<th>Giorno</th>
+		<th>Ora</th>
+        <th></th>
+        <th></th>
+    </tr>
+	</thead>
+	<tbody>
+		{% for e in events_list %}
+	    <tr>
+            <td>
+                <a href="{% url "activities:details" e.activity.pk %}">{{ e.activity }}</a>
+            </td>
+            <td>
+                {{ e.room }}
+            </td>
+            <td>
+                {{ e.start|date:"l j F" }} 
+            </td>
+            <td>
+		        {{ e.start|date:"P" }}-{{ e.end|date:"P" }}
+            </td>
+            <td>
+		        <a href="{% url 'events:approvationConfirm' e.pk 0 %}" class="btn btn-success"> Accetta </a>
+            </td>
+            <td>
+		        <a href="{% url 'events:approvationConfirm' e.pk 2 %}" class="btn btn-danger"> Rifiuta </a>
+            </td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+{% endblock main %}
