@@ -1,7 +1,9 @@
-from django.views.generic import TemplateView
-from django.http import Http404
+from django.views.generic import TemplateView, View
+from django.http import Http404, HttpResponseRedirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.core.urlresolvers import reverse
 from django.views.decorators.clickjacking import xframe_options_exempt
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from datetime import timedelta
 from calendar import monthrange
 from random import shuffle
@@ -9,7 +11,9 @@ from random import shuffle
 from events.models import Event
 from base.utils import localnow, default_datetime
 from news.models import News
+from rooms.models import Room
 
+from django.contrib.auth.models import User
 
 class Agenda(TemplateView):
     template_name = "events/agenda.html"
@@ -89,3 +93,44 @@ class Monitor(TemplateView):
     @xframe_options_exempt
     def dispatch(self, *args, **kwargs):
         return super().dispatch(*args, **kwargs)
+
+class EventsApprovationView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
+    template_name = "events/approvation.html"
+
+    permission_required = "events.change_events"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["events_list"] = Event.objects.filter(
+            status=Event.WAITING).filter(
+            room__with_perm__group__in=self.request.user.groups.all(),
+            room__with_perm__permission=30)
+            #show only waitings events that can be approved
+        return context
+
+class EventsApprovationConfirmView(LoginRequiredMixin, PermissionRequiredMixin, View):
+
+    permission_required = "events.change_events"
+
+    def get(self, request, **kwargs):
+        print(0)
+        try:
+            ev=Event.objects.get(pk=kwargs['id'])
+        except:
+            raise Http404
+        print(1)
+        if not int(kwargs["action"]) in [x[0] for x in Event.STATUS_CHOICES]:
+            raise Http404
+        print(2)
+        if ev.room.with_perm.filter(group__in=request.user.groups.all(),
+                permission=30).exists() :
+            ev.status=kwargs["action"]
+            ev.save()
+            print("OK")
+        else:
+            print("NO")
+            raise Http404
+        return HttpResponseRedirect(reverse('events:approvation'))
+            
+        
+
