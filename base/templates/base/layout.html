@@ -50,9 +50,9 @@
 				<li><a href="{% url "activities:list" %}">Attività</a></li>
 				<li><a href="{% url "rooms:list" %}">Aule</a></li>
 				<li><a href="{% url "news:news" %}">Avvisi</a></li>
-                                {% if self.request.user.is_autenticated %}{% else %} -->
-				<li><a href="{% url "events:approvation" %}">Conferma</a></li>
-                                {% endif %} -->
+                                {% if AU %}
+				<li><a href="{% url "events:approvation" %}">Prenotazioni</a></li>
+                                {% endif %}
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
 				{% if DEMO %}<li><p class="navbar-text" id="demo-message">Questo sito è una DEMO in continuo sviluppo.</p></li>{% endif %}
