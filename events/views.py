@@ -103,8 +103,8 @@ class EventsApprovationView(LoginRequiredMixin, PermissionRequiredMixin, Templat
         context = super().get_context_data(**kwargs)
         context["events_list"] = Event.objects.filter(
             status=Event.WAITING).filter(
-            room__with_perm__group__in=self.request.user.groups.all(),
-            room__with_perm__permission=30)
+            room__roompermission__group__in=self.request.user.groups.all(),
+            room__roompermission__permission=30).order_by('start')
             #show only waitings events that can be approved
         return context
 
@@ -118,17 +118,13 @@ class EventsApprovationConfirmView(LoginRequiredMixin, PermissionRequiredMixin, 
             ev=Event.objects.get(pk=kwargs['id'])
         except:
             raise Http404
-        print(1)
         if not int(kwargs["action"]) in [x[0] for x in Event.STATUS_CHOICES]:
             raise Http404
-        print(2)
-        if ev.room.with_perm.filter(group__in=request.user.groups.all(),
-                permission=30).exists() :
+        if ev.room.roompermission_set.filter(group__in=request.user.groups.all(),
+                permission=30).exists():
             ev.status=kwargs["action"]
             ev.save()
-            print("OK")
         else:
-            print("NO")
             raise Http404
         return HttpResponseRedirect(reverse('events:approvation'))
             
