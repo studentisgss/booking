@@ -15,6 +15,7 @@ from rooms.models import Room
 
 from django.contrib.auth.models import User
 
+
 class Agenda(TemplateView):
     template_name = "events/agenda.html"
 
@@ -94,6 +95,7 @@ class Monitor(TemplateView):
     def dispatch(self, *args, **kwargs):
         return super().dispatch(*args, **kwargs)
 
+
 class EventsApprovationView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
     template_name = "events/approvation.html"
 
@@ -108,6 +110,7 @@ class EventsApprovationView(LoginRequiredMixin, PermissionRequiredMixin, Templat
             #show only waitings events that can be approved
         return context
 
+
 class EventsApprovationConfirmView(LoginRequiredMixin, PermissionRequiredMixin, View):
 
     permission_required = "events.change_events"
@@ -115,18 +118,15 @@ class EventsApprovationConfirmView(LoginRequiredMixin, PermissionRequiredMixin, 
     def get(self, request, **kwargs):
         print(0)
         try:
-            ev=Event.objects.get(pk=kwargs['id'])
+            ev = Event.objects.get(pk=kwargs['id'])
         except:
             raise Http404
         if not int(kwargs["action"]) in [x[0] for x in Event.STATUS_CHOICES]:
             raise Http404
         if ev.room.roompermission_set.filter(group__in=request.user.groups.all(),
-                permission=30).exists():
-            ev.status=kwargs["action"]
+           permission=30).exists():
+            ev.status = kwargs["action"]
             ev.save()
         else:
             raise Http404
         return HttpResponseRedirect(reverse('events:approvation'))
-            
-        
-
