@@ -103,11 +103,12 @@ class EventsApprovationView(LoginRequiredMixin, PermissionRequiredMixin, Templat
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        # show only waitings events that can be approved
         context["events_list"] = Event.objects.filter(
             status=Event.WAITING).filter(
             room__roompermission__group__in=self.request.user.groups.all(),
-            room__roompermission__permission=30).order_by('start')
-            #show only waitings events that can be approved
+            room__roompermission__permission=30
+        ).order_by('start')
         return context
 
 
