@@ -84,11 +84,11 @@ class Monitor(TemplateView):
             start__range=(date, date + timedelta(1)),
             status=Event.APPROVED,
             room__important=True
-        )
+        ).order_by("start")
         context["news"] = News.objects.filter(
             start__lte=date,
             end__gte=date,
-        )
+        ).order_by("start")
         return context
 
     @xframe_options_exempt

@@ -31,12 +31,13 @@ class Room(models.Model):
     )
 
     def get_group_perm(self, group):
-        if group.has_perm("booking.can_book_room"):
+        try:
             return RoomPermission.objects.get(
                 room=self,
                 group=group
             ).permission
-        return 0
+        except:
+            return 0
 
     def show_request_to_group(self, group):
         return RoomPermission.objects.get(room=self, group=group).showrequest
