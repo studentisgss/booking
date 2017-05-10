@@ -85,7 +85,7 @@ class ListActivityView(TemplateView):
 class ActivityEditView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
     template_name = "activities/edit.html"
 
-    permission_required = ("activities.change_activities", "rooms.can_book_room")
+    permission_required = ("activities.change_activitiy", "rooms.can_book_room")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -209,7 +209,7 @@ class ActivityEditView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView
 
 
 class ActivityAddView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
-    permission_required = "activities.add_activities"
+    permission_required = "activities.add_activitiy"
 
     template_name = "activities/add.html"
 
