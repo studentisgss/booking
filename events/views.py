@@ -119,7 +119,7 @@ class EventsApprovationConfirmView(LoginRequiredMixin, PermissionRequiredMixin, 
 
     def get(self, request, **kwargs):
         try:
-            ev = Event.objects.get(pk=kwargs['id'])
+            ev = Event.objects.get(pk=kwargs['id'], status=Event.WAITING)
         except:
             raise Http404
         if not int(kwargs["action"]) in [x[0] for x in Event.STATUS_CHOICES]:
