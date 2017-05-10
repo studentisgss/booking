@@ -99,7 +99,7 @@ class Monitor(TemplateView):
 class EventsApprovationView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
     template_name = "events/approvation.html"
 
-    permission_required = "events.change_events"
+    permission_required = "events.change_event"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -115,7 +115,7 @@ class EventsApprovationView(LoginRequiredMixin, PermissionRequiredMixin, Templat
 
 class EventsApprovationConfirmView(LoginRequiredMixin, PermissionRequiredMixin, View):
 
-    permission_required = "events.change_events"
+    permission_required = "events.change_event"
 
     def get(self, request, **kwargs):
         try:
