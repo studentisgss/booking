@@ -60,8 +60,15 @@ class RoomPermission(models.Model):
         (10, _("Può richiedere")),
         (30, _("Può accettare")),
     ]
-    room = models.ForeignKey(Room, on_delete=models.CASCADE, verbose_name=_("aula"))
-    group = models.ForeignKey(Group, on_delete=models.CASCADE, verbose_name=_("gruppo"))
+    room = models.ForeignKey(
+        Room,
+        on_delete=models.CASCADE,
+        verbose_name=_("aula"),
+        related_query_name='')
+    group = models.ForeignKey(
+        Group,
+        on_delete=models.CASCADE,
+        verbose_name=_("gruppo"))
     permission = models.SmallIntegerField(
         choices=PERMISSION_CHOICES,
         default=10,
