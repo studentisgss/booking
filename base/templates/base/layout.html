@@ -50,8 +50,8 @@
 				<li><a href="{% url "activities:list" %}">Attività</a></li>
 				<li><a href="{% url "rooms:list" %}">Aule</a></li>
 				<li><a href="{% url "news:news" %}">Avvisi</a></li>
-                                {% if AU %}
-				<li><a href="{% url "events:approvation" %}">Prenotazioni</a></li>
+                                {% if user.is_authenticated %}
+				<li><a href="{% url "events:approvation" %}">Approvazioni</a></li>
                                 {% endif %}
 			</ul>
 			<ul class="nav navbar-nav navbar-right">

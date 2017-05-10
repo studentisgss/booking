@@ -6,6 +6,8 @@
 {% endblock head-extra %}
 
 {% block main %}
+<h1>Approvazione prenotazioni</h1>
+
 <table class="table table-striped table-hover">
 	<thead>
     <tr>
@@ -27,7 +29,7 @@
                 {{ e.room }}
             </td>
             <td>
-                {{ e.start|date:"l j F" }} 
+                {{ e.start|date:"l j F" }}
             </td>
             <td>
 		        {{ e.start|date:"P" }}-{{ e.end|date:"P" }}
@@ -39,6 +41,12 @@
 		        <a href="{% url 'events:approvationConfirm' e.pk 2 %}" class="btn btn-danger"> Rifiuta </a>
             </td>
 		</tr>
+        {% empty %}
+        <tr>
+            <td colspan="6">
+                Nessuna prenotazione in attesa di conferma.
+            </td>
+        </tr>
 		{% endfor %}
 	</tbody>
 </table>
