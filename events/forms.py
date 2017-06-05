@@ -1,10 +1,12 @@
 from base.forms import BookingModelForm
 from django.forms import inlineformset_factory, BaseInlineFormSet
 from django.forms.fields import SplitDateTimeField
+from django.forms.widgets import SplitDateTimeWidget
 from django.core.exceptions import ValidationError
 
 from events.models import Event
 from activities.models import Activity
+from booking import settings
 
 
 class EventForm(BookingModelForm):
@@ -23,7 +25,20 @@ class EventForm(BookingModelForm):
 
     start = SplitDateTimeField(
         input_date_formats=("%d/%m/%Y",),
-        input_time_formats=("%H:%M:%S",),
+        input_time_formats=("%H:%M", "%H:%M:%S",),
+        widget=SplitDateTimeWidget(
+            date_format=settings.DATE_FORMAT,
+            time_format=settings.TIME_FORMAT
+        )
+    )
+
+    end = start = SplitDateTimeField(
+        input_date_formats=("%d/%m/%Y",),
+        input_time_formats=("%H:%M", "%H:%M:%S",),
+        widget=SplitDateTimeWidget(
+            date_format=settings.DATE_FORMAT,
+            time_format=settings.TIME_FORMAT
+        )
     )
 
 
