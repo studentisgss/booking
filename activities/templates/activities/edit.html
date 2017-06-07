@@ -15,7 +15,7 @@
 <link href="{% static 'activities/css/edit.css' %}" rel="stylesheet" />
 
 <script type="text/javascript">
-var waitingRooms = [] 
+var waitingRooms = []
 var allRooms = []
 
 {% for r in rooms_waiting %}
@@ -96,6 +96,7 @@ allRooms.push("{{r.pk}}");
         <h3>Eventi dell'attivit&agrave;</h3>
         <p>Per rendere effettive le modifiche, rimozioni incluse, si deve premere su 'Salva' in fondo alla pagina.<br>
         Le prenotazioni per le aule dove non si ha il permesso di approvazione verranno messe in attesa di conferma (le righe corrispondenti saranno evidenziate in giallo).</p>
+        {% if eventForm.errors %}<p class="text-danger">Correggere gli errori indicati prima di salvare le modifiche.</p>{% endif %}
         {{ eventForm.management_form }}
         {% if eventForm.non_form_errors %}
             <div>
@@ -128,36 +129,36 @@ allRooms.push("{{r.pk}}");
                 {% endif %}
                 <tr>
                     <td {% if f.non_field_errors %}class="no-border-top"{% endif %}>
-                        {% if f.room.errors %}
-                                {% for error in f.room.errors %}
-                                    <p class="text-danger">{{ error|escape }}</p>
-                                {% endfor %}
-                        {% endif %}
                         {{ f.room }}
+                        {% if f.room.errors %}
+                            {% for error in f.room.errors %}
+                                <p class="text-danger">{{ error|escape }}</p>
+                            {% endfor %}
+                        {% endif %}
                     </td>
                     <td {% if f.non_field_errors %}class="no-border-top"{% endif %}>
+                        {{ f.start }}
                         {% if f.start.errors %}
                                 {% for error in f.start.errors %}
                                     <p class="text-danger">{{ error|escape }}</p>
                                 {% endfor %}
                         {% endif %}
-                        {{ f.start }}
                     </td>
                     <td {% if f.non_field_errors %}class="no-border-top"{% endif %}>
+                        {{ f.end }}
                         {% if f.end.errors %}
                                 {% for error in f.end.errors %}
                                     <p class="text-danger">{{ error|escape }}</p>
                                 {% endfor %}
                         {% endif %}
-                        {{ f.end }}
                     </td>
                     <td {% if f.non_field_errors %}class="no-border-top"{% endif %}>
+                        {{ f.status }}
                         {% if f.status.errors %}
                                 {% for error in f.status.errors %}
                                     <p class="text-danger">{{ error|escape }}</p>
                                 {% endfor %}
                         {% endif %}
-                        {{ f.status }}
                     </td>
                     <td {% if f.non_field_errors %}class="no-border-top"{% endif %}>
                         {{ f.DELETE }}
