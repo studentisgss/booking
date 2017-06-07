@@ -5,6 +5,7 @@ from django.forms.widgets import SplitDateTimeWidget
 from django.core.exceptions import ValidationError
 
 from events.models import Event
+from rooms.models import Room
 from activities.models import Activity
 from booking import settings
 
@@ -47,21 +48,26 @@ class BaseEventInlineFormset(BaseInlineFormSet):
         super().clean()
         instances = []
         for form in self.forms:
-            if (form.instance.end and
-                    form.instance.start and
-                    form.instance.room and
-                    form.instance.status is not None):
-                for i in instances:
-                    if (form.instance.status != Event.REJECTED and
-                            i.start < form.instance.end and
-                            i.end > form.instance.start and
-                            i.room == form.instance.room):
-                        e = ValidationError("Non si possono inserire due eventi non rifiutati"
-                                            " sovrapposti per la stessa aula.")
-                        form.add_error(None, e)
+            try:
+                if (form.instance.end and
+                        form.instance.start and
+                        form.instance.room and
+                        form.instance.status is not None):
+                    for i in instances:
+                        if (form.instance.status != Event.REJECTED and
+                                i.start < form.instance.end and
+                                i.end > form.instance.start and
+                                i.room == form.instance.room):
+                            e = ValidationError("Non si possono inserire due eventi non rifiutati"
+                                                " sovrapposti per la stessa aula.")
+                            form.add_error(None, e)
 
-                if form.instance.status != Event.REJECTED:
-                    instances.append(form.instance)
+                    if form.instance.status != Event.REJECTED:
+                        instances.append(form.instance)
+            except Room.DoesNotExist:
+                # If the room is not set then do nothing
+                # as the form will fail Room.clean()
+                pass
 
     def get_queryset(self):
         return super().get_queryset().order_by("start")
