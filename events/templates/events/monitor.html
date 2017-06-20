@@ -18,6 +18,7 @@
 	<!-- ADD SCRIPT HERE -->
 	<script type="text/javascript" src="{% static 'js/jquery-1.12.1.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/bootstrap.js' %}"></script>
+    <script type="text/javascript" src="{% static 'events/js/monitor.js' %}"></script>
 
     {% block head-extra %}
         <!-- ADD EXTRA CSS OR SCRIPT HERE -->
@@ -39,30 +40,87 @@
 </div>
 <div class="container-fluid main-container">
 	<div class="row">
-        {% if events %}
+        {% if eventsImportant or eventsOther %}
 		{% if news %}
 		<div class="col-md-8">
 		{% else %}
 		<div class="col-md-12">
 		{% endif %}
     	<h2>Prenotazione Aule - {{ date | date:'d F Y' }} </h2>
-  		{% regroup events|dictsort:"room_id" by room as events_by_room %}
-        <table>
-            <tbody>
-            {% for room_events in events_by_room %}
-    				<tr>
-    					<td colspan="2" class="head">{{ room_events.grouper.name }}</td>
-    				</tr>
-				{% for e in room_events.list %}
-					<tr>
-						<td>{{ e.start|date:"G:i" }} - {{ e.end|date:"G:i" }}</td>
-						<td>{{ e.activity.title }}</td>
-                    </tr>
-				{% endfor %}
-            {% endfor %}
-            </tbody>
-		</table>
+
+        {% if eventsImportant %}
+            <div>
+                <h3>Aule del Collegio Morgagni</h3>
+                <div id="important-event-carousel" class="carousel slide carousel-fade" data-ride="carousel" data-interval="12000">
+                <div class="carousel-inner" role="listbox">
+                    {% for page in  eventsImportant %}
+                        <div class="item{% if forloop.first %} active{% endif %}">
+                            <table>
+                                <tbody>
+                                    {% for name, list in page %}
+                            				<tr>
+                            					<td colspan="2" class="head">{{ name }}</td>
+                            				</tr>
+                        				{% for e in list %}
+                        					<tr>
+                        						<td>{{ e.start|date:"G:i" }} - {{ e.end|date:"G:i" }}</td>
+                        						<td>{{ e.activity.title }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% endfor %}
+                </div>
+                {% if eventsImportantIndicator %}
+                <ol class="carousel-indicators">
+                    {% for page in  eventsImportant %}
+                    <li data-target="#important-event-carousel" data-slide-to="{{ forloop.counter0 }}" {% if forloop.first %}class="active"{% endif %}></li>
+                    {% endfor %}
+                 </ol>
+                 {% endif %}
+                </div>
+            </div>
+        {% endif %}
+
+        {% if eventsOther %}
+            <div>
+                <h3>Altre aule</h3>
+                <div id="other-event-carousel" class="carousel slide carousel-fade" data-ride="carousel" data-interval="6000">
+                <div class="carousel-inner" role="listbox">
+                    {% for page in  eventsOther %}
+                        <div class="item{% if forloop.first %} active{% endif %}">
+                            <table>
+                                <tbody>
+                                    {% for name, list in page %}
+                                            <tr>
+                                                <td colspan="2" class="head">{{ name }}</td>
+                                            </tr>
+                                        {% for e in list %}
+                                            <tr>
+                                                <td>{{ e.start|date:"G:i" }} - {{ e.end|date:"G:i" }}</td>
+                                                <td>{{ e.activity.title }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% endfor %}
+                </div>
+                {% if eventsOtherIndicator %}
+                <ol class="carousel-indicators">
+                    {% for page in  eventsOther %}
+                    <li data-target="#other-event-carousel" data-slide-to="{{ forloop.counter0 }}" {% if forloop.first %}class="active"{% endif %}></li>
+                    {% endfor %}
+                 </ol>
+                 {% endif %}
+                </div>
+            </div>
+        {% endif %}
         </div>
+
 		{% endif %}
 
     	{% if news %}
@@ -83,15 +141,13 @@
         </div>
     	{% endif %}
 
-        {% if not events %}
-            {% if not news %}
-                <div class="col-md-12">
-                    <h2>Prenotazione Aule - {{ date | date:'d F Y' }} </h2>
-                    <div class="alert alert-default top-buffer" role="alert">
-                        Nessuna prenotazione per questo giorno.
-                    </div>
+        {% if not eventsImportant and not eventsOther and not news %}
+            <div class="col-md-12">
+                <h2>Prenotazione Aule - {{ date | date:'d F Y' }} </h2>
+                <div class="alert alert-default top-buffer" role="alert">
+                    Nessuna prenotazione per questo giorno.
                 </div>
-            {% endif %}
+            </div>
         {% endif %}
 	</div>
 </div>
