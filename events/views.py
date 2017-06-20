@@ -133,7 +133,7 @@ class Monitor(TemplateView):
         context["news"] = News.objects.filter(
             start__lte=date,
             end__gte=date,
-        )
+        ).order_by("title")
         return context
 
     @xframe_options_exempt
