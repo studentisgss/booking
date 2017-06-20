@@ -117,7 +117,8 @@ class Monitor(TemplateView):
             important_events,
             important_events_per_page
         )
-        context["eventsImportantIndicator"] = False if len(context["eventsImportant"]) == 1 else True
+        context["eventsImportantIndicator"] = False if len(context["eventsImportant"]) == 1 \
+            else True
         # Other events
         other_events = Event.objects.filter(
             start__range=(date, date + timedelta(1)),
