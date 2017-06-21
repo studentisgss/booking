@@ -10,7 +10,18 @@
 
 <div class="row">
     <div class="col-md-5">
-        <p><a href="{% url "activities:list" %}" class="btn btn-default">Visualizza solo le attività principali</a></p>
+        <div class="btn-group" role="group">
+            <div class="btn-group">
+                <a href="{% url "activities:list" %}" class="btn btn-default">Visualizza solo le attività principali</a>
+            </div>
+            {% if user.is_authenticated %}
+              {% if perms.activities.add_activity %}
+                <div class="btn-group">
+                    <a href="{% url "activities:new" %}" class="btn btn-success">Nuova</a>
+                </div>
+              {% endif %}
+            {% endif %}
+        </div>
     </div>
     <div class="col-md-7">
         <div id="filter" class="text-right">
@@ -35,6 +46,11 @@
         <tr>
             <th>Titolo</th>
             <th>Periodo</th>
+            {% if user.is_authenticated %}
+                {% if perms.activities.change_activity %}
+                    <th>Modifica</th>
+                {% endif %}
+            {% endif %}
         </tr>
     </thead>
     <tbody>
@@ -47,6 +63,13 @@
                 <a href="{% url "activities:details" e.pk %}">{{ e.title }}</a>
             </td>
             <td>{{ e.min_start | date:'F Y' }} - {{ e.max_end | date:'F Y' }}</td>
+            {% if user.is_authenticated %}
+                {% if perms.activities.change_activity %}
+                    <td>
+                        <a href="{% url "activities:edit" e.pk %}" class="btn btn-info btn-xs"><span class="glyphicon glyphicon-pencil"></span></a>
+                    </td>
+                {% endif %}
+            {% endif %}
         </tr>
     {% empty %}
         <tr>

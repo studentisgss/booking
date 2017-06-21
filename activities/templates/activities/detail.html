@@ -1,14 +1,33 @@
 {% extends "base/layout.html" %}
 
 {% block main %}
-<h1>{{ activity.title }}</h1>
-<p>{{ activity.description }}</p>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-xs-10">
+			<h1>{{ activity.title }}</h1>
+		</div>
+		{% if user.is_authenticated %}
+        	{% if perms.activities.change_activity %}
+				<div class="col-xs-2">
+					<h1><a href="{% url "activities:edit" activity.pk %}" class="btn btn-info"><span class="glyphicon glyphicon-pencil"></span> Modifica</a></h1>
+				</div>
+			{% endif %}
+        {% endif %}
+	</div>
+	<div class="row">
+	<div class="col-xs-12">
+		<p>{{ activity.description }}</p>
+	</div>
+	</div>
+</div>
 <table class="table table-striped table-hover">
 	<thead>
-		<th>Data</th>
-		<th>Orario</th>
-		<th>Aula</th>
-		<th>Approvazione</th>
+		<tr>
+			<th>Data</th>
+			<th>Orario</th>
+			<th>Aula</th>
+			<th>Approvazione</th>
+		</tr>
 	</thead>
 	<tbody>
 		{% for e in events_list %}

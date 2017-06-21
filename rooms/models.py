@@ -36,7 +36,7 @@ class Room(models.Model):
                 room=self,
                 group=group
             ).permission
-        except:
+        except RoomPermission.DoesNotExist:
             return 0
 
     def show_request_to_group(self, group):

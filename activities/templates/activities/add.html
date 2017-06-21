@@ -1,0 +1,78 @@
+{% extends "base/layout.html" %}
+
+{% load staticfiles %}
+
+{% block head-extra %}
+<script type="text/javascript" src="{% static 'js/forms.js' %}"></script>
+{% endblock head-extra %}
+
+{% block main %}
+<h1>Gestione attività</h1>
+
+<div>
+    <form method="POST" class="form-horizontal">
+        {% csrf_token %}
+        {% if form.non_field_errors %}
+            <div>
+                <ol class="list-group">
+                    {% for error in form.non_field_errors %}
+                        <li class="list-group-item list-group-item-danger">{{ error|escape }}</li>
+                    {% endfor %}
+                </ol>
+            </div>
+        {% endif %}
+        <!-- TITLE AND ARCHIVED-->
+        <div class="form-group">
+            {% if form.title.errors or form.archived.errors %}
+                {% if form.title.errors %}
+                    <div class="col-sm-8 col-md-9">
+                        {% for error in form.title.errors %}
+                            <p class="text-danger">{{ error|escape }}</p>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                <div class="col-sm-8 col-md-9"><p>&nbsp;</p></div>
+                {% endif %}
+                {% if form.archived.errors %}
+                    <div class="col-sm-4 col-md-3">
+                        {% for error in form.archived.errors %}
+                            <p class="text-danger">{{ error|escape }}</p>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                <div class="col-sm-4 col-md-3"><p>&nbsp;</p></div>
+                {% endif %}
+            {% endif %}
+            <div class="col-sm-2 col-md-1">
+            <label for="{{ form.title.id_for_label }}" class="control-label">{{ form.title.label }}:</label>
+            </div>
+            <div class="col-sm-6 col-md-9 {% if form.title.errors %}has-error{% endif %}"">
+                {{ form.title }}
+            </div>
+            <div class="col-sm-2 col-md-1">
+            <label for="{{ form.archived.id_for_label }}" class="control-label">{{ form.archived.label }}:</label>
+            </div>
+            <div class="col-sm-2 col-md-1 {% if form.archived.errors %}has-error{% endif %}">
+                {{ form.archived }}
+            </div>
+        </div>
+        <!-- DESCRIPTION -->
+        <div class="form-group">
+            {% if form.description.errors %}
+                <div class="col-sm-12 col-md-10">
+                    <ol class="list-group">
+                        {% for error in form.description.errors %}
+                            <li class="list-group-item list-group-item-danger">{{ error|escape }}</li>
+                        {% endfor %}
+                    </ol>
+                </div>
+            {% endif %}
+            <label for="{{ form.description.id_for_label }}" class="col-sm-2 col-md-1 control-label">{{ form.description.label }}:</label>
+            <div class="col-sm-10 col-md-11 {% if form.description.errors %}has-error{% endif %}">
+                {{ form.description }}
+            </div>
+        </div>
+        <input type="submit" value="Continua" class="form-control btn btn-info">
+    </form>
+</div>
+{% endblock main %}

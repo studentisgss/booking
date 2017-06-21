@@ -1,0 +1,11 @@
+.no-margin-bottom {
+	margin-bottom: 0;
+}
+
+.no-border-top {
+	border-top-style: none !important;
+}
+
+.space-right {
+	padding-right: 10px;
+}
