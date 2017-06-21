@@ -98,20 +98,6 @@ DATABASES = {
     }
 }
 
-# Database for openshift test site
-if os.getenv('DATABASE_SERVICE_NAME', ''):
-    service_name = os.getenv('DATABASE_SERVICE_NAME', '').upper().replace('-', '_')
-    DATABASES = {
-        'default': {
-            'ENGINE': "django.db.backends.postgresql",
-            'NAME': os.getenv('DATABASE_NAME'),
-            'USER': os.getenv('DATABASE_USER'),
-            'PASSWORD': os.getenv('DATABASE_PASSWORD'),
-            'HOST': os.getenv('{}_SERVICE_HOST'.format(service_name)),
-            'PORT': os.getenv('{}_SERVICE_PORT'.format(service_name)),
-        }
-    }
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
