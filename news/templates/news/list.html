@@ -1,7 +1,20 @@
 {% extends "base/layout.html" %}
 
 {% block main %}
-<h1>Avvisi</h1>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-10">
+      <h1>Avvisi</h1>
+    </div>
+    {% if user.is_authenticated %}
+      {% if perms.news.add_news %}
+        <div class="col-xs-2">
+          <h1><a href="{% url "news:new" %}" class="btn btn-success">Nuovo</a></h1>
+        </div>
+      {% endif %}
+    {% endif %}
+  </div>
+</div>
 
 <div class="panel-group" id="accordion" role="tablist">
 	{% if not news_list %}
@@ -13,8 +26,18 @@
 				<div class="row">
       				<h4 class="panel-title">
        					<a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ e.pk }}">
-  							<span class="col-md-9">{{ e.title }}</span>
+  							<span class="col-md-8">{{ e.title }}</span>
   							<span class="col-md-3">{{ e.start | date:'d/m/y' }} - {{ e.end | date:'d/m/y' }}</span>
+                {% if user.is_authenticated %}
+                  <span class="col-md-1">
+                    {% if perms.news.change_news %}
+                      <a href="{% url "news:edit" pk=e.pk %}" class="btn btn-info btn-xs"><span class="glyphicon glyphicon-pencil"></span></a>
+                    {% endif %}
+                    {% if perms.news.delete_news %}
+                      <a href="{% url "news:delete" pk=e.pk %}" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash"></span></a>
+                    {% endif %}
+                  </span>
+                {% endif %}
         				</a>
       				</h4>
 				</div>

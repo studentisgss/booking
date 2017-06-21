@@ -1,7 +1,9 @@
-from django.views.generic import TemplateView
-from django.http import Http404
+from django.views.generic import TemplateView, View
+from django.http import Http404, HttpResponseRedirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.core.urlresolvers import reverse
 from django.views.decorators.clickjacking import xframe_options_exempt
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from datetime import timedelta
 from calendar import monthrange
 from random import shuffle
@@ -9,6 +11,9 @@ from random import shuffle
 from events.models import Event
 from base.utils import localnow, default_datetime
 from news.models import News
+from rooms.models import Room
+
+from django.contrib.auth.models import User
 
 
 class Agenda(TemplateView):
@@ -79,13 +84,52 @@ class Monitor(TemplateView):
             start__range=(date, date + timedelta(1)),
             status=Event.APPROVED,
             room__important=True
-        )
+        ).order_by("start")
         context["news"] = News.objects.filter(
             start__lte=date,
             end__gte=date,
-        )
+        ).order_by("start")
         return context
 
     @xframe_options_exempt
     def dispatch(self, *args, **kwargs):
         return super().dispatch(*args, **kwargs)
+
+
+class EventsApprovationView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
+    template_name = "events/approvation.html"
+
+    permission_required = "events.change_event"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # show only waitings events that can be approved
+        context["events_list"] = Event.objects.filter(
+            status=Event.WAITING
+        ).filter(
+            room__roompermission__group__in=self.request.user.groups.all(),
+            room__roompermission__permission=30
+        ).distinct().order_by('start')
+        return context
+
+
+class EventsApprovationConfirmView(LoginRequiredMixin, PermissionRequiredMixin, View):
+
+    permission_required = "events.change_event"
+
+    def get(self, request, **kwargs):
+        try:
+            ev = Event.objects.get(pk=kwargs['id'], status=Event.WAITING)
+        except:
+            raise Http404
+        if not int(kwargs["action"]) in [x[0] for x in Event.STATUS_CHOICES]:
+            raise Http404
+        if ev.room.roompermission_set.filter(
+                group__in=request.user.groups.all(),
+                permission=30
+        ).exists():
+            ev.status = kwargs["action"]
+            ev.save()
+        else:
+            raise Http404
+        return HttpResponseRedirect(reverse('events:approvation'))

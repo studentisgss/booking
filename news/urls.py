@@ -14,10 +14,13 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include(blog_urls))
 """
 from django.conf.urls import include, url
-from news.views import NewsView
+from news.views import NewsView, NewsEditView, NewsAddView, NewsDeleteView
 
 app_name = "news"
 
 urlpatterns = [
-    url(r'^$', NewsView.as_view(), name="news")
+    url(r'^$', NewsView.as_view(), name="news"),
+    url(r'^new$', NewsAddView.as_view(), name="new"),
+    url(r'^edit/(?P<pk>\d+)$', NewsEditView.as_view(), name="edit"),
+    url(r'^delete/(?P<pk>\d+)$', NewsDeleteView.as_view(), name="delete"),
 ]

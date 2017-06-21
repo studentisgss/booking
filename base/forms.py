@@ -22,7 +22,7 @@ class BookingModelForm(ModelForm):
                 self.fields[field].widget = widgets.SplitDateTimeWidget(
                     attrs=self.fields[field].widget.attrs,
                     date_format='%d/%m/%Y',
-                    time_format='%H:%M%S',
+                    time_format='%H:%M',
                 )
                 self.fields[field].widget.attrs['class'] += " datetime"
 
