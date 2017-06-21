@@ -7,6 +7,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMix
 from datetime import timedelta
 from calendar import monthrange
 from random import shuffle
+from itertools import groupby
 
 from events.models import Event
 from base.utils import localnow, default_datetime
@@ -76,19 +77,69 @@ class Monitor(TemplateView):
     template_name = "events/monitor.html"
 
     def get_context_data(self, **kwargs):
+        def get_event_list(items, events_per_page):
+            """
+            This function returns a list of list ("pages") of tuples
+            (room name, list of events in room)
+            where the sum of the events in each pages is not over the events_per_page
+            as soon as there is not a single room with more event than thet numeber
+            """
+            events_grouped = groupby(items, lambda e: e.room.name)
+            events_list = []
+            page = []
+            events_in_current_page = 0
+            for room, events in events_grouped:
+                list_of_events = list(events)
+                if events_in_current_page == 0:  # This avoid empty page
+                    page.append((room, list_of_events))
+                    events_in_current_page = len(list_of_events)
+                else:
+                    if events_in_current_page + len(list_of_events) <= events_per_page:
+                        page.append((room, list_of_events))
+                        events_in_current_page += len(list_of_events)
+                    else:
+                        events_list.append(page)
+                        page = []
+                        page.append((room, list_of_events))
+                        events_in_current_page = len(list_of_events)
+            if page:
+                events_list.append(page)
+            return events_list
+
         context = super().get_context_data(**kwargs)
         date = localnow().replace(hour=0, minute=0, second=0, microsecond=0)
         context["date"] = date
-        # Show only approved event for the important rooms
-        context["events"] = Event.objects.filter(
+        important_events_per_page = 6
+        other_events_per_page = 1
+        # Show only approved event
+        # Important room
+        important_events = Event.objects.filter(
             start__range=(date, date + timedelta(1)),
             status=Event.APPROVED,
             room__important=True
-        ).order_by("start")
+        ).order_by("room__name", "start")
+        context["eventsImportant"] = get_event_list(
+            important_events,
+            important_events_per_page
+        )
+        context["eventsImportantIndicator"] = False if len(context["eventsImportant"]) == 1 \
+            else True
+        # Other events
+        other_events = Event.objects.filter(
+            start__range=(date, date + timedelta(1)),
+            status=Event.APPROVED,
+            room__important=False
+        ).order_by("room__name", "start")
+        context["eventsOther"] = get_event_list(
+            other_events,
+            other_events_per_page
+        )
+        context["eventsOtherIndicator"] = False if len(context["eventsOther"]) == 1 else True
+        # NEWS
         context["news"] = News.objects.filter(
             start__lte=date,
             end__gte=date,
-        ).order_by("start")
+        ).order_by("title")
         return context
 
     @xframe_options_exempt
