@@ -3,10 +3,10 @@
     "model": "events.event",
     "pk": 1,
     "fields": {
-      "room_id": 5,
-      "activity_id": 7,
-      "start": "2017-04-04 16:00:00+0100",
-      "end": "2017-04-04 18:00:00+0100",
+      "room_id": 8,
+      "activity_id": 5,
+      "start": "2017-07-04 14:00:00+0100",
+      "end": "2017-07-04 16:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -17,8 +17,8 @@
     "fields": {
       "room_id": 5,
       "activity_id": 2,
-      "start": "2017-03-20 14:00:00+0100",
-      "end": "2017-03-20 16:00:00+0100",
+      "start": "2017-05-22 16:00:00+0100",
+      "end": "2017-05-22 18:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -27,11 +27,11 @@
     "model": "events.event",
     "pk": 3,
     "fields": {
-      "room_id": 6,
-      "activity_id": 5,
-      "start": "2017-03-31 18:00:00+0100",
-      "end": "2017-03-31 20:00:00+0100",
-      "status": 0,
+      "room_id": 4,
+      "activity_id": 3,
+      "start": "2017-08-07 18:00:00+0100",
+      "end": "2017-08-07 20:00:00+0100",
+      "status": 2,
       "creator_id": 1
     }
   },
@@ -39,11 +39,11 @@
     "model": "events.event",
     "pk": 4,
     "fields": {
-      "room_id": 1,
-      "activity_id": 1,
-      "start": "2017-04-10 18:00:00+0100",
-      "end": "2017-04-10 20:00:00+0100",
-      "status": 0,
+      "room_id": 9,
+      "activity_id": 3,
+      "start": "2017-08-11 18:00:00+0100",
+      "end": "2017-08-11 20:00:00+0100",
+      "status": 2,
       "creator_id": 1
     }
   },
@@ -51,10 +51,10 @@
     "model": "events.event",
     "pk": 5,
     "fields": {
-      "room_id": 4,
-      "activity_id": 1,
-      "start": "2017-05-01 18:00:00+0100",
-      "end": "2017-05-01 20:00:00+0100",
+      "room_id": 1,
+      "activity_id": 3,
+      "start": "2017-08-04 14:00:00+0100",
+      "end": "2017-08-04 16:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -63,10 +63,10 @@
     "model": "events.event",
     "pk": 6,
     "fields": {
-      "room_id": 7,
-      "activity_id": 2,
-      "start": "2017-04-24 14:00:00+0100",
-      "end": "2017-04-24 16:00:00+0100",
+      "room_id": 9,
+      "activity_id": 8,
+      "start": "2017-07-03 14:00:00+0100",
+      "end": "2017-07-03 16:00:00+0100",
       "status": 1,
       "creator_id": 1
     }
@@ -75,11 +75,11 @@
     "model": "events.event",
     "pk": 7,
     "fields": {
-      "room_id": 3,
-      "activity_id": 5,
-      "start": "2017-04-24 16:00:00+0100",
-      "end": "2017-04-24 18:00:00+0100",
-      "status": 2,
+      "room_id": 7,
+      "activity_id": 7,
+      "start": "2017-07-13 18:00:00+0100",
+      "end": "2017-07-13 20:00:00+0100",
+      "status": 0,
       "creator_id": 1
     }
   },
@@ -87,10 +87,10 @@
     "model": "events.event",
     "pk": 8,
     "fields": {
-      "room_id": 7,
-      "activity_id": 4,
-      "start": "2017-04-11 14:00:00+0100",
-      "end": "2017-04-11 16:00:00+0100",
+      "room_id": 8,
+      "activity_id": 7,
+      "start": "2017-07-11 14:00:00+0100",
+      "end": "2017-07-11 16:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -99,11 +99,11 @@
     "model": "events.event",
     "pk": 9,
     "fields": {
-      "room_id": 8,
-      "activity_id": 3,
-      "start": "2017-05-03 18:00:00+0100",
-      "end": "2017-05-03 20:00:00+0100",
-      "status": 0,
+      "room_id": 5,
+      "activity_id": 1,
+      "start": "2017-07-28 14:00:00+0100",
+      "end": "2017-07-28 16:00:00+0100",
+      "status": 1,
       "creator_id": 1
     }
   },
@@ -111,10 +111,10 @@
     "model": "events.event",
     "pk": 10,
     "fields": {
-      "room_id": 5,
-      "activity_id": 2,
-      "start": "2017-03-16 18:00:00+0100",
-      "end": "2017-03-16 20:00:00+0100",
+      "room_id": 7,
+      "activity_id": 7,
+      "start": "2017-05-24 16:00:00+0100",
+      "end": "2017-05-24 18:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -123,10 +123,10 @@
     "model": "events.event",
     "pk": 11,
     "fields": {
-      "room_id": 2,
-      "activity_id": 5,
-      "start": "2017-04-24 16:00:00+0100",
-      "end": "2017-04-24 18:00:00+0100",
+      "room_id": 5,
+      "activity_id": 4,
+      "start": "2017-07-25 18:00:00+0100",
+      "end": "2017-07-25 20:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -135,10 +135,10 @@
     "model": "events.event",
     "pk": 12,
     "fields": {
-      "room_id": 4,
+      "room_id": 3,
       "activity_id": 2,
-      "start": "2017-04-12 16:00:00+0100",
-      "end": "2017-04-12 18:00:00+0100",
+      "start": "2017-06-02 18:00:00+0100",
+      "end": "2017-06-02 20:00:00+0100",
       "status": 1,
       "creator_id": 1
     }
@@ -147,10 +147,10 @@
     "model": "events.event",
     "pk": 13,
     "fields": {
-      "room_id": 2,
-      "activity_id": 3,
-      "start": "2016-04-25 16:00:00+0100",
-      "end": "2016-04-25 18:00:00+0100",
+      "room_id": 5,
+      "activity_id": 8,
+      "start": "2017-08-09 18:00:00+0100",
+      "end": "2017-08-09 20:00:00+0100",
       "status": 2,
       "creator_id": 1
     }
@@ -159,10 +159,10 @@
     "model": "events.event",
     "pk": 14,
     "fields": {
-      "room_id": 7,
-      "activity_id": 6,
-      "start": "2017-04-05 18:00:00+0100",
-      "end": "2017-04-05 20:00:00+0100",
+      "room_id": 6,
+      "activity_id": 2,
+      "start": "2017-05-23 16:00:00+0100",
+      "end": "2017-05-23 18:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -171,11 +171,11 @@
     "model": "events.event",
     "pk": 15,
     "fields": {
-      "room_id": 7,
+      "room_id": 9,
       "activity_id": 6,
-      "start": "2017-04-04 16:00:00+0100",
-      "end": "2017-04-04 18:00:00+0100",
-      "status": 2,
+      "start": "2017-05-23 14:00:00+0100",
+      "end": "2017-05-23 16:00:00+0100",
+      "status": 0,
       "creator_id": 1
     }
   },
@@ -183,11 +183,11 @@
     "model": "events.event",
     "pk": 16,
     "fields": {
-      "room_id": 2,
-      "activity_id": 4,
-      "start": "2017-03-29 18:00:00+0100",
-      "end": "2017-03-29 20:00:00+0100",
-      "status": 1,
+      "room_id": 7,
+      "activity_id": 3,
+      "start": "2017-07-03 18:00:00+0100",
+      "end": "2017-07-03 20:00:00+0100",
+      "status": 0,
       "creator_id": 1
     }
   },
@@ -195,11 +195,11 @@
     "model": "events.event",
     "pk": 17,
     "fields": {
-      "room_id": 5,
-      "activity_id": 7,
-      "start": "2017-04-28 18:00:00+0100",
-      "end": "2017-04-28 20:00:00+0100",
-      "status": 1,
+      "room_id": 8,
+      "activity_id": 2,
+      "start": "2017-06-22 14:00:00+0100",
+      "end": "2017-06-22 16:00:00+0100",
+      "status": 0,
       "creator_id": 1
     }
   },
@@ -208,10 +208,10 @@
     "pk": 18,
     "fields": {
       "room_id": 4,
-      "activity_id": 8,
-      "start": "2017-05-03 16:00:00+0100",
-      "end": "2017-05-03 18:00:00+0100",
-      "status": 1,
+      "activity_id": 4,
+      "start": "2017-07-27 18:00:00+0100",
+      "end": "2017-07-27 20:00:00+0100",
+      "status": 2,
       "creator_id": 1
     }
   },
@@ -219,11 +219,11 @@
     "model": "events.event",
     "pk": 19,
     "fields": {
-      "room_id": 8,
-      "activity_id": 5,
-      "start": "2016-04-05 16:00:00+0100",
-      "end": "2016-04-05 18:00:00+0100",
-      "status": 1,
+      "room_id": 5,
+      "activity_id": 3,
+      "start": "2017-06-16 16:00:00+0100",
+      "end": "2017-06-16 18:00:00+0100",
+      "status": 0,
       "creator_id": 1
     }
   },
@@ -231,10 +231,10 @@
     "model": "events.event",
     "pk": 20,
     "fields": {
-      "room_id": 3,
-      "activity_id": 4,
-      "start": "2017-04-07 16:00:00+0100",
-      "end": "2017-04-07 18:00:00+0100",
+      "room_id": 6,
+      "activity_id": 6,
+      "start": "2017-07-10 18:00:00+0100",
+      "end": "2017-07-10 20:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -243,10 +243,10 @@
     "model": "events.event",
     "pk": 21,
     "fields": {
-      "room_id": 1,
-      "activity_id": 8,
-      "start": "2017-03-30 16:00:00+0100",
-      "end": "2017-03-30 18:00:00+0100",
+      "room_id": 8,
+      "activity_id": 5,
+      "start": "2017-06-02 14:00:00+0100",
+      "end": "2017-06-02 16:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -255,10 +255,10 @@
     "model": "events.event",
     "pk": 22,
     "fields": {
-      "room_id": 5,
-      "activity_id": 1,
-      "start": "2017-04-28 16:00:00+0100",
-      "end": "2017-04-28 18:00:00+0100",
+      "room_id": 9,
+      "activity_id": 5,
+      "start": "2017-07-25 18:00:00+0100",
+      "end": "2017-07-25 20:00:00+0100",
       "status": 2,
       "creator_id": 1
     }
@@ -267,11 +267,11 @@
     "model": "events.event",
     "pk": 23,
     "fields": {
-      "room_id": 7,
-      "activity_id": 8,
-      "start": "2017-04-17 18:00:00+0100",
-      "end": "2017-04-17 20:00:00+0100",
-      "status": 0,
+      "room_id": 8,
+      "activity_id": 6,
+      "start": "2017-07-24 14:00:00+0100",
+      "end": "2017-07-24 16:00:00+0100",
+      "status": 1,
       "creator_id": 1
     }
   },
@@ -279,10 +279,10 @@
     "model": "events.event",
     "pk": 24,
     "fields": {
-      "room_id": 4,
-      "activity_id": 3,
-      "start": "2017-05-02 16:00:00+0100",
-      "end": "2017-05-02 18:00:00+0100",
+      "room_id": 5,
+      "activity_id": 6,
+      "start": "2017-06-13 14:00:00+0100",
+      "end": "2017-06-13 16:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -291,11 +291,11 @@
     "model": "events.event",
     "pk": 25,
     "fields": {
-      "room_id": 6,
-      "activity_id": 3,
-      "start": "2017-04-04 14:00:00+0100",
-      "end": "2017-04-04 16:00:00+0100",
-      "status": 1,
+      "room_id": 4,
+      "activity_id": 5,
+      "start": "2017-05-15 18:00:00+0100",
+      "end": "2017-05-15 20:00:00+0100",
+      "status": 0,
       "creator_id": 1
     }
   },
@@ -303,11 +303,11 @@
     "model": "events.event",
     "pk": 26,
     "fields": {
-      "room_id": 5,
-      "activity_id": 6,
-      "start": "2017-04-10 14:00:00+0100",
-      "end": "2017-04-10 16:00:00+0100",
-      "status": 1,
+      "room_id": 2,
+      "activity_id": 8,
+      "start": "2017-05-16 14:00:00+0100",
+      "end": "2017-05-16 16:00:00+0100",
+      "status": 0,
       "creator_id": 1
     }
   },
@@ -315,10 +315,10 @@
     "model": "events.event",
     "pk": 27,
     "fields": {
-      "room_id": 9,
-      "activity_id": 6,
-      "start": "2017-03-27 14:00:00+0100",
-      "end": "2017-03-27 16:00:00+0100",
+      "room_id": 6,
+      "activity_id": 8,
+      "start": "2017-08-04 18:00:00+0100",
+      "end": "2017-08-04 20:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -327,10 +327,10 @@
     "model": "events.event",
     "pk": 28,
     "fields": {
-      "room_id": 4,
+      "room_id": 3,
       "activity_id": 7,
-      "start": "2017-04-14 14:00:00+0100",
-      "end": "2017-04-14 16:00:00+0100",
+      "start": "2017-07-17 16:00:00+0100",
+      "end": "2017-07-17 18:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -339,11 +339,11 @@
     "model": "events.event",
     "pk": 29,
     "fields": {
-      "room_id": 3,
-      "activity_id": 4,
-      "start": "2017-04-20 16:00:00+0100",
-      "end": "2017-04-20 18:00:00+0100",
-      "status": 0,
+      "room_id": 9,
+      "activity_id": 1,
+      "start": "2017-05-30 14:00:00+0100",
+      "end": "2017-05-30 16:00:00+0100",
+      "status": 1,
       "creator_id": 1
     }
   },
@@ -351,10 +351,10 @@
     "model": "events.event",
     "pk": 30,
     "fields": {
-      "room_id": 5,
+      "room_id": 6,
       "activity_id": 1,
-      "start": "2017-04-07 18:00:00+0100",
-      "end": "2017-04-07 20:00:00+0100",
+      "start": "2017-07-27 18:00:00+0100",
+      "end": "2017-07-27 20:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -363,11 +363,11 @@
     "model": "events.event",
     "pk": 31,
     "fields": {
-      "room_id": 6,
+      "room_id": 1,
       "activity_id": 6,
-      "start": "2016-05-10 14:00:00+0100",
-      "end": "2016-05-10 16:00:00+0100",
-      "status": 1,
+      "start": "2017-07-05 16:00:00+0100",
+      "end": "2017-07-05 18:00:00+0100",
+      "status": 0,
       "creator_id": 1
     }
   },
@@ -375,10 +375,10 @@
     "model": "events.event",
     "pk": 32,
     "fields": {
-      "room_id": 9,
+      "room_id": 6,
       "activity_id": 8,
-      "start": "2017-03-30 16:00:00+0100",
-      "end": "2017-03-30 18:00:00+0100",
+      "start": "2017-07-17 18:00:00+0100",
+      "end": "2017-07-17 20:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -387,10 +387,10 @@
     "model": "events.event",
     "pk": 33,
     "fields": {
-      "room_id": 1,
-      "activity_id": 6,
-      "start": "2017-04-17 14:00:00+0100",
-      "end": "2017-04-17 16:00:00+0100",
+      "room_id": 9,
+      "activity_id": 4,
+      "start": "2017-05-25 18:00:00+0100",
+      "end": "2017-05-25 20:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -399,10 +399,10 @@
     "model": "events.event",
     "pk": 34,
     "fields": {
-      "room_id": 4,
-      "activity_id": 6,
-      "start": "2017-04-25 18:00:00+0100",
-      "end": "2017-04-25 20:00:00+0100",
+      "room_id": 3,
+      "activity_id": 3,
+      "start": "2017-07-17 14:00:00+0100",
+      "end": "2017-07-17 16:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -411,10 +411,10 @@
     "model": "events.event",
     "pk": 35,
     "fields": {
-      "room_id": 7,
-      "activity_id": 4,
-      "start": "2017-03-15 16:00:00+0100",
-      "end": "2017-03-15 18:00:00+0100",
+      "room_id": 5,
+      "activity_id": 5,
+      "start": "2017-05-18 18:00:00+0100",
+      "end": "2017-05-18 20:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -423,10 +423,10 @@
     "model": "events.event",
     "pk": 36,
     "fields": {
-      "room_id": 6,
-      "activity_id": 4,
-      "start": "2017-04-07 14:00:00+0100",
-      "end": "2017-04-07 16:00:00+0100",
+      "room_id": 8,
+      "activity_id": 6,
+      "start": "2017-07-11 18:00:00+0100",
+      "end": "2017-07-11 20:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -435,10 +435,10 @@
     "model": "events.event",
     "pk": 37,
     "fields": {
-      "room_id": 5,
-      "activity_id": 4,
-      "start": "2017-03-16 16:00:00+0100",
-      "end": "2017-03-16 18:00:00+0100",
+      "room_id": 6,
+      "activity_id": 8,
+      "start": "2017-08-09 18:00:00+0100",
+      "end": "2017-08-09 20:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -447,10 +447,10 @@
     "model": "events.event",
     "pk": 38,
     "fields": {
-      "room_id": 1,
-      "activity_id": 5,
-      "start": "2017-04-12 14:00:00+0100",
-      "end": "2017-04-12 16:00:00+0100",
+      "room_id": 7,
+      "activity_id": 2,
+      "start": "2017-08-14 18:00:00+0100",
+      "end": "2017-08-14 20:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -459,11 +459,11 @@
     "model": "events.event",
     "pk": 39,
     "fields": {
-      "room_id": 2,
-      "activity_id": 4,
-      "start": "2016-04-21 14:00:00+0100",
-      "end": "2016-04-21 16:00:00+0100",
-      "status": 2,
+      "room_id": 7,
+      "activity_id": 6,
+      "start": "2017-06-20 14:00:00+0100",
+      "end": "2017-06-20 16:00:00+0100",
+      "status": 1,
       "creator_id": 1
     }
   },
@@ -471,10 +471,10 @@
     "model": "events.event",
     "pk": 40,
     "fields": {
-      "room_id": 4,
-      "activity_id": 6,
-      "start": "2017-04-19 16:00:00+0100",
-      "end": "2017-04-19 18:00:00+0100",
+      "room_id": 9,
+      "activity_id": 1,
+      "start": "2017-06-23 18:00:00+0100",
+      "end": "2017-06-23 20:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -483,11 +483,11 @@
     "model": "events.event",
     "pk": 41,
     "fields": {
-      "room_id": 4,
-      "activity_id": 6,
-      "start": "2017-05-04 16:00:00+0100",
-      "end": "2017-05-04 18:00:00+0100",
-      "status": 2,
+      "room_id": 6,
+      "activity_id": 2,
+      "start": "2017-07-17 16:00:00+0100",
+      "end": "2017-07-17 18:00:00+0100",
+      "status": 1,
       "creator_id": 1
     }
   },
@@ -495,11 +495,11 @@
     "model": "events.event",
     "pk": 42,
     "fields": {
-      "room_id": 7,
-      "activity_id": 4,
-      "start": "2017-03-24 14:00:00+0100",
-      "end": "2017-03-24 16:00:00+0100",
-      "status": 0,
+      "room_id": 6,
+      "activity_id": 5,
+      "start": "2017-07-19 18:00:00+0100",
+      "end": "2017-07-19 20:00:00+0100",
+      "status": 1,
       "creator_id": 1
     }
   },
@@ -508,10 +508,10 @@
     "pk": 43,
     "fields": {
       "room_id": 7,
-      "activity_id": 1,
-      "start": "2016-05-31 14:00:00+0100",
-      "end": "2016-05-31 16:00:00+0100",
-      "status": 1,
+      "activity_id": 3,
+      "start": "2017-06-05 18:00:00+0100",
+      "end": "2017-06-05 20:00:00+0100",
+      "status": 0,
       "creator_id": 1
     }
   },
@@ -519,10 +519,10 @@
     "model": "events.event",
     "pk": 44,
     "fields": {
-      "room_id": 8,
-      "activity_id": 1,
-      "start": "2017-03-27 18:00:00+0100",
-      "end": "2017-03-27 20:00:00+0100",
+      "room_id": 5,
+      "activity_id": 4,
+      "start": "2017-06-22 18:00:00+0100",
+      "end": "2017-06-22 20:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -531,10 +531,10 @@
     "model": "events.event",
     "pk": 45,
     "fields": {
-      "room_id": 6,
-      "activity_id": 3,
-      "start": "2017-03-17 16:00:00+0100",
-      "end": "2017-03-17 18:00:00+0100",
+      "room_id": 2,
+      "activity_id": 8,
+      "start": "2017-07-17 18:00:00+0100",
+      "end": "2017-07-17 20:00:00+0100",
       "status": 2,
       "creator_id": 1
     }
@@ -543,11 +543,11 @@
     "model": "events.event",
     "pk": 46,
     "fields": {
-      "room_id": 1,
-      "activity_id": 3,
-      "start": "2017-04-13 18:00:00+0100",
-      "end": "2017-04-13 20:00:00+0100",
-      "status": 2,
+      "room_id": 9,
+      "activity_id": 2,
+      "start": "2017-07-19 18:00:00+0100",
+      "end": "2017-07-19 20:00:00+0100",
+      "status": 0,
       "creator_id": 1
     }
   },
@@ -555,10 +555,10 @@
     "model": "events.event",
     "pk": 47,
     "fields": {
-      "room_id": 8,
-      "activity_id": 4,
-      "start": "2017-04-24 18:00:00+0100",
-      "end": "2017-04-24 20:00:00+0100",
+      "room_id": 3,
+      "activity_id": 8,
+      "start": "2017-05-31 14:00:00+0100",
+      "end": "2017-05-31 16:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -567,11 +567,11 @@
     "model": "events.event",
     "pk": 48,
     "fields": {
-      "room_id": 5,
-      "activity_id": 7,
-      "start": "2016-04-27 16:00:00+0100",
-      "end": "2016-04-27 18:00:00+0100",
-      "status": 1,
+      "room_id": 3,
+      "activity_id": 2,
+      "start": "2017-07-25 14:00:00+0100",
+      "end": "2017-07-25 16:00:00+0100",
+      "status": 2,
       "creator_id": 1
     }
   },
@@ -579,10 +579,10 @@
     "model": "events.event",
     "pk": 49,
     "fields": {
-      "room_id": 6,
-      "activity_id": 1,
-      "start": "2017-04-24 18:00:00+0100",
-      "end": "2017-04-24 20:00:00+0100",
+      "room_id": 7,
+      "activity_id": 5,
+      "start": "2017-06-19 18:00:00+0100",
+      "end": "2017-06-19 20:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -591,11 +591,11 @@
     "model": "events.event",
     "pk": 50,
     "fields": {
-      "room_id": 9,
-      "activity_id": 6,
-      "start": "2017-03-30 14:00:00+0100",
-      "end": "2017-03-30 16:00:00+0100",
-      "status": 0,
+      "room_id": 4,
+      "activity_id": 5,
+      "start": "2017-06-08 16:00:00+0100",
+      "end": "2017-06-08 18:00:00+0100",
+      "status": 1,
       "creator_id": 1
     }
   },
@@ -603,11 +603,11 @@
     "model": "events.event",
     "pk": 51,
     "fields": {
-      "room_id": 2,
+      "room_id": 5,
       "activity_id": 5,
-      "start": "2017-04-20 14:00:00+0100",
-      "end": "2017-04-20 16:00:00+0100",
-      "status": 0,
+      "start": "2017-06-16 14:00:00+0100",
+      "end": "2017-06-16 16:00:00+0100",
+      "status": 1,
       "creator_id": 1
     }
   },
@@ -615,10 +615,10 @@
     "model": "events.event",
     "pk": 52,
     "fields": {
-      "room_id": 3,
-      "activity_id": 3,
-      "start": "2017-04-27 18:00:00+0100",
-      "end": "2017-04-27 20:00:00+0100",
+      "room_id": 6,
+      "activity_id": 4,
+      "start": "2017-07-14 14:00:00+0100",
+      "end": "2017-07-14 16:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -627,11 +627,11 @@
     "model": "events.event",
     "pk": 53,
     "fields": {
-      "room_id": 9,
+      "room_id": 4,
       "activity_id": 2,
-      "start": "2016-05-20 18:00:00+0100",
-      "end": "2016-05-20 20:00:00+0100",
-      "status": 1,
+      "start": "2017-07-18 16:00:00+0100",
+      "end": "2017-07-18 18:00:00+0100",
+      "status": 0,
       "creator_id": 1
     }
   },
@@ -639,10 +639,10 @@
     "model": "events.event",
     "pk": 54,
     "fields": {
-      "room_id": 5,
-      "activity_id": 8,
-      "start": "2017-03-23 18:00:00+0100",
-      "end": "2017-03-23 20:00:00+0100",
+      "room_id": 3,
+      "activity_id": 2,
+      "start": "2017-06-05 16:00:00+0100",
+      "end": "2017-06-05 18:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -651,10 +651,10 @@
     "model": "events.event",
     "pk": 55,
     "fields": {
-      "room_id": 1,
-      "activity_id": 8,
-      "start": "2017-03-16 14:00:00+0100",
-      "end": "2017-03-16 16:00:00+0100",
+      "room_id": 6,
+      "activity_id": 7,
+      "start": "2017-06-06 18:00:00+0100",
+      "end": "2017-06-06 20:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -665,9 +665,9 @@
     "fields": {
       "room_id": 7,
       "activity_id": 7,
-      "start": "2017-04-10 18:00:00+0100",
-      "end": "2017-04-10 20:00:00+0100",
-      "status": 2,
+      "start": "2017-08-11 18:00:00+0100",
+      "end": "2017-08-11 20:00:00+0100",
+      "status": 0,
       "creator_id": 1
     }
   },
@@ -675,10 +675,10 @@
     "model": "events.event",
     "pk": 57,
     "fields": {
-      "room_id": 8,
-      "activity_id": 7,
-      "start": "2017-04-20 16:00:00+0100",
-      "end": "2017-04-20 18:00:00+0100",
+      "room_id": 4,
+      "activity_id": 3,
+      "start": "2017-07-05 16:00:00+0100",
+      "end": "2017-07-05 18:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -687,10 +687,10 @@
     "model": "events.event",
     "pk": 58,
     "fields": {
-      "room_id": 9,
-      "activity_id": 4,
-      "start": "2017-04-27 14:00:00+0100",
-      "end": "2017-04-27 16:00:00+0100",
+      "room_id": 4,
+      "activity_id": 7,
+      "start": "2017-06-14 18:00:00+0100",
+      "end": "2017-06-14 20:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -700,10 +700,10 @@
     "pk": 59,
     "fields": {
       "room_id": 2,
-      "activity_id": 5,
-      "start": "2017-05-10 16:00:00+0100",
-      "end": "2017-05-10 18:00:00+0100",
-      "status": 0,
+      "activity_id": 6,
+      "start": "2017-07-12 14:00:00+0100",
+      "end": "2017-07-12 16:00:00+0100",
+      "status": 2,
       "creator_id": 1
     }
   },
@@ -711,10 +711,10 @@
     "model": "events.event",
     "pk": 60,
     "fields": {
-      "room_id": 5,
-      "activity_id": 4,
-      "start": "2017-04-25 16:00:00+0100",
-      "end": "2017-04-25 18:00:00+0100",
+      "room_id": 1,
+      "activity_id": 3,
+      "start": "2017-06-26 16:00:00+0100",
+      "end": "2017-06-26 18:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -723,10 +723,10 @@
     "model": "events.event",
     "pk": 61,
     "fields": {
-      "room_id": 1,
-      "activity_id": 4,
-      "start": "2017-04-14 16:00:00+0100",
-      "end": "2017-04-14 18:00:00+0100",
+      "room_id": 5,
+      "activity_id": 7,
+      "start": "2017-07-03 18:00:00+0100",
+      "end": "2017-07-03 20:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -737,9 +737,9 @@
     "fields": {
       "room_id": 4,
       "activity_id": 5,
-      "start": "2017-04-28 16:00:00+0100",
-      "end": "2017-04-28 18:00:00+0100",
-      "status": 0,
+      "start": "2017-07-25 16:00:00+0100",
+      "end": "2017-07-25 18:00:00+0100",
+      "status": 2,
       "creator_id": 1
     }
   },
@@ -747,11 +747,11 @@
     "model": "events.event",
     "pk": 63,
     "fields": {
-      "room_id": 3,
-      "activity_id": 1,
-      "start": "2017-04-24 18:00:00+0100",
-      "end": "2017-04-24 20:00:00+0100",
-      "status": 2,
+      "room_id": 8,
+      "activity_id": 8,
+      "start": "2017-08-07 16:00:00+0100",
+      "end": "2017-08-07 18:00:00+0100",
+      "status": 0,
       "creator_id": 1
     }
   },
@@ -759,11 +759,11 @@
     "model": "events.event",
     "pk": 64,
     "fields": {
-      "room_id": 2,
+      "room_id": 3,
       "activity_id": 3,
-      "start": "2017-03-27 16:00:00+0100",
-      "end": "2017-03-27 18:00:00+0100",
-      "status": 2,
+      "start": "2017-07-25 18:00:00+0100",
+      "end": "2017-07-25 20:00:00+0100",
+      "status": 1,
       "creator_id": 1
     }
   },
@@ -771,10 +771,10 @@
     "model": "events.event",
     "pk": 65,
     "fields": {
-      "room_id": 1,
-      "activity_id": 4,
-      "start": "2017-03-30 14:00:00+0100",
-      "end": "2017-03-30 16:00:00+0100",
+      "room_id": 5,
+      "activity_id": 1,
+      "start": "2017-05-16 18:00:00+0100",
+      "end": "2017-05-16 20:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -783,11 +783,11 @@
     "model": "events.event",
     "pk": 66,
     "fields": {
-      "room_id": 4,
-      "activity_id": 3,
-      "start": "2017-04-04 16:00:00+0100",
-      "end": "2017-04-04 18:00:00+0100",
-      "status": 2,
+      "room_id": 1,
+      "activity_id": 4,
+      "start": "2017-06-27 14:00:00+0100",
+      "end": "2017-06-27 16:00:00+0100",
+      "status": 0,
       "creator_id": 1
     }
   },
@@ -795,10 +795,10 @@
     "model": "events.event",
     "pk": 67,
     "fields": {
-      "room_id": 5,
-      "activity_id": 6,
-      "start": "2017-03-27 16:00:00+0100",
-      "end": "2017-03-27 18:00:00+0100",
+      "room_id": 8,
+      "activity_id": 8,
+      "start": "2017-08-02 16:00:00+0100",
+      "end": "2017-08-02 18:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -807,11 +807,11 @@
     "model": "events.event",
     "pk": 68,
     "fields": {
-      "room_id": 5,
-      "activity_id": 2,
-      "start": "2017-03-27 14:00:00+0100",
-      "end": "2017-03-27 16:00:00+0100",
-      "status": 1,
+      "room_id": 9,
+      "activity_id": 6,
+      "start": "2017-08-14 14:00:00+0100",
+      "end": "2017-08-14 16:00:00+0100",
+      "status": 0,
       "creator_id": 1
     }
   },
@@ -819,10 +819,10 @@
     "model": "events.event",
     "pk": 69,
     "fields": {
-      "room_id": 6,
-      "activity_id": 3,
-      "start": "2017-03-20 14:00:00+0100",
-      "end": "2017-03-20 16:00:00+0100",
+      "room_id": 4,
+      "activity_id": 2,
+      "start": "2017-06-02 16:00:00+0100",
+      "end": "2017-06-02 18:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -831,10 +831,10 @@
     "model": "events.event",
     "pk": 70,
     "fields": {
-      "room_id": 3,
-      "activity_id": 7,
-      "start": "2017-05-02 16:00:00+0100",
-      "end": "2017-05-02 18:00:00+0100",
+      "room_id": 2,
+      "activity_id": 5,
+      "start": "2017-05-17 18:00:00+0100",
+      "end": "2017-05-17 20:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -843,11 +843,11 @@
     "model": "events.event",
     "pk": 71,
     "fields": {
-      "room_id": 7,
-      "activity_id": 7,
-      "start": "2017-03-28 16:00:00+0100",
-      "end": "2017-03-28 18:00:00+0100",
-      "status": 0,
+      "room_id": 2,
+      "activity_id": 8,
+      "start": "2017-06-26 16:00:00+0100",
+      "end": "2017-06-26 18:00:00+0100",
+      "status": 2,
       "creator_id": 1
     }
   },
@@ -855,10 +855,10 @@
     "model": "events.event",
     "pk": 72,
     "fields": {
-      "room_id": 2,
-      "activity_id": 3,
-      "start": "2017-03-16 18:00:00+0100",
-      "end": "2017-03-16 20:00:00+0100",
+      "room_id": 1,
+      "activity_id": 4,
+      "start": "2017-06-05 14:00:00+0100",
+      "end": "2017-06-05 16:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -868,10 +868,10 @@
     "pk": 73,
     "fields": {
       "room_id": 7,
-      "activity_id": 8,
-      "start": "2017-03-31 18:00:00+0100",
-      "end": "2017-03-31 20:00:00+0100",
-      "status": 0,
+      "activity_id": 1,
+      "start": "2017-06-01 14:00:00+0100",
+      "end": "2017-06-01 16:00:00+0100",
+      "status": 1,
       "creator_id": 1
     }
   },
@@ -879,10 +879,10 @@
     "model": "events.event",
     "pk": 74,
     "fields": {
-      "room_id": 7,
+      "room_id": 3,
       "activity_id": 8,
-      "start": "2017-04-13 16:00:00+0100",
-      "end": "2017-04-13 18:00:00+0100",
+      "start": "2017-07-27 14:00:00+0100",
+      "end": "2017-07-27 16:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -892,9 +892,9 @@
     "pk": 75,
     "fields": {
       "room_id": 2,
-      "activity_id": 4,
-      "start": "2017-05-04 16:00:00+0100",
-      "end": "2017-05-04 18:00:00+0100",
+      "activity_id": 3,
+      "start": "2017-07-26 18:00:00+0100",
+      "end": "2017-07-26 20:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -903,11 +903,11 @@
     "model": "events.event",
     "pk": 76,
     "fields": {
-      "room_id": 1,
-      "activity_id": 8,
-      "start": "2017-04-17 16:00:00+0100",
-      "end": "2017-04-17 18:00:00+0100",
-      "status": 0,
+      "room_id": 7,
+      "activity_id": 2,
+      "start": "2017-07-25 16:00:00+0100",
+      "end": "2017-07-25 18:00:00+0100",
+      "status": 1,
       "creator_id": 1
     }
   },
@@ -915,10 +915,10 @@
     "model": "events.event",
     "pk": 77,
     "fields": {
-      "room_id": 4,
-      "activity_id": 8,
-      "start": "2017-04-25 16:00:00+0100",
-      "end": "2017-04-25 18:00:00+0100",
+      "room_id": 3,
+      "activity_id": 5,
+      "start": "2017-05-30 14:00:00+0100",
+      "end": "2017-05-30 16:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -927,11 +927,11 @@
     "model": "events.event",
     "pk": 78,
     "fields": {
-      "room_id": 3,
-      "activity_id": 2,
-      "start": "2017-05-05 14:00:00+0100",
-      "end": "2017-05-05 16:00:00+0100",
-      "status": 1,
+      "room_id": 4,
+      "activity_id": 5,
+      "start": "2017-06-09 18:00:00+0100",
+      "end": "2017-06-09 20:00:00+0100",
+      "status": 0,
       "creator_id": 1
     }
   },
@@ -939,10 +939,10 @@
     "model": "events.event",
     "pk": 79,
     "fields": {
-      "room_id": 6,
-      "activity_id": 4,
-      "start": "2017-04-24 16:00:00+0100",
-      "end": "2017-04-24 18:00:00+0100",
+      "room_id": 4,
+      "activity_id": 3,
+      "start": "2017-05-29 14:00:00+0100",
+      "end": "2017-05-29 16:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -951,11 +951,11 @@
     "model": "events.event",
     "pk": 80,
     "fields": {
-      "room_id": 6,
+      "room_id": 4,
       "activity_id": 7,
-      "start": "2016-04-15 16:00:00+0100",
-      "end": "2016-04-15 18:00:00+0100",
-      "status": 1,
+      "start": "2017-06-08 14:00:00+0100",
+      "end": "2017-06-08 16:00:00+0100",
+      "status": 0,
       "creator_id": 1
     }
   },
@@ -963,11 +963,11 @@
     "model": "events.event",
     "pk": 81,
     "fields": {
-      "room_id": 3,
-      "activity_id": 4,
-      "start": "2017-03-28 16:00:00+0100",
-      "end": "2017-03-28 18:00:00+0100",
-      "status": 2,
+      "room_id": 1,
+      "activity_id": 6,
+      "start": "2017-07-26 18:00:00+0100",
+      "end": "2017-07-26 20:00:00+0100",
+      "status": 0,
       "creator_id": 1
     }
   },
@@ -975,10 +975,10 @@
     "model": "events.event",
     "pk": 82,
     "fields": {
-      "room_id": 9,
-      "activity_id": 1,
-      "start": "2017-05-03 16:00:00+0100",
-      "end": "2017-05-03 18:00:00+0100",
+      "room_id": 1,
+      "activity_id": 3,
+      "start": "2017-06-16 14:00:00+0100",
+      "end": "2017-06-16 16:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -987,11 +987,11 @@
     "model": "events.event",
     "pk": 83,
     "fields": {
-      "room_id": 9,
-      "activity_id": 5,
-      "start": "2017-05-11 14:00:00+0100",
-      "end": "2017-05-11 16:00:00+0100",
-      "status": 1,
+      "room_id": 8,
+      "activity_id": 7,
+      "start": "2017-06-23 14:00:00+0100",
+      "end": "2017-06-23 16:00:00+0100",
+      "status": 0,
       "creator_id": 1
     }
   },
@@ -1000,10 +1000,10 @@
     "pk": 84,
     "fields": {
       "room_id": 2,
-      "activity_id": 8,
-      "start": "2017-05-10 18:00:00+0100",
-      "end": "2017-05-10 20:00:00+0100",
-      "status": 2,
+      "activity_id": 6,
+      "start": "2017-05-23 16:00:00+0100",
+      "end": "2017-05-23 18:00:00+0100",
+      "status": 0,
       "creator_id": 1
     }
   },
@@ -1011,11 +1011,11 @@
     "model": "events.event",
     "pk": 85,
     "fields": {
-      "room_id": 5,
-      "activity_id": 5,
-      "start": "2017-05-01 16:00:00+0100",
-      "end": "2017-05-01 18:00:00+0100",
-      "status": 1,
+      "room_id": 9,
+      "activity_id": 3,
+      "start": "2017-06-20 18:00:00+0100",
+      "end": "2017-06-20 20:00:00+0100",
+      "status": 0,
       "creator_id": 1
     }
   },
@@ -1023,10 +1023,10 @@
     "model": "events.event",
     "pk": 86,
     "fields": {
-      "room_id": 4,
-      "activity_id": 1,
-      "start": "2017-03-28 16:00:00+0100",
-      "end": "2017-03-28 18:00:00+0100",
+      "room_id": 5,
+      "activity_id": 2,
+      "start": "2017-06-02 14:00:00+0100",
+      "end": "2017-06-02 16:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -1035,10 +1035,10 @@
     "model": "events.event",
     "pk": 87,
     "fields": {
-      "room_id": 9,
-      "activity_id": 5,
-      "start": "2017-05-01 18:00:00+0100",
-      "end": "2017-05-01 20:00:00+0100",
+      "room_id": 8,
+      "activity_id": 8,
+      "start": "2017-06-26 16:00:00+0100",
+      "end": "2017-06-26 18:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -1047,11 +1047,11 @@
     "model": "events.event",
     "pk": 88,
     "fields": {
-      "room_id": 9,
-      "activity_id": 3,
-      "start": "2017-03-30 18:00:00+0100",
-      "end": "2017-03-30 20:00:00+0100",
-      "status": 0,
+      "room_id": 5,
+      "activity_id": 4,
+      "start": "2017-08-07 14:00:00+0100",
+      "end": "2017-08-07 16:00:00+0100",
+      "status": 1,
       "creator_id": 1
     }
   },
@@ -1059,11 +1059,11 @@
     "model": "events.event",
     "pk": 89,
     "fields": {
-      "room_id": 1,
-      "activity_id": 2,
-      "start": "2017-03-15 14:00:00+0100",
-      "end": "2017-03-15 16:00:00+0100",
-      "status": 0,
+      "room_id": 9,
+      "activity_id": 8,
+      "start": "2017-05-15 14:00:00+0100",
+      "end": "2017-05-15 16:00:00+0100",
+      "status": 2,
       "creator_id": 1
     }
   },
@@ -1071,10 +1071,10 @@
     "model": "events.event",
     "pk": 90,
     "fields": {
-      "room_id": 8,
-      "activity_id": 5,
-      "start": "2017-04-21 18:00:00+0100",
-      "end": "2017-04-21 20:00:00+0100",
+      "room_id": 2,
+      "activity_id": 7,
+      "start": "2017-06-29 14:00:00+0100",
+      "end": "2017-06-29 16:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -1083,10 +1083,10 @@
     "model": "events.event",
     "pk": 91,
     "fields": {
-      "room_id": 5,
-      "activity_id": 3,
-      "start": "2017-04-18 16:00:00+0100",
-      "end": "2017-04-18 18:00:00+0100",
+      "room_id": 1,
+      "activity_id": 2,
+      "start": "2017-05-26 16:00:00+0100",
+      "end": "2017-05-26 18:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -1095,11 +1095,11 @@
     "model": "events.event",
     "pk": 92,
     "fields": {
-      "room_id": 3,
-      "activity_id": 1,
-      "start": "2017-03-15 16:00:00+0100",
-      "end": "2017-03-15 18:00:00+0100",
-      "status": 2,
+      "room_id": 2,
+      "activity_id": 6,
+      "start": "2017-06-01 18:00:00+0100",
+      "end": "2017-06-01 20:00:00+0100",
+      "status": 0,
       "creator_id": 1
     }
   },
@@ -1107,10 +1107,10 @@
     "model": "events.event",
     "pk": 93,
     "fields": {
-      "room_id": 8,
-      "activity_id": 6,
-      "start": "2017-04-19 14:00:00+0100",
-      "end": "2017-04-19 16:00:00+0100",
+      "room_id": 9,
+      "activity_id": 3,
+      "start": "2017-05-22 16:00:00+0100",
+      "end": "2017-05-22 18:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -1119,11 +1119,11 @@
     "model": "events.event",
     "pk": 94,
     "fields": {
-      "room_id": 1,
-      "activity_id": 7,
-      "start": "2017-03-21 18:00:00+0100",
-      "end": "2017-03-21 20:00:00+0100",
-      "status": 1,
+      "room_id": 4,
+      "activity_id": 8,
+      "start": "2017-05-19 18:00:00+0100",
+      "end": "2017-05-19 20:00:00+0100",
+      "status": 0,
       "creator_id": 1
     }
   },
@@ -1131,10 +1131,10 @@
     "model": "events.event",
     "pk": 95,
     "fields": {
-      "room_id": 4,
-      "activity_id": 6,
-      "start": "2017-05-09 16:00:00+0100",
-      "end": "2017-05-09 18:00:00+0100",
+      "room_id": 1,
+      "activity_id": 2,
+      "start": "2017-07-05 14:00:00+0100",
+      "end": "2017-07-05 16:00:00+0100",
       "status": 1,
       "creator_id": 1
     }
@@ -1143,11 +1143,11 @@
     "model": "events.event",
     "pk": 96,
     "fields": {
-      "room_id": 7,
-      "activity_id": 8,
-      "start": "2017-05-05 16:00:00+0100",
-      "end": "2017-05-05 18:00:00+0100",
-      "status": 1,
+      "room_id": 3,
+      "activity_id": 4,
+      "start": "2017-07-26 16:00:00+0100",
+      "end": "2017-07-26 18:00:00+0100",
+      "status": 0,
       "creator_id": 1
     }
   },
@@ -1156,9 +1156,9 @@
     "pk": 97,
     "fields": {
       "room_id": 6,
-      "activity_id": 4,
-      "start": "2017-05-10 18:00:00+0100",
-      "end": "2017-05-10 20:00:00+0100",
+      "activity_id": 8,
+      "start": "2017-06-27 18:00:00+0100",
+      "end": "2017-06-27 20:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -1167,10 +1167,10 @@
     "model": "events.event",
     "pk": 98,
     "fields": {
-      "room_id": 7,
+      "room_id": 8,
       "activity_id": 3,
-      "start": "2017-04-25 16:00:00+0100",
-      "end": "2017-04-25 18:00:00+0100",
+      "start": "2017-06-07 18:00:00+0100",
+      "end": "2017-06-07 20:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -1179,10 +1179,10 @@
     "model": "events.event",
     "pk": 99,
     "fields": {
-      "room_id": 3,
-      "activity_id": 4,
-      "start": "2017-03-28 14:00:00+0100",
-      "end": "2017-03-28 16:00:00+0100",
+      "room_id": 4,
+      "activity_id": 2,
+      "start": "2017-08-09 18:00:00+0100",
+      "end": "2017-08-09 20:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -1191,10 +1191,70 @@
     "model": "events.event",
     "pk": 100,
     "fields": {
-      "room_id": 3,
-      "activity_id": 7,
-      "start": "2016-06-29 16:00:00+0100",
-      "end": "2016-06-29 18:00:00+0100",
+      "room_id": 6,
+      "activity_id": 5,
+      "start": "2017-06-12 14:00:00+0100",
+      "end": "2017-06-12 16:00:00+0100",
+      "status": 0,
+      "creator_id": 1
+    }
+  },
+  {
+    "model": "events.event",
+    "pk": 101,
+    "fields": {
+      "room_id": 2,
+      "activity_id": 5,
+      "start": "2017-08-04 18:00:00+0100",
+      "end": "2017-08-04 20:00:00+0100",
+      "status": 0,
+      "creator_id": 1
+    }
+  },
+  {
+    "model": "events.event",
+    "pk": 102,
+    "fields": {
+      "room_id": 5,
+      "activity_id": 4,
+      "start": "2017-06-07 16:00:00+0100",
+      "end": "2017-06-07 18:00:00+0100",
+      "status": 0,
+      "creator_id": 1
+    }
+  },
+  {
+    "model": "events.event",
+    "pk": 103,
+    "fields": {
+      "room_id": 5,
+      "activity_id": 3,
+      "start": "2017-05-22 14:00:00+0100",
+      "end": "2017-05-22 16:00:00+0100",
+      "status": 2,
+      "creator_id": 1
+    }
+  },
+  {
+    "model": "events.event",
+    "pk": 104,
+    "fields": {
+      "room_id": 4,
+      "activity_id": 8,
+      "start": "2017-08-08 14:00:00+0100",
+      "end": "2017-08-08 16:00:00+0100",
+      "status": 0,
+      "creator_id": 1
+    }
+  },
+  {
+    "model": "events.event",
+    "pk": 105,
+    "fields": {
+      "room_id": 4,
+      "activity_id": 6,
+      "start": "2017-06-07 16:00:00+0100",
+      "end": "2017-06-07 18:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -1203,10 +1263,10 @@
     "model": "events.event",
     "pk": 106,
     "fields": {
-      "room_id": 9,
-      "activity_id": 3,
-      "start": "2016-06-03 16:00:00+0100",
-      "end": "2016-06-03 18:00:00+0100",
+      "room_id": 2,
+      "activity_id": 5,
+      "start": "2017-06-29 18:00:00+0100",
+      "end": "2017-06-29 20:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -1215,11 +1275,11 @@
     "model": "events.event",
     "pk": 107,
     "fields": {
-      "room_id": 4,
-      "activity_id": 8,
-      "start": "2016-06-27 18:00:00+0100",
-      "end": "2016-06-27 20:00:00+0100",
-      "status": 0,
+      "room_id": 7,
+      "activity_id": 5,
+      "start": "2017-07-07 14:00:00+0100",
+      "end": "2017-07-07 16:00:00+0100",
+      "status": 2,
       "creator_id": 1
     }
   },
@@ -1227,10 +1287,10 @@
     "model": "events.event",
     "pk": 108,
     "fields": {
-      "room_id": 1,
-      "activity_id": 7,
-      "start": "2016-06-17 18:00:00+0100",
-      "end": "2016-06-17 20:00:00+0100",
+      "room_id": 6,
+      "activity_id": 6,
+      "start": "2017-07-28 14:00:00+0100",
+      "end": "2017-07-28 16:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -1239,10 +1299,10 @@
     "model": "events.event",
     "pk": 109,
     "fields": {
-      "room_id": 8,
-      "activity_id": 7,
-      "start": "2016-05-03 16:00:00+0100",
-      "end": "2016-05-03 18:00:00+0100",
+      "room_id": 4,
+      "activity_id": 4,
+      "start": "2017-07-04 16:00:00+0100",
+      "end": "2017-07-04 18:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -1251,11 +1311,11 @@
     "model": "events.event",
     "pk": 110,
     "fields": {
-      "room_id": 2,
-      "activity_id": 2,
-      "start": "2016-06-24 14:00:00+0100",
-      "end": "2016-06-24 16:00:00+0100",
-      "status": 0,
+      "room_id": 7,
+      "activity_id": 4,
+      "start": "2017-05-16 16:00:00+0100",
+      "end": "2017-05-16 18:00:00+0100",
+      "status": 1,
       "creator_id": 1
     }
   },
@@ -1265,9 +1325,9 @@
     "fields": {
       "room_id": 6,
       "activity_id": 8,
-      "start": "2016-05-05 18:00:00+0100",
-      "end": "2016-05-05 20:00:00+0100",
-      "status": 0,
+      "start": "2017-06-15 14:00:00+0100",
+      "end": "2017-06-15 16:00:00+0100",
+      "status": 1,
       "creator_id": 1
     }
   },
@@ -1275,11 +1335,11 @@
     "model": "events.event",
     "pk": 112,
     "fields": {
-      "room_id": 8,
+      "room_id": 3,
       "activity_id": 5,
-      "start": "2016-05-19 18:00:00+0100",
-      "end": "2016-05-19 20:00:00+0100",
-      "status": 1,
+      "start": "2017-07-18 16:00:00+0100",
+      "end": "2017-07-18 18:00:00+0100",
+      "status": 0,
       "creator_id": 1
     }
   },
@@ -1287,11 +1347,11 @@
     "model": "events.event",
     "pk": 113,
     "fields": {
-      "room_id": 5,
-      "activity_id": 6,
-      "start": "2016-06-21 14:00:00+0100",
-      "end": "2016-06-21 16:00:00+0100",
-      "status": 0,
+      "room_id": 2,
+      "activity_id": 3,
+      "start": "2017-05-26 16:00:00+0100",
+      "end": "2017-05-26 18:00:00+0100",
+      "status": 2,
       "creator_id": 1
     }
   },
@@ -1299,10 +1359,10 @@
     "model": "events.event",
     "pk": 114,
     "fields": {
-      "room_id": 7,
-      "activity_id": 2,
-      "start": "2016-06-14 14:00:00+0100",
-      "end": "2016-06-14 16:00:00+0100",
+      "room_id": 8,
+      "activity_id": 4,
+      "start": "2017-08-08 16:00:00+0100",
+      "end": "2017-08-08 18:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -1311,10 +1371,10 @@
     "model": "events.event",
     "pk": 115,
     "fields": {
-      "room_id": 4,
-      "activity_id": 7,
-      "start": "2016-06-09 16:00:00+0100",
-      "end": "2016-06-09 18:00:00+0100",
+      "room_id": 2,
+      "activity_id": 8,
+      "start": "2017-07-25 16:00:00+0100",
+      "end": "2017-07-25 18:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -1323,11 +1383,11 @@
     "model": "events.event",
     "pk": 116,
     "fields": {
-      "room_id": 6,
-      "activity_id": 8,
-      "start": "2016-05-16 18:00:00+0100",
-      "end": "2016-05-16 20:00:00+0100",
-      "status": 1,
+      "room_id": 4,
+      "activity_id": 4,
+      "start": "2017-06-08 18:00:00+0100",
+      "end": "2017-06-08 20:00:00+0100",
+      "status": 2,
       "creator_id": 1
     }
   },
@@ -1335,11 +1395,11 @@
     "model": "events.event",
     "pk": 117,
     "fields": {
-      "room_id": 8,
-      "activity_id": 1,
-      "start": "2016-05-26 18:00:00+0100",
-      "end": "2016-05-26 20:00:00+0100",
-      "status": 2,
+      "room_id": 4,
+      "activity_id": 8,
+      "start": "2017-07-05 18:00:00+0100",
+      "end": "2017-07-05 20:00:00+0100",
+      "status": 1,
       "creator_id": 1
     }
   },
@@ -1347,11 +1407,11 @@
     "model": "events.event",
     "pk": 118,
     "fields": {
-      "room_id": 5,
-      "activity_id": 8,
-      "start": "2016-05-03 16:00:00+0100",
-      "end": "2016-05-03 18:00:00+0100",
-      "status": 0,
+      "room_id": 3,
+      "activity_id": 2,
+      "start": "2017-07-07 16:00:00+0100",
+      "end": "2017-07-07 18:00:00+0100",
+      "status": 2,
       "creator_id": 1
     }
   },
@@ -1359,10 +1419,10 @@
     "model": "events.event",
     "pk": 119,
     "fields": {
-      "room_id": 8,
-      "activity_id": 3,
-      "start": "2016-04-12 16:00:00+0100",
-      "end": "2016-04-12 18:00:00+0100",
+      "room_id": 3,
+      "activity_id": 5,
+      "start": "2017-05-15 14:00:00+0100",
+      "end": "2017-05-15 16:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -1371,11 +1431,11 @@
     "model": "events.event",
     "pk": 120,
     "fields": {
-      "room_id": 6,
-      "activity_id": 4,
-      "start": "2016-06-21 18:00:00+0100",
-      "end": "2016-06-21 20:00:00+0100",
-      "status": 0,
+      "room_id": 9,
+      "activity_id": 5,
+      "start": "2017-06-15 14:00:00+0100",
+      "end": "2017-06-15 16:00:00+0100",
+      "status": 1,
       "creator_id": 1
     }
   },
@@ -1383,10 +1443,10 @@
     "model": "events.event",
     "pk": 121,
     "fields": {
-      "room_id": 9,
-      "activity_id": 5,
-      "start": "2016-06-29 14:00:00+0100",
-      "end": "2016-06-29 16:00:00+0100",
+      "room_id": 6,
+      "activity_id": 4,
+      "start": "2017-06-02 18:00:00+0100",
+      "end": "2017-06-02 20:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -1395,11 +1455,11 @@
     "model": "events.event",
     "pk": 122,
     "fields": {
-      "room_id": 5,
-      "activity_id": 1,
-      "start": "2016-04-06 18:00:00+0100",
-      "end": "2016-04-06 20:00:00+0100",
-      "status": 0,
+      "room_id": 9,
+      "activity_id": 8,
+      "start": "2017-06-02 18:00:00+0100",
+      "end": "2017-06-02 20:00:00+0100",
+      "status": 1,
       "creator_id": 1
     }
   },
@@ -1407,11 +1467,11 @@
     "model": "events.event",
     "pk": 123,
     "fields": {
-      "room_id": 3,
+      "room_id": 2,
       "activity_id": 1,
-      "start": "2016-04-29 14:00:00+0100",
-      "end": "2016-04-29 16:00:00+0100",
-      "status": 2,
+      "start": "2017-05-19 16:00:00+0100",
+      "end": "2017-05-19 18:00:00+0100",
+      "status": 1,
       "creator_id": 1
     }
   },
@@ -1419,11 +1479,11 @@
     "model": "events.event",
     "pk": 124,
     "fields": {
-      "room_id": 2,
-      "activity_id": 5,
-      "start": "2016-05-12 14:00:00+0100",
-      "end": "2016-05-12 16:00:00+0100",
-      "status": 1,
+      "room_id": 3,
+      "activity_id": 4,
+      "start": "2017-06-07 16:00:00+0100",
+      "end": "2017-06-07 18:00:00+0100",
+      "status": 0,
       "creator_id": 1
     }
   },
@@ -1431,11 +1491,11 @@
     "model": "events.event",
     "pk": 125,
     "fields": {
-      "room_id": 9,
-      "activity_id": 3,
-      "start": "2016-06-10 16:00:00+0100",
-      "end": "2016-06-10 18:00:00+0100",
-      "status": 2,
+      "room_id": 3,
+      "activity_id": 2,
+      "start": "2017-07-10 18:00:00+0100",
+      "end": "2017-07-10 20:00:00+0100",
+      "status": 0,
       "creator_id": 1
     }
   },
@@ -1444,10 +1504,10 @@
     "pk": 126,
     "fields": {
       "room_id": 2,
-      "activity_id": 6,
-      "start": "2016-05-10 16:00:00+0100",
-      "end": "2016-05-10 18:00:00+0100",
-      "status": 0,
+      "activity_id": 4,
+      "start": "2017-05-17 16:00:00+0100",
+      "end": "2017-05-17 18:00:00+0100",
+      "status": 2,
       "creator_id": 1
     }
   },
@@ -1455,11 +1515,11 @@
     "model": "events.event",
     "pk": 127,
     "fields": {
-      "room_id": 2,
-      "activity_id": 5,
-      "start": "2016-04-11 16:00:00+0100",
-      "end": "2016-04-11 18:00:00+0100",
-      "status": 0,
+      "room_id": 8,
+      "activity_id": 6,
+      "start": "2017-07-28 16:00:00+0100",
+      "end": "2017-07-28 18:00:00+0100",
+      "status": 1,
       "creator_id": 1
     }
   },
@@ -1467,10 +1527,10 @@
     "model": "events.event",
     "pk": 128,
     "fields": {
-      "room_id": 5,
-      "activity_id": 3,
-      "start": "2016-05-02 16:00:00+0100",
-      "end": "2016-05-02 18:00:00+0100",
+      "room_id": 6,
+      "activity_id": 7,
+      "start": "2017-08-03 18:00:00+0100",
+      "end": "2017-08-03 20:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -1479,11 +1539,11 @@
     "model": "events.event",
     "pk": 129,
     "fields": {
-      "room_id": 2,
-      "activity_id": 7,
-      "start": "2016-06-03 14:00:00+0100",
-      "end": "2016-06-03 16:00:00+0100",
-      "status": 0,
+      "room_id": 3,
+      "activity_id": 4,
+      "start": "2017-05-30 18:00:00+0100",
+      "end": "2017-05-30 20:00:00+0100",
+      "status": 2,
       "creator_id": 1
     }
   },
@@ -1491,11 +1551,11 @@
     "model": "events.event",
     "pk": 130,
     "fields": {
-      "room_id": 7,
-      "activity_id": 5,
-      "start": "2016-06-24 16:00:00+0100",
-      "end": "2016-06-24 18:00:00+0100",
-      "status": 0,
+      "room_id": 5,
+      "activity_id": 4,
+      "start": "2017-06-22 16:00:00+0100",
+      "end": "2017-06-22 18:00:00+0100",
+      "status": 1,
       "creator_id": 1
     }
   },
@@ -1503,10 +1563,10 @@
     "model": "events.event",
     "pk": 131,
     "fields": {
-      "room_id": 1,
-      "activity_id": 5,
-      "start": "2016-06-01 14:00:00+0100",
-      "end": "2016-06-01 16:00:00+0100",
+      "room_id": 3,
+      "activity_id": 8,
+      "start": "2017-06-15 14:00:00+0100",
+      "end": "2017-06-15 16:00:00+0100",
       "status": 2,
       "creator_id": 1
     }
@@ -1515,11 +1575,11 @@
     "model": "events.event",
     "pk": 132,
     "fields": {
-      "room_id": 3,
-      "activity_id": 3,
-      "start": "2016-05-17 18:00:00+0100",
-      "end": "2016-05-17 20:00:00+0100",
-      "status": 1,
+      "room_id": 2,
+      "activity_id": 2,
+      "start": "2017-07-17 14:00:00+0100",
+      "end": "2017-07-17 16:00:00+0100",
+      "status": 0,
       "creator_id": 1
     }
   },
@@ -1527,10 +1587,10 @@
     "model": "events.event",
     "pk": 133,
     "fields": {
-      "room_id": 7,
-      "activity_id": 5,
-      "start": "2016-04-26 14:00:00+0100",
-      "end": "2016-04-26 16:00:00+0100",
+      "room_id": 4,
+      "activity_id": 6,
+      "start": "2017-07-07 14:00:00+0100",
+      "end": "2017-07-07 16:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -1539,11 +1599,11 @@
     "model": "events.event",
     "pk": 134,
     "fields": {
-      "room_id": 7,
+      "room_id": 1,
       "activity_id": 5,
-      "start": "2016-06-01 18:00:00+0100",
-      "end": "2016-06-01 20:00:00+0100",
-      "status": 2,
+      "start": "2017-08-14 18:00:00+0100",
+      "end": "2017-08-14 20:00:00+0100",
+      "status": 1,
       "creator_id": 1
     }
   },
@@ -1551,11 +1611,11 @@
     "model": "events.event",
     "pk": 135,
     "fields": {
-      "room_id": 8,
-      "activity_id": 7,
-      "start": "2016-05-13 18:00:00+0100",
-      "end": "2016-05-13 20:00:00+0100",
-      "status": 1,
+      "room_id": 7,
+      "activity_id": 8,
+      "start": "2017-05-18 16:00:00+0100",
+      "end": "2017-05-18 18:00:00+0100",
+      "status": 0,
       "creator_id": 1
     }
   },
@@ -1563,11 +1623,11 @@
     "model": "events.event",
     "pk": 136,
     "fields": {
-      "room_id": 6,
+      "room_id": 7,
       "activity_id": 7,
-      "start": "2016-04-26 16:00:00+0100",
-      "end": "2016-04-26 18:00:00+0100",
-      "status": 2,
+      "start": "2017-07-13 16:00:00+0100",
+      "end": "2017-07-13 18:00:00+0100",
+      "status": 1,
       "creator_id": 1
     }
   },
@@ -1575,11 +1635,11 @@
     "model": "events.event",
     "pk": 137,
     "fields": {
-      "room_id": 6,
-      "activity_id": 5,
-      "start": "2016-05-03 14:00:00+0100",
-      "end": "2016-05-03 16:00:00+0100",
-      "status": 2,
+      "room_id": 9,
+      "activity_id": 3,
+      "start": "2017-07-31 16:00:00+0100",
+      "end": "2017-07-31 18:00:00+0100",
+      "status": 0,
       "creator_id": 1
     }
   },
@@ -1587,10 +1647,10 @@
     "model": "events.event",
     "pk": 138,
     "fields": {
-      "room_id": 1,
-      "activity_id": 3,
-      "start": "2016-06-07 14:00:00+0100",
-      "end": "2016-06-07 16:00:00+0100",
+      "room_id": 8,
+      "activity_id": 1,
+      "start": "2017-06-21 16:00:00+0100",
+      "end": "2017-06-21 18:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -1599,10 +1659,10 @@
     "model": "events.event",
     "pk": 139,
     "fields": {
-      "room_id": 5,
+      "room_id": 8,
       "activity_id": 8,
-      "start": "2016-06-27 16:00:00+0100",
-      "end": "2016-06-27 18:00:00+0100",
+      "start": "2017-05-16 16:00:00+0100",
+      "end": "2017-05-16 18:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -1611,11 +1671,11 @@
     "model": "events.event",
     "pk": 140,
     "fields": {
-      "room_id": 6,
-      "activity_id": 6,
-      "start": "2016-05-05 14:00:00+0100",
-      "end": "2016-05-05 16:00:00+0100",
-      "status": 1,
+      "room_id": 7,
+      "activity_id": 1,
+      "start": "2017-06-19 14:00:00+0100",
+      "end": "2017-06-19 16:00:00+0100",
+      "status": 0,
       "creator_id": 1
     }
   },
@@ -1623,11 +1683,11 @@
     "model": "events.event",
     "pk": 141,
     "fields": {
-      "room_id": 5,
-      "activity_id": 8,
-      "start": "2016-04-15 18:00:00+0100",
-      "end": "2016-04-15 20:00:00+0100",
-      "status": 1,
+      "room_id": 1,
+      "activity_id": 1,
+      "start": "2017-06-26 18:00:00+0100",
+      "end": "2017-06-26 20:00:00+0100",
+      "status": 2,
       "creator_id": 1
     }
   },
@@ -1636,9 +1696,9 @@
     "pk": 142,
     "fields": {
       "room_id": 2,
-      "activity_id": 6,
-      "start": "2016-06-07 16:00:00+0100",
-      "end": "2016-06-07 18:00:00+0100",
+      "activity_id": 1,
+      "start": "2017-06-12 18:00:00+0100",
+      "end": "2017-06-12 20:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -1647,10 +1707,10 @@
     "model": "events.event",
     "pk": 143,
     "fields": {
-      "room_id": 5,
-      "activity_id": 8,
-      "start": "2016-04-14 14:00:00+0100",
-      "end": "2016-04-14 16:00:00+0100",
+      "room_id": 2,
+      "activity_id": 6,
+      "start": "2017-07-26 14:00:00+0100",
+      "end": "2017-07-26 16:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -1660,9 +1720,9 @@
     "pk": 144,
     "fields": {
       "room_id": 9,
-      "activity_id": 8,
-      "start": "2016-05-10 18:00:00+0100",
-      "end": "2016-05-10 20:00:00+0100",
+      "activity_id": 7,
+      "start": "2017-08-07 14:00:00+0100",
+      "end": "2017-08-07 16:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -1671,11 +1731,11 @@
     "model": "events.event",
     "pk": 145,
     "fields": {
-      "room_id": 6,
-      "activity_id": 6,
-      "start": "2016-06-17 14:00:00+0100",
-      "end": "2016-06-17 16:00:00+0100",
-      "status": 1,
+      "room_id": 3,
+      "activity_id": 2,
+      "start": "2017-06-07 14:00:00+0100",
+      "end": "2017-06-07 16:00:00+0100",
+      "status": 0,
       "creator_id": 1
     }
   },
@@ -1683,10 +1743,10 @@
     "model": "events.event",
     "pk": 146,
     "fields": {
-      "room_id": 9,
+      "room_id": 2,
       "activity_id": 2,
-      "start": "2016-06-21 14:00:00+0100",
-      "end": "2016-06-21 16:00:00+0100",
+      "start": "2017-07-12 16:00:00+0100",
+      "end": "2017-07-12 18:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -1695,10 +1755,10 @@
     "model": "events.event",
     "pk": 147,
     "fields": {
-      "room_id": 1,
-      "activity_id": 7,
-      "start": "2016-06-09 16:00:00+0100",
-      "end": "2016-06-09 18:00:00+0100",
+      "room_id": 5,
+      "activity_id": 2,
+      "start": "2017-07-25 16:00:00+0100",
+      "end": "2017-07-25 18:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -1707,10 +1767,10 @@
     "model": "events.event",
     "pk": 148,
     "fields": {
-      "room_id": 5,
-      "activity_id": 1,
-      "start": "2016-05-19 18:00:00+0100",
-      "end": "2016-05-19 20:00:00+0100",
+      "room_id": 3,
+      "activity_id": 7,
+      "start": "2017-08-01 14:00:00+0100",
+      "end": "2017-08-01 16:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -1719,10 +1779,10 @@
     "model": "events.event",
     "pk": 149,
     "fields": {
-      "room_id": 9,
+      "room_id": 4,
       "activity_id": 1,
-      "start": "2016-06-07 16:00:00+0100",
-      "end": "2016-06-07 18:00:00+0100",
+      "start": "2017-05-19 14:00:00+0100",
+      "end": "2017-05-19 16:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -1731,10 +1791,10 @@
     "model": "events.event",
     "pk": 150,
     "fields": {
-      "room_id": 7,
+      "room_id": 8,
       "activity_id": 4,
-      "start": "2016-06-06 14:00:00+0100",
-      "end": "2016-06-06 16:00:00+0100",
+      "start": "2017-07-26 16:00:00+0100",
+      "end": "2017-07-26 18:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -1743,10 +1803,10 @@
     "model": "events.event",
     "pk": 151,
     "fields": {
-      "room_id": 4,
-      "activity_id": 1,
-      "start": "2016-04-06 16:00:00+0100",
-      "end": "2016-04-06 18:00:00+0100",
+      "room_id": 5,
+      "activity_id": 8,
+      "start": "2017-07-19 18:00:00+0100",
+      "end": "2017-07-19 20:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -1755,11 +1815,11 @@
     "model": "events.event",
     "pk": 152,
     "fields": {
-      "room_id": 9,
-      "activity_id": 1,
-      "start": "2016-04-28 14:00:00+0100",
-      "end": "2016-04-28 16:00:00+0100",
-      "status": 0,
+      "room_id": 4,
+      "activity_id": 8,
+      "start": "2017-07-28 14:00:00+0100",
+      "end": "2017-07-28 16:00:00+0100",
+      "status": 1,
       "creator_id": 1
     }
   },
@@ -1767,10 +1827,10 @@
     "model": "events.event",
     "pk": 153,
     "fields": {
-      "room_id": 6,
-      "activity_id": 8,
-      "start": "2016-04-29 14:00:00+0100",
-      "end": "2016-04-29 16:00:00+0100",
+      "room_id": 4,
+      "activity_id": 3,
+      "start": "2017-07-14 16:00:00+0100",
+      "end": "2017-07-14 18:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -1779,11 +1839,11 @@
     "model": "events.event",
     "pk": 154,
     "fields": {
-      "room_id": 1,
-      "activity_id": 7,
-      "start": "2016-04-22 18:00:00+0100",
-      "end": "2016-04-22 20:00:00+0100",
-      "status": 0,
+      "room_id": 6,
+      "activity_id": 4,
+      "start": "2017-06-07 16:00:00+0100",
+      "end": "2017-06-07 18:00:00+0100",
+      "status": 2,
       "creator_id": 1
     }
   },
@@ -1791,11 +1851,11 @@
     "model": "events.event",
     "pk": 155,
     "fields": {
-      "room_id": 8,
-      "activity_id": 6,
-      "start": "2016-04-05 18:00:00+0100",
-      "end": "2016-04-05 20:00:00+0100",
-      "status": 0,
+      "room_id": 1,
+      "activity_id": 2,
+      "start": "2017-06-20 18:00:00+0100",
+      "end": "2017-06-20 20:00:00+0100",
+      "status": 1,
       "creator_id": 1
     }
   },
@@ -1803,10 +1863,10 @@
     "model": "events.event",
     "pk": 156,
     "fields": {
-      "room_id": 1,
-      "activity_id": 5,
-      "start": "2016-05-18 18:00:00+0100",
-      "end": "2016-05-18 20:00:00+0100",
+      "room_id": 9,
+      "activity_id": 8,
+      "start": "2017-07-07 16:00:00+0100",
+      "end": "2017-07-07 18:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -1815,10 +1875,10 @@
     "model": "events.event",
     "pk": 157,
     "fields": {
-      "room_id": 4,
-      "activity_id": 2,
-      "start": "2016-04-25 16:00:00+0100",
-      "end": "2016-04-25 18:00:00+0100",
+      "room_id": 8,
+      "activity_id": 3,
+      "start": "2017-08-02 18:00:00+0100",
+      "end": "2017-08-02 20:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -1828,9 +1888,9 @@
     "pk": 158,
     "fields": {
       "room_id": 9,
-      "activity_id": 5,
-      "start": "2016-04-20 18:00:00+0100",
-      "end": "2016-04-20 20:00:00+0100",
+      "activity_id": 7,
+      "start": "2017-07-05 14:00:00+0100",
+      "end": "2017-07-05 16:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -1839,10 +1899,10 @@
     "model": "events.event",
     "pk": 159,
     "fields": {
-      "room_id": 8,
-      "activity_id": 5,
-      "start": "2016-05-10 18:00:00+0100",
-      "end": "2016-05-10 20:00:00+0100",
+      "room_id": 3,
+      "activity_id": 7,
+      "start": "2017-06-08 14:00:00+0100",
+      "end": "2017-06-08 16:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -1851,11 +1911,11 @@
     "model": "events.event",
     "pk": 160,
     "fields": {
-      "room_id": 9,
-      "activity_id": 3,
-      "start": "2016-04-01 14:00:00+0100",
-      "end": "2016-04-01 16:00:00+0100",
-      "status": 0,
+      "room_id": 2,
+      "activity_id": 4,
+      "start": "2017-07-25 18:00:00+0100",
+      "end": "2017-07-25 20:00:00+0100",
+      "status": 1,
       "creator_id": 1
     }
   },
@@ -1863,11 +1923,11 @@
     "model": "events.event",
     "pk": 161,
     "fields": {
-      "room_id": 2,
+      "room_id": 1,
       "activity_id": 4,
-      "start": "2016-05-04 16:00:00+0100",
-      "end": "2016-05-04 18:00:00+0100",
-      "status": 0,
+      "start": "2017-08-14 14:00:00+0100",
+      "end": "2017-08-14 16:00:00+0100",
+      "status": 1,
       "creator_id": 1
     }
   },
@@ -1875,11 +1935,11 @@
     "model": "events.event",
     "pk": 162,
     "fields": {
-      "room_id": 5,
-      "activity_id": 8,
-      "start": "2016-05-16 14:00:00+0100",
-      "end": "2016-05-16 16:00:00+0100",
-      "status": 1,
+      "room_id": 1,
+      "activity_id": 5,
+      "start": "2017-06-19 14:00:00+0100",
+      "end": "2017-06-19 16:00:00+0100",
+      "status": 2,
       "creator_id": 1
     }
   },
@@ -1887,10 +1947,10 @@
     "model": "events.event",
     "pk": 163,
     "fields": {
-      "room_id": 7,
-      "activity_id": 6,
-      "start": "2016-04-04 14:00:00+0100",
-      "end": "2016-04-04 16:00:00+0100",
+      "room_id": 2,
+      "activity_id": 3,
+      "start": "2017-06-06 18:00:00+0100",
+      "end": "2017-06-06 20:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -1900,9 +1960,9 @@
     "pk": 164,
     "fields": {
       "room_id": 5,
-      "activity_id": 5,
-      "start": "2016-04-15 14:00:00+0100",
-      "end": "2016-04-15 16:00:00+0100",
+      "activity_id": 4,
+      "start": "2017-06-23 18:00:00+0100",
+      "end": "2017-06-23 20:00:00+0100",
       "status": 2,
       "creator_id": 1
     }
@@ -1911,11 +1971,11 @@
     "model": "events.event",
     "pk": 165,
     "fields": {
-      "room_id": 4,
-      "activity_id": 6,
-      "start": "2016-05-02 16:00:00+0100",
-      "end": "2016-05-02 18:00:00+0100",
-      "status": 1,
+      "room_id": 8,
+      "activity_id": 3,
+      "start": "2017-06-14 14:00:00+0100",
+      "end": "2017-06-14 16:00:00+0100",
+      "status": 0,
       "creator_id": 1
     }
   },
@@ -1923,11 +1983,11 @@
     "model": "events.event",
     "pk": 166,
     "fields": {
-      "room_id": 7,
-      "activity_id": 5,
-      "start": "2016-04-08 16:00:00+0100",
-      "end": "2016-04-08 18:00:00+0100",
-      "status": 2,
+      "room_id": 8,
+      "activity_id": 8,
+      "start": "2017-05-18 14:00:00+0100",
+      "end": "2017-05-18 16:00:00+0100",
+      "status": 0,
       "creator_id": 1
     }
   },
@@ -1935,10 +1995,10 @@
     "model": "events.event",
     "pk": 167,
     "fields": {
-      "room_id": 8,
+      "room_id": 3,
       "activity_id": 8,
-      "start": "2016-04-26 18:00:00+0100",
-      "end": "2016-04-26 20:00:00+0100",
+      "start": "2017-07-11 16:00:00+0100",
+      "end": "2017-07-11 18:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -1947,11 +2007,11 @@
     "model": "events.event",
     "pk": 168,
     "fields": {
-      "room_id": 4,
-      "activity_id": 5,
-      "start": "2016-05-24 18:00:00+0100",
-      "end": "2016-05-24 20:00:00+0100",
-      "status": 0,
+      "room_id": 8,
+      "activity_id": 2,
+      "start": "2017-06-02 16:00:00+0100",
+      "end": "2017-06-02 18:00:00+0100",
+      "status": 2,
       "creator_id": 1
     }
   },
@@ -1959,10 +2019,10 @@
     "model": "events.event",
     "pk": 169,
     "fields": {
-      "room_id": 3,
-      "activity_id": 2,
-      "start": "2016-04-20 16:00:00+0100",
-      "end": "2016-04-20 18:00:00+0100",
+      "room_id": 5,
+      "activity_id": 7,
+      "start": "2017-05-31 18:00:00+0100",
+      "end": "2017-05-31 20:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -1971,10 +2031,10 @@
     "model": "events.event",
     "pk": 170,
     "fields": {
-      "room_id": 1,
-      "activity_id": 5,
-      "start": "2016-05-27 14:00:00+0100",
-      "end": "2016-05-27 16:00:00+0100",
+      "room_id": 3,
+      "activity_id": 6,
+      "start": "2017-06-13 14:00:00+0100",
+      "end": "2017-06-13 16:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -1983,11 +2043,11 @@
     "model": "events.event",
     "pk": 171,
     "fields": {
-      "room_id": 8,
-      "activity_id": 1,
-      "start": "2016-06-27 16:00:00+0100",
-      "end": "2016-06-27 18:00:00+0100",
-      "status": 0,
+      "room_id": 2,
+      "activity_id": 4,
+      "start": "2017-06-22 18:00:00+0100",
+      "end": "2017-06-22 20:00:00+0100",
+      "status": 1,
       "creator_id": 1
     }
   },
@@ -1995,11 +2055,11 @@
     "model": "events.event",
     "pk": 172,
     "fields": {
-      "room_id": 1,
+      "room_id": 3,
       "activity_id": 6,
-      "start": "2016-06-24 18:00:00+0100",
-      "end": "2016-06-24 20:00:00+0100",
-      "status": 0,
+      "start": "2017-07-04 18:00:00+0100",
+      "end": "2017-07-04 20:00:00+0100",
+      "status": 2,
       "creator_id": 1
     }
   },
@@ -2007,11 +2067,11 @@
     "model": "events.event",
     "pk": 173,
     "fields": {
-      "room_id": 1,
-      "activity_id": 7,
-      "start": "2016-04-08 18:00:00+0100",
-      "end": "2016-04-08 20:00:00+0100",
-      "status": 0,
+      "room_id": 6,
+      "activity_id": 8,
+      "start": "2017-07-10 14:00:00+0100",
+      "end": "2017-07-10 16:00:00+0100",
+      "status": 1,
       "creator_id": 1
     }
   },
@@ -2019,11 +2079,11 @@
     "model": "events.event",
     "pk": 174,
     "fields": {
-      "room_id": 1,
-      "activity_id": 6,
-      "start": "2016-05-12 14:00:00+0100",
-      "end": "2016-05-12 16:00:00+0100",
-      "status": 1,
+      "room_id": 9,
+      "activity_id": 1,
+      "start": "2017-07-03 16:00:00+0100",
+      "end": "2017-07-03 18:00:00+0100",
+      "status": 0,
       "creator_id": 1
     }
   },
@@ -2031,11 +2091,11 @@
     "model": "events.event",
     "pk": 175,
     "fields": {
-      "room_id": 8,
+      "room_id": 3,
       "activity_id": 8,
-      "start": "2016-04-25 18:00:00+0100",
-      "end": "2016-04-25 20:00:00+0100",
-      "status": 1,
+      "start": "2017-08-10 16:00:00+0100",
+      "end": "2017-08-10 18:00:00+0100",
+      "status": 0,
       "creator_id": 1
     }
   },
@@ -2043,10 +2103,10 @@
     "model": "events.event",
     "pk": 176,
     "fields": {
-      "room_id": 9,
-      "activity_id": 1,
-      "start": "2016-05-03 16:00:00+0100",
-      "end": "2016-05-03 18:00:00+0100",
+      "room_id": 8,
+      "activity_id": 2,
+      "start": "2017-07-13 16:00:00+0100",
+      "end": "2017-07-13 18:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -2055,10 +2115,10 @@
     "model": "events.event",
     "pk": 177,
     "fields": {
-      "room_id": 6,
-      "activity_id": 8,
-      "start": "2016-05-16 14:00:00+0100",
-      "end": "2016-05-16 16:00:00+0100",
+      "room_id": 2,
+      "activity_id": 3,
+      "start": "2017-05-29 14:00:00+0100",
+      "end": "2017-05-29 16:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -2067,10 +2127,10 @@
     "model": "events.event",
     "pk": 178,
     "fields": {
-      "room_id": 4,
-      "activity_id": 5,
-      "start": "2016-04-07 18:00:00+0100",
-      "end": "2016-04-07 20:00:00+0100",
+      "room_id": 2,
+      "activity_id": 3,
+      "start": "2017-05-22 14:00:00+0100",
+      "end": "2017-05-22 16:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -2079,11 +2139,11 @@
     "model": "events.event",
     "pk": 179,
     "fields": {
-      "room_id": 9,
-      "activity_id": 3,
-      "start": "2016-04-11 14:00:00+0100",
-      "end": "2016-04-11 16:00:00+0100",
-      "status": 1,
+      "room_id": 7,
+      "activity_id": 4,
+      "start": "2017-05-24 18:00:00+0100",
+      "end": "2017-05-24 20:00:00+0100",
+      "status": 0,
       "creator_id": 1
     }
   },
@@ -2091,11 +2151,11 @@
     "model": "events.event",
     "pk": 180,
     "fields": {
-      "room_id": 6,
-      "activity_id": 8,
-      "start": "2016-06-08 14:00:00+0100",
-      "end": "2016-06-08 16:00:00+0100",
-      "status": 0,
+      "room_id": 7,
+      "activity_id": 6,
+      "start": "2017-08-08 18:00:00+0100",
+      "end": "2017-08-08 20:00:00+0100",
+      "status": 2,
       "creator_id": 1
     }
   },
@@ -2103,10 +2163,10 @@
     "model": "events.event",
     "pk": 181,
     "fields": {
-      "room_id": 5,
-      "activity_id": 8,
-      "start": "2016-06-20 14:00:00+0100",
-      "end": "2016-06-20 16:00:00+0100",
+      "room_id": 1,
+      "activity_id": 1,
+      "start": "2017-08-14 16:00:00+0100",
+      "end": "2017-08-14 18:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -2115,11 +2175,11 @@
     "model": "events.event",
     "pk": 182,
     "fields": {
-      "room_id": 1,
-      "activity_id": 4,
-      "start": "2016-06-22 18:00:00+0100",
-      "end": "2016-06-22 20:00:00+0100",
-      "status": 2,
+      "room_id": 8,
+      "activity_id": 7,
+      "start": "2017-07-18 14:00:00+0100",
+      "end": "2017-07-18 16:00:00+0100",
+      "status": 0,
       "creator_id": 1
     }
   },
@@ -2127,10 +2187,10 @@
     "model": "events.event",
     "pk": 183,
     "fields": {
-      "room_id": 8,
-      "activity_id": 2,
-      "start": "2016-06-06 16:00:00+0100",
-      "end": "2016-06-06 18:00:00+0100",
+      "room_id": 2,
+      "activity_id": 4,
+      "start": "2017-06-08 16:00:00+0100",
+      "end": "2017-06-08 18:00:00+0100",
       "status": 1,
       "creator_id": 1
     }
@@ -2139,10 +2199,10 @@
     "model": "events.event",
     "pk": 184,
     "fields": {
-      "room_id": 4,
-      "activity_id": 6,
-      "start": "2016-05-03 16:00:00+0100",
-      "end": "2016-05-03 18:00:00+0100",
+      "room_id": 5,
+      "activity_id": 4,
+      "start": "2017-07-27 18:00:00+0100",
+      "end": "2017-07-27 20:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -2151,10 +2211,10 @@
     "model": "events.event",
     "pk": 185,
     "fields": {
-      "room_id": 3,
-      "activity_id": 1,
-      "start": "2016-05-17 14:00:00+0100",
-      "end": "2016-05-17 16:00:00+0100",
+      "room_id": 8,
+      "activity_id": 6,
+      "start": "2017-05-23 14:00:00+0100",
+      "end": "2017-05-23 16:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -2164,10 +2224,10 @@
     "pk": 186,
     "fields": {
       "room_id": 9,
-      "activity_id": 7,
-      "start": "2016-04-15 16:00:00+0100",
-      "end": "2016-04-15 18:00:00+0100",
-      "status": 2,
+      "activity_id": 6,
+      "start": "2017-06-21 16:00:00+0100",
+      "end": "2017-06-21 18:00:00+0100",
+      "status": 0,
       "creator_id": 1
     }
   },
@@ -2175,10 +2235,10 @@
     "model": "events.event",
     "pk": 187,
     "fields": {
-      "room_id": 2,
-      "activity_id": 6,
-      "start": "2016-04-18 14:00:00+0100",
-      "end": "2016-04-18 16:00:00+0100",
+      "room_id": 8,
+      "activity_id": 4,
+      "start": "2017-07-19 16:00:00+0100",
+      "end": "2017-07-19 18:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -2187,10 +2247,10 @@
     "model": "events.event",
     "pk": 188,
     "fields": {
-      "room_id": 7,
-      "activity_id": 6,
-      "start": "2016-06-02 18:00:00+0100",
-      "end": "2016-06-02 20:00:00+0100",
+      "room_id": 8,
+      "activity_id": 4,
+      "start": "2017-08-04 14:00:00+0100",
+      "end": "2017-08-04 16:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -2199,10 +2259,10 @@
     "model": "events.event",
     "pk": 189,
     "fields": {
-      "room_id": 8,
+      "room_id": 2,
       "activity_id": 2,
-      "start": "2016-06-23 18:00:00+0100",
-      "end": "2016-06-23 20:00:00+0100",
+      "start": "2017-05-31 18:00:00+0100",
+      "end": "2017-05-31 20:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -2211,11 +2271,11 @@
     "model": "events.event",
     "pk": 190,
     "fields": {
-      "room_id": 3,
-      "activity_id": 7,
-      "start": "2016-05-12 18:00:00+0100",
-      "end": "2016-05-12 20:00:00+0100",
-      "status": 0,
+      "room_id": 2,
+      "activity_id": 8,
+      "start": "2017-06-12 14:00:00+0100",
+      "end": "2017-06-12 16:00:00+0100",
+      "status": 1,
       "creator_id": 1
     }
   },
@@ -2223,10 +2283,10 @@
     "model": "events.event",
     "pk": 191,
     "fields": {
-      "room_id": 8,
-      "activity_id": 8,
-      "start": "2016-04-14 18:00:00+0100",
-      "end": "2016-04-14 20:00:00+0100",
+      "room_id": 9,
+      "activity_id": 1,
+      "start": "2017-06-15 18:00:00+0100",
+      "end": "2017-06-15 20:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -2235,11 +2295,11 @@
     "model": "events.event",
     "pk": 192,
     "fields": {
-      "room_id": 5,
-      "activity_id": 7,
-      "start": "2016-04-25 16:00:00+0100",
-      "end": "2016-04-25 18:00:00+0100",
-      "status": 0,
+      "room_id": 7,
+      "activity_id": 4,
+      "start": "2017-07-06 18:00:00+0100",
+      "end": "2017-07-06 20:00:00+0100",
+      "status": 1,
       "creator_id": 1
     }
   },
@@ -2248,9 +2308,9 @@
     "pk": 193,
     "fields": {
       "room_id": 6,
-      "activity_id": 7,
-      "start": "2016-05-18 18:00:00+0100",
-      "end": "2016-05-18 20:00:00+0100",
+      "activity_id": 4,
+      "start": "2017-08-09 14:00:00+0100",
+      "end": "2017-08-09 16:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -2259,10 +2319,10 @@
     "model": "events.event",
     "pk": 194,
     "fields": {
-      "room_id": 4,
-      "activity_id": 3,
-      "start": "2016-05-03 14:00:00+0100",
-      "end": "2016-05-03 16:00:00+0100",
+      "room_id": 6,
+      "activity_id": 5,
+      "start": "2017-07-11 14:00:00+0100",
+      "end": "2017-07-11 16:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -2272,9 +2332,9 @@
     "pk": 195,
     "fields": {
       "room_id": 6,
-      "activity_id": 3,
-      "start": "2016-05-31 16:00:00+0100",
-      "end": "2016-05-31 18:00:00+0100",
+      "activity_id": 5,
+      "start": "2017-06-01 18:00:00+0100",
+      "end": "2017-06-01 20:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -2283,10 +2343,10 @@
     "model": "events.event",
     "pk": 196,
     "fields": {
-      "room_id": 5,
-      "activity_id": 1,
-      "start": "2016-05-16 18:00:00+0100",
-      "end": "2016-05-16 20:00:00+0100",
+      "room_id": 9,
+      "activity_id": 5,
+      "start": "2017-06-23 14:00:00+0100",
+      "end": "2017-06-23 16:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -2295,11 +2355,11 @@
     "model": "events.event",
     "pk": 197,
     "fields": {
-      "room_id": 3,
-      "activity_id": 1,
-      "start": "2016-05-06 16:00:00+0100",
-      "end": "2016-05-06 18:00:00+0100",
-      "status": 0,
+      "room_id": 6,
+      "activity_id": 4,
+      "start": "2017-07-27 16:00:00+0100",
+      "end": "2017-07-27 18:00:00+0100",
+      "status": 2,
       "creator_id": 1
     }
   },
@@ -2308,10 +2368,10 @@
     "pk": 198,
     "fields": {
       "room_id": 2,
-      "activity_id": 6,
-      "start": "2016-04-01 14:00:00+0100",
-      "end": "2016-04-01 16:00:00+0100",
-      "status": 2,
+      "activity_id": 8,
+      "start": "2017-07-25 14:00:00+0100",
+      "end": "2017-07-25 16:00:00+0100",
+      "status": 1,
       "creator_id": 1
     }
   },
@@ -2319,11 +2379,11 @@
     "model": "events.event",
     "pk": 199,
     "fields": {
-      "room_id": 4,
-      "activity_id": 3,
-      "start": "2016-04-04 14:00:00+0100",
-      "end": "2016-04-04 16:00:00+0100",
-      "status": 2,
+      "room_id": 6,
+      "activity_id": 8,
+      "start": "2017-06-20 16:00:00+0100",
+      "end": "2017-06-20 18:00:00+0100",
+      "status": 1,
       "creator_id": 1
     }
   },
@@ -2331,10 +2391,10 @@
     "model": "events.event",
     "pk": 200,
     "fields": {
-      "room_id": 4,
-      "activity_id": 3,
-      "start": "2016-06-09 14:00:00+0100",
-      "end": "2016-06-09 16:00:00+0100",
+      "room_id": 2,
+      "activity_id": 2,
+      "start": "2017-08-14 18:00:00+0100",
+      "end": "2017-08-14 20:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -2343,10 +2403,10 @@
     "model": "events.event",
     "pk": 201,
     "fields": {
-      "room_id": 1,
-      "activity_id": 7,
-      "start": "2016-06-10 14:00:00+0100",
-      "end": "2016-06-10 16:00:00+0100",
+      "room_id": 8,
+      "activity_id": 3,
+      "start": "2017-07-19 18:00:00+0100",
+      "end": "2017-07-19 20:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -2355,11 +2415,11 @@
     "model": "events.event",
     "pk": 202,
     "fields": {
-      "room_id": 4,
-      "activity_id": 5,
-      "start": "2016-04-21 14:00:00+0100",
-      "end": "2016-04-21 16:00:00+0100",
-      "status": 2,
+      "room_id": 1,
+      "activity_id": 3,
+      "start": "2017-07-18 14:00:00+0100",
+      "end": "2017-07-18 16:00:00+0100",
+      "status": 0,
       "creator_id": 1
     }
   },
@@ -2367,11 +2427,11 @@
     "model": "events.event",
     "pk": 203,
     "fields": {
-      "room_id": 3,
-      "activity_id": 4,
-      "start": "2016-04-29 16:00:00+0100",
-      "end": "2016-04-29 18:00:00+0100",
-      "status": 1,
+      "room_id": 8,
+      "activity_id": 1,
+      "start": "2017-07-13 18:00:00+0100",
+      "end": "2017-07-13 20:00:00+0100",
+      "status": 0,
       "creator_id": 1
     }
   },
@@ -2379,10 +2439,10 @@
     "model": "events.event",
     "pk": 204,
     "fields": {
-      "room_id": 3,
-      "activity_id": 5,
-      "start": "2016-05-18 16:00:00+0100",
-      "end": "2016-05-18 18:00:00+0100",
+      "room_id": 5,
+      "activity_id": 1,
+      "start": "2017-05-18 14:00:00+0100",
+      "end": "2017-05-18 16:00:00+0100",
       "status": 2,
       "creator_id": 1
     }
@@ -2391,10 +2451,10 @@
     "model": "events.event",
     "pk": 205,
     "fields": {
-      "room_id": 6,
-      "activity_id": 2,
-      "start": "2016-05-16 16:00:00+0100",
-      "end": "2016-05-16 18:00:00+0100",
+      "room_id": 3,
+      "activity_id": 1,
+      "start": "2017-05-30 16:00:00+0100",
+      "end": "2017-05-30 18:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -2405,8 +2465,8 @@
     "fields": {
       "room_id": 7,
       "activity_id": 7,
-      "start": "2016-04-14 16:00:00+0100",
-      "end": "2016-04-14 18:00:00+0100",
+      "start": "2017-07-24 18:00:00+0100",
+      "end": "2017-07-24 20:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -2415,10 +2475,10 @@
     "model": "events.event",
     "pk": 207,
     "fields": {
-      "room_id": 6,
-      "activity_id": 6,
-      "start": "2016-04-28 16:00:00+0100",
-      "end": "2016-04-28 18:00:00+0100",
+      "room_id": 5,
+      "activity_id": 5,
+      "start": "2017-07-31 16:00:00+0100",
+      "end": "2017-07-31 18:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -2427,10 +2487,10 @@
     "model": "events.event",
     "pk": 208,
     "fields": {
-      "room_id": 9,
-      "activity_id": 1,
-      "start": "2016-06-24 14:00:00+0100",
-      "end": "2016-06-24 16:00:00+0100",
+      "room_id": 7,
+      "activity_id": 8,
+      "start": "2017-05-15 16:00:00+0100",
+      "end": "2017-05-15 18:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -2439,10 +2499,10 @@
     "model": "events.event",
     "pk": 209,
     "fields": {
-      "room_id": 4,
-      "activity_id": 6,
-      "start": "2016-05-02 18:00:00+0100",
-      "end": "2016-05-02 20:00:00+0100",
+      "room_id": 1,
+      "activity_id": 3,
+      "start": "2017-05-23 16:00:00+0100",
+      "end": "2017-05-23 18:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -2451,11 +2511,11 @@
     "model": "events.event",
     "pk": 210,
     "fields": {
-      "room_id": 3,
-      "activity_id": 4,
-      "start": "2016-04-29 18:00:00+0100",
-      "end": "2016-04-29 20:00:00+0100",
-      "status": 2,
+      "room_id": 9,
+      "activity_id": 3,
+      "start": "2017-08-10 14:00:00+0100",
+      "end": "2017-08-10 16:00:00+0100",
+      "status": 0,
       "creator_id": 1
     }
   },
@@ -2463,10 +2523,10 @@
     "model": "events.event",
     "pk": 211,
     "fields": {
-      "room_id": 6,
+      "room_id": 9,
       "activity_id": 1,
-      "start": "2016-05-12 18:00:00+0100",
-      "end": "2016-05-12 20:00:00+0100",
+      "start": "2017-07-04 14:00:00+0100",
+      "end": "2017-07-04 16:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -2475,10 +2535,10 @@
     "model": "events.event",
     "pk": 212,
     "fields": {
-      "room_id": 1,
-      "activity_id": 3,
-      "start": "2016-05-06 16:00:00+0100",
-      "end": "2016-05-06 18:00:00+0100",
+      "room_id": 6,
+      "activity_id": 5,
+      "start": "2017-06-08 14:00:00+0100",
+      "end": "2017-06-08 16:00:00+0100",
       "status": 2,
       "creator_id": 1
     }
@@ -2487,11 +2547,11 @@
     "model": "events.event",
     "pk": 213,
     "fields": {
-      "room_id": 3,
-      "activity_id": 5,
-      "start": "2016-04-01 16:00:00+0100",
-      "end": "2016-04-01 18:00:00+0100",
-      "status": 0,
+      "room_id": 2,
+      "activity_id": 7,
+      "start": "2017-07-03 16:00:00+0100",
+      "end": "2017-07-03 18:00:00+0100",
+      "status": 2,
       "creator_id": 1
     }
   },
@@ -2499,11 +2559,11 @@
     "model": "events.event",
     "pk": 214,
     "fields": {
-      "room_id": 8,
-      "activity_id": 5,
-      "start": "2016-05-16 18:00:00+0100",
-      "end": "2016-05-16 20:00:00+0100",
-      "status": 1,
+      "room_id": 4,
+      "activity_id": 3,
+      "start": "2017-07-10 18:00:00+0100",
+      "end": "2017-07-10 20:00:00+0100",
+      "status": 0,
       "creator_id": 1
     }
   },
@@ -2511,11 +2571,11 @@
     "model": "events.event",
     "pk": 215,
     "fields": {
-      "room_id": 3,
-      "activity_id": 5,
-      "start": "2016-04-12 18:00:00+0100",
-      "end": "2016-04-12 20:00:00+0100",
-      "status": 0,
+      "room_id": 7,
+      "activity_id": 4,
+      "start": "2017-06-14 16:00:00+0100",
+      "end": "2017-06-14 18:00:00+0100",
+      "status": 1,
       "creator_id": 1
     }
   },
@@ -2523,10 +2583,10 @@
     "model": "events.event",
     "pk": 216,
     "fields": {
-      "room_id": 7,
-      "activity_id": 2,
-      "start": "2016-06-23 14:00:00+0100",
-      "end": "2016-06-23 16:00:00+0100",
+      "room_id": 8,
+      "activity_id": 8,
+      "start": "2017-08-08 18:00:00+0100",
+      "end": "2017-08-08 20:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -2535,10 +2595,10 @@
     "model": "events.event",
     "pk": 217,
     "fields": {
-      "room_id": 6,
-      "activity_id": 4,
-      "start": "2016-05-25 14:00:00+0100",
-      "end": "2016-05-25 16:00:00+0100",
+      "room_id": 9,
+      "activity_id": 5,
+      "start": "2017-05-22 14:00:00+0100",
+      "end": "2017-05-22 16:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -2547,10 +2607,10 @@
     "model": "events.event",
     "pk": 218,
     "fields": {
-      "room_id": 9,
-      "activity_id": 6,
-      "start": "2016-04-13 16:00:00+0100",
-      "end": "2016-04-13 18:00:00+0100",
+      "room_id": 2,
+      "activity_id": 5,
+      "start": "2017-08-02 14:00:00+0100",
+      "end": "2017-08-02 16:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -2559,11 +2619,11 @@
     "model": "events.event",
     "pk": 219,
     "fields": {
-      "room_id": 2,
-      "activity_id": 7,
-      "start": "2016-04-18 16:00:00+0100",
-      "end": "2016-04-18 18:00:00+0100",
-      "status": 1,
+      "room_id": 6,
+      "activity_id": 8,
+      "start": "2017-06-14 16:00:00+0100",
+      "end": "2017-06-14 18:00:00+0100",
+      "status": 2,
       "creator_id": 1
     }
   },
@@ -2572,9 +2632,9 @@
     "pk": 220,
     "fields": {
       "room_id": 8,
-      "activity_id": 8,
-      "start": "2016-04-20 16:00:00+0100",
-      "end": "2016-04-20 18:00:00+0100",
+      "activity_id": 1,
+      "start": "2017-06-05 18:00:00+0100",
+      "end": "2017-06-05 20:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -2583,10 +2643,10 @@
     "model": "events.event",
     "pk": 221,
     "fields": {
-      "room_id": 1,
-      "activity_id": 2,
-      "start": "2016-05-16 14:00:00+0100",
-      "end": "2016-05-16 16:00:00+0100",
+      "room_id": 9,
+      "activity_id": 8,
+      "start": "2017-08-02 18:00:00+0100",
+      "end": "2017-08-02 20:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -2595,10 +2655,10 @@
     "model": "events.event",
     "pk": 222,
     "fields": {
-      "room_id": 5,
-      "activity_id": 4,
-      "start": "2016-04-28 14:00:00+0100",
-      "end": "2016-04-28 16:00:00+0100",
+      "room_id": 9,
+      "activity_id": 2,
+      "start": "2017-06-21 14:00:00+0100",
+      "end": "2017-06-21 16:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -2607,11 +2667,11 @@
     "model": "events.event",
     "pk": 223,
     "fields": {
-      "room_id": 1,
-      "activity_id": 7,
-      "start": "2016-04-15 18:00:00+0100",
-      "end": "2016-04-15 20:00:00+0100",
-      "status": 2,
+      "room_id": 9,
+      "activity_id": 2,
+      "start": "2017-06-19 18:00:00+0100",
+      "end": "2017-06-19 20:00:00+0100",
+      "status": 1,
       "creator_id": 1
     }
   },
@@ -2619,11 +2679,11 @@
     "model": "events.event",
     "pk": 224,
     "fields": {
-      "room_id": 8,
-      "activity_id": 7,
-      "start": "2016-06-17 18:00:00+0100",
-      "end": "2016-06-17 20:00:00+0100",
-      "status": 0,
+      "room_id": 5,
+      "activity_id": 3,
+      "start": "2017-08-01 16:00:00+0100",
+      "end": "2017-08-01 18:00:00+0100",
+      "status": 1,
       "creator_id": 1
     }
   },
@@ -2632,10 +2692,10 @@
     "pk": 225,
     "fields": {
       "room_id": 2,
-      "activity_id": 5,
-      "start": "2016-04-22 18:00:00+0100",
-      "end": "2016-04-22 20:00:00+0100",
-      "status": 2,
+      "activity_id": 7,
+      "start": "2017-06-07 16:00:00+0100",
+      "end": "2017-06-07 18:00:00+0100",
+      "status": 0,
       "creator_id": 1
     }
   },
@@ -2643,10 +2703,10 @@
     "model": "events.event",
     "pk": 226,
     "fields": {
-      "room_id": 5,
-      "activity_id": 5,
-      "start": "2016-06-14 18:00:00+0100",
-      "end": "2016-06-14 20:00:00+0100",
+      "room_id": 9,
+      "activity_id": 4,
+      "start": "2017-07-17 16:00:00+0100",
+      "end": "2017-07-17 18:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -2655,11 +2715,11 @@
     "model": "events.event",
     "pk": 227,
     "fields": {
-      "room_id": 9,
-      "activity_id": 7,
-      "start": "2016-05-25 14:00:00+0100",
-      "end": "2016-05-25 16:00:00+0100",
-      "status": 2,
+      "room_id": 7,
+      "activity_id": 2,
+      "start": "2017-07-19 14:00:00+0100",
+      "end": "2017-07-19 16:00:00+0100",
+      "status": 0,
       "creator_id": 1
     }
   },
@@ -2667,10 +2727,10 @@
     "model": "events.event",
     "pk": 228,
     "fields": {
-      "room_id": 7,
-      "activity_id": 3,
-      "start": "2016-06-01 14:00:00+0100",
-      "end": "2016-06-01 16:00:00+0100",
+      "room_id": 9,
+      "activity_id": 5,
+      "start": "2017-05-24 18:00:00+0100",
+      "end": "2017-05-24 20:00:00+0100",
       "status": 2,
       "creator_id": 1
     }
@@ -2679,11 +2739,11 @@
     "model": "events.event",
     "pk": 229,
     "fields": {
-      "room_id": 6,
-      "activity_id": 3,
-      "start": "2016-04-19 16:00:00+0100",
-      "end": "2016-04-19 18:00:00+0100",
-      "status": 2,
+      "room_id": 3,
+      "activity_id": 4,
+      "start": "2017-05-26 16:00:00+0100",
+      "end": "2017-05-26 18:00:00+0100",
+      "status": 0,
       "creator_id": 1
     }
   },
@@ -2691,11 +2751,11 @@
     "model": "events.event",
     "pk": 230,
     "fields": {
-      "room_id": 2,
-      "activity_id": 4,
-      "start": "2016-06-06 18:00:00+0100",
-      "end": "2016-06-06 20:00:00+0100",
-      "status": 0,
+      "room_id": 9,
+      "activity_id": 5,
+      "start": "2017-08-07 18:00:00+0100",
+      "end": "2017-08-07 20:00:00+0100",
+      "status": 1,
       "creator_id": 1
     }
   },
@@ -2703,10 +2763,10 @@
     "model": "events.event",
     "pk": 231,
     "fields": {
-      "room_id": 3,
-      "activity_id": 2,
-      "start": "2016-05-30 16:00:00+0100",
-      "end": "2016-05-30 18:00:00+0100",
+      "room_id": 9,
+      "activity_id": 4,
+      "start": "2017-06-29 14:00:00+0100",
+      "end": "2017-06-29 16:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -2715,11 +2775,11 @@
     "model": "events.event",
     "pk": 232,
     "fields": {
-      "room_id": 4,
+      "room_id": 5,
       "activity_id": 8,
-      "start": "2016-04-07 16:00:00+0100",
-      "end": "2016-04-07 18:00:00+0100",
-      "status": 0,
+      "start": "2017-05-31 14:00:00+0100",
+      "end": "2017-05-31 16:00:00+0100",
+      "status": 1,
       "creator_id": 1
     }
   },
@@ -2727,11 +2787,11 @@
     "model": "events.event",
     "pk": 233,
     "fields": {
-      "room_id": 4,
-      "activity_id": 5,
-      "start": "2016-04-29 14:00:00+0100",
-      "end": "2016-04-29 16:00:00+0100",
-      "status": 0,
+      "room_id": 2,
+      "activity_id": 2,
+      "start": "2017-05-15 14:00:00+0100",
+      "end": "2017-05-15 16:00:00+0100",
+      "status": 1,
       "creator_id": 1
     }
   },
@@ -2739,11 +2799,11 @@
     "model": "events.event",
     "pk": 234,
     "fields": {
-      "room_id": 2,
-      "activity_id": 8,
-      "start": "2016-05-30 16:00:00+0100",
-      "end": "2016-05-30 18:00:00+0100",
-      "status": 1,
+      "room_id": 9,
+      "activity_id": 5,
+      "start": "2017-06-20 14:00:00+0100",
+      "end": "2017-06-20 16:00:00+0100",
+      "status": 0,
       "creator_id": 1
     }
   },
@@ -2751,11 +2811,11 @@
     "model": "events.event",
     "pk": 235,
     "fields": {
-      "room_id": 2,
-      "activity_id": 1,
-      "start": "2016-06-24 18:00:00+0100",
-      "end": "2016-06-24 20:00:00+0100",
-      "status": 1,
+      "room_id": 5,
+      "activity_id": 6,
+      "start": "2017-05-19 14:00:00+0100",
+      "end": "2017-05-19 16:00:00+0100",
+      "status": 0,
       "creator_id": 1
     }
   },
@@ -2763,11 +2823,11 @@
     "model": "events.event",
     "pk": 236,
     "fields": {
-      "room_id": 9,
-      "activity_id": 7,
-      "start": "2016-06-03 18:00:00+0100",
-      "end": "2016-06-03 20:00:00+0100",
-      "status": 2,
+      "room_id": 6,
+      "activity_id": 6,
+      "start": "2017-08-11 16:00:00+0100",
+      "end": "2017-08-11 18:00:00+0100",
+      "status": 0,
       "creator_id": 1
     }
   },
@@ -2775,11 +2835,11 @@
     "model": "events.event",
     "pk": 237,
     "fields": {
-      "room_id": 8,
-      "activity_id": 6,
-      "start": "2016-06-01 18:00:00+0100",
-      "end": "2016-06-01 20:00:00+0100",
-      "status": 0,
+      "room_id": 7,
+      "activity_id": 2,
+      "start": "2017-07-07 16:00:00+0100",
+      "end": "2017-07-07 18:00:00+0100",
+      "status": 1,
       "creator_id": 1
     }
   },
@@ -2787,11 +2847,11 @@
     "model": "events.event",
     "pk": 238,
     "fields": {
-      "room_id": 8,
-      "activity_id": 7,
-      "start": "2016-06-28 16:00:00+0100",
-      "end": "2016-06-28 18:00:00+0100",
-      "status": 1,
+      "room_id": 9,
+      "activity_id": 5,
+      "start": "2017-06-21 18:00:00+0100",
+      "end": "2017-06-21 20:00:00+0100",
+      "status": 0,
       "creator_id": 1
     }
   },
@@ -2800,9 +2860,9 @@
     "pk": 239,
     "fields": {
       "room_id": 8,
-      "activity_id": 6,
-      "start": "2016-04-13 14:00:00+0100",
-      "end": "2016-04-13 16:00:00+0100",
+      "activity_id": 7,
+      "start": "2017-07-31 14:00:00+0100",
+      "end": "2017-07-31 16:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -2811,10 +2871,10 @@
     "model": "events.event",
     "pk": 240,
     "fields": {
-      "room_id": 8,
-      "activity_id": 2,
-      "start": "2016-06-03 14:00:00+0100",
-      "end": "2016-06-03 16:00:00+0100",
+      "room_id": 5,
+      "activity_id": 7,
+      "start": "2017-06-08 14:00:00+0100",
+      "end": "2017-06-08 16:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -2823,11 +2883,11 @@
     "model": "events.event",
     "pk": 241,
     "fields": {
-      "room_id": 5,
-      "activity_id": 6,
-      "start": "2016-06-13 14:00:00+0100",
-      "end": "2016-06-13 16:00:00+0100",
-      "status": 0,
+      "room_id": 7,
+      "activity_id": 4,
+      "start": "2017-06-23 14:00:00+0100",
+      "end": "2017-06-23 16:00:00+0100",
+      "status": 2,
       "creator_id": 1
     }
   },
@@ -2835,10 +2895,10 @@
     "model": "events.event",
     "pk": 242,
     "fields": {
-      "room_id": 8,
-      "activity_id": 6,
-      "start": "2016-04-13 16:00:00+0100",
-      "end": "2016-04-13 18:00:00+0100",
+      "room_id": 1,
+      "activity_id": 5,
+      "start": "2017-05-16 18:00:00+0100",
+      "end": "2017-05-16 20:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -2847,10 +2907,10 @@
     "model": "events.event",
     "pk": 243,
     "fields": {
-      "room_id": 5,
-      "activity_id": 3,
-      "start": "2016-05-04 14:00:00+0100",
-      "end": "2016-05-04 16:00:00+0100",
+      "room_id": 8,
+      "activity_id": 6,
+      "start": "2017-05-22 16:00:00+0100",
+      "end": "2017-05-22 18:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -2859,11 +2919,11 @@
     "model": "events.event",
     "pk": 244,
     "fields": {
-      "room_id": 4,
-      "activity_id": 2,
-      "start": "2016-06-29 14:00:00+0100",
-      "end": "2016-06-29 16:00:00+0100",
-      "status": 0,
+      "room_id": 1,
+      "activity_id": 7,
+      "start": "2017-08-10 16:00:00+0100",
+      "end": "2017-08-10 18:00:00+0100",
+      "status": 2,
       "creator_id": 1
     }
   },
@@ -2871,11 +2931,11 @@
     "model": "events.event",
     "pk": 245,
     "fields": {
-      "room_id": 9,
+      "room_id": 2,
       "activity_id": 1,
-      "start": "2016-05-19 16:00:00+0100",
-      "end": "2016-05-19 18:00:00+0100",
-      "status": 1,
+      "start": "2017-07-27 16:00:00+0100",
+      "end": "2017-07-27 18:00:00+0100",
+      "status": 0,
       "creator_id": 1
     }
   },
@@ -2883,10 +2943,10 @@
     "model": "events.event",
     "pk": 246,
     "fields": {
-      "room_id": 4,
-      "activity_id": 6,
-      "start": "2016-05-11 18:00:00+0100",
-      "end": "2016-05-11 20:00:00+0100",
+      "room_id": 3,
+      "activity_id": 1,
+      "start": "2017-07-18 18:00:00+0100",
+      "end": "2017-07-18 20:00:00+0100",
       "status": 2,
       "creator_id": 1
     }
@@ -2895,10 +2955,10 @@
     "model": "events.event",
     "pk": 247,
     "fields": {
-      "room_id": 6,
+      "room_id": 7,
       "activity_id": 5,
-      "start": "2016-05-13 16:00:00+0100",
-      "end": "2016-05-13 18:00:00+0100",
+      "start": "2017-05-24 14:00:00+0100",
+      "end": "2017-05-24 16:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -2907,10 +2967,10 @@
     "model": "events.event",
     "pk": 248,
     "fields": {
-      "room_id": 5,
-      "activity_id": 6,
-      "start": "2016-06-20 18:00:00+0100",
-      "end": "2016-06-20 20:00:00+0100",
+      "room_id": 3,
+      "activity_id": 1,
+      "start": "2017-07-04 14:00:00+0100",
+      "end": "2017-07-04 16:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -2919,10 +2979,10 @@
     "model": "events.event",
     "pk": 249,
     "fields": {
-      "room_id": 2,
-      "activity_id": 6,
-      "start": "2016-04-14 14:00:00+0100",
-      "end": "2016-04-14 16:00:00+0100",
+      "room_id": 3,
+      "activity_id": 3,
+      "start": "2017-05-23 18:00:00+0100",
+      "end": "2017-05-23 20:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -2931,10 +2991,10 @@
     "model": "events.event",
     "pk": 250,
     "fields": {
-      "room_id": 6,
-      "activity_id": 8,
-      "start": "2016-06-16 14:00:00+0100",
-      "end": "2016-06-16 16:00:00+0100",
+      "room_id": 1,
+      "activity_id": 4,
+      "start": "2017-07-12 14:00:00+0100",
+      "end": "2017-07-12 16:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -2943,10 +3003,10 @@
     "model": "events.event",
     "pk": 251,
     "fields": {
-      "room_id": 2,
+      "room_id": 3,
       "activity_id": 2,
-      "start": "2016-04-06 18:00:00+0100",
-      "end": "2016-04-06 20:00:00+0100",
+      "start": "2017-07-06 18:00:00+0100",
+      "end": "2017-07-06 20:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -2955,11 +3015,11 @@
     "model": "events.event",
     "pk": 252,
     "fields": {
-      "room_id": 5,
-      "activity_id": 2,
-      "start": "2016-06-21 18:00:00+0100",
-      "end": "2016-06-21 20:00:00+0100",
-      "status": 0,
+      "room_id": 8,
+      "activity_id": 4,
+      "start": "2017-06-20 14:00:00+0100",
+      "end": "2017-06-20 16:00:00+0100",
+      "status": 1,
       "creator_id": 1
     }
   },
@@ -2967,11 +3027,11 @@
     "model": "events.event",
     "pk": 253,
     "fields": {
-      "room_id": 5,
-      "activity_id": 8,
-      "start": "2016-06-22 16:00:00+0100",
-      "end": "2016-06-22 18:00:00+0100",
-      "status": 1,
+      "room_id": 8,
+      "activity_id": 5,
+      "start": "2017-08-08 14:00:00+0100",
+      "end": "2017-08-08 16:00:00+0100",
+      "status": 0,
       "creator_id": 1
     }
   },
@@ -2979,10 +3039,10 @@
     "model": "events.event",
     "pk": 254,
     "fields": {
-      "room_id": 5,
-      "activity_id": 1,
-      "start": "2016-05-18 14:00:00+0100",
-      "end": "2016-05-18 16:00:00+0100",
+      "room_id": 4,
+      "activity_id": 2,
+      "start": "2017-05-23 16:00:00+0100",
+      "end": "2017-05-23 18:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -2991,10 +3051,10 @@
     "model": "events.event",
     "pk": 255,
     "fields": {
-      "room_id": 5,
-      "activity_id": 7,
-      "start": "2016-05-16 16:00:00+0100",
-      "end": "2016-05-16 18:00:00+0100",
+      "room_id": 2,
+      "activity_id": 6,
+      "start": "2017-06-28 14:00:00+0100",
+      "end": "2017-06-28 16:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -3003,11 +3063,11 @@
     "model": "events.event",
     "pk": 256,
     "fields": {
-      "room_id": 2,
-      "activity_id": 8,
-      "start": "2016-06-01 18:00:00+0100",
-      "end": "2016-06-01 20:00:00+0100",
-      "status": 0,
+      "room_id": 8,
+      "activity_id": 7,
+      "start": "2017-08-14 14:00:00+0100",
+      "end": "2017-08-14 16:00:00+0100",
+      "status": 2,
       "creator_id": 1
     }
   },
@@ -3015,10 +3075,10 @@
     "model": "events.event",
     "pk": 257,
     "fields": {
-      "room_id": 6,
-      "activity_id": 7,
-      "start": "2016-04-28 18:00:00+0100",
-      "end": "2016-04-28 20:00:00+0100",
+      "room_id": 9,
+      "activity_id": 5,
+      "start": "2017-07-26 14:00:00+0100",
+      "end": "2017-07-26 16:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -3027,11 +3087,11 @@
     "model": "events.event",
     "pk": 258,
     "fields": {
-      "room_id": 7,
-      "activity_id": 1,
-      "start": "2016-06-15 18:00:00+0100",
-      "end": "2016-06-15 20:00:00+0100",
-      "status": 0,
+      "room_id": 3,
+      "activity_id": 3,
+      "start": "2017-05-26 14:00:00+0100",
+      "end": "2017-05-26 16:00:00+0100",
+      "status": 1,
       "creator_id": 1
     }
   },
@@ -3039,11 +3099,11 @@
     "model": "events.event",
     "pk": 259,
     "fields": {
-      "room_id": 4,
-      "activity_id": 1,
-      "start": "2016-06-14 18:00:00+0100",
-      "end": "2016-06-14 20:00:00+0100",
-      "status": 1,
+      "room_id": 1,
+      "activity_id": 4,
+      "start": "2017-05-22 14:00:00+0100",
+      "end": "2017-05-22 16:00:00+0100",
+      "status": 2,
       "creator_id": 1
     }
   },
@@ -3051,11 +3111,11 @@
     "model": "events.event",
     "pk": 260,
     "fields": {
-      "room_id": 1,
-      "activity_id": 4,
-      "start": "2016-06-06 18:00:00+0100",
-      "end": "2016-06-06 20:00:00+0100",
-      "status": 2,
+      "room_id": 4,
+      "activity_id": 1,
+      "start": "2017-06-23 14:00:00+0100",
+      "end": "2017-06-23 16:00:00+0100",
+      "status": 0,
       "creator_id": 1
     }
   },
@@ -3063,11 +3123,11 @@
     "model": "events.event",
     "pk": 261,
     "fields": {
-      "room_id": 3,
+      "room_id": 2,
       "activity_id": 8,
-      "start": "2016-06-03 16:00:00+0100",
-      "end": "2016-06-03 18:00:00+0100",
-      "status": 2,
+      "start": "2017-05-19 18:00:00+0100",
+      "end": "2017-05-19 20:00:00+0100",
+      "status": 1,
       "creator_id": 1
     }
   },
@@ -3075,11 +3135,11 @@
     "model": "events.event",
     "pk": 262,
     "fields": {
-      "room_id": 2,
-      "activity_id": 4,
-      "start": "2016-04-13 16:00:00+0100",
-      "end": "2016-04-13 18:00:00+0100",
-      "status": 1,
+      "room_id": 8,
+      "activity_id": 3,
+      "start": "2017-06-30 18:00:00+0100",
+      "end": "2017-06-30 20:00:00+0100",
+      "status": 0,
       "creator_id": 1
     }
   },
@@ -3087,11 +3147,11 @@
     "model": "events.event",
     "pk": 263,
     "fields": {
-      "room_id": 6,
-      "activity_id": 1,
-      "start": "2016-05-04 18:00:00+0100",
-      "end": "2016-05-04 20:00:00+0100",
-      "status": 0,
+      "room_id": 7,
+      "activity_id": 6,
+      "start": "2017-05-16 14:00:00+0100",
+      "end": "2017-05-16 16:00:00+0100",
+      "status": 1,
       "creator_id": 1
     }
   },
@@ -3099,10 +3159,10 @@
     "model": "events.event",
     "pk": 264,
     "fields": {
-      "room_id": 5,
-      "activity_id": 2,
-      "start": "2016-05-12 14:00:00+0100",
-      "end": "2016-05-12 16:00:00+0100",
+      "room_id": 3,
+      "activity_id": 7,
+      "start": "2017-07-25 16:00:00+0100",
+      "end": "2017-07-25 18:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -3111,11 +3171,11 @@
     "model": "events.event",
     "pk": 265,
     "fields": {
-      "room_id": 5,
-      "activity_id": 7,
-      "start": "2016-04-25 14:00:00+0100",
-      "end": "2016-04-25 16:00:00+0100",
-      "status": 0,
+      "room_id": 3,
+      "activity_id": 1,
+      "start": "2017-08-01 16:00:00+0100",
+      "end": "2017-08-01 18:00:00+0100",
+      "status": 1,
       "creator_id": 1
     }
   },
@@ -3123,10 +3183,10 @@
     "model": "events.event",
     "pk": 266,
     "fields": {
-      "room_id": 4,
-      "activity_id": 3,
-      "start": "2016-06-21 16:00:00+0100",
-      "end": "2016-06-21 18:00:00+0100",
+      "room_id": 7,
+      "activity_id": 7,
+      "start": "2017-07-10 16:00:00+0100",
+      "end": "2017-07-10 18:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -3135,11 +3195,11 @@
     "model": "events.event",
     "pk": 267,
     "fields": {
-      "room_id": 6,
-      "activity_id": 5,
-      "start": "2016-04-15 14:00:00+0100",
-      "end": "2016-04-15 16:00:00+0100",
-      "status": 2,
+      "room_id": 3,
+      "activity_id": 7,
+      "start": "2017-07-03 14:00:00+0100",
+      "end": "2017-07-03 16:00:00+0100",
+      "status": 1,
       "creator_id": 1
     }
   },
@@ -3147,11 +3207,11 @@
     "model": "events.event",
     "pk": 268,
     "fields": {
-      "room_id": 8,
-      "activity_id": 5,
-      "start": "2016-04-28 16:00:00+0100",
-      "end": "2016-04-28 18:00:00+0100",
-      "status": 0,
+      "room_id": 4,
+      "activity_id": 3,
+      "start": "2017-05-16 16:00:00+0100",
+      "end": "2017-05-16 18:00:00+0100",
+      "status": 2,
       "creator_id": 1
     }
   },
@@ -3159,10 +3219,10 @@
     "model": "events.event",
     "pk": 269,
     "fields": {
-      "room_id": 9,
-      "activity_id": 3,
-      "start": "2016-04-15 14:00:00+0100",
-      "end": "2016-04-15 16:00:00+0100",
+      "room_id": 7,
+      "activity_id": 8,
+      "start": "2017-07-06 16:00:00+0100",
+      "end": "2017-07-06 18:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -3171,11 +3231,11 @@
     "model": "events.event",
     "pk": 270,
     "fields": {
-      "room_id": 7,
-      "activity_id": 4,
-      "start": "2016-04-04 16:00:00+0100",
-      "end": "2016-04-04 18:00:00+0100",
-      "status": 1,
+      "room_id": 3,
+      "activity_id": 2,
+      "start": "2017-07-21 18:00:00+0100",
+      "end": "2017-07-21 20:00:00+0100",
+      "status": 0,
       "creator_id": 1
     }
   },
@@ -3183,11 +3243,11 @@
     "model": "events.event",
     "pk": 271,
     "fields": {
-      "room_id": 2,
-      "activity_id": 1,
-      "start": "2016-06-21 16:00:00+0100",
-      "end": "2016-06-21 18:00:00+0100",
-      "status": 0,
+      "room_id": 7,
+      "activity_id": 8,
+      "start": "2017-08-04 16:00:00+0100",
+      "end": "2017-08-04 18:00:00+0100",
+      "status": 1,
       "creator_id": 1
     }
   },
@@ -3195,10 +3255,10 @@
     "model": "events.event",
     "pk": 272,
     "fields": {
-      "room_id": 8,
+      "room_id": 1,
       "activity_id": 2,
-      "start": "2016-06-24 16:00:00+0100",
-      "end": "2016-06-24 18:00:00+0100",
+      "start": "2017-07-11 14:00:00+0100",
+      "end": "2017-07-11 16:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -3207,11 +3267,11 @@
     "model": "events.event",
     "pk": 273,
     "fields": {
-      "room_id": 4,
-      "activity_id": 7,
-      "start": "2016-06-03 16:00:00+0100",
-      "end": "2016-06-03 18:00:00+0100",
-      "status": 2,
+      "room_id": 8,
+      "activity_id": 5,
+      "start": "2017-08-07 18:00:00+0100",
+      "end": "2017-08-07 20:00:00+0100",
+      "status": 1,
       "creator_id": 1
     }
   },
@@ -3219,10 +3279,10 @@
     "model": "events.event",
     "pk": 274,
     "fields": {
-      "room_id": 2,
-      "activity_id": 8,
-      "start": "2016-05-25 14:00:00+0100",
-      "end": "2016-05-25 16:00:00+0100",
+      "room_id": 8,
+      "activity_id": 1,
+      "start": "2017-05-16 14:00:00+0100",
+      "end": "2017-05-16 16:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -3231,11 +3291,11 @@
     "model": "events.event",
     "pk": 275,
     "fields": {
-      "room_id": 8,
-      "activity_id": 6,
-      "start": "2016-04-01 14:00:00+0100",
-      "end": "2016-04-01 16:00:00+0100",
-      "status": 0,
+      "room_id": 4,
+      "activity_id": 8,
+      "start": "2017-08-02 14:00:00+0100",
+      "end": "2017-08-02 16:00:00+0100",
+      "status": 1,
       "creator_id": 1
     }
   },
@@ -3243,10 +3303,10 @@
     "model": "events.event",
     "pk": 276,
     "fields": {
-      "room_id": 8,
-      "activity_id": 2,
-      "start": "2016-05-26 14:00:00+0100",
-      "end": "2016-05-26 16:00:00+0100",
+      "room_id": 6,
+      "activity_id": 4,
+      "start": "2017-06-08 18:00:00+0100",
+      "end": "2017-06-08 20:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -3255,10 +3315,10 @@
     "model": "events.event",
     "pk": 277,
     "fields": {
-      "room_id": 8,
-      "activity_id": 3,
-      "start": "2016-04-11 16:00:00+0100",
-      "end": "2016-04-11 18:00:00+0100",
+      "room_id": 1,
+      "activity_id": 6,
+      "start": "2017-07-20 14:00:00+0100",
+      "end": "2017-07-20 16:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -3267,10 +3327,10 @@
     "model": "events.event",
     "pk": 278,
     "fields": {
-      "room_id": 1,
+      "room_id": 6,
       "activity_id": 5,
-      "start": "2016-06-01 16:00:00+0100",
-      "end": "2016-06-01 18:00:00+0100",
+      "start": "2017-07-06 16:00:00+0100",
+      "end": "2017-07-06 18:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -3279,11 +3339,11 @@
     "model": "events.event",
     "pk": 279,
     "fields": {
-      "room_id": 1,
-      "activity_id": 6,
-      "start": "2016-04-07 14:00:00+0100",
-      "end": "2016-04-07 16:00:00+0100",
-      "status": 0,
+      "room_id": 3,
+      "activity_id": 7,
+      "start": "2017-06-23 16:00:00+0100",
+      "end": "2017-06-23 18:00:00+0100",
+      "status": 1,
       "creator_id": 1
     }
   },
@@ -3291,11 +3351,11 @@
     "model": "events.event",
     "pk": 280,
     "fields": {
-      "room_id": 8,
-      "activity_id": 7,
-      "start": "2016-06-09 14:00:00+0100",
-      "end": "2016-06-09 16:00:00+0100",
-      "status": 1,
+      "room_id": 4,
+      "activity_id": 3,
+      "start": "2017-08-08 16:00:00+0100",
+      "end": "2017-08-08 18:00:00+0100",
+      "status": 0,
       "creator_id": 1
     }
   },
@@ -3303,11 +3363,11 @@
     "model": "events.event",
     "pk": 281,
     "fields": {
-      "room_id": 6,
-      "activity_id": 7,
-      "start": "2016-04-22 14:00:00+0100",
-      "end": "2016-04-22 16:00:00+0100",
-      "status": 2,
+      "room_id": 3,
+      "activity_id": 8,
+      "start": "2017-07-11 14:00:00+0100",
+      "end": "2017-07-11 16:00:00+0100",
+      "status": 0,
       "creator_id": 1
     }
   },
@@ -3315,11 +3375,11 @@
     "model": "events.event",
     "pk": 282,
     "fields": {
-      "room_id": 4,
+      "room_id": 3,
       "activity_id": 1,
-      "start": "2016-06-22 18:00:00+0100",
-      "end": "2016-06-22 20:00:00+0100",
-      "status": 0,
+      "start": "2017-07-31 14:00:00+0100",
+      "end": "2017-07-31 16:00:00+0100",
+      "status": 2,
       "creator_id": 1
     }
   },
@@ -3327,10 +3387,10 @@
     "model": "events.event",
     "pk": 283,
     "fields": {
-      "room_id": 7,
-      "activity_id": 4,
-      "start": "2016-06-24 14:00:00+0100",
-      "end": "2016-06-24 16:00:00+0100",
+      "room_id": 2,
+      "activity_id": 1,
+      "start": "2017-07-21 16:00:00+0100",
+      "end": "2017-07-21 18:00:00+0100",
       "status": 2,
       "creator_id": 1
     }
@@ -3339,10 +3399,10 @@
     "model": "events.event",
     "pk": 284,
     "fields": {
-      "room_id": 9,
-      "activity_id": 1,
-      "start": "2016-05-26 16:00:00+0100",
-      "end": "2016-05-26 18:00:00+0100",
+      "room_id": 3,
+      "activity_id": 6,
+      "start": "2017-05-18 16:00:00+0100",
+      "end": "2017-05-18 18:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -3351,11 +3411,11 @@
     "model": "events.event",
     "pk": 285,
     "fields": {
-      "room_id": 2,
-      "activity_id": 4,
-      "start": "2016-04-05 18:00:00+0100",
-      "end": "2016-04-05 20:00:00+0100",
-      "status": 2,
+      "room_id": 7,
+      "activity_id": 3,
+      "start": "2017-06-27 14:00:00+0100",
+      "end": "2017-06-27 16:00:00+0100",
+      "status": 0,
       "creator_id": 1
     }
   },
@@ -3363,11 +3423,11 @@
     "model": "events.event",
     "pk": 286,
     "fields": {
-      "room_id": 7,
-      "activity_id": 4,
-      "start": "2016-04-15 16:00:00+0100",
-      "end": "2016-04-15 18:00:00+0100",
-      "status": 2,
+      "room_id": 1,
+      "activity_id": 7,
+      "start": "2017-05-26 14:00:00+0100",
+      "end": "2017-05-26 16:00:00+0100",
+      "status": 0,
       "creator_id": 1
     }
   },
@@ -3375,11 +3435,11 @@
     "model": "events.event",
     "pk": 287,
     "fields": {
-      "room_id": 7,
-      "activity_id": 6,
-      "start": "2016-06-22 14:00:00+0100",
-      "end": "2016-06-22 16:00:00+0100",
-      "status": 2,
+      "room_id": 3,
+      "activity_id": 8,
+      "start": "2017-07-10 14:00:00+0100",
+      "end": "2017-07-10 16:00:00+0100",
+      "status": 0,
       "creator_id": 1
     }
   },
@@ -3387,11 +3447,11 @@
     "model": "events.event",
     "pk": 288,
     "fields": {
-      "room_id": 2,
-      "activity_id": 1,
-      "start": "2016-06-29 14:00:00+0100",
-      "end": "2016-06-29 16:00:00+0100",
-      "status": 2,
+      "room_id": 6,
+      "activity_id": 4,
+      "start": "2017-06-29 16:00:00+0100",
+      "end": "2017-06-29 18:00:00+0100",
+      "status": 0,
       "creator_id": 1
     }
   },
@@ -3399,11 +3459,11 @@
     "model": "events.event",
     "pk": 289,
     "fields": {
-      "room_id": 4,
+      "room_id": 5,
       "activity_id": 4,
-      "start": "2016-04-12 14:00:00+0100",
-      "end": "2016-04-12 16:00:00+0100",
-      "status": 1,
+      "start": "2017-06-16 18:00:00+0100",
+      "end": "2017-06-16 20:00:00+0100",
+      "status": 0,
       "creator_id": 1
     }
   },
@@ -3411,10 +3471,10 @@
     "model": "events.event",
     "pk": 290,
     "fields": {
-      "room_id": 6,
-      "activity_id": 6,
-      "start": "2016-05-12 16:00:00+0100",
-      "end": "2016-05-12 18:00:00+0100",
+      "room_id": 5,
+      "activity_id": 5,
+      "start": "2017-07-07 14:00:00+0100",
+      "end": "2017-07-07 16:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -3423,10 +3483,10 @@
     "model": "events.event",
     "pk": 291,
     "fields": {
-      "room_id": 8,
+      "room_id": 2,
       "activity_id": 8,
-      "start": "2016-04-19 16:00:00+0100",
-      "end": "2016-04-19 18:00:00+0100",
+      "start": "2017-06-22 16:00:00+0100",
+      "end": "2017-06-22 18:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -3435,10 +3495,10 @@
     "model": "events.event",
     "pk": 292,
     "fields": {
-      "room_id": 9,
-      "activity_id": 4,
-      "start": "2016-06-07 18:00:00+0100",
-      "end": "2016-06-07 20:00:00+0100",
+      "room_id": 6,
+      "activity_id": 6,
+      "start": "2017-05-16 14:00:00+0100",
+      "end": "2017-05-16 16:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -3447,11 +3507,11 @@
     "model": "events.event",
     "pk": 293,
     "fields": {
-      "room_id": 2,
-      "activity_id": 8,
-      "start": "2017-06-09 18:00:00+0100",
-      "end": "2017-06-09 20:00:00+0100",
-      "status": 1,
+      "room_id": 1,
+      "activity_id": 6,
+      "start": "2017-08-02 18:00:00+0100",
+      "end": "2017-08-02 20:00:00+0100",
+      "status": 0,
       "creator_id": 1
     }
   },
@@ -3459,11 +3519,11 @@
     "model": "events.event",
     "pk": 294,
     "fields": {
-      "room_id": 5,
-      "activity_id": 6,
-      "start": "2016-04-22 18:00:00+0100",
-      "end": "2016-04-22 20:00:00+0100",
-      "status": 2,
+      "room_id": 8,
+      "activity_id": 5,
+      "start": "2017-07-24 18:00:00+0100",
+      "end": "2017-07-24 20:00:00+0100",
+      "status": 1,
       "creator_id": 1
     }
   },
@@ -3471,11 +3531,11 @@
     "model": "events.event",
     "pk": 295,
     "fields": {
-      "room_id": 2,
+      "room_id": 7,
       "activity_id": 8,
-      "start": "2016-04-06 14:00:00+0100",
-      "end": "2016-04-06 16:00:00+0100",
-      "status": 0,
+      "start": "2017-08-10 14:00:00+0100",
+      "end": "2017-08-10 16:00:00+0100",
+      "status": 1,
       "creator_id": 1
     }
   },
@@ -3483,10 +3543,10 @@
     "model": "events.event",
     "pk": 296,
     "fields": {
-      "room_id": 5,
-      "activity_id": 4,
-      "start": "2016-04-06 16:00:00+0100",
-      "end": "2016-04-06 18:00:00+0100",
+      "room_id": 7,
+      "activity_id": 8,
+      "start": "2017-08-10 16:00:00+0100",
+      "end": "2017-08-10 18:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -3495,10 +3555,10 @@
     "model": "events.event",
     "pk": 297,
     "fields": {
-      "room_id": 4,
-      "activity_id": 6,
-      "start": "2016-05-27 16:00:00+0100",
-      "end": "2016-05-27 18:00:00+0100",
+      "room_id": 3,
+      "activity_id": 5,
+      "start": "2017-06-05 18:00:00+0100",
+      "end": "2017-06-05 20:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -3507,10 +3567,10 @@
     "model": "events.event",
     "pk": 298,
     "fields": {
-      "room_id": 4,
-      "activity_id": 1,
-      "start": "2016-04-25 18:00:00+0100",
-      "end": "2016-04-25 20:00:00+0100",
+      "room_id": 6,
+      "activity_id": 2,
+      "start": "2017-07-27 14:00:00+0100",
+      "end": "2017-07-27 16:00:00+0100",
       "status": 2,
       "creator_id": 1
     }
@@ -3519,10 +3579,10 @@
     "model": "events.event",
     "pk": 299,
     "fields": {
-      "room_id": 5,
-      "activity_id": 5,
-      "start": "2017-05-05 18:00:00+0100",
-      "end": "2017-05-05 20:00:00+0100",
+      "room_id": 3,
+      "activity_id": 6,
+      "start": "2017-06-20 14:00:00+0100",
+      "end": "2017-06-20 16:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
@@ -3531,10 +3591,10 @@
     "model": "events.event",
     "pk": 300,
     "fields": {
-      "room_id": 5,
-      "activity_id": 3,
-      "start": "2017-06-08 16:00:00+0100",
-      "end": "2017-06-08 18:00:00+0100",
+      "room_id": 4,
+      "activity_id": 1,
+      "start": "2017-07-24 14:00:00+0100",
+      "end": "2017-07-24 16:00:00+0100",
       "status": 0,
       "creator_id": 1
     }
