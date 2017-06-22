@@ -29,10 +29,10 @@
                 {{ e.room }}
             </td>
             <td>
-                {{ e.start|date:"l j F" }}
+                {{ e.start|date:"l j F Y" }}
             </td>
             <td>
-		        {{ e.start|date:"P" }}-{{ e.end|date:"P" }}
+		        {{ e.start|date:"G:i" }}-{{ e.end|date:"G:i" }}
             </td>
             <td>
 		        <a href="{% url 'events:approvationConfirm' e.pk 0 %}" class="btn btn-success"> Accetta </a>
