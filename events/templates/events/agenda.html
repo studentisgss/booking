@@ -30,7 +30,7 @@
   <tbody>
   {% for e in list %}
       <tr>
-        <td>{{ e.start|date:"DATE_FORMAT" }}</td>
+        <td>{{ e.start|date:"d/m/Y" }}</td>
         <td>{{ e.start|date:"G:i" }} - {{ e.end|date:"G:i" }}</td>
         <td><a href="{% url "rooms:details" e.room.pk %}">{{ e.room.name }}</a></td>
         <td><a href="{% url "activities:details" e.activity.pk %}">{{ e.activity.title }}</a></td>
