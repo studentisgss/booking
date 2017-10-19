@@ -1,7 +1,7 @@
 function adjustIndicatorWidth()
 {
 	// Set carousel indicator width
-	var array = $(".item table").map(function(){ 
+	var array = $(".item table").map(function(){
 		var clone = $(this).clone();
 		clone.css("visibility","hidden");
     	$('body').append(clone);
@@ -13,8 +13,8 @@ function adjustIndicatorWidth()
 	$(".carousel-indicators").css("width", width + "px");
 
 	// Set all table to the same width
-	// but do not chenge thw width of the first cell
-	$.each($(".carousel td:not(.head):even"), function(){ 
+	// but do not chenge the width of the first cell
+	$.each($(".carousel td:not(.head):even"), function(){
 		var clone = $(this).clone();
 		clone.css("visibility","hidden");
     	$('body').append(clone);
@@ -22,7 +22,7 @@ function adjustIndicatorWidth()
 		clone.remove();
 	});
 	$(".carousel table").css("width", width + "px");
-	$.each($(".carousel td:not(.head):even"), function(){ 
+	$.each($(".carousel td:not(.head):even"), function(){
 		$(this).css("width", $(this).data("width"));
 	});
 }

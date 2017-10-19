@@ -51,7 +51,7 @@
         {% if eventsImportant %}
             <div>
                 <h3>Aule del Collegio Morgagni</h3>
-                <div id="important-event-carousel" class="carousel slide carousel-fade" data-ride="carousel" data-interval="12000">
+                <div id="important-event-carousel" class="carousel slide carousel-fade" data-ride="carousel" data-interval="20000">
                 <div class="carousel-inner" role="listbox">
                     {% for page in  eventsImportant %}
                         <div class="item{% if forloop.first %} active{% endif %}">
@@ -87,7 +87,7 @@
         {% if eventsOther %}
             <div>
                 <h3>Altre aule</h3>
-                <div id="other-event-carousel" class="carousel slide carousel-fade" data-ride="carousel" data-interval="6000">
+                <div id="other-event-carousel" class="carousel slide carousel-fade" data-ride="carousel" data-interval="10000">
                 <div class="carousel-inner" role="listbox">
                     {% for page in  eventsOther %}
                         <div class="item{% if forloop.first %} active{% endif %}">
