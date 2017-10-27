@@ -1,6 +1,7 @@
 {% extends "base/layout.html" %}
 
 {% load staticfiles %}
+{% load markdown %}
 
 {% block head-extra %}
 <script type="text/javascript" src="{% static 'activities/js/detail.js' %}"></script>
@@ -25,7 +26,7 @@
         <a id="collapseDescriptionControl" class="btn btn-default" data-toggle="collapse" href="#collapseDescription" aria-expanded="false" aria-controls="collapseDescription">
             Mostra/Nascondi descrizione
         </a>
-        <div class="collapse" id="collapseDescription"><p>{{ activity.description }}</p></div>
+        <div class="collapse" id="collapseDescription"><p>{{ activity.description|markdown }}</p></div>
         <p><br /></p>
 	</div>
 	</div>
