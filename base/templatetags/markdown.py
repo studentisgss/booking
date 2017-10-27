@@ -14,4 +14,5 @@ def markdown(value, arg=None):
         {{value|markdown}}
     :returns: A rendered markdown
     """
-    return mark_safe(_markdown.markdown(escape(value)))
+    # Replace escaped > to allow markdown quote
+    return mark_safe(_markdown.markdown(escape(value).replace('&gt;', '>')))

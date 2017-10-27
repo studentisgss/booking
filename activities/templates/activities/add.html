@@ -3,7 +3,12 @@
 {% load staticfiles %}
 
 {% block head-extra %}
-<script type="text/javascript" src="{% static 'js/forms.js' %}"></script>
+<!-- <script type="text/javascript" src="{% static 'js/forms.js' %}"></script> Not needed here -->
+<script type="text/javascript" src="{% static 'js/simplemde.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'activities/js/markdownEditor.js' %}"></script>
+
+<link href="{% static 'css/simplemde.min.css' %}" rel="stylesheet" />
+<link href="{% static 'activities/css/markdown.css' %}" rel="stylesheet" />
 {% endblock head-extra %}
 
 {% block main %}
@@ -46,7 +51,7 @@
             <div class="col-sm-2 col-md-1">
             <label for="{{ form.title.id_for_label }}" class="control-label">{{ form.title.label }}:</label>
             </div>
-            <div class="col-sm-6 col-md-9 {% if form.title.errors %}has-error{% endif %}"">
+            <div class="col-sm-6 col-md-9 {% if form.title.errors %}has-error{% endif %}">
                 {{ form.title }}
             </div>
             <div class="col-sm-2 col-md-1">
