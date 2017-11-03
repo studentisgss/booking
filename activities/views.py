@@ -1,5 +1,6 @@
 from django.views.generic import TemplateView
-from django.http import Http404, HttpResponseRedirect
+from django.views import View
+from django.http import Http404, HttpResponseRedirect, JsonResponse
 from django.core.urlresolvers import reverse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q, Max, Min
@@ -7,12 +8,17 @@ from django.db import transaction
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.admin.models import LogEntry, ADDITION, CHANGE, DELETION
+from django.utils.dateparse import parse_time
 
 from events.models import Event
 from events.forms import EventInlineFormSet
 from activities.models import Activity
 from activities.forms import ActivityForm
 from rooms.models import RoomPermission, Room
+from base.utils import localnow
+from booking.settings import DATE_INPUT_FORMATS
+
+from datetime import datetime, timedelta
 
 
 class DetailActivityView(TemplateView):
@@ -245,3 +251,49 @@ class ActivityAddView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView)
             return HttpResponseRedirect(reverse("activities:edit", kwargs={"pk": activity.pk}))
         else:
             return self.get(request, *args, **kwargs)
+
+
+class BookedDatesAPI(View):
+    """
+    This API if queried return for a given room, start and end time
+    the days in which it is already booked in that time
+    room_id: id of the room_id
+    start: start time
+    end: end time
+    fromDate: date from which search, default id today - 1 month
+    toDate: date to which search, default id today + 1 month
+    """
+
+    def get(self, request):
+        # Util parse_date to allow coustom format
+        def parse_date(string):
+            for f in DATE_INPUT_FORMATS:
+                try:
+                    return datetime.strptime(string, f)
+                except:
+                    continue
+            return None
+
+        try:
+            room_id = request.GET.get("room", None)
+            start = parse_time(request.GET.get("start", ""))
+            end = parse_time(request.GET.get("end", ""))
+            if room_id is None or start is None or end is None:
+                raise Http404
+            fromDate = parse_date(request.GET.get("from", ""))
+            toDate = parse_date(request.GET.get("to", ""))
+        except:
+            raise Http404
+
+        if fromDate is None:
+            fromDate = localnow() - timedelta(days=30)
+        if toDate is None:
+            toDate = localnow() + timedelta(days=30)
+
+        dates = Event.objects.all().filter(
+            room_id=room_id, start__time__lt=end,
+            end__time__gt=start,
+            start__date__gte=fromDate, start__date__lte=toDate
+        ).exclude(status=2).dates("start", "day")
+
+        return JsonResponse(list(dates), safe=False)
