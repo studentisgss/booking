@@ -16,7 +16,7 @@ from activities.models import Activity
 from activities.forms import ActivityForm
 from rooms.models import RoomPermission, Room
 from base.utils import localnow
-from booking.settings import DATE_INPUT_FORMATS
+from booking.settings import DATE_INPUT_FORMATS, DATE_FORMAT
 
 from datetime import datetime, timedelta
 
@@ -295,5 +295,7 @@ class BookedDatesAPI(View):
             end__time__gt=start,
             start__date__gte=fromDate, start__date__lte=toDate
         ).exclude(status=2).dates("start", "day")
+
+        dates = [d.strftime(DATE_FORMAT) for d in dates]
 
         return JsonResponse(list(dates), safe=False)

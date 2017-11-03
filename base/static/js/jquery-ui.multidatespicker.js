@@ -423,7 +423,11 @@
 				$(this).datepicker('destroy');
 			},
             disabled: function( state ){
-                $(this).datepicker('option', 'disabled', state);
+                if (state != undefined) {
+                    $(this).datepicker('option', 'disabled', state);
+                } else {
+                    return $(this).datepicker('option', 'disabled');
+                }
             }
 		};
 
@@ -466,6 +470,7 @@
 					case 'compareDates':
 					case 'dateConvert':
 					case 'value':
+                    case 'disabled':
 						ret = exec_result;
 				}
 				return exec_result;
