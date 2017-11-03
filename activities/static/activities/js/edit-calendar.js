@@ -41,4 +41,14 @@ $(document).ready(function() {
         });
         multidatepicker.multiDatesPicker('resetDates', 'picked')
     });
+
+    $("#calendar-booking select[name*='room'].form-control").on("change", function() {
+        var div = $(this).parent().parent().parent().parent();
+        if (waitingRooms.indexOf(this.value) > -1) {
+            setWaitingWarning(div);
+        }
+        else {
+            removeWaitingWarning(div);
+        }
+    });
 });
