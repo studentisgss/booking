@@ -16,7 +16,7 @@ from activities.models import Activity
 from activities.forms import ActivityForm
 from rooms.models import RoomPermission, Room
 from base.utils import localnow, parse_date
-from booking.settings import DATE_INPUT_FORMATS, DATE_FORMAT
+from booking.settings import DATE_INPUT_FORMATS, DATE_FORMAT, TIME_FORMAT
 
 from datetime import datetime, timedelta
 
@@ -290,3 +290,31 @@ class BookedDatesAPI(View):
         dates = [d.strftime(DATE_FORMAT) for d in dates]
 
         return JsonResponse(list(dates), safe=False)
+
+
+class BookedHoursAPI(View):
+    """
+    This API if queried return for a given room and day
+    the hours in which it is already booked
+    room_id: id of the room_id
+    day: the day to check, default today
+    """
+
+    def get(self, request):
+        try:
+            room_id = request.GET.get("room", None)
+            day = parse_date(request.GET.get("day", ""))
+        except:
+            raise Http404
+
+        if day is None:
+            day = localnow().date()
+
+        hours = Event.objects.all().filter(
+            room_id=room_id, start__date=day
+        ).exclude(status=2).only("start", "end")
+
+        hours = ["{} - {}".format(a.start.strftime(TIME_FORMAT), a.end.strftime(TIME_FORMAT))
+                 for a in hours]
+
+        return JsonResponse(hours, safe=False)

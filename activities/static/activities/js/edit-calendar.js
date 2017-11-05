@@ -1,6 +1,9 @@
 var multidatepicker;
-var activeDate = (new Date(Date.now())).setDate(1);
+var activeDate = new Date(Date.now());
+activeDate.setDate(1);
 var checkedDate; // Months for which the disabled day have already been retrived
+var cachedTooltips = {}; // Cached tooltips
+var activeTimeouts = []; // List of active timeouts
 
 // If the string has only 1 character add a leading zero
 function strPadding(obj) {
@@ -93,6 +96,8 @@ $(document).ready(function() {
         else {
             removeWaitingWarning(div);
         }
+        // Room change: clear cached tooltips
+        cachedTooltips = {};
     });
 
     // Disable calendar if anyone of the input is not filled
@@ -144,5 +149,41 @@ $(document).ready(function() {
             // If the calendar is disabled reset the dates.
             multidatepicker.multiDatesPicker('resetDates', 'picked');
         }
+    });
+
+    $("#calendar-booking").on("mouseenter", "#calendar td span, #calendar td a", function(){
+        var createTooltip = function(el){
+            var day = $(el).html();
+            var td = $(el).parent();
+            var month = activeDate.getMonth()+1;
+            var year = activeDate.getFullYear();
+            var date = strPadding(day) + "/" + strPadding(month) + "/" + String(year);
+            if (date in cachedTooltips) {
+                $(el).attr("title", cachedTooltips[date]);
+            } else {
+                $.get("/activities/bookedhours", {room: $("#calendar-booking select[name*='room']").val(),
+                                                 day: date}).done(function(data){
+                                                    var title = "";
+                                                    if (data.length == 0){
+                                                        title = "Nessuna prenotazione.";
+                                                    } else {
+                                                        title = "Aula prenotata:\n"
+                                                        title += data.join("\n");
+                                                    }
+                                                    $(el).attr("title", title);
+                                                    cachedTooltips[date] = title;
+                                                 });
+            }
+        };
+        if (multidatepicker.multiDatesPicker('disabled') == false) {
+            var t = setTimeout(createTooltip, 2000, this);
+            activeTimeouts.push(t);
+        }
+    });
+
+    $("#calendar-booking").on("mouseleave", "#calendar td span, #calendar td a", function(){
+        $.each(activeTimeouts, function(i, t){
+            clearTimeout(t);
+        });
     });
 });
