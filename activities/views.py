@@ -15,7 +15,7 @@ from events.forms import EventInlineFormSet
 from activities.models import Activity
 from activities.forms import ActivityForm
 from rooms.models import RoomPermission, Room
-from base.utils import localnow
+from base.utils import localnow, parse_date
 from booking.settings import DATE_INPUT_FORMATS, DATE_FORMAT
 
 from datetime import datetime, timedelta
@@ -265,15 +265,6 @@ class BookedDatesAPI(View):
     """
 
     def get(self, request):
-        # Util parse_date to allow coustom format
-        def parse_date(string):
-            for f in DATE_INPUT_FORMATS:
-                try:
-                    return datetime.strptime(string, f)
-                except:
-                    continue
-            return None
-
         try:
             room_id = request.GET.get("room", None)
             start = parse_time(request.GET.get("start", ""))
