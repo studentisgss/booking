@@ -1,7 +1,8 @@
 var multidatepicker;
 var activeDate = (new Date(Date.now())).setDate(1);
-var checkedDate;
+var checkedDate; // Months for which the disabled day have already been retrived
 
+// If the string has only 1 character add a leading zero
 function strPadding(obj) {
     var s = String(obj);
     if (s.length < 2) {
@@ -15,19 +16,21 @@ $(document).ready(function() {
     $("#calendar-booking").removeClass("hidden");
     $("#calendar-booking .datetime:even").remove();
     var calendarBooking = $("#calendar-booking");
+    // onChangeMonthYear: when changing month retrieve the disabled day for the next/previous month
     multidatepicker = $("#calendar").multiDatesPicker({dateFormat: "dd/mm/yy", disabled: true, onChangeMonthYear: function(y, m,inst){
         if (multidatepicker.multiDatesPicker('disabled') == false) {
+            // Set from and to to the first day of the current month
             var fromDate = new Date(y, m - 1, 1);
             var toDate = new Date(y, m - 1, 1);
-            if (fromDate > activeDate) {
+            if (fromDate > activeDate) { // If going next month
                 fromDate.setMonth(fromDate.getMonth() + 1);
                 toDate.setMonth(toDate.getMonth() + 2);
                 toDate.setDate(0);
-            } else {
+            } else { // If going to the previous month
                 fromDate.setMonth(fromDate.getMonth() - 1);
                 toDate.setDate(0);
             }
-            if (checkedDate.indexOf(fromDate.getTime()) == -1) {
+            if (checkedDate.indexOf(fromDate.getTime()) == -1) { // If not already retrieved, get the days
                 $.get("/activities/bookeddates", {room: $("#calendar-booking select[name*='room']").val(),
                                                  start: $("#calendar-booking input[name*='start']").val(),
                                                  end: $("#calendar-booking input[name*='end']").val(),
@@ -37,7 +40,7 @@ $(document).ready(function() {
                     if (data.length > 0) {
                         multidatepicker.multiDatesPicker('addDates', data, 'disabled');
                     }
-                    checkedDate.push(fromDate.getTime())
+                    checkedDate.push(fromDate.getTime()) // Add the retrieved month to the saved ones.
                 });
             }
         }
@@ -49,7 +52,7 @@ $(document).ready(function() {
     $.each($("#calendar-booking select"), function() { $(this).removeAttr("id"); })
     $.each($("#calendar-booking input"), function() { $(this).removeAttr("id"); })
 
-    // Add event on click
+    // Add events on click on "add" button
     $("#add-from-calendar").on('click', function(){
         var vals = multidatepicker.multiDatesPicker('value').replace(" ", "").split(',');
         // If vals consists only of an empty string return
@@ -102,7 +105,7 @@ $(document).ready(function() {
         multidatepicker.multiDatesPicker('disabled', !filled);
         multidatepicker.multiDatesPicker('resetDates', 'disabled');
 
-        if (filled) {
+        if (filled) { // If calendar is active then get the disabled days for the current, the previous and the next month
             var fromDate = new Date(Date.now());
             fromDate.setDate(1);
             fromDate.setMonth(fromDate.getMonth()-1);
@@ -133,10 +136,12 @@ $(document).ready(function() {
                     toDate.setMinutes(0);
                     toDate.setSeconds(0);
                     toDate.setMilliseconds(0);
+                    // Add the months to the saved ones. Use getTime() to avoid javascript issue.
                     checkedDate = [fromDate.getTime(), toDate.getTime(), now.getTime()];
                 }
             });
         } else {
+            // If the calendar is disabled reset the dates.
             multidatepicker.multiDatesPicker('resetDates', 'picked');
         }
     });
