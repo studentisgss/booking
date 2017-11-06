@@ -72,5 +72,40 @@ class RoomPermission(models.Model):
     permission = models.SmallIntegerField(
         choices=PERMISSION_CHOICES,
         default=10,
-        verbose_name=_("permesso")
-    )
+        verbose_name=_("permesso"))
+
+
+class RoomRules(models.Model):
+    """
+    A table with the opening times.
+    To every room, every day is associated the opening timens during wich is allowed to book the room.
+    """
+    class Meta:
+        verbose_name = _("orari dell'aula")
+        verbose_name_plural = _("orari delle aule")
+
+    def __str__(self):
+        return "Aula%d Giorno%d" % (self.room_id, self.day_id)
+
+    DAYS_OF_WEEK = [
+        (0, 'Lunedì'),
+        (1, 'Martedì'),
+        (2, 'Mercoledì'),
+        (3, 'Giovedì'),
+        (4, 'Venerdì'),
+        (5, 'Sabato'),
+        (6, 'Domenica'),
+     ]
+
+    room = models.ForeignKey(
+        Room,
+        on_delete=models.CASCADE,
+        verbose_name=_("aula"))
+    day = models.CharField(
+        max_length=1,
+        choices=DAYS_OF_WEEK,
+        verbose_name="giorno")
+    opening_time = models.TimeField(
+        verbose_name="orario di apertura")
+    closing_time = models.DateField(
+        verbose_name="orario di chiusura")

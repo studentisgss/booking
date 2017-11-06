@@ -5,3 +5,4 @@ from rooms.models import *
 
 admin.site.register(Room)
 admin.site.register(RoomPermission)
+admin.site.register(RoomRules)
