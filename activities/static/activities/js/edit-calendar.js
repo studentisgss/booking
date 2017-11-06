@@ -48,6 +48,8 @@ $(document).ready(function() {
             }
         }
         activeDate = new Date(y, m - 1, 1);
+    }, beforeShowDay: function(d) {
+        return [true, "cust-tooltip", ""];
     }});
 
 
@@ -151,15 +153,24 @@ $(document).ready(function() {
         }
     });
 
-    $("#calendar-booking").on("mouseenter", "#calendar td span, #calendar td a", function(){
+    $("#calendar-booking").on("mouseenter", "#calendar td > span:first-child, #calendar td > a", function(){
         var createTooltip = function(el){
-            var day = $(el).html();
-            var td = $(el).parent();
+            var day = 1;
+            var index = $(el).html().indexOf("<");
+            if (index == -1) {
+                day = $(el).html();
+            } else {
+                day = $(el).html().substring(0, index).trim();
+            }
             var month = activeDate.getMonth()+1;
             var year = activeDate.getFullYear();
             var date = strPadding(day) + "/" + strPadding(month) + "/" + String(year);
             if (date in cachedTooltips) {
-                $(el).attr("title", cachedTooltips[date]);
+                // $(el).attr("title", cachedTooltips[date]); OLD VERSION
+                if ($(el).siblings("span.cust-tooltiptext").length == 0) { // If the tooltip is not already set
+                    // $(el).parent().addClass("cust-tooltip");
+                    $(el).after("<span class=\"cust-tooltiptext ui-datepicker-unselectable\">" + cachedTooltips[date] + "</span>");
+                }
             } else {
                 $.get("/activities/bookedhours", {room: $("#calendar-booking select[name*='room']").val(),
                                                  day: date}).done(function(data){
@@ -170,13 +181,15 @@ $(document).ready(function() {
                                                         title = "Aula prenotata:\n"
                                                         title += data.join("\n");
                                                     }
-                                                    $(el).attr("title", title);
+                                                    // $(el).parent().addClass("cust-tooltip");
+                                                    $(el).after("<span class=\"cust-tooltiptext ui-datepicker-unselectable\">" + title + "</span>");
+                                                    //$(el).html($(el).html() + "<span class=\"cust-tooltiptext ui-datepicker-unselectable\">" + title + "</span>");
                                                     cachedTooltips[date] = title;
                                                  });
             }
         };
         if (multidatepicker.multiDatesPicker('disabled') == false) {
-            var t = setTimeout(createTooltip, 2000, this);
+            var t = setTimeout(createTooltip, 1000, this);
             activeTimeouts.push(t);
         }
     });
