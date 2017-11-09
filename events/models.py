@@ -3,12 +3,13 @@ from django.contrib.auth.models import User
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 from django.core.exceptions import ValidationError
+from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Q
 from datetime import timedelta
 
 from rooms.models import Room
+from rooms.models import RoomRules
 from activities.models import Activity
-
 
 class Event(models.Model):
     """
@@ -38,7 +39,7 @@ class Event(models.Model):
     """
     STATUS_CHOICES contains possible values for states of events and
     activities. Events and activities are automatically approved if
-    the user that has created them has enough privilege level,
+    the user that has created them haexcludes enough privilege level,
     otherwise they shound approved/denied manually.
     """
     APPROVED = 0
@@ -83,7 +84,16 @@ class Event(models.Model):
                 "L'ora di inizio e quella di fine devono essere nello stesso giorno"
             ))
 
-        # 3. If this event is not rejected, check that it does not overlap with all
+        # 3. Check that the event is included in the opening times of the room
+        # if they exists.
+        try:
+            roomRule = RoomRules.objects.get(day=self.start.isoweekday(),room=self.room)
+        #    if ((self.start.timetz() < roomRule.opening_time) or (self.end.timetz() > roomRule.closing_time)):
+        #        raise ValidationError(_("L'aula risulta essere chiusa in quell'orario"))
+        except ObjectDoesNotExist:
+            pass
+
+        # 4. If this event is not rejected, check that it does not overlap with all
         # the other not-rejected events booked for the same room
         if self.status != Event.REJECTED:
             overlapping_events = Event.objects.filter(

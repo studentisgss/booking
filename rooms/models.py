@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User, Group
 from django.utils.translation import ugettext_lazy as _
+from django.core.exceptions import ValidationError
+from datetime import time
 
 
 class Room(models.Model):
@@ -85,27 +87,55 @@ class RoomRules(models.Model):
         verbose_name_plural = _("orari delle aule")
 
     def __str__(self):
-        return "Aula%d Giorno%d" % (self.room_id, self.day_id)
+        return "Aula %s Giorno %s" % (self.room,self.day)
 
     DAYS_OF_WEEK = [
-        (0, 'Lunedì'),
-        (1, 'Martedì'),
-        (2, 'Mercoledì'),
-        (3, 'Giovedì'),
-        (4, 'Venerdì'),
-        (5, 'Sabato'),
-        (6, 'Domenica'),
+        (1, _("Lunedì")),
+        (2, _("Martedì")),
+        (3, _("Mercoledì")),
+        (4, _("Giovedì")),
+        (5, _("Venerdì")),
+        (6, _("Sabato")),
+        (0, _("Domenica"))
      ]
 
     room = models.ForeignKey(
         Room,
         on_delete=models.CASCADE,
         verbose_name=_("aula"))
-    day = models.CharField(
-        max_length=1,
+    day = models.SmallIntegerField(
         choices=DAYS_OF_WEEK,
         verbose_name="giorno")
     opening_time = models.TimeField(
         verbose_name="orario di apertura")
-    closing_time = models.DateField(
+    closing_time = models.TimeField(
         verbose_name="orario di chiusura")
+
+    def clean(self):
+        if self.room_id is None:
+            raise ValidationError(_("L'aula è obbligatoria"))
+
+        if self.day is None:
+            raise ValidationError(_("Il giorno è obbligatorio"))
+
+        if self.opening_time is None or self.closing_time is None:
+            raise ValidationError(_("Orari di apertura e chiusura sono obbligatori"))
+
+        # 1. Check that the opening time is before the closing time
+        if self.opening_time >= self.closing_time:
+            raise ValidationError(_("L'ora di apertura deve precedere quella di chiusura"))
+
+        # 2. Check that there are not two timetables for the same room the same day
+        overlapping_roomRules = RoomRules.objects.filter(
+            room_id=self.room.pk,
+            day=self.day)
+
+        # If the event is already in the database exclude it
+        if self.pk is not None:
+            overlapping_roomRules = overlapping_roomRules.filter(
+                id=self.pk)
+        is_overlapping = overlapping_roomRules.exists()
+        if is_overlapping:
+            raise ValidationError(
+                _("Non possono esserci due orari per la stessa aula lo stesso giorno")
+            )
