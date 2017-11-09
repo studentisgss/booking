@@ -39,7 +39,7 @@ class Event(models.Model):
     """
     STATUS_CHOICES contains possible values for states of events and
     activities. Events and activities are automatically approved if
-    the user that has created them haexcludes enough privilege level,
+    the user that has created them excludes enough privilege level,
     otherwise they shound approved/denied manually.
     """
     APPROVED = 0
@@ -88,8 +88,8 @@ class Event(models.Model):
         # if they exists.
         try:
             roomRule = RoomRules.objects.get(day=self.start.isoweekday(),room=self.room)
-        #    if ((self.start.timetz() < roomRule.opening_time) or (self.end.timetz() > roomRule.closing_time)):
-        #        raise ValidationError(_("L'aula risulta essere chiusa in quell'orario"))
+            if self.start.timetz() < roomRule.opening_time or self.end.timetz() > roomRule.closing_time:
+                raise ValidationError(_("L'aula risulta essere chiusa in quell'orario"))
         except ObjectDoesNotExist:
             pass
 

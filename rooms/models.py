@@ -79,8 +79,8 @@ class RoomPermission(models.Model):
 
 class RoomRules(models.Model):
     """
-    A table with the opening times.
-    To every room, every day is associated the opening timens during wich is allowed to book the room.
+    An object with the opening times.
+    To every room, every day is associated the opening times during wich is allowed to book the room.
     """
     class Meta:
         verbose_name = _("orari dell'aula")
@@ -129,10 +129,9 @@ class RoomRules(models.Model):
         overlapping_roomRules = RoomRules.objects.filter(
             room_id=self.room.pk,
             day=self.day)
-
         # If the event is already in the database exclude it
         if self.pk is not None:
-            overlapping_roomRules = overlapping_roomRules.filter(
+            overlapping_roomRules = overlapping_roomRules.exclude(
                 id=self.pk)
         is_overlapping = overlapping_roomRules.exists()
         if is_overlapping:
