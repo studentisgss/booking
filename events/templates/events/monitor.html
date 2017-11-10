@@ -64,7 +64,7 @@
                         				{% for e in list %}
                         					<tr>
                         						<td>{{ e.start|date:"G:i" }} - {{ e.end|date:"G:i" }}</td>
-                        						<td>{{ e.activity.title }}</td>
+                        						<td>{{ e.activity.get_full_title }}</td>
                                             </tr>
                                         {% endfor %}
                                     {% endfor %}
@@ -100,7 +100,7 @@
                                         {% for e in list %}
                                             <tr>
                                                 <td>{{ e.start|date:"G:i" }} - {{ e.end|date:"G:i" }}</td>
-                                                <td>{{ e.activity.title }}</td>
+                                                <td>{{ e.activity.get_full_title }}</td>
                                             </tr>
                                         {% endfor %}
                                     {% endfor %}
