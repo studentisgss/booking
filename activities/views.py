@@ -39,7 +39,7 @@ class ListAllActivityView(TemplateView):
         activities_list = Activity.objects \
             .annotate(min_start=Min("event__start")) \
             .annotate(max_end=Max("event__end")) \
-            .order_by("archived", "min_start", "title")
+            .order_by("archived", "category", "title", "min_start")
         # Check for filter-text
         if "search" in self.request.GET:
             text = self.request.GET.get("search", "")
@@ -70,7 +70,7 @@ class ListActivityView(TemplateView):
             .filter(archived=False) \
             .annotate(min_start=Min("event__start")) \
             .annotate(max_end=Max("event__end")) \
-            .order_by("min_start", "title")
+            .order_by("category", "title", "min_start")
         # Check for filter-text
         if "search" in self.request.GET:
             text = self.request.GET.get("search", "")
