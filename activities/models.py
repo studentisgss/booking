@@ -22,7 +22,16 @@ class Activity(models.Model):
         return "%s%s %s" % ("* " if not self.archived else "",
                             self.title, self.description)
 
+    CLASS_CHOICES = [
+        ("SN", "Scienze Naturali"),
+        ("SM", "Scienze Morali"),
+        ("SS", "Scienze Sociali"),
+        ("A", "Altro")
+    ]
+
+    category = models.CharField(max_length=3, choices=CLASS_CHOICES, verbose_name=_("classe"))
     title = models.CharField(max_length=80, verbose_name=_("titolo"))
+    professor = models.CharField(max_length=50, verbose_name=_("professore"))
     description = models.TextField(blank=True, verbose_name=_("descrizione"))
     archived = models.BooleanField(default=False, verbose_name=_("archiviata"))
     creator = models.ForeignKey(
