@@ -19,8 +19,17 @@ class Activity(models.Model):
         verbose_name_plural = _("attività")
 
     def __str__(self):
-        return "%s%s %s" % ("* " if not self.archived else "",
-                            self.title, self.description)
+        return "%s%s " % ("* " if not self.archived else "",
+                          self.title)
+
+    def get_full_title(self):
+        t = ""
+        if self.category != "A":
+            t = "%s - " % (self.category)
+        t += self.title
+        if self.professor != "":
+            t += " (%s)" % (self.professor)
+        return t
 
     CLASS_CHOICES = [
         ("SN", "Scienze Naturali"),
@@ -29,9 +38,10 @@ class Activity(models.Model):
         ("A", "Altro")
     ]
 
-    category = models.CharField(max_length=3, choices=CLASS_CHOICES, verbose_name=_("classe"))
+    category = models.CharField(max_length=3, choices=CLASS_CHOICES,
+                                verbose_name=_("classe"), default="A")
     title = models.CharField(max_length=80, verbose_name=_("titolo"))
-    professor = models.CharField(max_length=50, verbose_name=_("professore"))
+    professor = models.CharField(max_length=50, blank=True, verbose_name=_("professore"))
     description = models.TextField(blank=True, verbose_name=_("descrizione"))
     archived = models.BooleanField(default=False, verbose_name=_("archiviata"))
     creator = models.ForeignKey(
