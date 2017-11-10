@@ -57,11 +57,17 @@
     {% for e in list %}
         <tr>
             <td>
+                {% if e.category != "A" %}
+                    {{ e.category }}
+                {% endif %}
+            </td>
+            <td>
                 {% if not e.archived %}
                     <span class="glyphicon glyphicon-star star-color" aria-hidden="true"></span>
                 {% endif %}
                 <a href="{% url "activities:details" e.pk %}">{{ e.get_full_title }}</a>
             </td>
+            <td>{{ e.professor }}</td>
             <td>{{ e.min_start | date:'F Y' }} - {{ e.max_end | date:'F Y' }}</td>
             {% if user.is_authenticated %}
                 {% if perms.activities.change_activity %}
