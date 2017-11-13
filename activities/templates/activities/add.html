@@ -61,6 +61,41 @@
                 {{ form.archived }}
             </div>
         </div>
+        <!-- CLASS AND PROFESSOR -->
+        <div class="form-group">
+            {% if form.category.errors or form.professor.errors %}
+                {% if form.category.errors %}
+                    <div class="col-sm-5 col-md-3">
+                        {% for error in form.category.errors %}
+                            <p class="text-danger">{{ error|escape }}</p>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                <div class="col-sm-5 col-md-3"><p>&nbsp;</p></div>
+                {% endif %}
+                {% if form.professor.errors %}
+                    <div class="col-sm-7 col-md-9">
+                        {% for error in form.professor.errors %}
+                            <p class="text-danger">{{ error|escape }}</p>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                <div class="col-sm-7 col-md-9"><p>&nbsp;</p></div>
+                {% endif %}
+            {% endif %}
+            <div class="col-sm-2 col-md-1">
+            <label for="{{ form.category.id_for_label }}" class="control-label">{{ form.category.label }}:</label>
+            </div>
+            <div class="col-sm-3 col-md-2 {% if form.category.errors %}has-error{% endif %}">
+                {{ form.category }}
+            </div>
+            <div class="col-sm-2 col-md-1">
+            <label for="{{ form.professor.id_for_label }}" class="control-label">{{ form.professor.label }}:</label>
+            </div>
+            <div class="col-sm-5 col-md-8 {% if form.professor.errors %}has-error{% endif %}">
+                {{ form.professor }}
+            </div>
+        </div>
         <!-- DESCRIPTION -->
         <div class="form-group">
             {% if form.description.errors %}

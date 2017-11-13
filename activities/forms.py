@@ -6,7 +6,9 @@ class ActivityForm(BookingModelForm):
     class Meta:
         model = Activity
         fields = [
+            "category",
             "title",
+            "professor",
             "archived",
             "description",
         ]

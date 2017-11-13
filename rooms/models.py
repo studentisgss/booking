@@ -91,13 +91,13 @@ class RoomRules(models.Model):
         return "Aula %s Giorno %s" % (self.room, self.day)
 
     DAYS_OF_WEEK = [
-        (1, _("Lunedì")),
-        (2, _("Martedì")),
-        (3, _("Mercoledì")),
-        (4, _("Giovedì")),
-        (5, _("Venerdì")),
-        (6, _("Sabato")),
-        (0, _("Domenica"))
+        (0, _("Lunedì")),
+        (1, _("Martedì")),
+        (2, _("Mercoledì")),
+        (3, _("Giovedì")),
+        (4, _("Venerdì")),
+        (5, _("Sabato")),
+        (6, _("Domenica"))
     ]
 
     room = models.ForeignKey(
