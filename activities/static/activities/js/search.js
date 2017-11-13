@@ -3,15 +3,25 @@ var dataTable;
 
 $(document).ready(function() {
     //Add DataTable
-    dataTable = $("#table_events").DataTable({
-        paging: false,
-        info: false,
-        "columnDefs": [
-            { "orderable": false, "targets": 4 },
-            { "searchable": false, "targets": 3 },
-            { "searchable": false, "targets": 4 },
-        ]
-    });
+    if ($("#table_events th").length == 4) {
+        dataTable = $("#table_events").DataTable({
+            paging: false,
+            info: false,
+            "columnDefs": [
+                { "searchable": false, "targets": 3 },
+            ]
+        });
+    } else {
+        dataTable = $("#table_events").DataTable({
+            paging: false,
+            info: false,
+            "columnDefs": [
+                { "orderable": false, "targets": 4 },
+                { "searchable": false, "targets": 3 },
+                { "searchable": false, "targets": 4 },
+            ]
+        });
+    }
     // Remove the search button
     $("#filter-form div.input-group-btn").remove();
     // Remove the DataTable search box
