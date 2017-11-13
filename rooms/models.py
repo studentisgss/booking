@@ -29,6 +29,11 @@ class Room(models.Model):
         on_delete=models.CASCADE,
         verbose_name=_("creatore")
     )
+    building = models.ForeignKey(
+        Building,
+        on_delete=models.cascade,
+        verbose_name=_("edificio")
+    )
 
     def get_group_perm(self, group):
         try:
@@ -41,6 +46,21 @@ class Room(models.Model):
 
     def show_request_to_group(self, group):
         return RoomPermission.objects.get(room=self, group=group).showrequest
+
+class Building(models.Model)
+    """
+    A building is where the real rooms are located.
+    It has a name and an address.
+    """
+    class Meta:
+        verbose_name = _("edificio")
+        verbose_name_plural = _("edeifici")
+
+    def __str__(self):
+        return self.name
+
+    name = models.CharField(max_length=30, unique=True, verbose_name=_("nome"))
+    address = models.CharField(max_length=30, unique=True, verbose_name=_("indirizzo"))
 
 
 class RoomPermission(models.Model):
