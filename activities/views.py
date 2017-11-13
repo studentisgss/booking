@@ -14,11 +14,12 @@ from events.models import Event
 from events.forms import EventInlineFormSet
 from activities.models import Activity
 from activities.forms import ActivityForm
-from rooms.models import RoomPermission, Room
+from rooms.models import RoomPermission, Room, RoomRules
 from base.utils import localnow, parse_date
 from booking.settings import DATE_INPUT_FORMATS, DATE_FORMAT, TIME_FORMAT
 
 from datetime import datetime, timedelta
+from calendar import Calendar
 
 
 class DetailActivityView(TemplateView):
@@ -281,14 +282,53 @@ class BookedDatesAPI(View):
         if toDate is None:
             toDate = localnow() + timedelta(days=30)
 
+        # Get all day in which the romm is already booked
         dates = Event.objects.all().filter(
             room_id=room_id, start__time__lt=end,
             end__time__gt=start,
             start__date__gte=fromDate, start__date__lte=toDate
         ).exclude(status=2).dates("start", "day")
 
-        dates = [d.strftime(DATE_FORMAT) for d in dates]
+        # Get day of the week in which the room is closed in that time
+        days = RoomRules.objects.all().filter(Q(room_id=room_id),
+                                              Q(opening_time__gt=start) | Q(closing_time__lt=end)
+                                              ).only("day")
 
+        if len(days) > 0:
+            days = list(map(lambda d: d.day, days))
+            closed_dates = []
+            cal = Calendar()
+            # First day of the month of fromDate
+            start_date = fromDate.replace(day=1)
+
+            # Until start_date is in the next month than toDate
+            while start_date <= toDate:
+                # For every day in which the room is closed at that time
+                for d in days:
+                    # Add the day to the closed ones
+                    closed_dates += [w[d] for w
+                                     in cal.monthdatescalendar(start_date.year, start_date.month)]
+                # Go to the next month
+                try:
+                    start_date = start_date.replace(month=start_date.month + 1)
+                except ValueError:
+                    start_date = start_date.replace(year=start_date.year + 1, month=1)
+            # Remove duplicate and sort
+            closed_dates = list(set(closed_dates))
+            closed_dates.sort()
+
+            # Remove days before fromDate
+            while closed_dates[0] < fromDate.date():
+                del closed_dates[0]
+
+            # Remove days after toDate
+            while closed_dates[-1] > toDate.date():
+                del closed_dates[-1]
+
+            # Union of the dates
+            dates = list(set(dates) | set(closed_dates))
+
+        dates = [d.strftime(DATE_FORMAT) for d in dates]
         return JsonResponse(list(dates), safe=False)
 
 
