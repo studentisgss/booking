@@ -80,14 +80,15 @@ class RoomPermission(models.Model):
 class RoomRules(models.Model):
     """
     An object with the opening times.
-    To every room, every day is associated the opening times during wich is allowed to book the room.
+    To every room, every day is associated the opening times
+    during wich is allowed to book the room.
     """
     class Meta:
         verbose_name = _("orari dell'aula")
         verbose_name_plural = _("orari delle aule")
 
     def __str__(self):
-        return "Aula %s Giorno %s" % (self.room,self.day)
+        return "Aula %s Giorno %s" % (self.room, self.day)
 
     DAYS_OF_WEEK = [
         (1, _("Lunedì")),
@@ -97,7 +98,7 @@ class RoomRules(models.Model):
         (5, _("Venerdì")),
         (6, _("Sabato")),
         (0, _("Domenica"))
-     ]
+    ]
 
     room = models.ForeignKey(
         Room,
