@@ -175,11 +175,18 @@ $(document).ready(function() {
                 $.get("/activities/bookedhours", {room: $("#calendar-booking select[name*='room']").val(),
                                                  day: date}).done(function(data){
                                                     var title = "";
-                                                    if (data.length == 0){
-                                                        title = "Nessuna prenotazione.";
+                                                    if (data["booked"].length == 0){
+                                                        if (data["opening"] != ""){
+                                                            title = "Orario apertura:\n" + data["opening"];
+                                                        } else {
+                                                            title = "Nessuna prenotazione.";
+                                                        }
                                                     } else {
                                                         title = "Aula prenotata:\n"
-                                                        title += data.join("\n");
+                                                        title += data["booked"].join("\n");
+                                                        if (data["opening"] != ""){
+                                                            title += "\n\nOrario apertura:\n" + data["opening"];
+                                                        }
                                                     }
                                                     // $(el).parent().addClass("cust-tooltip");
                                                     $(el).after("<span class=\"cust-tooltiptext ui-datepicker-unselectable\">" + title + "</span>");

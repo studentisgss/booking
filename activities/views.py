@@ -350,11 +350,19 @@ class BookedHoursAPI(View):
         if day is None:
             day = localnow().date()
 
+        # Hours when the room is already booked
         hours = Event.objects.all().filter(
             room_id=room_id, start__date=day
         ).exclude(status=2).only("start", "end")
 
+        # Timetable of the room if exists
+        rule = RoomRules.objects.all().filter(room_id=room_id, day=day.weekday()).first()
+        opening = ""
+        if rule is not None:
+            opening = "{} - {}".format(rule.opening_time.strftime(TIME_FORMAT),
+                                       rule.closing_time.strftime(TIME_FORMAT))
+
         hours = ["{} - {}".format(a.start.strftime(TIME_FORMAT), a.end.strftime(TIME_FORMAT))
                  for a in hours]
 
-        return JsonResponse(hours, safe=False)
+        return JsonResponse({"booked": hours, "opening": opening}, safe=False)
