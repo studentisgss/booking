@@ -55,7 +55,8 @@ class Event(models.Model):
     activity = models.ForeignKey(Activity, on_delete=models.CASCADE, verbose_name=_("attività"))
     start = models.DateTimeField(_("ora di inizio"))
     end = models.DateTimeField(_("ora di fine"))
-    status = models.SmallIntegerField(choices=STATUS_CHOICES, verbose_name=_("stato"))
+    status = models.SmallIntegerField(choices=STATUS_CHOICES,
+                                      default=APPROVED, verbose_name=_("stato"))
     creator = models.ForeignKey(
         User,
         related_name="event_created",
