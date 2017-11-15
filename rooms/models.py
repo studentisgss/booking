@@ -56,7 +56,7 @@ class RoomPermission(models.Model):
         verbose_name_plural = _("permessi sulle aule")
 
     def __str__(self):
-        return "Aula%d & Gruppo%d" % (self.room_id, self.group_id)
+        return "Aula%s & Gruppo%s" % (self.room, self.group)
 
     PERMISSION_CHOICES = [
         (10, _("Può richiedere")),
@@ -77,7 +77,7 @@ class RoomPermission(models.Model):
         verbose_name=_("permesso"))
 
 
-class RoomRules(models.Model):
+class RoomRule(models.Model):
     """
     An object with the opening times.
     To every room, every day is associated the opening times
@@ -127,7 +127,7 @@ class RoomRules(models.Model):
             raise ValidationError(_("L'ora di apertura deve precedere quella di chiusura"))
 
         # 2. Check that there are not two timetables for the same room the same day
-        overlapping_roomRules = RoomRules.objects.filter(
+        overlapping_roomRules = RoomRule.objects.filter(
             room_id=self.room.pk,
             day=self.day)
         # If the event is already in the database exclude it
