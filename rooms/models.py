@@ -132,7 +132,7 @@ class RoomRule(models.Model):
             day=self.day)
         # If the event is already in the database exclude it
         if self.pk is not None:
-            overlapping_roomRules = overlapping_roomRule.exclude(
+            overlapping_roomRules = overlapping_roomRules.exclude(
                 id=self.pk)
         is_overlapping = overlapping_roomRules.exists()
         if is_overlapping:

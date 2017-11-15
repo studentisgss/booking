@@ -102,17 +102,38 @@ $(document).ready(function() {
         cachedTooltips = {};
     });
 
-    // Disable calendar if anyone of the input is not filled
+    // Disable calendar if anyone of the input is not filled or invalid
     calendarBooking.on("change", "select, input", function(){
-        var filled = true;
+        var validInput = true;
         $.each($("input, select", calendarBooking), function(i, e){
-            filled = filled && (this.value != "");
-            return filled;
+            validInput = validInput && (this.value != "");
+            return validInput;
         });
-        multidatepicker.multiDatesPicker('disabled', !filled);
+
+        // Check that start is before end
+        var startTime = $("input[name*='start']", calendarBooking).val();
+        var endTime = $("input[name*='end']", calendarBooking).val();
+        if ((startTime != "") && (endTime != "")) {
+            var dateStart = Date.parse("01/01/2004 " + startTime);
+            var dateEnd = Date.parse("01/01/2004 " + endTime);
+            if (isNaN(dateStart) || isNaN(dateEnd) || (dateStart >= dateEnd)) {
+                $("input[name*='start']", calendarBooking).parent().parent().addClass("has-error");
+                $("input[name*='end']", calendarBooking).parent().parent().addClass("has-error");
+                validInput = false;
+            } else {
+                $("input[name*='start']", calendarBooking).parent().parent().removeClass("has-error");
+                $("input[name*='end']", calendarBooking).parent().parent().removeClass("has-error");
+            }
+        } else {
+            $("input[name*='start']", calendarBooking).parent().parent().removeClass("has-error");
+            $("input[name*='end']", calendarBooking).parent().parent().removeClass("has-error");
+        }
+
+
+        multidatepicker.multiDatesPicker('disabled', !validInput);
         multidatepicker.multiDatesPicker('resetDates', 'disabled');
 
-        if (filled) { // If calendar is active then get the disabled days for the current, the previous and the next month
+        if (validInput) { // If calendar is active then get the disabled days for the current, the previous and the next month
             var fromDate = new Date(Date.now());
             fromDate.setDate(1);
             fromDate.setMonth(fromDate.getMonth()-1);

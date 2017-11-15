@@ -291,8 +291,8 @@ class BookedDatesAPI(View):
 
         # Get day of the week in which the room is closed in that time
         days = RoomRule.objects.all().filter(Q(room_id=room_id),
-                                              Q(opening_time__gt=start) | Q(closing_time__lt=end)
-                                              ).only("day")
+                                             Q(opening_time__gt=start) | Q(closing_time__lt=end)
+                                             ).only("day")
 
         if len(days) > 0:
             days = list(map(lambda d: d.day, days))
