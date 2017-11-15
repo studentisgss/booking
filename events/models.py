@@ -8,7 +8,7 @@ from django.db.models import Q
 from datetime import timedelta
 
 from rooms.models import Room
-from rooms.models import RoomRules
+from rooms.models import RoomRule
 from activities.models import Activity
 
 
@@ -88,7 +88,7 @@ class Event(models.Model):
         # 3. Check that the event is included in the opening times of the room
         # if they exists.
         try:
-            roomRule = RoomRules.objects.get(day=self.start.weekday(), room=self.room)
+            roomRule = RoomRule.objects.get(day=self.start.weekday(), room=self.room)
             if self.start.timetz() < roomRule.opening_time or \
                     self.end.timetz() > roomRule.closing_time:
                 raise ValidationError(_("L'aula risulta essere chiusa in quell'orario"))

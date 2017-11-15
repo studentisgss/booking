@@ -14,7 +14,7 @@ from events.models import Event
 from events.forms import EventInlineFormSet
 from activities.models import Activity
 from activities.forms import ActivityForm
-from rooms.models import RoomPermission, Room, RoomRules
+from rooms.models import RoomPermission, Room, RoomRule
 from base.utils import localnow, parse_date
 from booking.settings import DATE_INPUT_FORMATS, DATE_FORMAT, TIME_FORMAT
 
@@ -290,7 +290,7 @@ class BookedDatesAPI(View):
         ).exclude(status=2).dates("start", "day")
 
         # Get day of the week in which the room is closed in that time
-        days = RoomRules.objects.all().filter(Q(room_id=room_id),
+        days = RoomRule.objects.all().filter(Q(room_id=room_id),
                                               Q(opening_time__gt=start) | Q(closing_time__lt=end)
                                               ).only("day")
 
@@ -356,7 +356,7 @@ class BookedHoursAPI(View):
         ).exclude(status=2).only("start", "end")
 
         # Timetable of the room if exists
-        rule = RoomRules.objects.all().filter(room_id=room_id, day=day.weekday()).first()
+        rule = RoomRule.objects.all().filter(room_id=room_id, day=day.weekday()).first()
         opening = ""
         if rule is not None:
             opening = "{} - {}".format(rule.opening_time.strftime(TIME_FORMAT),
