@@ -56,7 +56,7 @@ class RoomPermission(models.Model):
         verbose_name_plural = _("permessi sulle aule")
 
     def __str__(self):
-        return "Aula%s & Gruppo%s" % (self.room, self.group)
+        return "Aula %s, Gruppo %s" % (self.room, self.group)
 
     PERMISSION_CHOICES = [
         (10, _("Può richiedere")),
@@ -88,7 +88,7 @@ class RoomRule(models.Model):
         verbose_name_plural = _("orari delle aule")
 
     def __str__(self):
-        return "Aula %s Giorno %s" % (self.room, self.day)
+        return "Aula %s, Giorno %s" % (self.room, self.day)
 
     DAYS_OF_WEEK = [
         (0, _("Lunedì")),
