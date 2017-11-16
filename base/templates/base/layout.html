@@ -69,7 +69,7 @@
                         </ul>
                     </li>
                 {% else %}
-                    <li><a href="{% url 'authentication:login' %}">Login</a></li>
+                    <li><a href="{% url 'authentication:login' %}?next={{ request.path }}">Login</a></li>
                 {% endif %}
 			</ul>
 		</div><!--/.nav-collapse -->
