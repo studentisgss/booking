@@ -63,7 +63,13 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'base.middleware.BookingRemoteUserMiddleware',
 )
+
+AUTHENTICATION_BACKENDS = [
+    'base.backends.BookingRemoteUserBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
 
 ROOT_URLCONF = 'booking.urls'
 
