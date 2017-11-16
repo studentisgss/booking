@@ -33,18 +33,22 @@ $(document).ready(function() {
                 fromDate.setMonth(fromDate.getMonth() - 1);
                 toDate.setDate(0);
             }
-            if (checkedDate.indexOf(fromDate.getTime()) == -1) { // If not already retrieved, get the days
-                $.get("/activities/bookeddates", {room: $("#calendar-booking select[name*='room']").val(),
-                                                 start: $("#calendar-booking input[name*='start']").val(),
-                                                 end: $("#calendar-booking input[name*='end']").val(),
-                                                 from: strPadding(fromDate.getDate()) + "/" + strPadding(fromDate.getMonth() + 1) + "/" + String(fromDate.getFullYear()),
-                                                 to: strPadding(toDate.getDate()) + "/" + strPadding(toDate.getMonth() + 1) + "/" + String(toDate.getFullYear())})
-                .done(function(data){
-                    if (data.length > 0) {
-                        multidatepicker.multiDatesPicker('addDates', data, 'disabled');
-                    }
-                    checkedDate.push(fromDate.getTime()) // Add the retrieved month to the saved ones.
-                });
+            try {
+                if (checkedDate.indexOf(fromDate.getTime()) == -1) { // If not already retrieved, get the days
+                    $.get("/activities/bookeddates", {room: $("#calendar-booking select[name*='room']").val(),
+                                                     start: $("#calendar-booking input[name*='start']").val(),
+                                                     end: $("#calendar-booking input[name*='end']").val(),
+                                                     from: strPadding(fromDate.getDate()) + "/" + strPadding(fromDate.getMonth() + 1) + "/" + String(fromDate.getFullYear()),
+                                                     to: strPadding(toDate.getDate()) + "/" + strPadding(toDate.getMonth() + 1) + "/" + String(toDate.getFullYear())})
+                    .done(function(data){
+                        if (data.length > 0) {
+                            multidatepicker.multiDatesPicker('addDates', data, 'disabled');
+                        }
+                        checkedDate.push(fromDate.getTime()) // Add the retrieved month to the saved ones.
+                    });
+                }
+            } catch(err) {
+                // Ignore error
             }
         }
         activeDate = new Date(y, m - 1, 1);
@@ -167,6 +171,8 @@ $(document).ready(function() {
                     // Add the months to the saved ones. Use getTime() to avoid javascript issue.
                     checkedDate = [fromDate.getTime(), toDate.getTime(), now.getTime()];
                 }
+            }).fail(function(){
+                checkedDate = [];
             });
         } else {
             // If the calendar is disabled reset the dates.
