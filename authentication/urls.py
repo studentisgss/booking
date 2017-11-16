@@ -16,11 +16,15 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib.auth import views
 from django.core.urlresolvers import reverse_lazy
+from authentication.views import *
 
 app_name = "authentication"
 
 urlpatterns = [
-    url(r'^login/$', views.LoginView.as_view(), name='login'),
+    url(r'^login/$', LoginSelector.as_view(), name='login'),
+    url(r'^login/loc/$', views.LoginView.as_view(template_name="registration/loginloc.html"),
+        name='login-local'),
+    url(r'^login/sso/$', LoginSSO.as_view(), name='login-sso'),
     url(r'^logout/$', views.LogoutView.as_view(), name='logout'),
     url(r'^password_change/$', views.PasswordChangeView.as_view(
         success_url=reverse_lazy("authentication:password_change_done")),
