@@ -93,6 +93,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'booking.wsgi.application'
 
+SESSION_COOKIE_AGE = 432000
 
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
