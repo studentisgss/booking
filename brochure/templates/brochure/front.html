@@ -15,4 +15,15 @@
   <h2> Class of {{ category }} </h2>
   <br />
   <h2> Course catalog {{ academic_year }} </h2>
-</div>
+  </div>
+  <div class="pagebreak"></div>
+
+	<h1> Scuola Galileiana di Studi Superiori </h1>
+	<h2> Courses of the Class of {{ category }} </h2>
+	<h3> Index </h3>
+  {% for e in index %}
+    <span style="float: left;"> {{ e.0 }} </span>
+    <span style="float: right;"> pag. {{ e.1 }} </span>
+		<div style="clear:both;"></div>
+  {% endfor %}
+</body>

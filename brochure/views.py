@@ -55,6 +55,11 @@ class BrochurePDFView(View):
         brochure = wp.HTML(string = body_html) \
             .render(stylesheets = [wp.CSS(url = body_css)])
 
+        # index
+        brochure_tree = brochure.make_bookmark_tree()
+        index = [(header[0], header[1][0]+1) for header in brochure_tree]
+        context["index"] = index
+
         # front page generation
         front_template = get_template('brochure/front.html')
         front_html = front_template.render(context, request)
@@ -65,6 +70,7 @@ class BrochurePDFView(View):
 
         # add front page and print
         brochure.pages.insert(0, front.pages[0])
+        brochure.pages.insert(1, front.pages[1])
         brochure.write_pdf(target = response)
 
         return response

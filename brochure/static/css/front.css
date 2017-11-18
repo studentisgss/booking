@@ -10,7 +10,7 @@ html, body {
 }
 
 .sgss-logo {
-  float:left;
+  float: left;
 }
 
 .unipd-logo {
@@ -20,4 +20,8 @@ html, body {
 img {
   width: 40%;
   height: auto;
+}
+
+.pagebreak {
+  page-break-before: always;
 }
