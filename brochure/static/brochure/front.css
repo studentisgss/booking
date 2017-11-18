@@ -1,0 +1,18 @@
+html, body {
+  font-family: 'Latin Modern Roman', 'Courier New', Courier, serif;
+  -weasy-hyphens: auto
+  hyphens: auto;
+}
+
+.center-align {
+  text-align: center;
+  padding: 50% 0;
+}
+
+.sgss-logo {
+  float:left;
+}
+
+.unipd-logo {
+  float: right;
+}

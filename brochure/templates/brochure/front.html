@@ -1,0 +1,18 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="it">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+	<title>{% block page_title %}Booking SGSS{% endblock %}</title>
+</head>
+
+<body>
+	<img class="sgss-logo" src='{% static 'img/sgss.jpg' %}'>
+	<img class="unipd-logo" src='{% static 'img/unipd.gif' %}'>
+  <div class="center-align">
+  <h1> Scuola Galileiana di Studi Superiori </h1>
+  <h2> Class of {{ category }} </h2>
+  <br />
+  <h2> Course catalog {{ academic_year }} </h2>
+</div>
