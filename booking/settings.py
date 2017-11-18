@@ -51,6 +51,7 @@ INSTALLED_APPS = (
     'news',
     'rooms',
     'base',
+    'brochure',
 )
 
 MIDDLEWARE_CLASSES = (
