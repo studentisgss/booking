@@ -38,8 +38,8 @@ class Activity(models.Model):
         ("A", "Altro", "Other")
     ]
 
-    CLASS_CHOICES = [(choice[0], choice[1]) \
-        for choice in CLASSES_WITH_TRANSLATION]
+    CLASS_CHOICES = [(choice[0], choice[1])
+                     for choice in CLASSES_WITH_TRANSLATION]
 
     category = models.CharField(max_length=3, choices=CLASS_CHOICES,
                                 verbose_name=_("classe"), default="A")
