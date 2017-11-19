@@ -22,12 +22,13 @@ class BrochurePDFView(View):
 
     def get_context_data(self, category=None, **kwargs):
         context = {}
+        categoy = category.upper()
 
         # context for body
         if category in self.CLASS_CHOICES:
             activities_list = Activity.objects \
-                .filter(archived = False, category = category) \
-                .exclude(professor = None) \
+                .filter(archived=False, category=category) \
+                .exclude(professor=None) \
                 .order_by("title")
         else:
             activities_list = []
@@ -46,6 +47,7 @@ class BrochurePDFView(View):
         return context
 
     def get(self, request, category=None, *args, **kwargs):
+        category = category.upper()
         if category not in self.CLASS_CHOICES:
             raise Http404
         if cache.get(category):
@@ -54,15 +56,15 @@ class BrochurePDFView(View):
             return self.get_pdf(request, category=category)
 
     def get_pdf(self, request, category=None, *args, **kwargs):
-        response = HttpResponse(content_type = 'application/pdf')
+        response = HttpResponse(content_type='application/pdf')
         context = self.get_context_data(category=category, **kwargs)
 
         # body generation
         body_template = get_template('brochure/body.html')
         body_html = body_template.render(context, request)
         body_css = request.build_absolute_uri(static('css/body.css'))
-        brochure = wp.HTML(string = body_html) \
-            .render(stylesheets = [wp.CSS(url = body_css)])
+        brochure = wp.HTML(string=body_html) \
+            .render(stylesheets=[wp.CSS(url=body_css)])
 
         # index
         brochure_tree = brochure.make_bookmark_tree()
@@ -73,9 +75,9 @@ class BrochurePDFView(View):
         front_template = get_template('brochure/front.html')
         front_html = front_template.render(context, request)
         front_css = request.build_absolute_uri(static('css/front.css'))
-        front = wp.HTML(string = front_html, \
-            base_url = request.build_absolute_uri()) \
-            .render(stylesheets = [wp.CSS(url = front_css)])
+        front = wp.HTML(string=front_html,
+                        base_url=request.build_absolute_uri()) \
+            .render(stylesheets=[wp.CSS(url=front_css)])
 
         # add front page
         brochure.pages.insert(0, front.pages[0])
@@ -94,7 +96,7 @@ class BrochurePDFView(View):
         today = timezone.now()
         brochure.metadata.created = str(today.date) + "/" \
             + str(today.month) + "/" + str(today.year)
-        brochure.write_pdf(target = response)
+        brochure.write_pdf(target=response)
 
         # put response in cache
         cache.set(category, response, None)
