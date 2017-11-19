@@ -19,7 +19,6 @@ class BrochurePDFView(View):
 
     def get_context_data(self, category=None, **kwargs):
         context = {}
-        categoy = category.upper()
 
         # context for body
         if category in self.CLASS_INITIALS:
@@ -36,7 +35,7 @@ class BrochurePDFView(View):
         year = today.year
         if today.month < 9:
             year = year - 1
-        context["academic_year"] = str(year) + "/" + str(year+1)
+        context["academic_year"] = str(year) + "/" + str(year + 1)
 
         # context for front page: class
         context["category"] = self.CLASS_NAME[category]
@@ -64,7 +63,7 @@ class BrochurePDFView(View):
 
         # index
         brochure_tree = brochure.make_bookmark_tree()
-        index = [(header[0], header[1][0]+3) for header in brochure_tree]
+        index = [(header[0], header[1][0] + 3) for header in brochure_tree]
         context["index"] = index
 
         # front page generation
