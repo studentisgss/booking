@@ -13,6 +13,12 @@ class BrochurePDFView(View):
     CLASS_CHOICES = \
         [choice[0] for choice in Activity.CLASS_CHOICES if choice[0] != 'A']
 
+    CLASS_DICT = {
+        'SN': 'Natural Sciences',
+        'SM': 'Moral Sciences',
+        'SS': 'Social Sciences'
+    }
+
     def get_context_data(self, category=None, **kwargs):
         context = {}
 
@@ -34,12 +40,8 @@ class BrochurePDFView(View):
         context["academic_year"] = str(year) + "/" + str(year+1)
 
         # context for front page: class
-        CLASS_DICT = {
-            'SN': 'Natural Sciences',
-            'SM': 'Moral Sciences',
-            'SS': 'Social Sciences'
-        }
-        context["category"] = CLASS_DICT[category]
+
+        context["category"] = self.CLASS_DICT[category]
         return context
 
     def get(self, request, category=None, *args, **kwargs):
@@ -57,7 +59,7 @@ class BrochurePDFView(View):
 
         # index
         brochure_tree = brochure.make_bookmark_tree()
-        index = [(header[0], header[1][0]+1) for header in brochure_tree]
+        index = [(header[0], header[1][0]+3) for header in brochure_tree]
         context["index"] = index
 
         # front page generation
@@ -68,9 +70,23 @@ class BrochurePDFView(View):
             base_url = request.build_absolute_uri()) \
             .render(stylesheets = [wp.CSS(url = front_css)])
 
-        # add front page and print
+        # add front page
         brochure.pages.insert(0, front.pages[0])
         brochure.pages.insert(1, front.pages[1])
+
+        # add metadata and print
+        brochure.metadata.title = "Course catalog SGSS - Class of " \
+            + self.CLASS_DICT[category]
+        brochure.metadata.authors = "Scuola Galileiana di Studi Superiori"
+        brochure.metadata.description = "Course catalog for the Class of " \
+            + self.CLASS_DICT[category] \
+            + " of the Scuola Galileiana di Studi Superiori."
+        brochure.metadata.keywords = "SGSS, Galileiana, UniPD, " \
+            + "course catalog, " + self.CLASS_DICT[category]
+        brochure.metadata.generator = "Booking SGSS"
+        today = timezone.now()
+        brochure.metadata.created = str(today.date) + "/" \
+            + str(today.month) + "/" + str(today.year)
         brochure.write_pdf(target = response)
 
         return response

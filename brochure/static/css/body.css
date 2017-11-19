@@ -8,7 +8,7 @@
         margin-bottom: .7cm;
     }
     @bottom-center {
-        content: counter(page);
+        content: counter(page)+2;
     }
 }
 
