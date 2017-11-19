@@ -25,3 +25,18 @@ img {
 .pagebreak {
   page-break-before: always;
 }
+
+.title1 {
+  font-size: xx-large;
+  font-weight: bold;
+}
+
+.title2 {
+  font-size: x-large;
+  font-weight: bold;
+}
+
+.title3 {
+  font-size: large;
+  font-weight: bold;
+}

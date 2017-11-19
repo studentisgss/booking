@@ -31,12 +31,15 @@ class Activity(models.Model):
             t += " (%s)" % (self.professor)
         return t
 
-    CLASS_CHOICES = [
-        ("SN", "Scienze Naturali"),
-        ("SM", "Scienze Morali"),
-        ("SS", "Scienze Sociali"),
-        ("A", "Altro")
+    CLASSES_WITH_TRANSLATION = [
+        ("SN", "Scienze Naturali", "Natural Sciences"),
+        ("SM", "Scienze Morali", "Moral Sciences"),
+        ("SS", "Scienze Sociali", "Social Sciences"),
+        ("A", "Altro", "Other")
     ]
+
+    CLASS_CHOICES = [(choice[0], choice[1]) \
+        for choice in CLASSES_WITH_TRANSLATION]
 
     category = models.CharField(max_length=3, choices=CLASS_CHOICES,
                                 verbose_name=_("classe"), default="A")

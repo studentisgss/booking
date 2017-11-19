@@ -11,21 +11,18 @@ from activities.models import Activity
 
 
 class BrochurePDFView(View):
-    CLASS_CHOICES = \
-        [choice[0] for choice in Activity.CLASS_CHOICES if choice[0] != 'A']
+    CLASS_INITIALS = [choice[0] \
+        for choice in Activity.CLASSES_WITH_TRANSLATION if choice[0] != 'A']
 
-    CLASS_DICT = {
-        'SN': 'Natural Sciences',
-        'SM': 'Moral Sciences',
-        'SS': 'Social Sciences'
-    }
+    CLASS_NAME = dict([(choice[0], choice[2]) \
+        for choice in Activity.CLASSES_WITH_TRANSLATION if choice[0] != 'A'])
 
     def get_context_data(self, category=None, **kwargs):
         context = {}
         categoy = category.upper()
 
         # context for body
-        if category in self.CLASS_CHOICES:
+        if category in self.CLASS_INITIALS:
             activities_list = Activity.objects \
                 .filter(archived=False, category=category) \
                 .exclude(professor=None) \
@@ -42,13 +39,12 @@ class BrochurePDFView(View):
         context["academic_year"] = str(year) + "/" + str(year+1)
 
         # context for front page: class
-
-        context["category"] = self.CLASS_DICT[category]
+        context["category"] = self.CLASS_NAME[category]
         return context
 
     def get(self, request, category=None, *args, **kwargs):
         category = category.upper()
-        if category not in self.CLASS_CHOICES:
+        if category not in self.CLASS_INITIALS:
             raise Http404
         if cache.get(category):
             return cache.get(category)
@@ -85,13 +81,13 @@ class BrochurePDFView(View):
 
         # add metadata and print
         brochure.metadata.title = "Course catalog SGSS - Class of " \
-            + self.CLASS_DICT[category]
+            + self.CLASS_NAME[category]
         brochure.metadata.authors = "Scuola Galileiana di Studi Superiori"
         brochure.metadata.description = "Course catalog for the Class of " \
-            + self.CLASS_DICT[category] \
+            + self.CLASS_NAME[category] \
             + " of the Scuola Galileiana di Studi Superiori."
         brochure.metadata.keywords = "SGSS, Galileiana, UniPD, " \
-            + "course catalog, " + self.CLASS_DICT[category]
+            + "course catalog, " + self.CLASS_NAME[category]
         brochure.metadata.generator = "Booking SGSS"
         today = timezone.now()
         brochure.metadata.created = str(today.date) + "/" \
