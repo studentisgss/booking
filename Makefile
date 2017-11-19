@@ -18,7 +18,7 @@ linter:
 	@echo "=== Pep8 ==="
 	@$(PEP8) --max-line-length=180 $(SRC_FILES)
 	@echo "=== Flake8 ==="
-	@$(FLAKE8) --max-line-length=180 --ignore=E251,E265,F401,F403,F405,F811,F999 \
+	@$(FLAKE8) --max-line-length=180 --ignore=E251,E265,E722,F401,F403,F405,F811,F999 \
 		$(SRC_FILES)
 	@echo "=== Pylint (really pedantic) ==="
 	@$(PYLINT) --output-format=colorized --reports=no --persistent=n \
