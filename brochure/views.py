@@ -62,7 +62,7 @@ class BrochurePDFView(View):
         # body generation
         body_template = get_template('brochure/body.html')
         body_html = body_template.render(context, request)
-        body_css = request.build_absolute_uri(static('css/body.css'))
+        body_css = request.build_absolute_uri(static('brochure/css/body.css'))
         brochure = wp.HTML(string=body_html) \
             .render(stylesheets=[wp.CSS(url=body_css)])
 
@@ -74,7 +74,7 @@ class BrochurePDFView(View):
         # front page generation
         front_template = get_template('brochure/front.html')
         front_html = front_template.render(context, request)
-        front_css = request.build_absolute_uri(static('css/front.css'))
+        front_css = request.build_absolute_uri(static('brochure/css/front.css'))
         front = wp.HTML(string=front_html,
                         base_url=request.build_absolute_uri()) \
             .render(stylesheets=[wp.CSS(url=front_css)])
