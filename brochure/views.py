@@ -3,6 +3,7 @@ from django.http import Http404, HttpResponse
 from django.utils import timezone
 from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.template.loader import get_template
+from django.core.cache import cache
 
 import weasyprint as wp
 
@@ -47,6 +48,12 @@ class BrochurePDFView(View):
     def get(self, request, category=None, *args, **kwargs):
         if category not in self.CLASS_CHOICES:
             raise Http404
+        if cache.get(category):
+            return cache.get(category)
+        else:
+            return self.get_pdf(request, category=category)
+
+    def get_pdf(self, request, category=None, *args, **kwargs):
         response = HttpResponse(content_type = 'application/pdf')
         context = self.get_context_data(category=category, **kwargs)
 
@@ -88,5 +95,8 @@ class BrochurePDFView(View):
         brochure.metadata.created = str(today.date) + "/" \
             + str(today.month) + "/" + str(today.year)
         brochure.write_pdf(target = response)
+
+        # put response in cache
+        cache.set(category, response, None)
 
         return response
