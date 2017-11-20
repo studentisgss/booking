@@ -1,0 +1,34 @@
+@page {
+    margin: 3cm 2cm;
+    @top-center {
+        content: "Scuola Galileiana di Studi Superiori";
+        width: 100%;
+        vertical-align: bottom;
+        border-bottom: .5pt solid;
+        margin-bottom: .7cm;
+    }
+    @bottom-center {
+        content: counter(page)+2;
+    }
+}
+
+html, body {
+  font-family: 'Latin Modern Roman', 'Courier New', Courier, serif;
+  -weasy-hyphens: auto
+  hyphens: auto;
+}
+
+body {
+  text-align: justify;
+  padding: 0 !important;
+  background: none !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  break-after: avoid-page;
+  text-align: left;
+}
+
+.pagebreak {
+  page-break-before: always;
+}
