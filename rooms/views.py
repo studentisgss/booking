@@ -19,6 +19,7 @@ class DetailRoomView(TemplateView):
         except:
             raise Http404
         context["room"] = room
+        context["building"] = room.building
         return context
 
 

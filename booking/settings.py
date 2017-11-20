@@ -50,7 +50,7 @@ INSTALLED_APPS = (
     'events',
     'news',
     'rooms',
-    'base',
+    'base'
 )
 
 MIDDLEWARE_CLASSES = (

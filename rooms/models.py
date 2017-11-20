@@ -3,12 +3,33 @@ from django.contrib.auth.models import User, Group
 from django.utils.translation import ugettext_lazy as _
 
 
+class Building(models.Model):
+    """
+    A building is where the real rooms are located.
+    It has a name and an address.
+    """
+    class Meta:
+        verbose_name = _("edificio")
+        verbose_name_plural = _("edifici")
+
+    def __str__(self):
+        return self.name
+
+    name = models.CharField(max_length=30, unique=True, verbose_name=_("nome"))
+    address = models.CharField(max_length=30, unique=True, verbose_name=_("indirizzo"))
+    creator = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        verbose_name=_("creatore")
+    )
+
 class Room(models.Model):
     """
     Rooms where events will take place,
     firstable galileo rooms, aula magna and so on...
     Others rooms can be added later.
     "important"-tagged rooms will be highlighted by the software.
+    Every room is part of a building.
     """
     class Meta:
         verbose_name = _("aula")
@@ -31,7 +52,6 @@ class Room(models.Model):
     )
     building = models.ForeignKey(
         Building,
-        on_delete=models.cascade,
         verbose_name=_("edificio")
     )
 
@@ -47,20 +67,6 @@ class Room(models.Model):
     def show_request_to_group(self, group):
         return RoomPermission.objects.get(room=self, group=group).showrequest
 
-class Building(models.Model)
-    """
-    A building is where the real rooms are located.
-    It has a name and an address.
-    """
-    class Meta:
-        verbose_name = _("edificio")
-        verbose_name_plural = _("edeifici")
-
-    def __str__(self):
-        return self.name
-
-    name = models.CharField(max_length=30, unique=True, verbose_name=_("nome"))
-    address = models.CharField(max_length=30, unique=True, verbose_name=_("indirizzo"))
 
 
 class RoomPermission(models.Model):
