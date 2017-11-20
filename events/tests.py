@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.core.exceptions import ValidationError
 from base.utils import default_datetime
-from rooms.models import Room
+from rooms.models import Room, RoomRule
 from django.contrib.auth.models import User
 from activities.models import Activity
 from events.models import Event
@@ -12,6 +12,7 @@ class EventsCleanTest(TestCase):
         self.user = User.objects.create_user(username="test")
         self.room = Room.objects.create(name="Room 1", description="", creator=self.user)
         self.room2 = Room.objects.create(name="Room 2", description="", creator=self.user)
+        self.room3 = Room.objects.create(name="Room 3", description="", creator=self.user)
         self.activity = Activity.objects.create(
             title="Activity 1",
             description="",
@@ -32,6 +33,12 @@ class EventsCleanTest(TestCase):
             start=default_datetime(2016, 5, 2, 14, 0),
             end=default_datetime(2016, 5, 2, 16, 0),
             creator=self.user
+        )
+        RoomRule.objects.create(
+            room=self.room3,
+            day=0,
+            opening_time=default_datetime(2016, 5, 2, 8, 0).timetz(),
+            closing_time=default_datetime(2016, 5, 2, 18, 0).timetz()
         )
 
     def test_start_after_end_events_rejected(self):
@@ -264,3 +271,69 @@ class EventsCleanTest(TestCase):
             "_save": "Salva"
         })
         self.assertEqual(response.status_code, 200)
+
+    def test_events_when_room_closed_rejected(self):
+        """ Test that events with start before opening time
+        or end after closing time are rejected """
+        # Start before opening time
+        with self.assertRaises(ValidationError):
+            event = Event(
+                room=self.room3,
+                activity=self.activity,
+                status=Event.APPROVED,
+                start=default_datetime(2016, 5, 2, 7, 59),
+                end=default_datetime(2016, 5, 2, 17, 0),
+                creator=self.user
+            )
+            event.clean()
+        # End after closing time
+        with self.assertRaises(ValidationError):
+            event = Event(
+                room=self.room3,
+                activity=self.activity,
+                status=Event.APPROVED,
+                start=default_datetime(2016, 5, 2, 9, 0),
+                end=default_datetime(2016, 5, 2, 18, 1),
+                creator=self.user
+            )
+            event.clean()
+        # Start before opening time and end after clofing time
+        with self.assertRaises(ValidationError):
+            event = Event(
+                room=self.room3,
+                activity=self.activity,
+                status=Event.APPROVED,
+                start=default_datetime(2016, 5, 2, 6, 0),
+                end=default_datetime(2016, 5, 2, 19, 0),
+                creator=self.user
+            )
+            event.clean()
+
+    def test_events_when_room_open_accepted(self):
+        """Test that events within the opening hours are not rejected"""
+        # General event
+        try:
+            event = Event(
+                room=self.room3,
+                activity=self.activity,
+                status=Event.APPROVED,
+                start=default_datetime(2016, 5, 2, 14, 0),
+                end=default_datetime(2016, 5, 2, 16, 0),
+                creator=self.user
+            )
+            event.clean()
+        except ValidationError:
+            self.fail("ValidationError exception raised with not overlapping event")
+        # All day long event
+        try:
+            event = Event(
+                room=self.room3,
+                activity=self.activity,
+                status=Event.APPROVED,
+                start=default_datetime(2016, 5, 2, 8, 0),
+                end=default_datetime(2016, 5, 2, 18, 0),
+                creator=self.user
+            )
+            event.clean()
+        except ValidationError:
+            self.fail("ValidationError exception raised with not overlapping event")
