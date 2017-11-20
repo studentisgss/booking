@@ -4,6 +4,7 @@ from django.db.models import Q
 from django.http import Http404
 
 from rooms.models import Room
+from rooms.forms import RoomForm
 
 
 class DetailRoomView(TemplateView):
@@ -65,3 +66,72 @@ class ListRoomView(TemplateView):
             )
         context["list"] = rooms_list
         return context
+
+class EditRoomView(TemplateView):
+    template_name = "rooms/edit.html"
+
+    permission_required = "rooms.change_room"
+
+    def get_context_data(self, **kwargs):
+        context=super().get_context_data(**kwargs)
+        if self.request.method == "GET":
+            if "pk" in kwargs and kwargs["pk"]:
+                try:
+                    room = Room.objects.all().get(pk=kwargs["pk"])
+                except:
+                    raise Http404
+                form = RoomForm(instance=news)
+                context["edit"] = True
+            else:
+                form = RoomForm()
+        elif self.request.method == "POST":
+            if "pk" in kwargs and kwargs["pk"]:
+                try:
+                    room = Room.objects.all().get(pk=kwargs["pk"])
+                except:
+                    raise Http404
+                form = RoomForm(self.request.POST, instance=news)
+            else:
+                form = RoomForm(self.request.POST)
+            context["edit"] = kwargs["edit"]
+        else:
+            raise Http404
+        context["form"] = form
+        return context
+
+    def post(self, request, *args, **kwargs):
+        if "pk" in kwargs and kwargs["pk"]:
+            try:
+                room = Room.objects.all().get(pk=kwargs["pk"])
+            except:
+                raise Http404
+            form = RoomForm(request.POST, instance=news)
+            kwargs["edit"] = True
+        else:
+            form = RoomForm(request.POST)
+            kwargs["edit"] = False
+
+        if form.is_valid():
+            if kwargs["edit"]:
+                news = form.save()
+                LogEntry.objects.log_action(
+                    user_id=self.request.user.id,
+                    content_type_id=ContentType.objects.get_for_model(room).pk,
+                    object_id=room.id,
+                    object_repr=str(room),
+                    action_flag=CHANGE
+                )
+            else:
+                room = form.save(commit=False)
+                room.creator = request.user
+                room.save()
+                LogEntry.objects.log_action(
+                    user_id=self.request.user.id,
+                    content_type_id=ContentType.objects.get_for_model(room).pk,
+                    object_id=room.id,
+                    object_repr=str(room),
+                    action_flag=ADDITION
+                )
+            return HttpResponseRedirect(reverse("rooms:rooms"))
+        else:
+            return self.get(request, *args, **kwargs)

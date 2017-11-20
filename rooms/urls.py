@@ -24,4 +24,5 @@ urlpatterns = [
     url(r'^list/all/(?P<page>[0-9]+)$', ListAllRoomView.as_view(), name="listall"),
     url(r'^list$', ListRoomView.as_view(), name="list"),
     url(r'^list/(?P<page>[0-9]+)$', ListRoomView.as_view(), name="list"),
+    url(r'^edit/(?P<room_id>[0-9]+)$', EditRoomView.as_view(), name="edit"),
 ]
