@@ -12,7 +12,7 @@
   {% for e in list %}
 	<div class="pagebreak"></div>
   <h1> {{ e.title }} </h1>
-  <p><em> Prof. {{ e.professor }} </em></p>
+  <div><em> Prof. {{ e.professor }} </em></div>
   {{ e.description|markdown }}
   {% endfor %}
 </body>
