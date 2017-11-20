@@ -51,6 +51,7 @@ INSTALLED_APPS = (
     'news',
     'rooms',
     'base',
+    'brochure.apps.BrochureConfig',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -181,6 +182,12 @@ LOGGING = {
             'propagate': True,
             'level': 'DEBUG',
         },
+    }
+}
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
     }
 }
 

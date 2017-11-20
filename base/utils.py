@@ -1,5 +1,6 @@
 from django.utils import timezone
 from datetime import datetime
+from booking.settings import DATE_INPUT_FORMATS
 
 
 def localnow():
@@ -26,3 +27,15 @@ def collect_urls(patterns):
         else:
             all_urls.append([url])
     return all_urls
+
+
+def parse_date(string):
+    """
+    Parse string into date according to the setting DATE_INPUT_FORMATS
+    """
+    for f in DATE_INPUT_FORMATS:
+        try:
+            return datetime.strptime(string, f)
+        except:
+            continue
+    return None

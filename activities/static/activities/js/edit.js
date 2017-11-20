@@ -3,7 +3,7 @@ var repeatTarget = null;
 
 // HELPER FUNCTION
 function setWaitingWarning(tr) {
-    tr.addClass("warning");
+    tr.addClass("bg-warning");
     tr.attr("title", "Questa prenotazione verrà messa in attesa di approvazione.");
     var select = $("select[name*='status']", tr);
     if (select.val() == 0) {
@@ -13,7 +13,7 @@ function setWaitingWarning(tr) {
 }
 
 function removeWaitingWarning(tr) {
-    tr.removeClass("warning");
+    tr.removeClass("bg-warning");
     tr.attr("title", "");
     var valOriginal = $("select[name*='status']", tr).val();
     $("select[name*='status']", tr).html(
@@ -23,7 +23,7 @@ function removeWaitingWarning(tr) {
 }
 
 function setNoPermissionWarning(tr) {
-    tr.addClass("danger");
+    tr.addClass("bg-danger");
     tr.attr("title", "Non si possiede nessun permesso su quest'aula. Per poter modificare questa prenotazione si deve selezionare un'altra aula.");
     $("input", tr).prop("readonly", true);
     $("button > span.glyphicon-retweet", tr).parent().prop("disabled", true);
@@ -34,7 +34,7 @@ function setNoPermissionWarning(tr) {
 }
 
 function removeNoPermissionWarning(tr) {
-    tr.removeClass("danger");
+    tr.removeClass("bg-danger");
     $("input", tr).prop("readonly", false);
     $("button > span.glyphicon-retweet", tr).parent().prop("disabled", false);
     $("option", this).filter(function(i, el){
