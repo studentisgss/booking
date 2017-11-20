@@ -1,12 +1,12 @@
 SHELL := /bin/bash
 PYTHON ?= python3
 PIP ?= pip3
-PEP8 ?= $(PYTHON) -m pep8
+PYCODESTYLE ?= $(PYTHON) -m pycodestyle
 FLAKE8 ?= $(PYTHON) -m flake8
 PYLINT ?= $(PYTHON) -m pylint
 NOINPUT_OPT := $(shell if [ "$$NOINPUT" = true ]; then echo "--noinput"; fi)
 
-SRC_FILES := $(shell find . -name "*.py")
+SRC_FILES := $(shell find . -name "*.py" -not -path "*/migrations/*")
 
 default:
 	@echo "Choose a target"
@@ -15,8 +15,8 @@ install:
 	$(PIP) install -r requirements.txt
 
 linter:
-	@echo "=== Pep8 ==="
-	@$(PEP8) --max-line-length=180 $(SRC_FILES)
+	@echo "=== Pycodestyle ==="
+	@$(PYCODESTYLE) --max-line-length=180 --ignore=E722 $(SRC_FILES)
 	@echo "=== Flake8 ==="
 	@$(FLAKE8) --max-line-length=180 --ignore=E251,E265,E722,F401,F403,F405,F811,F999 \
 		$(SRC_FILES)
