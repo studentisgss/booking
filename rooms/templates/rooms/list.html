@@ -3,6 +3,8 @@
 
 {% block head-extra %}
 <link href="{% static 'rooms/css/list.css' %}" rel="stylesheet" />
+<link href="{% static 'activities/css/list.css' %}" rel="stylesheet" />
+<link href="{% static 'css/datatables.min.css' %}" rel="stylesheet" />
 {% endblock head-extra %}
 
 {% block main %}
@@ -35,6 +37,11 @@
         <tr>
             <th>Nome</th>
             <th>Descrizione</th>
+            {% if user.is_authenticated %}
+                {% if perms.rooms.change_room %}
+                  <th>Modifica</th>
+                {% endif %}
+              {% endif %}
         </tr>
     </thead>
     <tbody>
@@ -47,6 +54,13 @@
                 <a href="{% url "rooms:details" e.pk %}">{{ e.name }}</a>
             </td>
             <td>{{ e.description }}</td>
+            {% if user.is_authenticated %}
+                {% if perms.rooms.change_room %}
+                  <td>
+                    <a href="{% url "rooms:edit" e.pk %}" class="btn btn-info btn-xs"><span class="glyphicon glyphicon-pencil"></span></a>
+                  </td>
+                {% endif %}
+              {% endif %}
         </tr>
     {% empty %}
         <tr>

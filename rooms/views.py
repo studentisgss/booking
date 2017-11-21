@@ -75,22 +75,22 @@ class EditRoomView(TemplateView):
     def get_context_data(self, **kwargs):
         context=super().get_context_data(**kwargs)
         if self.request.method == "GET":
-            if "pk" in kwargs and kwargs["pk"]:
+            if "room_id" in kwargs and kwargs["room_id"]:
                 try:
-                    room = Room.objects.all().get(pk=kwargs["pk"])
+                    room = Room.objects.all().get(pk=kwargs["room_id"])
                 except:
                     raise Http404
-                form = RoomForm(instance=news)
+                form = RoomForm(instance=room)
                 context["edit"] = True
             else:
                 form = RoomForm()
         elif self.request.method == "POST":
-            if "pk" in kwargs and kwargs["pk"]:
+            if "room_id" in kwargs and kwargs["room_id"]:
                 try:
-                    room = Room.objects.all().get(pk=kwargs["pk"])
+                    room = Room.objects.all().get(pk=kwargs["room_id"])
                 except:
                     raise Http404
-                form = RoomForm(self.request.POST, instance=news)
+                form = RoomForm(self.request.POST, instance=room)
             else:
                 form = RoomForm(self.request.POST)
             context["edit"] = kwargs["edit"]
@@ -100,12 +100,12 @@ class EditRoomView(TemplateView):
         return context
 
     def post(self, request, *args, **kwargs):
-        if "pk" in kwargs and kwargs["pk"]:
+        if "room_id" in kwargs and kwargs["room_id"]:
             try:
-                room = Room.objects.all().get(pk=kwargs["pk"])
+                room = Room.objects.all().get(pk=kwargs["room_id"])
             except:
                 raise Http404
-            form = RoomForm(request.POST, instance=news)
+            form = RoomForm(request.POST, instance=room)
             kwargs["edit"] = True
         else:
             form = RoomForm(request.POST)
@@ -113,7 +113,7 @@ class EditRoomView(TemplateView):
 
         if form.is_valid():
             if kwargs["edit"]:
-                news = form.save()
+                room = form.save()
                 LogEntry.objects.log_action(
                     user_id=self.request.user.id,
                     content_type_id=ContentType.objects.get_for_model(room).pk,
