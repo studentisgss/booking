@@ -131,6 +131,12 @@ DATE_INPUT_FORMATS = ['%d/%m/%Y']
 TIME_ZONE = 'Europe/Rome'
 
 TIME_FORMAT = "%H:%M"
+TIME_INPUT_FORMATS = [
+    '%H:%M:%S',     # '14:30:59'
+    '%H:%M:%S.%f',  # '14:30:59.000200'
+    '%H:%M',        # '14:30'
+    '%H',           # '14'
+]
 
 USE_I18N = True
 

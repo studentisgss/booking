@@ -43,6 +43,7 @@ $(document).ready(function() {
                     .done(function(data){
                         if (data.length > 0) {
                             multidatepicker.multiDatesPicker('addDates', data, 'disabled');
+                            multidatepicker.multiDatesPicker('removeDates', data, 'picked');
                         }
                         checkedDate.push(fromDate.getTime()) // Add the retrieved month to the saved ones.
                     });
@@ -118,15 +119,33 @@ $(document).ready(function() {
         var startTime = $("input[name*='start']", calendarBooking).val();
         var endTime = $("input[name*='end']", calendarBooking).val();
         if ((startTime != "") && (endTime != "")) {
+            // If start time or end time is express using only hh convert it into hh:00
+            if (!(isNaN(startTime*1))) {
+                var st = parseInt(startTime);
+                if (st >= 0 && st < 24) {
+                    startTime = startTime + ":00";
+                }
+            }
+            if (!(isNaN(endTime*1))) {
+                var et = parseInt(endTime);
+                if (et >=0 && et < 24) {
+                    endTime = endTime + ":00";
+                }
+            }
+            // Check if the date are valid
             var dateStart = Date.parse("01/01/2004 " + startTime);
             var dateEnd = Date.parse("01/01/2004 " + endTime);
-            if (isNaN(dateStart) || isNaN(dateEnd) || (dateStart >= dateEnd)) {
+            // Avoid that the last character is ':'
+            if (isNaN(dateStart) || isNaN(dateEnd) || (dateStart >= dateEnd) || (startTime.slice(-1) == ":") || (endTime.slice(-1) == ":")) {
                 $("input[name*='start']", calendarBooking).parent().parent().addClass("has-error");
                 $("input[name*='end']", calendarBooking).parent().parent().addClass("has-error");
                 validInput = false;
             } else {
                 $("input[name*='start']", calendarBooking).parent().parent().removeClass("has-error");
                 $("input[name*='end']", calendarBooking).parent().parent().removeClass("has-error");
+                // Update input if time is in the form hh to hh:00
+                $("input[name*='start']", calendarBooking).val(startTime);
+                $("input[name*='end']", calendarBooking).val(endTime);
             }
         } else {
             $("input[name*='start']", calendarBooking).parent().parent().removeClass("has-error");
@@ -153,6 +172,7 @@ $(document).ready(function() {
             .done(function(data){
                 if (data.length > 0) {
                     multidatepicker.multiDatesPicker('addDates', data, 'disabled');
+                    multidatepicker.multiDatesPicker('removeDates', data, 'picked');
                     var now = new Date(Date.now());
                     now.setDate(1);
                     now.setHours(0);
