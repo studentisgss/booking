@@ -4,7 +4,7 @@ from django.db.models import Q
 from django.http import Http404
 
 from rooms.models import Room
-from rooms.forms import RoomForm
+from rooms.forms import RoomForm, BuildingForm
 
 
 class DetailRoomView(TemplateView):
@@ -12,6 +12,9 @@ class DetailRoomView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        # hide this key before commit
+        context["API_KEY"] = ""
+
         room_id = kwargs["room_id"]
         if room_id is None:
             raise Http404
@@ -74,29 +77,57 @@ class EditRoomView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context=super().get_context_data(**kwargs)
+        # hide this key before commit
+        context["API_KEY"] = ""
+
         if self.request.method == "GET":
             if "room_id" in kwargs and kwargs["room_id"]:
                 try:
                     room = Room.objects.all().get(pk=kwargs["room_id"])
                 except:
                     raise Http404
-                form = RoomForm(instance=room)
+                roomForm = RoomForm(instance=room)
                 context["edit"] = True
             else:
-                form = RoomForm()
+                roomForm = RoomForm()
         elif self.request.method == "POST":
             if "room_id" in kwargs and kwargs["room_id"]:
                 try:
                     room = Room.objects.all().get(pk=kwargs["room_id"])
                 except:
                     raise Http404
-                form = RoomForm(self.request.POST, instance=room)
+                roomForm = RoomForm(self.request.POST, instance=room)
             else:
-                form = RoomForm(self.request.POST)
+                roomForm = RoomForm(self.request.POST)
             context["edit"] = kwargs["edit"]
         else:
             raise Http404
-        context["form"] = form
+        context["roomForm"] = roomForm
+
+        if (1):#self.request.user.can_change_building
+            if self.request.method == "GET":
+                if "room_id" in kwargs and kwargs["room_id"]:
+                    try:
+                        building = room.building
+                    except:
+                        raise Http404
+                    buildingForm = BuildingForm(instance=building)
+                    context["edit"] = True
+                else:
+                    buildingForm = BuildingForm()
+            elif self.request.method == "POST":
+                if "room_id" in kwargs and kwargs["room_id"]:
+                    try:
+                        building = Building.objects.all().get(pk=room__building__id)
+                    except:
+                        raise Http404
+                    buildingForm = BuildingForm(self.request.POST, instance=room)
+                else:
+                    buildingForm = BuildingForm(self.request.POST)
+                context["edit"] = kwargs["edit"]
+            else:
+                raise Http404
+            context["buildingForm"] = buildingForm
         return context
 
     def post(self, request, *args, **kwargs):
