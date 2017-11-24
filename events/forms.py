@@ -25,8 +25,8 @@ class EventForm(BookingModelForm):
         }
 
     start = SplitDateTimeField(
-        input_date_formats=("%d/%m/%Y",),
-        input_time_formats=("%H:%M", "%H:%M:%S",),
+        input_date_formats=settings.DATE_INPUT_FORMATS,
+        input_time_formats=settings.TIME_INPUT_FORMATS,
         widget=SplitDateTimeWidget(
             date_format=settings.DATE_FORMAT,
             time_format=settings.TIME_FORMAT
@@ -34,8 +34,8 @@ class EventForm(BookingModelForm):
     )
 
     end = start = SplitDateTimeField(
-        input_date_formats=("%d/%m/%Y",),
-        input_time_formats=("%H:%M", "%H:%M:%S",),
+        input_date_formats=settings.DATE_INPUT_FORMATS,
+        input_time_formats=settings.TIME_INPUT_FORMATS,
         widget=SplitDateTimeWidget(
             date_format=settings.DATE_FORMAT,
             time_format=settings.TIME_FORMAT

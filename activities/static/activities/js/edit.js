@@ -54,10 +54,10 @@ function addForm(element, before = false) {
     el.removeAttr("id");
     if (before) {
         // Find the last filled form
-        var elementAfter = $("tr").filter(function() {
+        var elementAfter = $("#table-events tr").filter(function() {
             var tr = $(this);
             var filled = false;
-            $("select", tr).each(function() {
+            $("select[name*='room']", tr).each(function() {
                 filled |= $(this).val() != "";
             });
             if (filled) { // If the form is already filled do not go further
