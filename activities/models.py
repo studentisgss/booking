@@ -65,7 +65,7 @@ Inserire qui il testo
     category = models.CharField(max_length=3, choices=CLASS_CHOICES,
                                 verbose_name=_("classe"), default="A")
     title = models.CharField(max_length=80, verbose_name=_("titolo"))
-    professor = models.CharField(max_length=50, blank=True,
+    professor = models.CharField(max_length=150, blank=True,
                                  verbose_name=_("professore"))
     description = models.TextField(blank=True, verbose_name=_("descrizione"),
                                    default=DESCRIPTION_TEMPLATE)
