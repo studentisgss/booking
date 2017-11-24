@@ -1,0 +1,152 @@
+{% extends "base/layout.html" %}
+
+{% block head-extra %}
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key={{ API_KEY }}&libraries=places"></script>
+<script>
+  // This example displays an address form, using the autocomplete feature
+  // of the Google Places API to help users fill in the information.
+
+  // This example requires the Places library. Include the libraries=places
+  // parameter when you first load the API. For example:
+  // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
+
+  var placeSearch, autocomplete;
+  var componentForm = {
+    street_number: 'short_name',
+    route: 'long_name',
+    locality: 'long_name',
+    administrative_area_level_1: 'short_name',
+    country: 'long_name',
+    postal_code: 'short_name'
+  };
+
+  function initAutocomplete() {
+    // Create the autocomplete object, restricting the search to geographical
+    // location types.
+    autocomplete = new google.maps.places.Autocomplete(
+        /** @type {!HTMLInputElement} */(document.getElementById('autocomplete')),
+        {types: ['geocode']});
+
+    // When the user selects an address from the dropdown, populate the address
+    // fields in the form.
+    autocomplete.addListener('place_changed', fillInAddress);
+  }
+
+  function fillInAddress() {
+    // Get the place details from the autocomplete object.
+    var place = autocomplete.getPlace();
+
+    //for (var component in componentForm) {
+    //  document.getElementById(component).value = '';
+    //  document.getElementById(component).disabled = false;
+    //}
+
+    // Get each component of the address from the place details
+    // and fill the corresponding field on the form.
+
+    document.getElementById("id_address").value=place.formatted_address;
+
+
+  }
+
+</script>
+{% endblock head-extra %}
+
+{% block main %}
+
+<!-- Modify room -->
+<h1>Modifica Aula</h1>
+
+
+<div>
+    <form method="POST" action="">
+        {% csrf_token %}
+        {% if roomForm.non_field_errors %}
+            <div>
+                <ol class="list-group">
+                    {% for error in roomForm.non_field_errors %}
+                        <li class="list-group-item list-group-item-danger">{{ error|escape }}</li>
+                    {% endfor %}
+                </ol>
+            </div>
+        {% endif %}
+        {% for field in roomForm %}
+            <div class="form-group {% if field.errors %}has-error{% endif %}">
+                {{ field.label_tag }}
+                {% if field.errors %}
+                    <div>
+                        {% for error in field.errors %}
+                            <p class="text-danger">{{ error|escape }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                {{ field }}
+            </div>
+        {% endfor %}
+
+        <input type="submit" value="Salva" class="form-control btn btn-info">
+      </form>
+
+  </div>
+
+<!-- Modify Building -->
+<h1>Modifica Edificio</h1>
+<div>
+
+      <form method="POST" action="">
+          {% csrf_token %}
+          {% if buildingForm.non_field_errors %}
+              <div>
+                  <ol class="list-group">
+                      {% for error in buildingForm.non_field_errors %}
+                          <li class="list-group-item list-group-item-danger">{{ error|escape }}</li>
+                      {% endfor %}
+                  </ol>
+              </div>
+          {% endif %}
+          <div class="form-group {% if buildingForm.name.errors %}has-error{% endif %}">
+                {{ buildingForm.name.label_tag }}
+                {% if name.errors %}
+                    <div>
+                        {% for error in buildingForm.name.errors %}
+                            <p class="text-danger">{{ error|escape }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                {{ buildingForm.name }}
+            </div>
+
+
+            <div id="locationField">
+              <input id="autocomplete" placeholder="Cerca un indirizzo" type="text" ></input>
+            </div>
+
+            <div class="form-group {% if buildingForm.address.errors %}has-error{% endif %}">
+                {{ buildingForm.address.label_tag }}
+                {% if buildingForm.address.errors %}
+                    <div>
+                        {% for error in buildingForm.address.errors %}
+                            <p class="text-danger">{{ error|escape }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                {{ buildingForm.address }}
+            </div>
+
+
+
+
+
+
+
+    <script src="https://maps.googleapis.com/maps/api/js?key={{ API_KEY }}&libraries=places&callback=initAutocomplete"
+        async defer></script>
+
+
+
+
+
+        <input type="submit" value="Salva" class="form-control btn btn-info">
+    </form>
+</div>
+{% endblock main %}
