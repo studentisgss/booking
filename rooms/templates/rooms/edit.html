@@ -41,12 +41,11 @@
     //  document.getElementById(component).disabled = false;
     //}
 
-    // Get each component of the address from the place details
-    // and fill the corresponding field on the form.
+    // Get the address from the place details and fill the form.
 
     document.getElementById("id_address").value=place.formatted_address;
 
-
+//add an allert in case of invalid address
   }
 
 </script>
@@ -70,25 +69,48 @@
                 </ol>
             </div>
         {% endif %}
-        {% for field in roomForm %}
-            <div class="form-group {% if field.errors %}has-error{% endif %}">
-                {{ field.label_tag }}
-                {% if field.errors %}
-                    <div>
-                        {% for error in field.errors %}
-                            <p class="text-danger">{{ error|escape }}</p>
-                        {% endfor %}
-                    </div>
-                {% endif %}
-                {{ field }}
-            </div>
-        {% endfor %}
+
+          <div class="form-group {% if roomForm.name.errors %}has-error{% endif %}">
+              {{ roomForm.name.label_tag }}
+              {% if roomForm.name.errors %}
+                  <div>
+                      {% for error in roomForm.name.errors %}
+                          <p class="text-danger">{{ error|escape }}</p>
+                      {% endfor %}
+                  </div>
+              {% endif %}
+              {{ roomForm.name }}
+          </div>
+          <div class="form-group {% if roomForm.description.errors %}has-error{% endif %}">
+              {{ roomForm.description.label_tag }}
+              {% if roomForm.description.errors %}
+                  <div>
+                      {% for error in roomForm.description.errors %}
+                          <p class="text-danger">{{ error|escape }}</p>
+                      {% endfor %}
+                  </div>
+              {% endif %}
+              {{ roomForm.description }}
+          </div>
+          <div class="form-group {% if roomForm.building.errors %}has-error{% endif %}">
+              {{ roomForm.building.label_tag }}
+              {% if roomForm.building.errors %}
+                  <div>
+                      {% for error in roomForm.building.errors %}
+                          <p class="text-danger">{{ error|escape }}</p>
+                      {% endfor %}
+                  </div>
+              {% endif %}
+              {{ roomForm.building }}
+          </div>
+
 
         <input type="submit" value="Salva" class="form-control btn btn-info">
       </form>
 
   </div>
 
+{% if modify_building %}
 <!-- Modify Building -->
 <h1>Modifica Edificio</h1>
 <div>
@@ -143,10 +165,11 @@
         async defer></script>
 
 
-
-
-
         <input type="submit" value="Salva" class="form-control btn btn-info">
     </form>
+
+{% endif %}
+
+    <a href="{% url "rooms:update" %}/1">Text Replace <a>
 </div>
 {% endblock main %}

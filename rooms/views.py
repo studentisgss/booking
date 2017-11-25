@@ -2,8 +2,10 @@ from django.views.generic import TemplateView
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
 from django.http import Http404
+from django.shortcuts import render_to_response
+from django.template import RequestContext
 
-from rooms.models import Room
+from rooms.models import Room, Building
 from rooms.forms import RoomForm, BuildingForm
 
 
@@ -13,7 +15,7 @@ class DetailRoomView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         # hide this key before commit
-        context["API_KEY"] = ""
+        context["API_KEY"] = "AIzaSyA7FWfslCmXTDcLzSv3y8y3UtxUEqoyWPE"
 
         room_id = kwargs["room_id"]
         if room_id is None:
@@ -75,10 +77,19 @@ class EditRoomView(TemplateView):
 
     permission_required = "rooms.change_room"
 
+
     def get_context_data(self, **kwargs):
         context=super().get_context_data(**kwargs)
         # hide this key before commit
-        context["API_KEY"] = ""
+        context["API_KEY"] = "AIzaSyA7FWfslCmXTDcLzSv3y8y3UtxUEqoyWPE"
+
+        CAN_CHANGE_BUILDING = self.request.user.has_perm("building.change_building")
+
+        modify_room = kwargs["editRoomOrBuilding"]%2 == 1
+        modify_building = kwargs["editRoomOrBuilding"]%2 > 1
+
+        context["modify_building"] = False
+
 
         if self.request.method == "GET":
             if "room_id" in kwargs and kwargs["room_id"]:
@@ -104,7 +115,7 @@ class EditRoomView(TemplateView):
             raise Http404
         context["roomForm"] = roomForm
 
-        if (1):#self.request.user.can_change_building
+        if (CAN_CHANGE_BUILDING):
             if self.request.method == "GET":
                 if "room_id" in kwargs and kwargs["room_id"]:
                     try:
@@ -166,3 +177,8 @@ class EditRoomView(TemplateView):
             return HttpResponseRedirect(reverse("rooms:rooms"))
         else:
             return self.get(request, *args, **kwargs)
+
+    def update_building(self,building_pk):
+        building = Building.objects.all().get(pk=building_pk)
+        return render_to_response("rooms/edit.html",
+        { "building": building})

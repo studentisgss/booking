@@ -1,8 +1,19 @@
 {% extends "base/layout.html" %}
 
 {% block main %}
-<h1>Dettaglio dell'aula {{ room.name }}</h1>
-<br />
+<div class="row">
+	<div class="col-xs-10">
+		<h1>Dettaglio dell'aula {{ room.name }}</h1>
+	</div>
+	{% if user.is_authenticated %}
+				{% if perms.rooms.change_room %}
+			<div class="col-xs-2">
+				<h1><a href="{% url "rooms:edit" room.pk %}" class="btn btn-info"><span class="glyphicon glyphicon-pencil"></span> Modifica</a></h1>
+			</div>
+		{% endif %}
+	{% endif %}
+</div>
+</br>
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-xs-3 col-sm-2 col-lg-1">
