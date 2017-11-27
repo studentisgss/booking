@@ -57,7 +57,7 @@
             {% if user.is_authenticated %}
                 {% if perms.rooms.change_room %}
                   <td>
-                    <a href="{% url "rooms:edit" e.pk %}" class="btn btn-info btn-xs"><span class="glyphicon glyphicon-pencil"></span></a>
+                    <a href="{% url "rooms:editRoom" e.pk %}" class="btn btn-info btn-xs"><span class="glyphicon glyphicon-pencil"></span></a>
                   </td>
                 {% endif %}
               {% endif %}

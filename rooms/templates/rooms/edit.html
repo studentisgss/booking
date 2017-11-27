@@ -92,6 +92,7 @@
               {% endif %}
               {{ roomForm.description }}
           </div>
+{% if not modify_building %}
           <div class="form-group {% if roomForm.building.errors %}has-error{% endif %}">
               {{ roomForm.building.label_tag }}
               {% if roomForm.building.errors %}
@@ -102,7 +103,16 @@
                   </div>
               {% endif %}
               {{ roomForm.building }}
+
+              <div class="col-xs-2">
+                <a href="{% url "rooms:editRoomAndBuilding" room_id %}" class="btn btn-info"> Aggiungi edificio</a>
+              </div>
+              <div class="col-xs-2">
+
+              </div>
+
           </div>
+{% endif %}
 
 
         <input type="submit" value="Salva" class="form-control btn btn-info">
@@ -167,6 +177,10 @@
 
         <input type="submit" value="Salva" class="form-control btn btn-info">
     </form>
+
+
+
+    
 
 {% endif %}
 

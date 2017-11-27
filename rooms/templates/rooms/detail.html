@@ -8,7 +8,7 @@
 	{% if user.is_authenticated %}
 				{% if perms.rooms.change_room %}
 			<div class="col-xs-2">
-				<h1><a href="{% url "rooms:edit" room.pk %}" class="btn btn-info"><span class="glyphicon glyphicon-pencil"></span> Modifica</a></h1>
+				<h1><a href="{% url "rooms:editRoom" room.pk %}" class="btn btn-info"><span class="glyphicon glyphicon-pencil"></span> Modifica</a></h1>
 			</div>
 		{% endif %}
 	{% endif %}

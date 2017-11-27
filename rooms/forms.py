@@ -21,3 +21,11 @@ class BuildingForm(BookingModelForm):
         ]
 
 #class RoomRuleInlineFormSet(BaseInlineFormSet):
+
+
+
+#RoomRulesInlineFormSet = inlineformset_factory(Room, Building, fields=(
+#    "opening",
+#    "end",
+#    "status",
+#), form=EventForm, formset=BaseEventInlineFormset, extra=2)

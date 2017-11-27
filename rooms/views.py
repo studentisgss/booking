@@ -86,9 +86,9 @@ class EditRoomView(TemplateView):
         CAN_CHANGE_BUILDING = self.request.user.has_perm("building.change_building")
 
         modify_room = kwargs["editRoomOrBuilding"]%2 == 1
-        modify_building = kwargs["editRoomOrBuilding"]%2 > 1
+        modify_building = kwargs["editRoomOrBuilding"] > 1
 
-        context["modify_building"] = False
+        context["modify_building"] = modify_building
 
 
         if self.request.method == "GET":
@@ -177,6 +177,9 @@ class EditRoomView(TemplateView):
             return HttpResponseRedirect(reverse("rooms:rooms"))
         else:
             return self.get(request, *args, **kwargs)
+
+
+
 
     def update_building(self,building_pk):
         building = Building.objects.all().get(pk=building_pk)
