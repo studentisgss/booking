@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User, Group
 from django.utils.translation import ugettext_lazy as _
+from django.core.exceptions import ValidationError
+from datetime import time
 
 
 class Building(models.Model):
@@ -80,7 +82,7 @@ class RoomPermission(models.Model):
         verbose_name_plural = _("permessi sulle aule")
 
     def __str__(self):
-        return "Aula%d & Gruppo%d" % (self.room_id, self.group_id)
+        return "Aula %s, Gruppo %s" % (self.room, self.group)
 
     PERMISSION_CHOICES = [
         (10, _("Può richiedere")),
@@ -98,5 +100,68 @@ class RoomPermission(models.Model):
     permission = models.SmallIntegerField(
         choices=PERMISSION_CHOICES,
         default=10,
-        verbose_name=_("permesso")
-    )
+        verbose_name=_("permesso"))
+
+
+class RoomRule(models.Model):
+    """
+    An object with the opening times.
+    To every room, every day is associated the opening times
+    during wich is allowed to book the room.
+    """
+    class Meta:
+        verbose_name = _("orari dell'aula")
+        verbose_name_plural = _("orari delle aule")
+
+    def __str__(self):
+        return "Aula %s, Giorno %s" % (self.room, self.day)
+
+    DAYS_OF_WEEK = [
+        (0, _("Lunedì")),
+        (1, _("Martedì")),
+        (2, _("Mercoledì")),
+        (3, _("Giovedì")),
+        (4, _("Venerdì")),
+        (5, _("Sabato")),
+        (6, _("Domenica"))
+    ]
+
+    room = models.ForeignKey(
+        Room,
+        on_delete=models.CASCADE,
+        verbose_name=_("aula"))
+    day = models.SmallIntegerField(
+        choices=DAYS_OF_WEEK,
+        verbose_name="giorno")
+    opening_time = models.TimeField(
+        verbose_name="orario di apertura")
+    closing_time = models.TimeField(
+        verbose_name="orario di chiusura")
+
+    def clean(self):
+        if self.room_id is None:
+            raise ValidationError(_("L'aula è obbligatoria"))
+
+        if self.day is None:
+            raise ValidationError(_("Il giorno è obbligatorio"))
+
+        if self.opening_time is None or self.closing_time is None:
+            raise ValidationError(_("Orari di apertura e chiusura sono obbligatori"))
+
+        # 1. Check that the opening time is before the closing time
+        if self.opening_time >= self.closing_time:
+            raise ValidationError(_("L'ora di apertura deve precedere quella di chiusura"))
+
+        # 2. Check that there are not two timetables for the same room the same day
+        overlapping_roomRules = RoomRule.objects.filter(
+            room_id=self.room.pk,
+            day=self.day)
+        # If the event is already in the database exclude it
+        if self.pk is not None:
+            overlapping_roomRules = overlapping_roomRules.exclude(
+                id=self.pk)
+        is_overlapping = overlapping_roomRules.exists()
+        if is_overlapping:
+            raise ValidationError(
+                _("Non possono esserci due orari per la stessa aula lo stesso giorno")
+            )
