@@ -10,7 +10,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.http import Http404, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 
-from rooms.models import Room, Building
+from rooms.models import Room, Building, RoomRule
 from rooms.forms import RoomForm, BuildingForm, RoomRuleInlineFormSet, RoomRuleForm
 
 
@@ -31,6 +31,7 @@ class DetailRoomView(TemplateView):
             raise Http404
         context["room"] = room
         context["building"] = room.building
+        context["roomRules"] = RoomRule.objects.filter(room=room)
         return context
 
 

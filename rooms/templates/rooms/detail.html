@@ -1,6 +1,7 @@
 {% extends "base/layout.html" %}
 
 {% block main %}
+<!-- Room -->
 <div class="row">
 	<div class="col-xs-10">
 		<h1>Dettaglio dell'aula {{ room.name }}</h1>
@@ -29,28 +30,47 @@
 			</ul>
 		</div>
 	</div>
-	<div class="row">
-		<h3>
-			edificio
-		</h3>
-			<div class="col-xs-3 col-sm-2 col-lg-1">
-				<ul class="list-unstyled">
-					<li>Nome:</li>
-					<li>Indirizzo:</li>
-				</ul>
-			</div>
-			<div class="col-xs-9 col-sm-10 col-lg-11">
-				<ul class="list-unstyled">
-					<li>{{ building.name }}</li>
-					<li>{{ building.address }}</li>
-				</ul>
-				<iframe
-  				width="600"
-  				height="450"
-  				frameborder="0" style="border:0"
-  				src="https://www.google.com/maps/embed/v1/place?key={{ API_KEY }}&q={{ building.address }}" allowfullscreen>
-				</iframe>
-			</div>
+	<!-- RoomRules -->
+	{% if roomRules %}
+	<h3>
+		Restrizioni degli orari
+	</h3>
+	<table class="table table-striped table-hover">
+		<tr>
+			<th>Giorno</th>
+			<th>Orario di apertura</th>
+			<th>Orario di chiusura</th>
+		</tr>
+	{% for rule in roomRules %}
+		<tr>
+			<td>{{ rule.day }}</td>
+			<td>{{ rule.opening_time }}</td>
+			<td>{{ rule.closing_time }}</td>
+		</tr>
+	{% endfor %}
+	</table>
+	{% endif %}
+	<!-- Building -->
+	<h3>
+		edificio
+	</h3>
+	<div class="col-xs-3 col-sm-2 col-lg-1">
+		<ul class="list-unstyled">
+			<li>Nome:</li>
+			<li>Indirizzo:</li>
+		</ul>
+	</div>
+	<div class="col-xs-9 col-sm-10 col-lg-11">
+		<ul class="list-unstyled">
+			<li>{{ building.name }}</li>
+			<li>{{ building.address }}</li>
+		</ul>
+		<iframe
+			width="600"
+			height="450"
+			frameborder="0" style="border:0"
+			src="https://www.google.com/maps/embed/v1/place?key={{ API_KEY }}&q={{ building.address }}" allowfullscreen>
+		</iframe>
 	</div>
 </div>
 {% endblock main %}
