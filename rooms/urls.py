@@ -28,6 +28,4 @@ urlpatterns = [
     url(r'^editBuilding/(?P<building_id>[0-9]+)$',EditRoomView.as_view(), {"editRoomOrBuilding":2}, name="editBuilding"),
     url(r'^editRoomAndBuilding/(?P<room_id>[0-9]+)$',EditRoomView.as_view(),{"editRoomOrBuilding":3}, name="editRoomAndBuilding"),
 
-    url(r'^edit/update$',EditRoomView.update_building, name="update"),
-    url(r'^edit/update/(?P<building_pk>[0-9]+)$',EditRoomView.update_building)
 ]

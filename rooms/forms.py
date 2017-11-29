@@ -1,5 +1,7 @@
+from django.forms import inlineformset_factory, BaseInlineFormSet
+
 from base.forms import BookingModelForm
-from rooms.models import Room
+from rooms.models import Room, RoomRule
 from rooms.models import Building
 
 
@@ -20,12 +22,18 @@ class BuildingForm(BookingModelForm):
             "address"
         ]
 
-#class RoomRuleInlineFormSet(BaseInlineFormSet):
+class RoomRuleForm(BookingModelForm):
+    class Meta:
+        model = RoomRule
+        fields = [
+            "day",
+            "opening_time",
+            "closing_time"
+        ]
+
+class BaseRoomRuleInlineFormSet(BaseInlineFormSet):
+    def clean(self):
+        super().clean()
 
 
-
-#RoomRulesInlineFormSet = inlineformset_factory(Room, Building, fields=(
-#    "opening",
-#    "end",
-#    "status",
-#), form=EventForm, formset=BaseEventInlineFormset, extra=2)
+RoomRuleInlineFormSet = inlineformset_factory(Room, RoomRule, form=RoomRuleForm, formset=BaseRoomRuleInlineFormSet, max_num=7)
