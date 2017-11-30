@@ -90,7 +90,9 @@ class EditRoomView(TemplateView):
         context["API_KEY"] = ""
 
         CAN_CHANGE_BUILDING = self.request.user.has_perm("building.change_building")
-        CAN_CHANGE_RULES = True
+        CAN_CHANGE_RULES = self.request.user.has_perm("roomRule.change_roomRule")
+
+        context["changeRoomRules"] = CAN_CHANGE_RULES
 
         modify_room = kwargs["editRoomOrBuilding"]%2 == 1
         modify_building = kwargs["editRoomOrBuilding"] > 1
@@ -130,7 +132,8 @@ class EditRoomView(TemplateView):
             raise Http404
 
         context["roomForm"] = roomForm
-        context["roomRuleForm"] = roomRuleForms
+        if CAN_CHANGE_RULES:
+            context["roomRuleForm"] = roomRuleForms
         """
         if (CAN_CHANGE_BUILDING):
             if self.request.method == "GET":
@@ -160,22 +163,27 @@ class EditRoomView(TemplateView):
 
 #problem if the user cannot change rules but only rooms
     def post(self, request, *args, **kwargs):
+        CAN_CHANGE_RULES = self.request.user.has_perm("roomRule.change_roomRule")
+
         if "room_id" in kwargs and kwargs["room_id"]:
             try:
                 room = Room.objects.all().get(pk=kwargs["room_id"])
             except:
                 raise Http404
             roomForm = RoomForm(request.POST, instance=room)
-            roomRuleForms = RoomRuleInlineFormSet(request.POST, instance=room)
+            if CAN_CHANGE_RULES:
+                roomRuleForms = RoomRuleInlineFormSet(request.POST, instance=room)
             kwargs["edit"] = True
         else:
             roomForm = RoomForm(request.POST)
-            roomRuleForms = RoomRuleInlineFormSet(request.POST)
+            if CAN_CHANGE_RULES:
+                roomRuleForms = RoomRuleInlineFormSet(request.POST)
             kwargs["edit"] = False
 
-        if roomForm.is_valid() and roomRuleForms.is_valid():
-            if kwargs["edit"]:
+        if roomForm.is_valid() and (roomRuleForms.is_valid() or not CAN_CHANGE_RULES):
+            if CAN_CHANGE_RULES:
                 room = roomForm.save()
+            if kwargs["edit"]:
                 LogEntry.objects.log_action(
                     user_id=self.request.user.id,
                     content_type_id=ContentType.objects.get_for_model(room).pk,
@@ -194,7 +202,6 @@ class EditRoomView(TemplateView):
                     object_repr=str(room),
                     action_flag=ADDITION
                 )
-            roomRuleForms.save()
             return HttpResponseRedirect(reverse("rooms:details", kwargs={'room_id': room.pk}))
         else:
             return self.get(request, *args, **kwargs)
