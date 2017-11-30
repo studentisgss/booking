@@ -31,7 +31,7 @@ class DetailRoomView(TemplateView):
             raise Http404
         context["room"] = room
         context["building"] = room.building
-        context["roomRules"] = RoomRule.objects.filter(room=room)
+        context["roomRules"] = RoomRule.objects.filter(room=room).order_by("day")
         return context
 
 

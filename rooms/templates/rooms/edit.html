@@ -189,36 +189,81 @@
   <!-- Modify/Add RoomRules -->
   <h1>Modifica orari di apertura</h1>
 
-
+  <table class="table">
+    <tr>
+      <th>Giorno</th>
+      <th>Orario di apertura</th>
+      <th>Orario di chiusura</th>
+      <th>Elimina</th>
+    </tr>
   {% for form in roomRuleForm %}
+    {% csrf_token %}
+      {% if form.non_field_errors %}
       <div class="row">
-              {% csrf_token %}
-              {% if form.non_field_errors %}
-                  <div>
-                      <ol class="list-group">
-                          {% for error in form.non_field_errors %}
-                              <li class="list-group-item list-group-item-danger">{{ error|escape }}</li>
-                          {% endfor %}
-                      </ol>
-                  </div>
-              {% endif %}
-              {% for field in form %}
-                <div class= "col-xs-2">
-                  <div class="form-group {% if field.errors %}has-error{% endif %}">
-                      {{ field.label_tag }}
-                      {% if field.errors %}
-                          <div>
-                              {% for error in field.errors %}
-                                  <p class="text-danger">{{ error|escape }}</p>
-                              {% endfor %}
-                          </div>
-                      {% endif %}
-                      {{ field }}
-                  </div>
-                </div>
-              {% endfor %}
+        <ol class="list-group">
+        {% for error in form.non_field_errors %}
+          <li class="list-group-item list-group-item-danger">{{ error|escape }}</li>
+        {% endfor %}
+        </ol>
       </div>
+    {% endif %}
+    <tr>
+      <td>
+        <div class="form-group {% if form.day.errors %}has-error{% endif %}">
+            {% if form.day.errors %}
+                <div>
+                    {% for error in form.day.errors %}
+                        <p class="text-danger">{{ error|escape }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            {{ form.day }}
+        </div>
+      </td>
+      <td>
+        <div class="form-group {% if form.opening_time.errors %}has-error{% endif %}">
+            {% if form.opening_time.errors %}
+                <div>
+                    {% for error in form.opening_time.errors %}
+                        <p class="text-danger">{{ error|escape }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            {{ form.opening_time }}
+        </div>
+      </td>
+      <td>
+        <div class="form-group {% if form.closing_time.errors %}has-error{% endif %}">
+            {% if form.closing_time.errors %}
+                <div>
+                    {% for error in form.closing_time.errors %}
+                        <p class="text-danger">{{ error|escape }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            {{ form.closing_time }}
+        </div>
+      </td>
+      <td>
+        <div class="form-group {% if form.DELETE.errors %}has-error{% endif %}">
+            {% if form.DELETE.errors %}
+                <div>
+                    {% for error in form.DELETE.errors %}
+                        <p class="text-danger">{{ error|escape }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            {{ form.DELETE }}
+        </div>
+      </td>
+      <td class="hidden">
+        {{ form.id }}
+      </td>
+    </tr>
   {% endfor %}
+  </table>
+
+
   {% endif %}
 
   <input type="submit" value="Salva" class="form-control btn btn-info">

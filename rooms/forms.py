@@ -35,5 +35,8 @@ class BaseRoomRuleInlineFormSet(BaseInlineFormSet):
     def clean(self):
         super().clean()
 
+    def get_queryset(self):
+        return super().get_queryset().order_by("day")
+
 
 RoomRuleInlineFormSet = inlineformset_factory(Room, RoomRule, form=RoomRuleForm, formset=BaseRoomRuleInlineFormSet, max_num=7)
