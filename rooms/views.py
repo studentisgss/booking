@@ -4,12 +4,12 @@ from django.db.models import Q
 from django.http import Http404
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-
 from django.contrib.admin.models import LogEntry, CHANGE
 from django.contrib.contenttypes.models import ContentType
 from django.http import Http404, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 
+from booking.settings import GOOGLE_MAPS_API_KEY
 from rooms.models import Room, Building, RoomRule
 from rooms.forms import RoomForm, BuildingForm, RoomRuleInlineFormSet, RoomRuleForm
 
@@ -20,7 +20,7 @@ class DetailRoomView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         # hide this key before commit
-        context["API_KEY"] = ""
+        context["API_KEY"] = GOOGLE_MAPS_API_KEY
 
         room_id = kwargs["room_id"]
         if room_id is None:
@@ -87,7 +87,7 @@ class EditRoomView(TemplateView):
     def get_context_data(self, **kwargs):
         context=super().get_context_data(**kwargs)
         # hide this key before commit
-        context["API_KEY"] = ""
+        context["API_KEY"] = GOOGLE_MAPS_API_KEY
 
         CAN_CHANGE_BUILDING = self.request.user.has_perm("building.change_building")
         CAN_CHANGE_RULES = self.request.user.has_perm("roomRule.change_roomRule")
