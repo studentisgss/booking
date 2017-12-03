@@ -86,19 +86,11 @@ class EditRoomView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context=super().get_context_data(**kwargs)
-        # hide this key before commit
+
         context["API_KEY"] = GOOGLE_MAPS_API_KEY
 
-        CAN_CHANGE_BUILDING = self.request.user.has_perm("building.change_building")
         CAN_CHANGE_RULES = self.request.user.has_perm("roomRule.change_roomRule")
-
         context["changeRoomRules"] = CAN_CHANGE_RULES
-
-        modify_room = kwargs["editRoomOrBuilding"]%2 == 1
-        modify_building = kwargs["editRoomOrBuilding"] > 1
-
-        context["modify_building"] = modify_building
-
 
         if self.request.method == "GET":
             if "room_id" in kwargs and kwargs["room_id"]:
@@ -134,34 +126,8 @@ class EditRoomView(TemplateView):
         context["roomForm"] = roomForm
         if CAN_CHANGE_RULES:
             context["roomRuleForm"] = roomRuleForms
-        """
-        if (CAN_CHANGE_BUILDING):
-            if self.request.method == "GET":
-                if "room_id" in kwargs and kwargs["room_id"]:
-                    try:
-                        building = room.building
-                    except:
-                        raise Http404
-                    buildingForm = BuildingForm(instance=building)
-                    context["edit"] = True
-                else:
-                    buildingForm = BuildingForm()
-            elif self.request.method == "POST":
-                if "room_id" in kwargs and kwargs["room_id"]:
-                    try:
-                        building = Building.objects.all().get(pk=room__building__id)
-                    except:
-                        raise Http404
-                    buildingForm = BuildingForm(self.request.POST, instance=room)
-                else:
-                    buildingForm = BuildingForm(self.request.POST)
-                context["edit"] = kwargs["edit"]
-            else:
-                raise Http404
-            context["buildingForm"] = buildingForm    """
         return context
 
-#problem if the user cannot change rules but only rooms
     def post(self, request, *args, **kwargs):
         CAN_CHANGE_RULES = self.request.user.has_perm("roomRule.change_roomRule")
 
@@ -202,6 +168,78 @@ class EditRoomView(TemplateView):
                     object_repr=str(room),
                     action_flag=ADDITION
                 )
+            return HttpResponseRedirect(reverse("rooms:details", kwargs={'room_id': room.pk}))
+        else:
+            return self.get(request, *args, **kwargs)
+
+class EditBuildingView(TemplateView):
+    template_name = "rooms/editBuilding.html"
+
+    permission_required = "building.change_building"
+
+    def get_context_data(self, **kwargs):
+        context=super().get_context_data(**kwargs)
+        if self.request.method == "GET":
+            if True: #"building_id" in kwargs: # and kwargs["building_id"]:
+                try:
+                    building = Building.objects.all().get(pk=kwargs["building_id"])
+                except:
+                    raise Http404
+                buildingForm = BuildingForm(instance=building)
+                context["edit"] = True
+            else:
+                buildingForm = BuildingForm()
+        elif self.request.method == "POST":
+            if "building_id" in kwargs and kwargs["building_id"]:
+                try:
+                    building = Building.objects.all().get(pk=kwargs[building_id])
+                except:
+                    raise Http404
+                buildingForm = BuildingForm(self.request.POST, instance=room)
+            else:
+                buildingForm = BuildingForm(self.request.POST)
+            context["edit"] = kwargs["edit"]
+        else:
+            raise Http404
+        context["buildingForm"] = buildingForm
+        return context
+
+
+    def post(self, request, *args, **kwargs):
+        if "building_id" in kwargs and kwargs["building_id"]:
+            try:
+                building = Building.objects.get(pk=kwargs["building_id"])
+            except:
+                raise Http404
+            buildingForm = BuildingForm(request.POST, instance=building)
+            kwargs["edit"] = True
+        else:
+            buildingForm = BuildingForm(request.POST)
+            kwargs["edit"] = False
+
+        if buildingForm.is_valid():
+            building = buildingForm.save()
+            """
+            if kwargs["edit"]:
+                LogEntry.objects.log_action(
+                    user_id=self.request.user.id,
+                    content_type_id=ContentType.objects.get_for_model(room).pk,
+                    object_id=room.id,
+                    object_repr=str(room),
+                    action_flag=CHANGE
+                )
+            else:
+                room = form.save(commit=False)
+                room.creator = request.user
+                room.save()
+                LogEntry.objects.log_action(
+                    user_id=self.request.user.id,
+                    content_type_id=ContentType.objects.get_for_model(room).pk,
+                    object_id=room.id,
+                    object_repr=str(room),
+                    action_flag=ADDITION
+                )
+            """
             return HttpResponseRedirect(reverse("rooms:details", kwargs={'room_id': room.pk}))
         else:
             return self.get(request, *args, **kwargs)
