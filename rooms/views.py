@@ -148,7 +148,8 @@ class EditRoomView(TemplateView):
 
         if roomForm.is_valid() and (roomRuleForms.is_valid() or not CAN_CHANGE_RULES):
             if CAN_CHANGE_RULES:
-                room = roomForm.save()
+                roomRuleForms.save()
+            room = roomForm.save(commit=False)
             if kwargs["edit"]:
                 LogEntry.objects.log_action(
                     user_id=self.request.user.id,
