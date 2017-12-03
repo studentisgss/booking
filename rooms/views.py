@@ -149,8 +149,8 @@ class EditRoomView(TemplateView):
         if roomForm.is_valid() and (roomRuleForms.is_valid() or not CAN_CHANGE_RULES):
             if CAN_CHANGE_RULES:
                 roomRuleForms.save()
-            room = roomForm.save(commit=False)
             if kwargs["edit"]:
+                room = roomForm.save()
                 LogEntry.objects.log_action(
                     user_id=self.request.user.id,
                     content_type_id=ContentType.objects.get_for_model(room).pk,
@@ -159,7 +159,7 @@ class EditRoomView(TemplateView):
                     action_flag=CHANGE
                 )
             else:
-                room = form.save(commit=False)
+                room = roomForm.save(commit=False)
                 room.creator = request.user
                 room.save()
                 LogEntry.objects.log_action(
@@ -220,27 +220,22 @@ class EditBuildingView(TemplateView):
 
         if buildingForm.is_valid():
             building = buildingForm.save()
-            """
             if kwargs["edit"]:
                 LogEntry.objects.log_action(
                     user_id=self.request.user.id,
-                    content_type_id=ContentType.objects.get_for_model(room).pk,
-                    object_id=room.id,
-                    object_repr=str(room),
+                    content_type_id=ContentType.objects.get_for_model(building).pk,
+                    object_id=building.id,
+                    object_repr=str(building),
                     action_flag=CHANGE
                 )
             else:
-                room = form.save(commit=False)
-                room.creator = request.user
-                room.save()
                 LogEntry.objects.log_action(
                     user_id=self.request.user.id,
-                    content_type_id=ContentType.objects.get_for_model(room).pk,
-                    object_id=room.id,
-                    object_repr=str(room),
+                    content_type_id=ContentType.objects.get_for_model(building).pk,
+                    object_id=building.id,
+                    object_repr=str(building),
                     action_flag=ADDITION
                 )
-            """
-            return HttpResponseRedirect(reverse("rooms:details", kwargs={'room_id': room.pk}))
+            return HttpResponseRedirect(reverse("rooms:listall"))
         else:
             return self.get(request, *args, **kwargs)
