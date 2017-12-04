@@ -8,7 +8,22 @@
 {% endblock head-extra %}
 
 {% block main %}
-<h1>Aule principali</h1>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-10">
+      <h1>Aule principali</h1>
+    </div>
+    {% if user.is_authenticated %}
+      {% if perms.room.add_room %}
+        <div class="col-xs-2">
+          <h1><a href="{% url "rooms:newRoom" %}" class="btn btn-success">Nuova aula</a></h1>
+        </div>
+      {% endif %}
+    {% endif %}
+  </div>
+</div>
+<div class="row">
+</div>
 
 <div class="row">
     <div class="col-md-5">

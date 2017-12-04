@@ -55,8 +55,7 @@
 
 <form method="POST" action="">
   <!-- Modify room -->
-  <h1>Modifica Aula</h1>
-
+  <h1>{% if edit %}Modifica Aula{% else %}Crea nuova aula{% endif %}</h1>
 
   <div>
         {% csrf_token %}
@@ -103,7 +102,7 @@
                   </div>
               {% endif %}
               {{ roomForm.building }}
-              
+
               <div class="col-xs-2">
 
               </div>

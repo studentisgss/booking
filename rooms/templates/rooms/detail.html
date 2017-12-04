@@ -4,7 +4,7 @@
 <!-- Room -->
 <div class="row">
 	<div class="col-xs-10">
-		<h1>Dettaglio dell'aula {{ room.name }}</h1>
+		<h1>Aula {{ room.name }}</h1>
 	</div>
 	{% if user.is_authenticated %}
 				{% if perms.rooms.change_room %}

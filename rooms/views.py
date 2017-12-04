@@ -4,7 +4,7 @@ from django.db.models import Q
 from django.http import Http404
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from django.contrib.admin.models import LogEntry, CHANGE
+from django.contrib.admin.models import LogEntry, CHANGE, ADDITION
 from django.contrib.contenttypes.models import ContentType
 from django.http import Http404, HttpResponseRedirect
 from django.core.urlresolvers import reverse
@@ -173,6 +173,9 @@ class EditRoomView(TemplateView):
         else:
             return self.get(request, *args, **kwargs)
 
+class NewRoomView(EditRoomView):
+    permission_required = "room.create_room"
+
 class EditBuildingView(TemplateView):
     template_name = "rooms/editBuilding.html"
 
@@ -181,7 +184,7 @@ class EditBuildingView(TemplateView):
     def get_context_data(self, **kwargs):
         context=super().get_context_data(**kwargs)
         if self.request.method == "GET":
-            if True: #"building_id" in kwargs: # and kwargs["building_id"]:
+            if "building_id" in kwargs and kwargs["building_id"]:
                 try:
                     building = Building.objects.all().get(pk=kwargs["building_id"])
                 except:
