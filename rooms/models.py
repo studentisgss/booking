@@ -4,11 +4,14 @@ from django.utils.translation import ugettext_lazy as _
 from django.core.exceptions import ValidationError
 from datetime import time
 
+from string import *
+
 
 class Building(models.Model):
     """
     A building is where the real rooms are located.
-    It has a name and an address.
+    It has a name, a creator and an address.
+    The address is a normal string with spaces.
     """
     class Meta:
         verbose_name = _("edificio")
@@ -24,6 +27,11 @@ class Building(models.Model):
         on_delete=models.CASCADE,
         verbose_name=_("creatore")
     )
+
+    # Return a different strig for the address wich can be used in the url for the map.
+    def get_address_for_url(self):
+        s = self.address
+        return s.replace(' ','+')
 
 class Room(models.Model):
     """
