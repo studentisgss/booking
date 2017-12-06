@@ -21,7 +21,7 @@ class Building(models.Model):
         return self.name
 
     name = models.CharField(max_length=30, unique=True, verbose_name=_("nome"))
-    address = models.CharField(max_length=30, unique=True, verbose_name=_("indirizzo"))
+    address = models.CharField(max_length=100, unique=True, verbose_name=_("indirizzo"))
     creator = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
@@ -52,7 +52,7 @@ class Room(models.Model):
         return "%s %s" % ("*" if self.important else "", self.name)
 
     name = models.CharField(max_length=30, unique=True, verbose_name=_("nome"))
-    description = models.CharField(max_length=100, verbose_name=_("descrizione"))
+    description = models.CharField(max_length=100, blank=True, verbose_name=_("descrizione"))
     important = models.BooleanField(default=False, verbose_name=_("importante"))
     creator = models.ForeignKey(
         User,

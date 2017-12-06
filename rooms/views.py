@@ -36,10 +36,11 @@ class DetailRoomView(TemplateView):
 
 
 class ListAllRoomView(TemplateView):
-    template_name = "rooms/listall.html"
+    template_name = "rooms/list.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context["all"] = True
         rooms_list = Room.objects.order_by("-important", "name")
         # Check for filter-text
         if "search" in self.request.GET:
@@ -48,34 +49,34 @@ class ListAllRoomView(TemplateView):
             rooms_list = rooms_list.filter(
                 Q(name__icontains=text) | Q(description__icontains=text)
             )
-        paginator = Paginator(rooms_list, per_page=25)
-        page = kwargs.get("page", 1)
-        try:
-            rooms = paginator.page(page)
-        except PageNotAnInteger:
-            # If page is not an integer, deliver first page which is 1 not 0.
-            rooms = paginator.page(1)
-        except EmptyPage:
-            # If page is out of range (e.g. 9999), deliver last page of results.
-            rooms = paginator.page(paginator.num_pages)
-        context["list"] = rooms
+        #paginator = Paginator(rooms_list, per_page=25)
+        #page = kwargs.get("page", 1)
+        #try:
+        #    rooms = paginator.page(page)
+        #except PageNotAnInteger:
+        #    # If page is not an integer, deliver first page which is 1 not 0.
+        #    rooms = paginator.page(1)
+        #except EmptyPage:
+        #    # If page is out of range (e.g. 9999), deliver last page of results.
+        #    rooms = paginator.page(paginator.num_pages)
+        context["list"] = rooms_list
         return context
 
 
-class ListRoomView(TemplateView):
-    template_name = "rooms/list.html"
+class ListRoomView(ListAllRoomView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        rooms_list = Room.objects.filter(important=True).order_by("name")
+        context["all"] = False
+        rooms_list = context["list"]
         # Check for filter-text
-        if "search" in self.request.GET:
-            text = self.request.GET.get("search", "")
-            context["filterText"] = text
-            rooms_list = rooms_list.filter(
-                Q(name__icontains=text) | Q(description__icontains=text)
-            )
-        context["list"] = rooms_list
+        #if "search" in self.request.GET:
+        #    text = self.request.GET.get("search", "")
+        #    context["filterText"] = text
+        #    rooms_list = rooms_list.filter(
+        #        Q(name__icontains=text) | Q(description__icontains=text)
+        #    )
+        context["list"] = rooms_list.filter(important=True)
         return context
 
 class EditRoomView(TemplateView):
@@ -180,7 +181,7 @@ class EditBuildingView(TemplateView):
     template_name = "rooms/editBuilding.html"
 
     permission_required = "building.change_building"
-    
+
     def get_context_data(self, **kwargs):
         context=super().get_context_data(**kwargs)
         if self.request.method == "GET":
@@ -222,8 +223,8 @@ class EditBuildingView(TemplateView):
             kwargs["edit"] = False
 
         if buildingForm.is_valid():
-            building = buildingForm.save()
             if kwargs["edit"]:
+                building = buildingForm.save()
                 LogEntry.objects.log_action(
                     user_id=self.request.user.id,
                     content_type_id=ContentType.objects.get_for_model(building).pk,
@@ -232,6 +233,9 @@ class EditBuildingView(TemplateView):
                     action_flag=CHANGE
                 )
             else:
+                building = buildingForm.save(commit=False)
+                building.creator = request.user
+                building.save()
                 LogEntry.objects.log_action(
                     user_id=self.request.user.id,
                     content_type_id=ContentType.objects.get_for_model(building).pk,
@@ -244,4 +248,5 @@ class EditBuildingView(TemplateView):
             return self.get(request, *args, **kwargs)
 
 class NewBuildingView(EditBuildingView):
+
     permission_required = "building.create_building"

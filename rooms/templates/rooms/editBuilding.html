@@ -48,6 +48,12 @@
 //add an allert in case of invalid address in the address search
   }
 
+  $(document).ready(function(){
+    $("#address-form").removeClass("hidden");
+    $("#address-message").remove();
+    $("#id_address").prop('readonly', true);
+  });
+
 </script>
 {% endblock head-extra %}
 
@@ -78,30 +84,31 @@
                   {{ buildingForm.name }}
               </div>
 
+              <div id="address-form" class="hidden">
 
-              <div id="locationField">
-                <input id="autocomplete" placeholder="Cerca un indirizzo" type="text" ></input>
+
+                <div class="form-group {% if buildingForm.address.errors %}has-error{% endif %}">
+                    {{ buildingForm.address.label_tag }}
+                    <div id="locationField">
+                      <input id="autocomplete" placeholder="Cerca un indirizzo" class="form-control" type="text" ></input>
+                    </div>
+                    <br/>
+                      {% if buildingForm.address.errors %}
+                          <div>
+                              {% for error in buildingForm.address.errors %}
+                                  <p class="text-danger">{{ error|escape }}</p>
+                              {% endfor %}
+                          </div>
+                      {% endif %}
+                    {{ buildingForm.address }}
+                </div>
+
               </div>
 
-              <div class="form-group {% if buildingForm.address.errors %}has-error{% endif %}">
-                  {{ buildingForm.address.label_tag }}
-                  {% if buildingForm.address.errors %}
-                      <div>
-                          {% for error in buildingForm.address.errors %}
-                              <p class="text-danger">{{ error|escape }}</p>
-                          {% endfor %}
-                      </div>
-                  {% endif %}
-                  {{ buildingForm.address }}
+              <div id="address-message">
+                  Ativva javascript
               </div>
-
-
-
-
-
-
-
-      <script src="https://maps.googleapis.com/maps/api/js?key={{ API_KEY }}&libraries=places&callback=initAutocomplete"
+              <script src="https://maps.googleapis.com/maps/api/js?key={{ API_KEY }}&libraries=places&callback=initAutocomplete"
           async defer></script>
 
 

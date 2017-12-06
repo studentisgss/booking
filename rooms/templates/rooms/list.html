@@ -11,17 +11,23 @@
 <div class="container">
   <div class="row">
     <div class="col-xs-8">
-      <h1>Aule principali</h1>
+      {% if all %}
+        <h1>Tutte le aule</h1>
+      {% else %}
+        <h1>Aule principali</h1>
+      {% endif %}
     </div>
     {% if user.is_authenticated %}
-      {% if perms.room.add_room %}
-        <div class="col-xs-4">
-            <h1 class="btn-group" role="group">
+      <div class="col-xs-4">
+          <h1 class="btn-group" role="group">
+            {% if perms.room.add_room %}
               <a class="btn btn-success" href="{% url "rooms:newRoom" %}">Nuova aula</a>
+            {% endif %}
+            {% if perms.building.add_building %}
               <a class="btn btn-success" href="{% url "rooms:newBuilding" %}">Nuovo edificio</a>
-            </h1>
-        </div>
-      {% endif %}
+            {% endif %}
+          </h1>
+      </div>
     {% endif %}
   </div>
 </div>
@@ -30,7 +36,11 @@
 
 <div class="row">
     <div class="col-md-5">
+      {% if all %}
+        <p><a href="{% url "rooms:list" %}" class="btn btn-default">Visualizza solo le aule principali</a></p>
+      {% else %}
         <p><a href="{% url "rooms:listall" %}" class="btn btn-default">Visualizza tutte le aule</a></p>
+      {% endif %}
     </div>
     <div class="col-md-7">
         <div id="filter" class="text-right">
@@ -55,7 +65,7 @@
         <tr>
             <th>Nome</th>
             <th>Descrizione</th>
-            {% if user.is_authenticated %}
+              {% if user.is_authenticated %}
                 {% if perms.rooms.change_room %}
                   <th>Modifica</th>
                 {% endif %}
@@ -73,12 +83,12 @@
             </td>
             <td>{{ e.description }}</td>
             {% if user.is_authenticated %}
-                {% if perms.rooms.change_room %}
-                  <td>
-                    <a href="{% url "rooms:editRoom" e.pk %}" class="btn btn-info btn-xs"><span class="glyphicon glyphicon-pencil"></span></a>
-                  </td>
-                {% endif %}
+              {% if perms.rooms.change_room %}
+                <td>
+                  <a href="{% url "rooms:editRoom" e.pk %}" class="btn btn-info btn-xs"><span class="glyphicon glyphicon-pencil"></span></a>
+                </td>
               {% endif %}
+            {% endif %}
         </tr>
     {% empty %}
         <tr>
