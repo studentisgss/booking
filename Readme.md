@@ -5,7 +5,7 @@ Booking
 
 Sistema di prenotazione aule usato dagli studenti della Scuola Galileiana di Studi Superiori.
 
-Demo: <https://demo-sgss.rhcloud.com>
+Demo: <http://demosgss.pythonanywhere.com/>
 
 
 Documentazione
