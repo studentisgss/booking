@@ -27,4 +27,5 @@ urlpatterns = [
     url(r'^edit/(?P<room_id>[0-9]+)$', EditRoomView.as_view(), name="editRoom"),
     url(r'^new$', NewRoomView.as_view(), name="newRoom"),
     url(r'^editBuilding/(?P<building_id>[0-9]+)$', EditBuildingView.as_view(), name="editBuilding"),
+    url(r'^newBuilding$', NewBuildingView.as_view(), name="newBuilding"),
 ]

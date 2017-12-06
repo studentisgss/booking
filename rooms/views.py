@@ -180,7 +180,7 @@ class EditBuildingView(TemplateView):
     template_name = "rooms/editBuilding.html"
 
     permission_required = "building.change_building"
-
+    
     def get_context_data(self, **kwargs):
         context=super().get_context_data(**kwargs)
         if self.request.method == "GET":
@@ -242,3 +242,6 @@ class EditBuildingView(TemplateView):
             return HttpResponseRedirect(reverse("rooms:listall"))
         else:
             return self.get(request, *args, **kwargs)
+
+class NewBuildingView(EditBuildingView):
+    permission_required = "building.create_building"
