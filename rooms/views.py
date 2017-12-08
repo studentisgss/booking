@@ -42,6 +42,7 @@ class ListAllRoomView(TemplateView):
         context = super().get_context_data(**kwargs)
         context["all"] = True
         rooms_list = Room.objects.order_by("-important", "name")
+        building_list = Building.objects.order_by("-room__important").distinct().order_by("name")
         # Check for filter-text
         if "search" in self.request.GET:
             text = self.request.GET.get("search", "")
@@ -59,7 +60,8 @@ class ListAllRoomView(TemplateView):
         #except EmptyPage:
         #    # If page is out of range (e.g. 9999), deliver last page of results.
         #    rooms = paginator.page(paginator.num_pages)
-        context["list"] = rooms_list
+        context["rooms"] = rooms_list
+        context["buildings"] = building_list
         return context
 
 
@@ -68,7 +70,8 @@ class ListRoomView(ListAllRoomView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["all"] = False
-        rooms_list = context["list"]
+        rooms_list = context["rooms"]
+        building_list = context["buildings"]
         # Check for filter-text
         #if "search" in self.request.GET:
         #    text = self.request.GET.get("search", "")
@@ -76,7 +79,8 @@ class ListRoomView(ListAllRoomView):
         #    rooms_list = rooms_list.filter(
         #        Q(name__icontains=text) | Q(description__icontains=text)
         #    )
-        context["list"] = rooms_list.filter(important=True)
+        context["rooms"] = rooms_list.filter(important=True)
+        context["buildings"] = building_list.filter(room__important=True)
         return context
 
 class EditRoomView(TemplateView):
