@@ -42,9 +42,7 @@ class ListAllRoomView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["all"] = True
-        rooms_list = Room.objects.order_by("-important", "building", "name")
-        building_list = Building.objects.order_by("-room__important").distinct().order_by("name")
+        context["all"] = True # This flag will adapt the template
         # Create a dictionary where the keys are the buildings and the value is a list with the rooms in the building
         list = OrderedDict([])
         context["list"] = list
@@ -73,8 +71,6 @@ class ListAllRoomView(TemplateView):
                     rooms.append(room)
                 list[building] = rooms
         context["list"] = list
-        context["rooms"] = rooms_list
-        context["buildings"] = building_list
         return context
 
 
@@ -82,9 +78,7 @@ class ListRoomView(ListAllRoomView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["all"] = False
-        rooms_list = context["rooms"]
-        building_list = context["buildings"]
+        context["all"] = False # This flag will adapt the template
         list = OrderedDict([])
         # Check for filter-text
         # Search the text in the buildings and ain the rooms's name (not in the desciption or address for now)
@@ -110,8 +104,6 @@ class ListRoomView(ListAllRoomView):
                     rooms.append(room)
                     list[building] = rooms
         context["list"] = list
-        context["rooms"] = rooms_list.filter(important=True)
-        context["buildings"] = building_list.filter(room__important=True)
         return context
 
 class EditRoomView(TemplateView):
