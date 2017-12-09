@@ -64,13 +64,13 @@
 
             {% csrf_token %}
             {% if buildingForm.non_field_errors %}
-                <div>
-                    <ol class="list-group">
-                        {% for error in buildingForm.non_field_errors %}
-                            <li class="list-group-item list-group-item-danger">{{ error|escape }}</li>
-                        {% endfor %}
-                    </ol>
-                </div>
+              <div>
+                <ol class="list-group">
+                  {% for error in buildingForm.non_field_errors %}
+                    <li class="list-group-item list-group-item-danger">{{ error|escape }}</li>
+                  {% endfor %}
+                </ol>
+              </div>
             {% endif %}
             <div class="form-group {% if buildingForm.name.errors %}has-error{% endif %}">
                   {{ buildingForm.name.label_tag }}

@@ -1,3 +1,5 @@
+from collections import OrderedDict
+
 from django.views.generic import TemplateView
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
@@ -41,8 +43,14 @@ class ListAllRoomView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["all"] = True
-        rooms_list = Room.objects.order_by("-important", "name")
+        rooms_list = Room.objects.order_by("-important", "building", "name")
         building_list = Building.objects.order_by("-room__important").distinct().order_by("name")
+        list =  OrderedDict([])
+        for building in Building.objects.order_by("-room__important").distinct().order_by("name"):
+            e=[]
+            for room in building.room_set.order_by("-important", "name"):
+                e.append(room)
+            list[building] = e
         # Check for filter-text
         if "search" in self.request.GET:
             text = self.request.GET.get("search", "")
@@ -50,18 +58,9 @@ class ListAllRoomView(TemplateView):
             rooms_list = rooms_list.filter(
                 Q(name__icontains=text) | Q(description__icontains=text)
             )
-        #paginator = Paginator(rooms_list, per_page=25)
-        #page = kwargs.get("page", 1)
-        #try:
-        #    rooms = paginator.page(page)
-        #except PageNotAnInteger:
-        #    # If page is not an integer, deliver first page which is 1 not 0.
-        #    rooms = paginator.page(1)
-        #except EmptyPage:
-        #    # If page is out of range (e.g. 9999), deliver last page of results.
-        #    rooms = paginator.page(paginator.num_pages)
         context["rooms"] = rooms_list
         context["buildings"] = building_list
+        context["list"] = list
         return context
 
 
@@ -72,6 +71,12 @@ class ListRoomView(ListAllRoomView):
         context["all"] = False
         rooms_list = context["rooms"]
         building_list = context["buildings"]
+        list = {}
+        for building in Building.objects.filter(room__important=True):
+            e=[]
+            for room in building.room_set.filter(important=True).order_by("name"):
+                e.append(room)
+            list[building] = e
         # Check for filter-text
         #if "search" in self.request.GET:
         #    text = self.request.GET.get("search", "")
@@ -81,6 +86,7 @@ class ListRoomView(ListAllRoomView):
         #    )
         context["rooms"] = rooms_list.filter(important=True)
         context["buildings"] = building_list.filter(room__important=True)
+        context["list"] = list
         return context
 
 class EditRoomView(TemplateView):
