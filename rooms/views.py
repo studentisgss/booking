@@ -45,22 +45,36 @@ class ListAllRoomView(TemplateView):
         context["all"] = True
         rooms_list = Room.objects.order_by("-important", "building", "name")
         building_list = Building.objects.order_by("-room__important").distinct().order_by("name")
-        list =  OrderedDict([])
-        for building in Building.objects.order_by("-room__important").distinct().order_by("name"):
-            e=[]
-            for room in building.room_set.order_by("-important", "name"):
-                e.append(room)
-            list[building] = e
+        # Create a dictionary where the keys are the buildings and the value is a list with the rooms in the building
+        list = OrderedDict([])
+        context["list"] = list
         # Check for filter-text
+        # Search the text in the buildings and ain the rooms's name (not in the desciption or address for now)
         if "search" in self.request.GET:
             text = self.request.GET.get("search", "")
             context["filterText"] = text
-            rooms_list = rooms_list.filter(
-                Q(name__icontains=text) | Q(description__icontains=text)
-            )
+            list =  OrderedDict([])
+            for building in Building.objects.order_by("-room__important").distinct().order_by("name"):
+                rooms=[]
+                if building.name.lower().find(text.lower()) != -1: # if the text match with a building then return all the romms of the building
+                    for room in building.room_set.order_by("-important", "name"):
+                        rooms.append(room)
+                        list[building] = rooms
+                else: # return only the rooms that have the text in the name
+                    for room in building.room_set.order_by("-important", "name"):
+                        if room.name.lower().find(text.lower()) != -1:
+                            rooms.append(room)
+                    if rooms:
+                        list[building] = rooms
+        else: # return all the buildings and rooms
+            for building in Building.objects.order_by("-room__important").distinct().order_by("name"):
+                rooms=[]
+                for room in building.room_set.order_by("-important", "name"):
+                    rooms.append(room)
+                list[building] = rooms
+        context["list"] = list
         context["rooms"] = rooms_list
         context["buildings"] = building_list
-        context["list"] = list
         return context
 
 
@@ -71,22 +85,33 @@ class ListRoomView(ListAllRoomView):
         context["all"] = False
         rooms_list = context["rooms"]
         building_list = context["buildings"]
-        list = {}
-        for building in Building.objects.filter(room__important=True):
-            e=[]
-            for room in building.room_set.filter(important=True).order_by("name"):
-                e.append(room)
-            list[building] = e
+        list = OrderedDict([])
         # Check for filter-text
-        #if "search" in self.request.GET:
-        #    text = self.request.GET.get("search", "")
-        #    context["filterText"] = text
-        #    rooms_list = rooms_list.filter(
-        #        Q(name__icontains=text) | Q(description__icontains=text)
-        #    )
+        # Search the text in the buildings and ain the rooms's name (not in the desciption or address for now)
+        if "search" in self.request.GET:
+            text = self.request.GET.get("search", "")
+            context["filterText"] = text
+            for building in Building.objects.filter(room__important=True).order_by("name"):
+                rooms=[]
+                if building.name.lower().find(text.lower()) != -1: # if the text match with a building then return all the romms of the building
+                    for room in building.room_set.filter(important=True).order_by("-important", "name"):
+                        rooms.append(room)
+                        list[building] = rooms
+                else: # return only the rooms that have the text in the name
+                    for room in building.room_set.filter(important=True).order_by("-important", "name"):
+                        if room.name.lower().find(text.lower()) != -1:
+                            rooms.append(room)
+                    if rooms:
+                        list[building] = rooms
+        else: # if there is no search return all the importants rooms and buildings
+            for building in Building.objects.filter(room__important=True).order_by("name"):
+                rooms=[]
+                for room in building.room_set.filter(important=True).order_by("name"):
+                    rooms.append(room)
+                    list[building] = rooms
+        context["list"] = list
         context["rooms"] = rooms_list.filter(important=True)
         context["buildings"] = building_list.filter(room__important=True)
-        context["list"] = list
         return context
 
 class EditRoomView(TemplateView):

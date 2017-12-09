@@ -46,7 +46,11 @@
     </div>
     <div class="col-md-7">
         <div id="filter" class="text-right">
-            <form id="filter-form" method="GET" action="{% url 'rooms:list' %}" class="form-inline">
+            {% if all %}
+              <form id="filter-form" method="GET" action="{% url 'rooms:listall' %}" class="form-inline">
+            {% else %}
+              <form id="filter-form" method="GET" action="{% url 'rooms:list' %}" class="form-inline">
+            {% endif %}
                 <div class="input-group">
                     <span class="input-group-addon">Filtro: </span>
                     <input type="text" class="form-control" id="search" name="search" value="{{ filterText }}"/>
