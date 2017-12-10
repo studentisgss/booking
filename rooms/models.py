@@ -49,7 +49,7 @@ class Room(models.Model):
         )
 
     def __str__(self):
-        return "%s %s - %s" % ("*" if self.important else "", self.name, self.building.name)
+        return "%s %s-%s" % ("*" if self.important else "", self.name, self.building.name)
 
     name = models.CharField(max_length=30, unique=True, verbose_name=_("nome"))
     description = models.CharField(max_length=100, blank=True, verbose_name=_("descrizione"))
@@ -79,7 +79,7 @@ class Room(models.Model):
 
     # Return the name of the room made of the name of the room and the name of the building
     def get_full_name(self):
-        return "%s-%s" % (self.name, self.building.name)
+        return "%s - %s" % (self.name, self.building.name)
 
 
 

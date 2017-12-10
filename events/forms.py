@@ -1,9 +1,8 @@
 from base.forms import BookingModelForm
-from django.forms import inlineformset_factory, BaseInlineFormSet
+from django.forms import inlineformset_factory, BaseInlineFormSet, ModelChoiceField
 from django.forms.fields import SplitDateTimeField
 from django.forms.widgets import SplitDateTimeWidget
 from django.core.exceptions import ValidationError
-from django.forms import ModelChoiceField
 from itertools import groupby
 from operator import attrgetter
 
@@ -12,6 +11,7 @@ from rooms.models import Room
 from activities.models import Activity
 from booking import settings
 
+# This class allow to group rooms by building in the form choices
 class RoomChoiceField(ModelChoiceField):
     def __init__(self, *args, **kwargs):
         super(RoomChoiceField, self).__init__(*args, **kwargs)
