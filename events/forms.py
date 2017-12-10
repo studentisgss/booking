@@ -3,12 +3,20 @@ from django.forms import inlineformset_factory, BaseInlineFormSet
 from django.forms.fields import SplitDateTimeField
 from django.forms.widgets import SplitDateTimeWidget
 from django.core.exceptions import ValidationError
+from django.forms import ModelChoiceField
+from itertools import groupby
+from operator import attrgetter
 
 from events.models import Event
 from rooms.models import Room
 from activities.models import Activity
 from booking import settings
 
+class RoomChoiceField(ModelChoiceField):
+    def __init__(self, *args, **kwargs):
+        super(RoomChoiceField, self).__init__(*args, **kwargs)
+        groups = groupby(kwargs['queryset'], attrgetter('building'))
+        self.choices = [(building, [(room.id, self.label_from_instance(room)) for room in rooms]) for building, rooms in groups]
 
 class EventForm(BookingModelForm):
     class Meta:
@@ -20,6 +28,7 @@ class EventForm(BookingModelForm):
             "status",
         ]
         field_classes = {
+            "room": RoomChoiceField,
             "start": SplitDateTimeField,
             "end": SplitDateTimeField,
         }
