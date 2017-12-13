@@ -128,8 +128,10 @@ class ActivityEditView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView
         # and set as the choices of the RoomChoiceField
         # Only the rooms that the user can book are displayed
         groups = groupby(rooms, attrgetter('building'))
-        RoomChoiceField.choices = [(building.name, [(room.id, RoomChoiceField.label_from_instance(RoomChoiceField,room.get_full_name())) for room in rooms]) for building, rooms in groups]
-
+        room_choices = [(building.name, [(room.id, RoomChoiceField.label_from_instance(RoomChoiceField,room.get_full_name())) for room in rooms]) for building, rooms in groups]
+        # Add the empty option at the first place so it will be the default one
+        room_choices = [("","-------")] + room_choices
+        RoomChoiceField.choices = room_choices
         empty_form = events_form.empty_form
         empty_form.fields["room"].queryset = rooms
         context["form"] = form
