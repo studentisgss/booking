@@ -8,8 +8,11 @@ from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMix
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.admin.models import LogEntry, ADDITION, CHANGE, DELETION
 
+from itertools import groupby
+from operator import attrgetter
+
 from events.models import Event
-from events.forms import EventInlineFormSet
+from events.forms import EventInlineFormSet, RoomChoiceField
 from activities.models import Activity
 from activities.forms import ActivityForm
 from rooms.models import RoomPermission, Room
@@ -121,16 +124,12 @@ class ActivityEditView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView
         )
         context["rooms_waiting"] = rooms_waiting
 
-        # For each event form set the rooms to those where the user
-        # has some permission. If the user has no permission
-        # in the room of the event, add that room.
-        for f in events_form.forms:
-            if (not f.initial) or f.instance.room in rooms:
-                f.fields["room"].queryset = rooms
-            else:
-                f.fields["room"].queryset = rooms | Room.objects.filter(
-                    pk=f.instance.room.pk
-                )
+        # Create a list of couples building name and list of the rooms
+        # and set as the choices of the RoomChoiceField
+        # Only the rooms that the user can book are displayed
+        groups = groupby(rooms, attrgetter('building'))
+        RoomChoiceField.choices = [(building.name, [(room.id, RoomChoiceField.label_from_instance(RoomChoiceField,room.get_full_name())) for room in rooms]) for building, rooms in groups]
+
         empty_form = events_form.empty_form
         empty_form.fields["room"].queryset = rooms
         context["form"] = form

@@ -131,7 +131,7 @@ SHORT_DATE_FORMAT = '%d/%m/%Y'
 DATE_INPUT_FORMATS = ['%d/%m/%Y']
 TIME_ZONE = 'Europe/Rome'
 
-TIME_FORMAT = "H:i"
+TIME_FORMAT = "%H:%M"
 
 USE_I18N = True
 

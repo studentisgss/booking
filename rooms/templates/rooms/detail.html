@@ -44,8 +44,8 @@
 	{% for rule in roomRules %}
 		<tr>
 			<td>{{ rule.day }}</td>
-			<td>{{ rule.opening_time }}</td>
-			<td>{{ rule.closing_time }}</td>
+			<td>{{ rule.opening_time | date:'H:i' }}</td>
+			<td>{{ rule.closing_time | date:'H:i' }}</td>
 		</tr>
 	{% endfor %}
 	</table>

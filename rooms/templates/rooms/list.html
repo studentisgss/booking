@@ -78,14 +78,14 @@
     </div>
     {% if user.is_authenticated %}
       {% if perms.buildings.change_buildings %}
-        <div class="col-xs-2">
-          <h3><a href="{% url "rooms:editBuilding" building.pk %}" class="btn btn-info btn-xs"><span class="glyphicon glyphicon-pencil">Modifica edificio</span></a></h3>
+        <div class="col-xs-2 text-right">
+          <h3><a href="{% url "rooms:editBuilding" building.pk %}" class="btn btn-info btn-xs"><span class="glyphicon glyphicon-pencil"> Modifica</span></a></h3>
         </div>
       {% endif %}
     {% endif %}
 
   </div>
-<div class="to_be_collapsed" id="collapse{{ building.id }}">
+<div {% if all %} class="to_be_collapsed" {% endif %} id="collapse{{ building.id }}">
   <table class="table table-striped table-hover" id="table_events">
       <thead>
           <tr>
@@ -93,7 +93,7 @@
               <th class="col-xs-6">Descrizione</th>
                 {% if user.is_authenticated %}
                   {% if perms.rooms.change_room %}
-                    <th>Modifica</th>
+                    <th class="text-center">Modifica</th>
                   {% endif %}
                 {% endif %}
           </tr>
@@ -110,7 +110,7 @@
               <td>{{ room.description }}</td>
               {% if user.is_authenticated %}
                 {% if perms.rooms.change_room %}
-                  <td>
+                  <td class="text-center">
                     <a href="{% url "rooms:editRoom" room.pk %}" class="btn btn-info btn-xs"><span class="glyphicon glyphicon-pencil"></span></a>
                   </td>
                 {% endif %}
