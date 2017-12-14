@@ -70,6 +70,7 @@ Inserire qui il testo
     description = models.TextField(blank=True, verbose_name=_("descrizione"),
                                    default=DESCRIPTION_TEMPLATE)
     archived = models.BooleanField(default=False, verbose_name=_("archiviata"))
+    managers = models.ManyToManyField(User)
     creator = models.ForeignKey(
         User,
         related_name="activity_created",
