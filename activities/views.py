@@ -3,6 +3,7 @@ from django.views import View
 from django.http import Http404, HttpResponseRedirect, JsonResponse
 from django.core.urlresolvers import reverse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.core.exceptions import PermissionDenied
 from django.db.models import Q, Max, Min
 from django.db import transaction
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
@@ -89,10 +90,11 @@ class ListActivityView(TemplateView):
         return context
 
 
-class ActivityEditView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
+class ActivityManagerEditView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
     template_name = "activities/edit.html"
 
-    permission_required = ("activities.change_activity", "rooms.can_book_room")
+    permission_required = ("events.change_event", "rooms.can_book_room")
+    check_for_manager = True
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -116,6 +118,14 @@ class ActivityEditView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView
             events_form = EventInlineFormSet(self.request.POST, instance=activity)
         else:
             raise Http404
+
+        # Check if the user is a manager if required
+        if self.check_for_manager:
+            if not self.request.user.managed_activities.filter(pk=kwargs["pk"]).exists():
+                raise PermissionDenied
+            # Make activity form readonly
+            for key in form.fields.keys():
+                form.fields[key].widget.attrs['disabled'] = True
 
         # Get rooms where the user has some permission
         rooms = Room.objects.all().filter(
@@ -155,16 +165,16 @@ class ActivityEditView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView
             events_form = EventInlineFormSet(request.POST, instance=activity)
         else:
             raise Http404
-        if form.is_valid() and events_form.is_valid():
-            # Save the activity and log the change.
-            activity = form.save()
-            LogEntry.objects.log_action(
-                user_id=self.request.user.id,
-                content_type_id=ContentType.objects.get_for_model(activity).pk,
-                object_id=activity.id,
-                object_repr=str(activity),
-                action_flag=CHANGE
-            )
+
+        # Check if the user is a manager if required
+        if self.check_for_manager:
+            if not self.request.user.managed_activities.filter(pk=kwargs["pk"]).exists():
+                raise PermissionDenied
+
+        # If check_for_manager then it is not needed to check the validity of form
+        # because the user has no permission to modifies it.
+        if (self.check_for_manager or form.is_valid()) and events_form.is_valid():
+            # Do not save the activity: managers are not allowed
             # Save the events
             instances = events_form.save(commit=False)
             with transaction.atomic():
@@ -213,6 +223,36 @@ class ActivityEditView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView
             return HttpResponseRedirect(reverse("activities:list"))
         else:
             return self.get(request, *args, **kwargs)
+
+
+class ActivityEditView(ActivityManagerEditView):
+    template_name = "activities/edit.html"
+
+    permission_required = ("activities.change_activity", "rooms.can_book_room")
+    check_for_manager = False
+
+    def post(self, request, *args, **kwargs):
+        # Call the super function, all check on kwargs are done so
+        # we do not need to repeat them
+        value = super().post(request, *args, **kwargs)
+        activity = Activity.objects.all().get(pk=kwargs["pk"])
+        form = ActivityForm(request.POST, instance=activity)
+        events_form = EventInlineFormSet(request.POST, instance=activity)
+
+        # This is true only if it was in the parent view
+        if form.is_valid() and events_form.is_valid():
+            # Save the activity and log the change.
+            activity = form.save()
+            LogEntry.objects.log_action(
+                user_id=self.request.user.id,
+                content_type_id=ContentType.objects.get_for_model(activity).pk,
+                object_id=activity.id,
+                object_repr=str(activity),
+                action_flag=CHANGE
+            )
+
+        # The value to be returned is the same of the parent so return it
+        return value
 
 
 class ActivityAddView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
