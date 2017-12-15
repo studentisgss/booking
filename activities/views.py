@@ -8,14 +8,11 @@ from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMix
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.admin.models import LogEntry, ADDITION, CHANGE, DELETION
 
-from itertools import groupby
-from operator import attrgetter
-
 from events.models import Event
 from events.forms import EventInlineFormSet, RoomChoiceField
 from activities.models import Activity
 from activities.forms import ActivityForm
-from rooms.models import RoomPermission, Room
+from rooms.models import RoomPermission, Room, Building
 
 
 class DetailActivityView(TemplateView):
@@ -124,16 +121,35 @@ class ActivityEditView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView
         )
         context["rooms_waiting"] = rooms_waiting
 
-        # Create a list of couples building name and list of the rooms
-        # and set as the choices of the RoomChoiceField
-        # Only the rooms that the user can book are displayed
-        groups = groupby(rooms, attrgetter('building'))
-        room_choices = [(building.name, [(room.id, RoomChoiceField.label_from_instance(RoomChoiceField,room.get_full_name())) for room in rooms]) for building, rooms in groups]
-        # Add the empty option at the first place so it will be the default one
-        room_choices = [("","-------")] + room_choices
-        RoomChoiceField.choices = room_choices
+        # Fill the choices for the rooms in the form, grouping the options by building
+
+        for f in events_form.forms:
+            room_choices = []
+            for building in Building.objects.all():
+                choices = []
+                for room in Room.objects.filter(building=building):
+                     # Add the room if the user has the permission to book or require it or
+                     # if it is already be chosen
+                    if (room in rooms) or (f.initial and (room.id == f.instance.room.pk)):
+                        choices.append([room.id, room.get_full_name()])
+                if choices:
+                    room_choices.append((building.name,choices))
+            room_choices = [("","-------")] + room_choices # Append the empty option at the first place so it will be the default one
+            f.fields["room"].choices = room_choices
+
+        # Fill the choices of the of the empty forms only with the rooms that the user can book or require
+        room_choices = []
+        for building in Building.objects.all():
+            choices = []
+            for room in Room.objects.filter(building=building):
+                if room in rooms:
+                    choices.append([room.id, room.get_full_name()])
+            if choices:
+                room_choices.append((building.name,choices))
+        room_choices = [("","-------")] + room_choices # Append the empty option at the first place so it will be the default one
         empty_form = events_form.empty_form
-        empty_form.fields["room"].queryset = rooms
+        empty_form.fields["room"].choices = room_choices
+
         context["form"] = form
         context["eventForm"] = events_form
         context["emptyForm"] = empty_form
