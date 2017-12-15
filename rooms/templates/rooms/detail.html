@@ -44,8 +44,12 @@
 	{% for rule in roomRules %}
 		<tr>
 			<td>{{ rule.day }}</td>
-			<td>{{ rule.opening_time | date:'H:i' }}</td>
-			<td>{{ rule.closing_time | date:'H:i' }}</td>
+			{% if rule.isClosedAllDay %}
+				<td colspan="2">L'aula è chiusa in questo giorno.</td>
+			{% else %}
+				<td>{{ rule.opening_time | date:'H:i' }}</td>
+				<td>{{ rule.closing_time | date:'H:i' }}</td>
+			{% endif %}
 		</tr>
 	{% endfor %}
 	</table>

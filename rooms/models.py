@@ -115,6 +115,7 @@ class RoomPermission(models.Model):
         verbose_name=_("permesso"))
 
 
+
 class RoomRule(models.Model):
     """
     An object with the opening times.
@@ -177,3 +178,7 @@ class RoomRule(models.Model):
             raise ValidationError(
                 _("Non possono esserci due orari per la stessa aula lo stesso giorno")
             )
+
+        # return true if the room is closed for all the day
+        def isClosedAllDay(self):
+            return opening_time == closing_time
