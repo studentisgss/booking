@@ -35,6 +35,8 @@ class DetailActivityView(TemplateView):
         except:
             raise Http404
         context["activity"] = activity
+        context["is_manager"] = self.request.user.is_authenticated and \
+            self.request.user.managed_activities.filter(pk=activity_id).exists()
         context["events_list"] = Event.objects.filter(activity_id=activity_id).order_by("start")
         return context
 
@@ -66,6 +68,13 @@ class ListAllActivityView(TemplateView):
             # If page is out of range (e.g. 9999), deliver last page of results.
             activities = paginator.page(paginator.num_pages)
         context["list"] = activities
+        # If the user is authenticated return the activity for which he is a manager
+        if self.request.user.is_authenticated:
+            context["managed_activities"] = self.request.user.managed_activities.all()
+            # If some of the activities are managed by the user
+            # I have to use set due to some problem with pagination
+            context["manages_something"] = bool(set(context["managed_activities"]) &
+                                                set(activities.object_list))
         return context
 
 
@@ -87,6 +96,12 @@ class ListActivityView(TemplateView):
                 Q(title__icontains=text) | Q(description__icontains=text)
             )
         context["list"] = activities_list
+        # If the user is authenticated return the activity for which he is a manager
+        if self.request.user.is_authenticated:
+            context["managed_activities"] = self.request.user.managed_activities.all()
+            # If some of the activities are managed by the user
+            context["manages_something"] = (context["managed_activities"] &
+                                            activities_list).exists()
         return context
 
 

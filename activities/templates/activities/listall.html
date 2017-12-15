@@ -53,8 +53,8 @@
             <th>Professore</th>
             <th>Periodo</th>
             {% if user.is_authenticated %}
-                {% if perms.activities.change_activity %}
-                    <th>Modifica</th>
+                {% if perms.activities.change_activity or perms.events.change_event and manages_something %}
+                    <th class="text-center">Modifica</th>
                 {% endif %}
             {% endif %}
         </tr>
@@ -77,9 +77,19 @@
             <td>{{ e.min_start | date:'F Y' }} - {{ e.max_end | date:'F Y' }}</td>
             {% if user.is_authenticated %}
                 {% if perms.activities.change_activity %}
-                    <td>
+                    <td class="text-center">
                         <a href="{% url "activities:edit" e.pk %}" class="btn btn-info btn-xs"><span class="glyphicon glyphicon-pencil"></span></a>
                     </td>
+                {% else %}
+                    {% if perms.events.change_event and manages_something %}
+                        {% if e in managed_activities %}
+                            <td class="text-center">
+                                <a href="{% url "activities:editmanager" e.pk %}" class="btn btn-info btn-xs"><span class="glyphicon glyphicon-pencil"></span></a>
+                            </td>
+                        {% else %}
+                            <td></td>
+                        {% endif %}
+                    {% endif %}
                 {% endif %}
             {% endif %}
         </tr>
