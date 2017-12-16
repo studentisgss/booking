@@ -1,7 +1,7 @@
 var dataTable;
 
 $(document).ready(function() {
-    $("a.btn").on("click", function(e) {
+    $("a.btn:not(.filter)").on("click", function(e) {
         e.preventDefault();
 
         var self = this;
@@ -25,6 +25,7 @@ $(document).ready(function() {
     dataTable = $("#table_approvation").DataTable({
         paging: false,
         info: false,
+        "order": [],
         "columnDefs": [
             { "orderable": false, "targets": 4 },
             { "orderable": false, "targets": 5 },
