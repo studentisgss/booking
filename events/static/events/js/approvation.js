@@ -2,19 +2,24 @@ var dataTable;
 
 $(document).ready(function() {
     $("a.btn:not(.filter)").on("click", function(e) {
+        // Avoid the dafault behavior
         e.preventDefault();
 
+        // Do the get request asynchronously
         var self = this;
         $.get($(this).attr("href"))
             .done(function() {
+                // If all is ok remove the tr
                 $(self).parent().parent().fadeOut(400, function(){
                     $(this).remove();
+                    // If the table is empty
                     if ($("table").children("tbody").children("tr").length == 0) {
                         $("table").children("tbody").append("<tr><td colspan=\"6\">Nessuna prenotazione in attesa di conferma.</td></tr>");
                     }
                 });
             })
             .fail(function() {
+                // If it fails try to go to the page
                 window.location.href = $(self).attr("href");
             });
 
@@ -25,6 +30,7 @@ $(document).ready(function() {
     dataTable = $("#table_approvation").DataTable({
         paging: false,
         info: false,
+        // Dafault: do not change the order
         "order": [],
         "columnDefs": [
             { "orderable": false, "targets": 4 },

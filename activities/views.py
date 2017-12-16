@@ -35,6 +35,7 @@ class DetailActivityView(TemplateView):
         except:
             raise Http404
         context["activity"] = activity
+        # User is manager if this activity is in his managed_activities
         context["is_manager"] = self.request.user.is_authenticated and \
             self.request.user.managed_activities.filter(pk=activity_id).exists()
         context["events_list"] = Event.objects.filter(activity_id=activity_id).order_by("start")
@@ -71,7 +72,7 @@ class ListAllActivityView(TemplateView):
         # If the user is authenticated return the activity for which he is a manager
         if self.request.user.is_authenticated:
             context["managed_activities"] = self.request.user.managed_activities.all()
-            # If some of the activities are managed by the user
+            # If some of the activities are managed by the user set manages_something to True
             # I have to use set due to some problem with pagination
             context["manages_something"] = bool(set(context["managed_activities"]) &
                                                 set(activities.object_list))
@@ -99,7 +100,7 @@ class ListActivityView(TemplateView):
         # If the user is authenticated return the activity for which he is a manager
         if self.request.user.is_authenticated:
             context["managed_activities"] = self.request.user.managed_activities.all()
-            # If some of the activities are managed by the user
+            # If some of the activities are managed by the user set manages_something to True
             context["manages_something"] = (context["managed_activities"] &
                                             activities_list).exists()
         return context
@@ -138,7 +139,7 @@ class ActivityManagerEditView(LoginRequiredMixin, PermissionRequiredMixin, Templ
         if self.check_for_manager:
             if not self.request.user.managed_activities.filter(pk=kwargs["pk"]).exists():
                 raise PermissionDenied
-            # Make activity form readonly
+            # Make activity form readonly if the user is only a manager
             for key in form.fields.keys():
                 form.fields[key].widget.attrs['disabled'] = True
 
@@ -186,7 +187,7 @@ class ActivityManagerEditView(LoginRequiredMixin, PermissionRequiredMixin, Templ
             if not self.request.user.managed_activities.filter(pk=kwargs["pk"]).exists():
                 raise PermissionDenied
 
-        # If check_for_manager then it is not needed to check the validity of form
+        # If check_for_manager then it is not needed to check the validity of form (activity)
         # because the user has no permission to modifies it.
         if (self.check_for_manager or form.is_valid()) and events_form.is_valid():
             # Do not save the activity: managers are not allowed
@@ -254,9 +255,9 @@ class ActivityEditView(ActivityManagerEditView):
         form = ActivityForm(request.POST, instance=activity)
         events_form = EventInlineFormSet(request.POST, instance=activity)
 
-        # This is true only if it was in the parent view
         if form.is_valid() and events_form.is_valid():
             # Save the activity and log the change.
+            # The events are saved in the parent class
             activity = form.save()
             LogEntry.objects.log_action(
                 user_id=self.request.user.id,
@@ -266,7 +267,7 @@ class ActivityEditView(ActivityManagerEditView):
                 action_flag=CHANGE
             )
 
-        # The value to be returned is the same of the parent so return it
+        # The value to be returned is the same of the parent
         return value
 
 
