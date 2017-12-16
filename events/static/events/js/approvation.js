@@ -1,3 +1,5 @@
+var dataTable;
+
 $(document).ready(function() {
     $("a.btn").on("click", function(e) {
         e.preventDefault();
@@ -17,5 +19,28 @@ $(document).ready(function() {
             });
 
         return false;
+    });
+
+    // Filter and sort the table
+    dataTable = $("#table_approvation").DataTable({
+        paging: false,
+        info: false,
+        "columnDefs": [
+            { "orderable": false, "targets": 4 },
+            { "orderable": false, "targets": 5 },
+            { "searchable": false, "targets": 3 },
+            { "searchable": false, "targets": 4 },
+            { "searchable": false, "targets": 5 },
+        ]
+    });
+
+    // Show the search input
+    $("#filter-form").removeClass("hidden");
+    // Remove the DataTable search box
+    $("#table_approvation_filter").parent().parent().remove();
+    // Add the event handler
+    // After the user type something it immediatly filter the table
+    $("#search").on("keyup", function(){
+        dataTable.search(this.value).draw();
     });
 });
