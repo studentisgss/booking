@@ -123,7 +123,7 @@ class RoomRule(models.Model):
             raise ValidationError(_("Orari di apertura e chiusura sono obbligatori"))
 
         # 1. Check that the opening time is before the closing time
-        if self.opening_time >= self.closing_time:
+        if self.opening_time > self.closing_time:
             raise ValidationError(_("L'ora di apertura deve precedere quella di chiusura"))
 
         # 2. Check that there are not two timetables for the same room the same day
