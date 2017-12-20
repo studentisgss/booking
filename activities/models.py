@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 
+from base.models import CLASS_CHOICES
+
 
 class Activity(models.Model):
     """
@@ -30,16 +32,6 @@ class Activity(models.Model):
         if self.professor != "":
             t += " (%s)" % (self.professor)
         return t
-
-    CLASSES_WITH_TRANSLATION = [
-        ("SN", "Scienze Naturali", "Natural Sciences"),
-        ("SM", "Scienze Morali", "Moral Sciences"),
-        ("SS", "Scienze Sociali", "Social Sciences"),
-        ("A", "Altro", "Other")
-    ]
-
-    CLASS_CHOICES = [(choice[0], choice[1])
-                     for choice in CLASSES_WITH_TRANSLATION]
 
     DESCRIPTION_TEMPLATE = """affiliazione - [email@example.com](mailto:email@example.com)
 

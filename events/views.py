@@ -12,6 +12,7 @@ from itertools import groupby
 from events.models import Event
 from activities.models import Activity
 from base.utils import localnow, default_datetime
+from base.models import CLASS_CHOICES
 from news.models import News
 from rooms.models import Room
 
@@ -165,7 +166,7 @@ class EventsApprovationView(LoginRequiredMixin, PermissionRequiredMixin, Templat
         # If filter is set filter on the category
         if "filter" in self.request.GET:
             cat = self.request.GET.get("filter", None)
-            if cat not in [x[0] for x in Activity.CLASS_CHOICES]:
+            if cat not in [x[0] for x in CLASS_CHOICES]:
                 raise Http404
             context["events_list"] = context["events_list"].filter(activity__category=cat)
             context["filter_string"] = cat
