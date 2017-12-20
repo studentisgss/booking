@@ -99,7 +99,7 @@ class EditRoomView(TemplateView):
         context=super().get_context_data(**kwargs)
         # This key is needed for using google maps api
         context["API_KEY"] = GOOGLE_MAPS_API_KEY
-
+        # This flag will allow to edit roomrules only who has the permission
         CAN_CHANGE_RULES = self.request.user.has_perm("roomRule.change_roomRule")
         context["changeRoomRules"] = CAN_CHANGE_RULES
 
@@ -133,8 +133,9 @@ class EditRoomView(TemplateView):
             context["edit"] = kwargs["edit"]
         else:
             raise Http404
-        # If there is the building info in the session it menans we are back from creating a building
+        # If there is the building info in the session it means we are back from creating a building
         if ("roomForm_data" in self.request.session) and self.request.session["roomForm_data"]["building"]:
+            # Update the initial values of the form
             roomForm.initial = self.request.session.pop("roomForm_data")
         context["roomForm"] = roomForm
         if CAN_CHANGE_RULES:
@@ -168,7 +169,7 @@ class EditRoomView(TemplateView):
             if ("name" in roomForm.cleaned_data) and ("description" in roomForm.cleaned_data):
                 form_content = roomForm.data
                 request.session["roomForm_data"] = form_content
-                if kwargs["edit"]:
+                if kwargs["edit"]: # Save the pk of the room we are editing
                     request.session["room_pk"] = room.pk
                 return HttpResponseRedirect(reverse("rooms:newBuilding"))
 
@@ -209,6 +210,7 @@ class EditBuildingView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context=super().get_context_data(**kwargs)
+        # Put in the context if we have a pending editing/creation a room
         context["editRoom"] = "roomForm_data" in self.request.session
         if self.request.method == "GET":
             if "building_id" in kwargs and kwargs["building_id"]:
@@ -269,15 +271,16 @@ class EditBuildingView(TemplateView):
                     object_repr=str(building),
                     action_flag=ADDITION
                 )
-                # if in there session there the data of half form of a room then update them adding this building as building
+            # Check if we have a pending editing/creation of a room
             if "roomForm_data" in request.session:
+                # Add the building to the room form data (that will be set as default)
                 roomFormData = request.session["roomForm_data"].copy()
                 roomFormData["building"] = building.pk
                 request.session["roomForm_data"] = roomFormData
-                if "room_pk" in request.session: # if the room pk has been saved then return to modify the room
+                if "room_pk" in request.session: # If the room pk has been saved then return to modify the room...
                     room_pk = request.session.pop("room_pk")
                     return HttpResponseRedirect(reverse("rooms:editRoom", kwargs={'room_id': room_pk}))
-                else: # go back to create a new room
+                else: # ...go back to create a new room
                     return HttpResponseRedirect(reverse("rooms:newRoom"))
             return HttpResponseRedirect(reverse("rooms:listall"))
         else:
