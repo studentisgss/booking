@@ -27,4 +27,7 @@ urlpatterns = [
 
     url(r'^new$', ActivityAddView.as_view(), name="new"),
     url(r'^edit/(?P<pk>\d+)$', ActivityEditView.as_view(), name="edit"),
+
+    url(r'^bookeddates$', BookedDatesAPI.as_view(), name="bookeddates"),
+    url(r'^bookedhours$', BookedHoursAPI.as_view(), name="bookedhours"),
 ]

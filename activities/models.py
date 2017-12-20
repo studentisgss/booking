@@ -31,18 +31,44 @@ class Activity(models.Model):
             t += " (%s)" % (self.professor)
         return t
 
-    CLASS_CHOICES = [
-        ("SN", "Scienze Naturali"),
-        ("SM", "Scienze Morali"),
-        ("SS", "Scienze Sociali"),
-        ("A", "Altro")
+    CLASSES_WITH_TRANSLATION = [
+        ("SN", "Scienze Naturali", "Natural Sciences"),
+        ("SM", "Scienze Morali", "Moral Sciences"),
+        ("SS", "Scienze Sociali", "Social Sciences"),
+        ("A", "Altro", "Other")
     ]
+
+    CLASS_CHOICES = [(choice[0], choice[1])
+                     for choice in CLASSES_WITH_TRANSLATION]
+
+    DESCRIPTION_TEMPLATE = """affiliazione - [email@example.com](mailto:email@example.com)
+
+## Motivations
+Inserire qui il testo
+
+## Targeted audience
+Inserire qui il testo
+
+## Prerequisites
+Inserire qui il testo
+
+## Syllabus
+Inserire qui il testo
+
+## Teacher's CV
+Inserire qui il testo
+
+## Textbook/bibliography
+Inserire qui il testo
+    """
 
     category = models.CharField(max_length=3, choices=CLASS_CHOICES,
                                 verbose_name=_("classe"), default="A")
     title = models.CharField(max_length=80, verbose_name=_("titolo"))
-    professor = models.CharField(max_length=50, blank=True, verbose_name=_("professore"))
-    description = models.TextField(blank=True, verbose_name=_("descrizione"))
+    professor = models.CharField(max_length=150, blank=True,
+                                 verbose_name=_("professore"))
+    description = models.TextField(blank=True, verbose_name=_("descrizione"),
+                                   default=DESCRIPTION_TEMPLATE)
     archived = models.BooleanField(default=False, verbose_name=_("archiviata"))
     creator = models.ForeignKey(
         User,

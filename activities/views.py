@@ -1,5 +1,6 @@
 from django.views.generic import TemplateView
-from django.http import Http404, HttpResponseRedirect
+from django.views import View
+from django.http import Http404, HttpResponseRedirect, JsonResponse
 from django.core.urlresolvers import reverse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q, Max, Min
@@ -7,13 +8,18 @@ from django.db import transaction
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.admin.models import LogEntry, ADDITION, CHANGE, DELETION
+from django.utils.dateparse import parse_time
 
 from events.models import Event
 from events.forms import EventInlineFormSet, RoomChoiceField
 from activities.models import Activity
 from activities.forms import ActivityForm
-from rooms.models import RoomPermission, Room, Building
+from rooms.models import RoomPermission, Room, Building, RoomRule
+from base.utils import localnow, parse_date
+from booking.settings import DATE_INPUT_FORMATS, DATE_FORMAT, TIME_FORMAT
 
+from datetime import datetime, timedelta
+from calendar import Calendar
 
 class DetailActivityView(TemplateView):
     template_name = "activities/detail.html"
@@ -262,3 +268,117 @@ class ActivityAddView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView)
             return HttpResponseRedirect(reverse("activities:edit", kwargs={"pk": activity.pk}))
         else:
             return self.get(request, *args, **kwargs)
+
+
+class BookedDatesAPI(View):
+    """
+    This API if queried return for a given room, start and end time
+    the days in which it is already booked in that time
+    room_id: id of the room_id
+    start: start time
+    end: end time
+    fromDate: date from which search, default id today - 1 month
+    toDate: date to which search, default id today + 1 month
+    """
+
+    def get(self, request):
+        try:
+            room_id = request.GET.get("room", None)
+            start = parse_time(request.GET.get("start", ""))
+            end = parse_time(request.GET.get("end", ""))
+            if room_id is None or start is None or end is None:
+                raise Http404
+            fromDate = parse_date(request.GET.get("from", ""))
+            toDate = parse_date(request.GET.get("to", ""))
+        except:
+            raise Http404
+
+        if fromDate is None:
+            fromDate = localnow() - timedelta(days=30)
+        if toDate is None:
+            toDate = localnow() + timedelta(days=30)
+
+        # Get all day in which the romm is already booked
+        dates = Event.objects.all().filter(
+            room_id=room_id, start__time__lt=end,
+            end__time__gt=start,
+            start__date__gte=fromDate, start__date__lte=toDate
+        ).exclude(status=2).dates("start", "day")
+
+        # Get day of the week in which the room is closed in that time
+        days = RoomRule.objects.all().filter(Q(room_id=room_id),
+                                             Q(opening_time__gt=start) | Q(closing_time__lt=end)
+                                             ).only("day")
+
+        if len(days) > 0:
+            days = list(map(lambda d: d.day, days))
+            closed_dates = []
+            cal = Calendar()
+            # First day of the month of fromDate
+            start_date = fromDate.replace(day=1)
+
+            # Until start_date is in the next month than toDate
+            while start_date <= toDate:
+                # For every day in which the room is closed at that time
+                for d in days:
+                    # Add the day to the closed ones
+                    closed_dates += [w[d] for w
+                                     in cal.monthdatescalendar(start_date.year, start_date.month)]
+                # Go to the next month
+                try:
+                    start_date = start_date.replace(month=start_date.month + 1)
+                except ValueError:
+                    start_date = start_date.replace(year=start_date.year + 1, month=1)
+            # Remove duplicate and sort
+            closed_dates = list(set(closed_dates))
+            closed_dates.sort()
+
+            # Remove days before fromDate
+            while closed_dates[0] < fromDate.date():
+                del closed_dates[0]
+
+            # Remove days after toDate
+            while closed_dates[-1] > toDate.date():
+                del closed_dates[-1]
+
+            # Union of the dates
+            dates = list(set(dates) | set(closed_dates))
+
+        dates = [d.strftime(DATE_FORMAT) for d in dates]
+        return JsonResponse(list(dates), safe=False)
+
+
+class BookedHoursAPI(View):
+    """
+    This API if queried return for a given room and day
+    the hours in which it is already booked
+    room_id: id of the room_id
+    day: the day to check, default today
+    """
+
+    def get(self, request):
+        try:
+            room_id = request.GET.get("room", None)
+            day = parse_date(request.GET.get("day", ""))
+        except:
+            raise Http404
+
+        if day is None:
+            day = localnow().date()
+
+        # Hours when the room is already booked
+        hours = Event.objects.all().filter(
+            room_id=room_id, start__date=day
+        ).exclude(status=2).only("start", "end")
+
+        # Timetable of the room if exists
+        rule = RoomRule.objects.all().filter(room_id=room_id, day=day.weekday()).first()
+        opening = ""
+        if rule is not None:
+            opening = "{} - {}".format(rule.opening_time.strftime(TIME_FORMAT),
+                                       rule.closing_time.strftime(TIME_FORMAT))
+
+        hours = ["{} - {}".format(a.start.strftime(TIME_FORMAT), a.end.strftime(TIME_FORMAT))
+                 for a in hours]
+
+        return JsonResponse({"booked": hours, "opening": opening}, safe=False)

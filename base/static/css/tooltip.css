@@ -1,0 +1,66 @@
+/* Tooltip container */
+.cust-tooltip {
+    position: relative;
+    /* width: 100%; */
+    /* display: inline-block; */
+    /* border-bottom: 1px dotted black; */ /* If you want dots under the hoverable text */
+}
+
+/* Tooltip text */
+.cust-tooltip .cust-tooltiptext {
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.8s;
+    transition-delay: 0.6s;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+
+    /* Position the tooltip text - see examples below! */
+    position: absolute;
+    z-index: 1;
+    top: -5px;
+    left: 115%;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.cust-tooltip:hover .cust-tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
+
+.cust-tooltip .cust-tooltiptext::after {
+    content: " ";
+    position: absolute;
+    top: 50%;
+    right: 100%; /* To the left of the tooltip */
+    margin-top: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent black transparent transparent;
+}
+
+/* OVERRIDE jquery ui-state-disabled */
+
+.ui-state-disabled,
+.ui-widget-content .ui-state-disabled,
+.ui-widget-header .ui-state-disabled {
+    opacity: 1 !important;
+	filter:Alpha(Opacity=35); /* support: IE8 */
+	background-image: none;
+    pointer-events: auto !important;
+}
+.ui-state-disabled .ui-icon {
+	filter:Alpha(Opacity=35); /* support: IE8 - See #6059 */
+    pointer-events: auto !important;
+}
+
+.ui-widget-content .ui-state-disabled .ui-state-default {
+    background-color: rgba(230, 230, 230, 0.35);
+    background-image: none;
+    color: rgba(0, 0, 0, 0.35);
+    pointer-events: auto !important;
+}

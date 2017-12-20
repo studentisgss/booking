@@ -3,20 +3,24 @@
 {% load staticfiles %}
 
 {% block head-extra %}
-<script type="text/javascript" src="{% static 'js/jquery-ui.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/jquery-ui.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/datepicker-it.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/jquery-ui.multidatespicker.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/forms.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/simplemde.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'activities/js/edit.js' %}"></script>
+<script type="text/javascript" src="{% static 'activities/js/edit-calendar.js' %}"></script>
 <script type="text/javascript" src="{% static 'activities/js/markdownEditor.js' %}"></script>
 
 
-<link href="{% static 'css/jquery-ui.css' %}" rel="stylesheet" />
+<link href="{% static 'css/jquery-ui.min.css' %}" rel="stylesheet" />
 <link href="{% static 'css/simplemde.min.css' %}" rel="stylesheet" />
-<link href="{% static 'css/jquery-ui.structure.css' %}" rel="stylesheet" />
-<link href="{% static 'css/jquery-ui.theme.css' %}" rel="stylesheet" />
+<link href="{% static 'css/jquery-ui.structure.min.css' %}" rel="stylesheet" />
+<link href="{% static 'css/jquery-ui.theme.min.css' %}" rel="stylesheet" />
+<link href="{% static 'css/jquery-ui.multidatespicker.css' %}" rel="stylesheet" />
 <link href="{% static 'activities/css/edit.css' %}" rel="stylesheet" />
 <link href="{% static 'activities/css/markdown.css' %}" rel="stylesheet" />
+<link href="{% static 'css/tooltip.css' %}" rel="stylesheet" />
 
 <script type="text/javascript">
 var waitingRooms = []
@@ -136,6 +140,45 @@ allRooms.push("{{r.pk}}");
         <p>Per rendere effettive le modifiche, rimozioni incluse, si deve premere su 'Salva' in fondo alla pagina.<br>
         Le prenotazioni per le aule dove non si ha il permesso di approvazione verranno messe in attesa di conferma (le righe corrispondenti saranno evidenziate in giallo).</p>
         {% if eventForm.errors %}<p class="text-danger">Correggere gli errori indicati prima di salvare le modifiche.</p>{% endif %}
+        <!-- CALENDAR BOOKING -->
+        <div class="container-fluid hidden" id="calendar-booking">
+            <div class="row">
+            	<div class="col-sm-6 col-md-5 col-lg-4">
+            		<div id="calendar" class="space-bottom"></div>
+            	</div>
+            	<div class="col-sm-6 col-md-7 col-lg-8">
+                    <div class="form-group">
+                        <label for="{{ emptyForm.room.id_for_label }}" class="col-sm-2 col-md-1 control-label">Aula:</label>
+                        <div class="col-sm-10 col-md-11">
+                            {{ emptyForm.room }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="{{ emptyForm.start.id_for_label }}" class="col-sm-2 col-md-1 control-label">Inizio:</label>
+                        <div class="col-sm-10 col-md-11">
+                            {{ emptyForm.start }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="{{ emptyForm.end.id_for_label }}" class="col-sm-2 col-md-1 control-label">Fine:</label>
+                        <div class="col-sm-10 col-md-11">
+                            {{ emptyForm.end }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="{{ emptyForm.status.id_for_label }}" class="col-sm-2 col-md-1 control-label">Stato:</label>
+                        <div class="col-sm-10 col-md-11">
+                            {{ emptyForm.status }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-10 col-md-11">
+                            <button type="button" class="btn btn-success" id="add-from-calendar"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Aggiungi</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         {{ eventForm.management_form }}
         {% if eventForm.non_form_errors %}
             <div>
