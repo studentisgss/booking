@@ -134,7 +134,7 @@ class EditRoomView(TemplateView):
         else:
             raise Http404
         # If there is the building info in the session it menans we are back from creating a building
-        if ("roomForm_data" in self.request.session) and ("building" in self.request.session["roomForm_data"]):
+        if ("roomForm_data" in self.request.session) and self.request.session["roomForm_data"]["building"]:
             roomForm.initial = self.request.session.pop("roomForm_data")
         context["roomForm"] = roomForm
         if CAN_CHANGE_RULES:
@@ -213,7 +213,7 @@ class EditBuildingView(TemplateView):
         if self.request.method == "GET":
             if "building_id" in kwargs and kwargs["building_id"]:
                 try:
-                    building = Building.objects.all().get(pk=kwargs["building_id"])
+                    building = Building.objects.get(pk=kwargs["building_id"])
                 except:
                     raise Http404
                 buildingForm = BuildingForm(instance=building)
@@ -271,12 +271,14 @@ class EditBuildingView(TemplateView):
                 )
                 # if in there session there the data of half form of a room then update them adding this building as building
             if "roomForm_data" in request.session:
-                request.session["roomForm_data"]["building"] = building.pk
-                if "room_pk" in request.session:
+                roomFormData = request.session["roomForm_data"].copy()
+                roomFormData["building"] = building.pk
+                request.session["roomForm_data"] = roomFormData
+                if "room_pk" in request.session: # if the room pk has been saved then return to modify the room
                     room_pk = request.session.pop("room_pk")
                     return HttpResponseRedirect(reverse("rooms:editRoom", kwargs={'room_id': room_pk}))
-                else:
-                    HttpResponseRedirect(reverse("rooms:newRoom"))
+                else: # go back to create a new room
+                    return HttpResponseRedirect(reverse("rooms:newRoom"))
             return HttpResponseRedirect(reverse("rooms:listall"))
         else:
             return self.get(request, *args, **kwargs)
