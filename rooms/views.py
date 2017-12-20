@@ -199,9 +199,6 @@ class EditRoomView(TemplateView):
         else:
             return self.get(request, *args, **kwargs)
 
-    def saveForm(self):#self, request,
-        return HttpResponseRedirect(reverse("rooms:newBuilding"))
-
 class NewRoomView(EditRoomView):
     permission_required = "room.create_room"
 
@@ -287,51 +284,3 @@ class EditBuildingView(TemplateView):
 class NewBuildingView(EditBuildingView):
 
     permission_required = "building.create_building"
-
-
-
-class EditRoomNewBuildingView(NewBuildingView):
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["editRoom"] = True
-        return context
-
-    def post(self, request, *args, **kwargs):
-        superValue = super().post(request, *args, **kwargs)
-        if type(superValue) is HttpResponseRedirect: # If the form is correct and the building has been saved
-            roomForm = None
-            if "room_pk" in request.session:
-                roomForm = RoomForm(instance=Room.objects.get(pk=request.session["room_pk"]))
-                #roomForm.data["name"] = request.session["roomForm_data"]["name"]
-                #roomForm.data["description"] = request.session["roomForm_data"]["description"]
-                #roomForm.data["building"] = request.session["roomForm_data"]["building"]
-            else:
-                roomForm = RoomForm(data=request.session["roomForm_data"])
-            request.session["roomForm_data"]
-            if roomForm.is_valid():
-                if request.session["editRoom"]:
-                    room = roomForm.save()
-                    LogEntry.objects.log_action(
-                        user_id=self.request.user.id,
-                        content_type_id=ContentType.objects.get_for_model(room).pk,
-                        object_id=room.id,
-                        object_repr=str(room),
-                        action_flag=CHANGE
-                    )
-                else:
-                    room = roomForm.save(commit=False)
-                    room.creator = request.user
-                    room.save()
-                    LogEntry.objects.log_action(
-                        user_id=self.request.user.id,
-                        content_type_id=ContentType.objects.get_for_model(room).pk,
-                        object_id=room.id,
-                        object_repr=str(room),
-                        action_flag=ADDITION
-                    )
-            else:
-                raise Http404 #only for debug
-            return HttpResponseRedirect(reverse("rooms:editRoom", kwargs={'room_id': room.pk}))
-        else: # If the saving failed then return the errors
-            return superValue

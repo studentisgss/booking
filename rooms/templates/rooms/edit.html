@@ -104,9 +104,8 @@
               {{ roomForm.building }}
 
               <div class="col-xs-2">
-
                 {% if perms.buildings.create_buildings %}
-                  <input  name="newBuilding" type="submit" value="Building3" class="form-control btn btn-info">
+                  <input  name="newBuilding" type="submit" value="Crea nuovo edificio" class="form-control btn btn-success">
                 {% endif %}
               </div>
 
@@ -271,11 +270,5 @@
   <input type="submit" value="Salva" class="form-control btn btn-info">
 
   {{ roomRuleForm.management_form }}
-
-</form>
-
-    <form method="get" action="{% url "rooms:saveAndRedirect" %}">
-    <input  type="submit" value="Building2" class="form-control btn btn-info">
-  </form>
 
 {% endblock main %}
