@@ -18,6 +18,12 @@
 				<div class="col-xs-2">
 					<h1><a href="{% url "activities:edit" activity.pk %}" class="btn btn-info"><span class="glyphicon glyphicon-pencil"></span> Modifica</a></h1>
 				</div>
+            {% else %}
+                {% if perms.events.change_event and is_manager %}
+                    <div class="col-xs-2">
+                        <h1><a href="{% url "activities:editmanager" activity.pk %}" class="btn btn-info"><span class="glyphicon glyphicon-pencil"></span> Modifica</a></h1>
+                    </div>
+                {% endif %}
 			{% endif %}
         {% endif %}
 	</div>
