@@ -145,11 +145,11 @@ class RoomRule(models.Model):
         verbose_name=_("aula"))
     day = models.SmallIntegerField(
         choices=DAYS_OF_WEEK,
-        verbose_name="giorno")
+        verbose_name=_("giorno"))
     opening_time = models.TimeField(
-        verbose_name="orario di apertura")
+        verbose_name=_("orario di apertura"))
     closing_time = models.TimeField(
-        verbose_name="orario di chiusura")
+        verbose_name=_("orario di chiusura"))
 
     def clean(self):
         if self.room_id is None:

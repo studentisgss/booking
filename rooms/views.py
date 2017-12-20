@@ -3,12 +3,11 @@ from collections import OrderedDict
 from django.views.generic import TemplateView
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
-from django.http import Http404
+from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.contrib.admin.models import LogEntry, CHANGE, ADDITION
 from django.contrib.contenttypes.models import ContentType
-from django.http import Http404, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 
 from booking.settings import GOOGLE_MAPS_API_KEY
@@ -21,7 +20,7 @@ class DetailRoomView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        # hide this key before commit
+        # This key is needed for using google maps api
         context["API_KEY"] = GOOGLE_MAPS_API_KEY
 
         room_id = kwargs["room_id"]
@@ -46,7 +45,7 @@ class ListAllRoomView(TemplateView):
         # Create a dictionary where the keys are the buildings and the value is a queryset with the rooms in the building
         list = OrderedDict([])
         # Check for filter-text
-        if "search" in self.request.GET: # Search the text in the buildings and ain the rooms's name (not in the desciption or address for now)
+        if "search" in self.request.GET: # Search the text in the buildings and ain the rooms's name (not in the description or address for now)
             text = self.request.GET.get("search", "")
             context["filterText"] = text
             list =  OrderedDict([])
@@ -73,7 +72,7 @@ class ListRoomView(TemplateView):
         # Create a dictionary where the keys are the buildings and the value is a queryset with the rooms in the building
         list = OrderedDict([])
         # Check for filter-text
-        # Search the text in the buildings and ain the rooms's name (not in the desciption or address for now)
+        # Search the text in the buildings and ain the rooms's name (not in the description or address for now)
         if "search" in self.request.GET:
             text = self.request.GET.get("search", "")
             context["filterText"] = text
@@ -98,7 +97,7 @@ class EditRoomView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context=super().get_context_data(**kwargs)
-
+        # This key is needed for using google maps api
         context["API_KEY"] = GOOGLE_MAPS_API_KEY
 
         CAN_CHANGE_RULES = self.request.user.has_perm("roomRule.change_roomRule")
@@ -134,18 +133,21 @@ class EditRoomView(TemplateView):
             context["edit"] = kwargs["edit"]
         else:
             raise Http404
-
+        # If there is the building info in the session it menans we are back from creating a building
+        if ("roomForm_data" in self.request.session) and ("building" in self.request.session["roomForm_data"]):
+            roomForm.initial = self.request.session.pop("roomForm_data")
         context["roomForm"] = roomForm
         if CAN_CHANGE_RULES:
             context["roomRuleForm"] = roomRuleForms
         return context
 
     def post(self, request, *args, **kwargs):
+
         CAN_CHANGE_RULES = self.request.user.has_perm("roomRule.change_roomRule")
 
         if "room_id" in kwargs and kwargs["room_id"]:
             try:
-                room = Room.objects.all().get(pk=kwargs["room_id"])
+                room = Room.objects.get(pk=kwargs["room_id"])
             except:
                 raise Http404
             roomForm = RoomForm(request.POST, instance=room)
@@ -157,6 +159,18 @@ class EditRoomView(TemplateView):
             if CAN_CHANGE_RULES:
                 roomRuleForms = RoomRuleInlineFormSet(request.POST)
             kwargs["edit"] = False
+
+        # If the button create new building is pressed
+        if request.POST.get('newBuilding'):
+            roomForm.is_valid() # This will fill cleaed_data
+            # If is valid filled name and descrition then save them and go to create new building
+            # else also the next if will fail and will be displayed the errors(fix the the first error displayed will be the missed building)
+            if ("name" in roomForm.cleaned_data) and ("description" in roomForm.cleaned_data):
+                form_content = roomForm.data
+                request.session["roomForm_data"] = form_content
+                if kwargs["edit"]:
+                    request.session["room_pk"] = room.pk
+                return HttpResponseRedirect(reverse("rooms:newBuilding"))
 
         if roomForm.is_valid() and (roomRuleForms.is_valid() or not CAN_CHANGE_RULES):
             if CAN_CHANGE_RULES:
@@ -185,6 +199,9 @@ class EditRoomView(TemplateView):
         else:
             return self.get(request, *args, **kwargs)
 
+    def saveForm(self):#self, request,
+        return HttpResponseRedirect(reverse("rooms:newBuilding"))
+
 class NewRoomView(EditRoomView):
     permission_required = "room.create_room"
 
@@ -195,6 +212,7 @@ class EditBuildingView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context=super().get_context_data(**kwargs)
+        context["editRoom"] = "roomForm_data" in self.request.session
         if self.request.method == "GET":
             if "building_id" in kwargs and kwargs["building_id"]:
                 try:
@@ -211,7 +229,7 @@ class EditBuildingView(TemplateView):
                     building = Building.objects.all().get(pk=kwargs[building_id])
                 except:
                     raise Http404
-                buildingForm = BuildingForm(self.request.POST, instance=room)
+                buildingForm = BuildingForm(self.request.POST, instance=building)
             else:
                 buildingForm = BuildingForm(self.request.POST)
             context["edit"] = kwargs["edit"]
@@ -254,6 +272,14 @@ class EditBuildingView(TemplateView):
                     object_repr=str(building),
                     action_flag=ADDITION
                 )
+                # if in there session there the data of half form of a room then update them adding this building as building
+            if "roomForm_data" in request.session:
+                request.session["roomForm_data"]["building"] = building.pk
+                if "room_pk" in request.session:
+                    room_pk = request.session.pop("room_pk")
+                    return HttpResponseRedirect(reverse("rooms:editRoom", kwargs={'room_id': room_pk}))
+                else:
+                    HttpResponseRedirect(reverse("rooms:newRoom"))
             return HttpResponseRedirect(reverse("rooms:listall"))
         else:
             return self.get(request, *args, **kwargs)
@@ -261,3 +287,51 @@ class EditBuildingView(TemplateView):
 class NewBuildingView(EditBuildingView):
 
     permission_required = "building.create_building"
+
+
+
+class EditRoomNewBuildingView(NewBuildingView):
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["editRoom"] = True
+        return context
+
+    def post(self, request, *args, **kwargs):
+        superValue = super().post(request, *args, **kwargs)
+        if type(superValue) is HttpResponseRedirect: # If the form is correct and the building has been saved
+            roomForm = None
+            if "room_pk" in request.session:
+                roomForm = RoomForm(instance=Room.objects.get(pk=request.session["room_pk"]))
+                #roomForm.data["name"] = request.session["roomForm_data"]["name"]
+                #roomForm.data["description"] = request.session["roomForm_data"]["description"]
+                #roomForm.data["building"] = request.session["roomForm_data"]["building"]
+            else:
+                roomForm = RoomForm(data=request.session["roomForm_data"])
+            request.session["roomForm_data"]
+            if roomForm.is_valid():
+                if request.session["editRoom"]:
+                    room = roomForm.save()
+                    LogEntry.objects.log_action(
+                        user_id=self.request.user.id,
+                        content_type_id=ContentType.objects.get_for_model(room).pk,
+                        object_id=room.id,
+                        object_repr=str(room),
+                        action_flag=CHANGE
+                    )
+                else:
+                    room = roomForm.save(commit=False)
+                    room.creator = request.user
+                    room.save()
+                    LogEntry.objects.log_action(
+                        user_id=self.request.user.id,
+                        content_type_id=ContentType.objects.get_for_model(room).pk,
+                        object_id=room.id,
+                        object_repr=str(room),
+                        action_flag=ADDITION
+                    )
+            else:
+                raise Http404 #only for debug
+            return HttpResponseRedirect(reverse("rooms:editRoom", kwargs={'room_id': room.pk}))
+        else: # If the saving failed then return the errors
+            return superValue

@@ -56,7 +56,7 @@
 <form method="POST" action="">
   <!-- Modify room -->
   <h1>{% if edit %}Modifica Aula{% else %}Crea nuova aula{% endif %}</h1>
-
+<fieldset>
   <div>
         {% csrf_token %}
         {% if roomForm.non_field_errors %}
@@ -105,11 +105,18 @@
 
               <div class="col-xs-2">
 
+                {% if perms.buildings.create_buildings %}
+                  <input  name="newBuilding" type="submit" value="Building3" class="form-control btn btn-info">
+                {% endif %}
               </div>
 
           </div>
       </div>
+  <br/>
+</fieldset>
+  <hr/>
 {% endif %}
+
 
 
 
@@ -183,7 +190,7 @@
 
   <!-- Modify/Add RoomRules -->
   <h1>Modifica orari di apertura</h1>
-
+<fieldset>
   <table class="table">
     <tr>
       <th>Giorno</th>
@@ -258,7 +265,7 @@
   {% endfor %}
   </table>
 
-
+</fieldset>
   {% endif %}
 
   <input type="submit" value="Salva" class="form-control btn btn-info">
@@ -266,5 +273,9 @@
   {{ roomRuleForm.management_form }}
 
 </form>
+
+    <form method="get" action="{% url "rooms:saveAndRedirect" %}">
+    <input  type="submit" value="Building2" class="form-control btn btn-info">
+  </form>
 
 {% endblock main %}

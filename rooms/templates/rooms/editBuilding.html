@@ -59,7 +59,11 @@
 
 {% block main %}
 <form method="POST" action="">
-    <h1>Modifica Edificio</h1>
+    {% if edit %}
+      <h1>Modifica Edificio</h1>
+    {% else %}
+      <h1>Crea nuovo Edificio</h1>
+    {% endif %}
     <div>
 
             {% csrf_token %}
@@ -113,7 +117,7 @@
 
 
 
-  <input type="submit" value="Salva" class="form-control btn btn-info">
+  <input type="submit" value="Salva{% if editRoom %} e torna a editazione aula{% endif %}" class="form-control btn btn-info">
 
 
 </form>

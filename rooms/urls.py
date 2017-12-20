@@ -28,4 +28,6 @@ urlpatterns = [
     url(r'^new$', NewRoomView.as_view(), name="newRoom"),
     url(r'^editBuilding/(?P<building_id>[0-9]+)$', EditBuildingView.as_view(), name="editBuilding"),
     url(r'^newBuilding$', NewBuildingView.as_view(), name="newBuilding"),
+    url(r'^gotoNewBuilding$', EditRoomView.saveForm, name="saveAndRedirect"),
+    url(r'^edit/newBuilding$', EditRoomNewBuildingView.as_view(), name="editRoomNewBuildnnnnnnning"),
 ]
