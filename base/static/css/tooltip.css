@@ -51,13 +51,16 @@
     opacity: 1 !important;
 	filter:Alpha(Opacity=35); /* support: IE8 */
 	background-image: none;
+    pointer-events: auto !important;
 }
 .ui-state-disabled .ui-icon {
 	filter:Alpha(Opacity=35); /* support: IE8 - See #6059 */
+    pointer-events: auto !important;
 }
 
 .ui-widget-content .ui-state-disabled .ui-state-default {
     background-color: rgba(230, 230, 230, 0.35);
     background-image: none;
     color: rgba(0, 0, 0, 0.35);
+    pointer-events: auto !important;
 }
