@@ -60,9 +60,9 @@
 {% block main %}
 <form method="POST" action="">
     {% if edit %}
-      <h1>Modifica Edificio</h1>
+      <h1>Modifica edificio</h1>
     {% else %}
-      <h1>Crea nuovo Edificio</h1>
+      <h1>Crea nuovo edificio</h1>
     {% endif %}
     <div>
 
@@ -117,7 +117,7 @@
 
 
 
-  <input type="submit" value="Salva{% if editRoom %} e torna a editazione aula{% endif %}" class="form-control btn btn-info">
+  <input type="submit" value="Salva {% if pendingRoom %} e torna a {% if editPendingRoom %} modifica {% else %} crea nuova {% endif %} aula {% endif %} " class="form-control btn btn-info">
 
 
 </form>

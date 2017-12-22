@@ -161,14 +161,19 @@ class EditRoomView(TemplateView):
                 roomRuleForms = RoomRuleInlineFormSet(request.POST)
             kwargs["edit"] = False
 
+        # Clear the session before so if we put new data they will be clear
+        request.session.clear()
+
         # If the button create new building is pressed
         if request.POST.get('newBuilding'):
             roomForm.is_valid() # This will fill cleaed_data
             # If is valid filled name and descrition then save them and go to create new building
             # else also the next if will fail and will be displayed the errors(fix the the first error displayed will be the missed building)
             if ("name" in roomForm.cleaned_data) and ("description" in roomForm.cleaned_data):
+                request.session["pendingRoom"] = True
                 form_content = roomForm.data
                 request.session["roomForm_data"] = form_content
+
                 if kwargs["edit"]: # Save the pk of the room we are editing
                     request.session["room_pk"] = room.pk
                 return HttpResponseRedirect(reverse("rooms:newBuilding"))
@@ -211,7 +216,10 @@ class EditBuildingView(TemplateView):
     def get_context_data(self, **kwargs):
         context=super().get_context_data(**kwargs)
         # Put in the context if we have a pending editing/creation a room
-        context["editRoom"] = "roomForm_data" in self.request.session
+        if self.request.session["pendingRoom"]:
+            self.request.session["pendingRoom"] = False
+            context["pendingRoom"] = "roomForm_data" in self.request.session
+            context["editPendingRoom"] = "room_pk" in self.request.session
         if self.request.method == "GET":
             if "building_id" in kwargs and kwargs["building_id"]:
                 try:
