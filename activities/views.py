@@ -142,6 +142,10 @@ class ActivityManagerEditView(LoginRequiredMixin, PermissionRequiredMixin, Templ
             # Make activity form readonly if the user is only a manager
             for key in form.fields.keys():
                 form.fields[key].widget.attrs['disabled'] = True
+        # Else check if the user can manage this category
+        else:
+            if not self.request.user.has_perm("activities.change_" + activity.category):
+                raise PermissionDenied
 
         # Get rooms where the user has some permission
         rooms = Room.objects.all().filter(
@@ -185,6 +189,10 @@ class ActivityManagerEditView(LoginRequiredMixin, PermissionRequiredMixin, Templ
         # Check if the user is a manager if required
         if self.check_for_manager:
             if not self.request.user.managed_activities.filter(pk=kwargs["pk"]).exists():
+                raise PermissionDenied
+        # Else check if the user can manage this category
+        else:
+            if not self.request.user.has_perm("activities.change_" + activity.category):
                 raise PermissionDenied
 
         # If check_for_manager then it is not needed to check the validity of form (activity)
