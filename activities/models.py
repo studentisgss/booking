@@ -19,6 +19,8 @@ class Activity(models.Model):
     class Meta:
         verbose_name = _("attività")
         verbose_name_plural = _("attività")
+        permissions = tuple([("change_" + c[0], "Can change activity of the category " + c[1])
+                            for c in CLASS_CHOICES])
 
     def __str__(self):
         return "%s%s " % ("* " if not self.archived else "",
