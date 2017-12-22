@@ -17,6 +17,7 @@ from activities.models import Activity
 from activities.forms import ActivityForm
 from rooms.models import RoomPermission, Room, RoomRule
 from base.utils import localnow, parse_date
+from base.models import CLASS_CHOICES
 from booking.settings import DATE_INPUT_FORMATS, DATE_FORMAT, TIME_FORMAT
 
 from datetime import datetime, timedelta
@@ -76,6 +77,13 @@ class ListAllActivityView(TemplateView):
             # I have to use set due to some problem with pagination
             context["manages_something"] = bool(set(context["managed_activities"]) &
                                                 set(activities.object_list))
+
+            # Set the category which the user is allowed to edit
+            if self.request.user.has_perm("activities.change_activity"):
+                context["managed_category"] = \
+                    [c[0] for c in CLASS_CHOICES
+                     if self.request.user.has_perm("activities.change_" + c[0])]
+
         return context
 
 
@@ -103,6 +111,12 @@ class ListActivityView(TemplateView):
             # If some of the activities are managed by the user set manages_something to True
             context["manages_something"] = (context["managed_activities"] &
                                             activities_list).exists()
+
+            # Set the category which the user is allowed to edit
+            if self.request.user.has_perm("activities.change_activity"):
+                context["managed_category"] = \
+                    [c[0] for c in CLASS_CHOICES
+                     if self.request.user.has_perm("activities.change_" + c[0])]
         return context
 
 
