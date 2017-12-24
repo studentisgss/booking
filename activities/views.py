@@ -36,9 +36,20 @@ class DetailActivityView(TemplateView):
         except:
             raise Http404
         context["activity"] = activity
-        # User is manager if this activity is in his managed_activities
-        context["is_manager"] = self.request.user.is_authenticated and \
-            self.request.user.managed_activities.filter(pk=activity_id).exists()
+        # If the user is logged in
+        if self.request.user.is_authenticated:
+            # Check if the user can manage this activity
+            context["can_manage_activity"] = self.request.user.has_perm(
+                "activities.change_activity"
+            ) and self.request.user.has_perm(
+                "activities.change_" + activity.category
+            )
+            # Check if the user is manager only if necessary
+            if not context["can_manage_activity"]:
+                # User is manager if this activity is in his managed_activities
+                context["is_manager"] = self.request.user.managed_activities.filter(
+                    pk=activity_id
+                ).exists()
         context["events_list"] = Event.objects.filter(activity_id=activity_id).order_by("start")
         return context
 
@@ -83,6 +94,12 @@ class ListAllActivityView(TemplateView):
                 context["managed_category"] = \
                     [c[0] for c in CLASS_CHOICES
                      if self.request.user.has_perm("activities.change_" + c[0])]
+                managed_category_exists = False
+                for a in activities:
+                    if a.category in context["managed_category"]:
+                        managed_category_exists = True
+                        break  # Not needed to go on
+                context["managed_category_exists"] = managed_category_exists
 
         return context
 
@@ -117,6 +134,9 @@ class ListActivityView(TemplateView):
                 context["managed_category"] = \
                     [c[0] for c in CLASS_CHOICES
                      if self.request.user.has_perm("activities.change_" + c[0])]
+                context["managed_category_exists"] = activities_list.filter(
+                    category__in=context["managed_category"]
+                ).exists()
         return context
 
 
