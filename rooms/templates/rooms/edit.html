@@ -2,274 +2,152 @@
 {% load staticfiles %}
 
 {% block head-extra %}
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key={{ API_KEY }}&libraries=places"></script>
-<script>
-  // This example displays an address form, using the autocomplete feature
-  // of the Google Places API to help users fill in the information.
-
-  // This example requires the Places library. Include the libraries=places
-  // parameter when you first load the API. For example:
-  // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
-
-  var placeSearch, autocomplete;
-  var componentForm = {
-    street_number: 'short_name',
-    route: 'long_name',
-    locality: 'long_name',
-    administrative_area_level_1: 'short_name',
-    country: 'long_name',
-    postal_code: 'short_name'
-  };
-
-  function initAutocomplete() {
-    // Create the autocomplete object, restricting the search to geographical
-    // location types.
-    autocomplete = new google.maps.places.Autocomplete(
-        /** @type {!HTMLInputElement} */(document.getElementById('autocomplete')),
-        {types: ['geocode']});
-
-    // When the user selects an address from the dropdown, populate the address
-    // fields in the form.
-    autocomplete.addListener('place_changed', fillInAddress);
-  }
-
-  function fillInAddress() {
-    // Get the place details from the autocomplete object.
-    var place = autocomplete.getPlace();
-
-    //for (var component in componentForm) {
-    //  document.getElementById(component).value = '';
-    //  document.getElementById(component).disabled = false;
-    //}
-
-    // Get the address from the place details and fill the form.
-
-    document.getElementById("id_address").value=place.formatted_address;
-
-//add an allert in case of invalid address
-  }
-
-</script>
 {% endblock head-extra %}
 
 {% block main %}
 
 <form method="POST" action="">
-  <!-- Modify room -->
+<!-- Modify room -->
   <h1>{% if edit %}Modifica Aula{% else %}Crea nuova aula{% endif %}</h1>
-<fieldset>
+  <fieldset>
   <div>
-        {% csrf_token %}
-        {% if roomForm.non_field_errors %}
-            <div>
-                <ol class="list-group">
-                    {% for error in roomForm.non_field_errors %}
-                        <li class="list-group-item list-group-item-danger">{{ error|escape }}</li>
-                    {% endfor %}
-                </ol>
-            </div>
-        {% endif %}
-
-          <div class="form-group {% if roomForm.name.errors %}has-error{% endif %}">
-              {{ roomForm.name.label_tag }}
-              {% if roomForm.name.errors %}
-                  <div>
-                      {% for error in roomForm.name.errors %}
-                          <p class="text-danger">{{ error|escape }}</p>
-                      {% endfor %}
-                  </div>
-              {% endif %}
-              {{ roomForm.name }}
-          </div>
-          <div class="form-group {% if roomForm.description.errors %}has-error{% endif %}">
-              {{ roomForm.description.label_tag }}
-              {% if roomForm.description.errors %}
-                  <div>
-                      {% for error in roomForm.description.errors %}
-                          <p class="text-danger">{{ error|escape }}</p>
-                      {% endfor %}
-                  </div>
-              {% endif %}
-              {{ roomForm.description }}
-          </div>
-{% if not modify_building %}
-          <div class="form-group {% if roomForm.building.errors %}has-error{% endif %}">
-              {{ roomForm.building.label_tag }}
-              {% if roomForm.building.errors %}
-                  <div>
-                      {% for error in roomForm.building.errors %}
-                          <p class="text-danger">{{ error|escape }}</p>
-                      {% endfor %}
-                  </div>
-              {% endif %}
-              {{ roomForm.building }}
-
-              <div class="col-xs-2">
-                {% if perms.buildings.create_buildings %}
-                  <input  name="newBuilding" type="submit" value="Crea nuovo edificio" class="form-control btn btn-success">
-                {% endif %}
-              </div>
-
-          </div>
-      </div>
-  <br/>
-</fieldset>
-  <hr/>
-{% endif %}
-
-
-
-
-    <!--{% if modify_building %}-->
-    <!-- Modify Building
-    <h1>Modifica Edificio</h1>
-    <div>
-
-            {% csrf_token %}
-            {% if buildingForm.non_field_errors %}
-                <div>
-                    <ol class="list-group">
-                        {% for error in buildingForm.non_field_errors %}
-                            <li class="list-group-item list-group-item-danger">{{ error|escape }}</li>
-                        {% endfor %}
-                    </ol>
-                </div>
-            {% endif %}
-            <div class="form-group {% if buildingForm.name.errors %}has-error{% endif %}">
-                  {{ buildingForm.name.label_tag }}
-                  {% if name.errors %}
-                      <div>
-                          {% for error in buildingForm.name.errors %}
-                              <p class="text-danger">{{ error|escape }}</p>
-                          {% endfor %}
-                      </div>
-                  {% endif %}
-                  {{ buildingForm.name }}
-              </div>
-
-
-              <div id="locationField">
-                <input id="autocomplete" placeholder="Cerca un indirizzo" type="text" ></input>
-              </div>
-
-              <div class="form-group {% if buildingForm.address.errors %}has-error{% endif %}">
-                  {{ buildingForm.address.label_tag }}
-                  {% if buildingForm.address.errors %}
-                      <div>
-                          {% for error in buildingForm.address.errors %}
-                              <p class="text-danger">{{ error|escape }}</p>
-                          {% endfor %}
-                      </div>
-                  {% endif %}
-                  {{ buildingForm.address }}
-              </div>
-
-
-
-
-
-
-
-      <script src="https://maps.googleapis.com/maps/api/js?key={{ API_KEY }}&libraries=places&callback=initAutocomplete"
-          async defer></script>
-
-
-          <input type="submit" value="Salva" class="form-control btn btn-info">
-
-
-
-
-
-          {{ roomForm.management_form }}
-
-
-
-  {% endif %}
-  -->
-  {% if changeRoomRules %} <!-- if you want to modify roomrule -->
-
-  <!-- Modify/Add RoomRules -->
-  <h1>Modifica orari di apertura</h1>
-<fieldset>
-  <table class="table">
-    <tr>
-      <th>Giorno</th>
-      <th>Orario di apertura</th>
-      <th>Orario di chiusura</th>
-      <th>Elimina</th>
-    </tr>
-  {% for form in roomRuleForm %}
     {% csrf_token %}
-      {% if form.non_field_errors %}
-      <div class="row">
+    {% if roomForm.non_field_errors %}
+      <div>
         <ol class="list-group">
-        {% for error in form.non_field_errors %}
-          <li class="list-group-item list-group-item-danger">{{ error|escape }}</li>
-        {% endfor %}
+          {% for error in roomForm.non_field_errors %}
+            <li class="list-group-item list-group-item-danger">{{ error|escape }}</li>
+          {% endfor %}
         </ol>
       </div>
     {% endif %}
-    <tr>
-      <td>
-        <div class="form-group {% if form.day.errors %}has-error{% endif %}">
-            {% if form.day.errors %}
-                <div>
-                    {% for error in form.day.errors %}
-                        <p class="text-danger">{{ error|escape }}</p>
-                    {% endfor %}
-                </div>
-            {% endif %}
-            {{ form.day }}
-        </div>
-      </td>
-      <td>
-        <div class="form-group {% if form.opening_time.errors %}has-error{% endif %}">
-            {% if form.opening_time.errors %}
-                <div>
-                    {% for error in form.opening_time.errors %}
-                        <p class="text-danger">{{ error|escape }}</p>
-                    {% endfor %}
-                </div>
-            {% endif %}
-            {{ form.opening_time }}
-        </div>
-      </td>
-      <td>
-        <div class="form-group {% if form.closing_time.errors %}has-error{% endif %}">
-            {% if form.closing_time.errors %}
-                <div>
-                    {% for error in form.closing_time.errors %}
-                        <p class="text-danger">{{ error|escape }}</p>
-                    {% endfor %}
-                </div>
-            {% endif %}
-            {{ form.closing_time }}
-        </div>
-      </td>
-      <td>
-        <div class="form-group {% if form.DELETE.errors %}has-error{% endif %}">
-            {% if form.DELETE.errors %}
-                <div>
-                    {% for error in form.DELETE.errors %}
-                        <p class="text-danger">{{ error|escape }}</p>
-                    {% endfor %}
-                </div>
-            {% endif %}
-            {{ form.DELETE }}
-        </div>
-      </td>
-      <td class="hidden">
-        {{ form.id }}
-      </td>
-    </tr>
-  {% endfor %}
-  </table>
 
-</fieldset>
+    <div class="form-group {% if roomForm.name.errors %}has-error{% endif %}">
+        {{ roomForm.name.label_tag }}
+        {% if roomForm.name.errors %}
+          <div>
+            {% for error in roomForm.name.errors %}
+              <p class="text-danger">{{ error|escape }}</p>
+            {% endfor %}
+          </div>
+        {% endif %}
+        {{ roomForm.name }}
+    </div>
+    <div class="form-group {% if roomForm.description.errors %}has-error{% endif %}">
+        {{ roomForm.description.label_tag }}
+        {% if roomForm.description.errors %}
+          <div>
+            {% for error in roomForm.description.errors %}
+              <p class="text-danger">{{ error|escape }}</p>
+            {% endfor %}
+          </div>
+        {% endif %}
+        {{ roomForm.description }}
+    </div>
+    <div class="form-group {% if roomForm.building.errors %}has-error{% endif %}">
+        {{ roomForm.building.label_tag }}
+        {% if roomForm.building.errors %}
+          <div>
+            {% for error in roomForm.building.errors %}
+              <p class="text-danger">{{ error|escape }}</p>
+            {% endfor %}
+          </div>
+        {% endif %}
+        {{ roomForm.building }}
+
+        <div class="col-xs-2">
+          {% if perms.buildings.create_buildings %}
+            <input  name="newBuilding" type="submit" value="Crea nuovo edificio" class="form-control btn btn-success">
+          {% endif %}
+        </div>
+
+    </div>
+    </div>
+  </fieldset>
+  <br/>
+  <hr/>
+
+<!-- Modify/Add RoomRules -->
+  {% if changeRoomRules %}
+  <h1>Modifica orari di apertura</h1>
+  <fieldset>
+    <table class="table">
+      <tr>
+        <th>Giorno</th>
+        <th>Orario di apertura</th>
+        <th>Orario di chiusura</th>
+        <th>Elimina</th>
+      </tr>
+      {% for form in roomRuleForm %}
+        {% csrf_token %}
+          {% if form.non_field_errors %}
+          <div class="row">
+            <ol class="list-group">
+            {% for error in form.non_field_errors %}
+              <li class="list-group-item list-group-item-danger">{{ error|escape }}</li>
+            {% endfor %}
+            </ol>
+          </div>
+        {% endif %}
+        <tr>
+          <td>
+            <div class="form-group {% if form.day.errors %}has-error{% endif %}">
+              {% if form.day.errors %}
+                <div>
+                  {% for error in form.day.errors %}
+                    <p class="text-danger">{{ error|escape }}</p>
+                  {% endfor %}
+                </div>
+              {% endif %}
+              {{ form.day }}
+            </div>
+          </td>
+          <td>
+            <div class="form-group {% if form.opening_time.errors %}has-error{% endif %}">
+              {% if form.opening_time.errors %}
+                <div>
+                  {% for error in form.opening_time.errors %}
+                    <p class="text-danger">{{ error|escape }}</p>
+                  {% endfor %}
+                </div>
+              {% endif %}
+              {{ form.opening_time }}
+            </div>
+          </td>
+          <td>
+            <div class="form-group {% if form.closing_time.errors %}has-error{% endif %}">
+              {% if form.closing_time.errors %}
+                <div>
+                  {% for error in form.closing_time.errors %}
+                    <p class="text-danger">{{ error|escape }}</p>
+                  {% endfor %}
+                </div>
+              {% endif %}
+              {{ form.closing_time }}
+            </div>
+          </td>
+          <td>
+            <div class="form-group {% if form.DELETE.errors %}has-error{% endif %}">
+              {% if form.DELETE.errors %}
+                <div>
+                  {% for error in form.DELETE.errors %}
+                    <p class="text-danger">{{ error|escape }}</p>
+                  {% endfor %}
+                </div>
+              {% endif %}
+              {{ form.DELETE }}
+            </div>
+          </td>
+          <td class="hidden">
+            {{ form.id }}
+          </td>
+        </tr>
+      {% endfor %}
+    </table>
+      {{ roomRuleForm.management_form }}
+  </fieldset>
   {% endif %}
 
   <input type="submit" value="Salva" class="form-control btn btn-info">
-
-  {{ roomRuleForm.management_form }}
 
 {% endblock main %}

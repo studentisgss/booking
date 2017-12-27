@@ -1,79 +1,74 @@
 {% extends "base/layout.html" %}
 
+{% load staticfiles %}
+
+{% block head-extra %}
+<script type="text/javascript" src="{% static 'rooms/js/detail.js' %}"></script>
+{% endblock head-extra %}
+
+
 {% block main %}
-<!-- Room -->
-<div class="row">
-	<div class="col-xs-10">
-		<h1>{{ room.name }}</h1>
-	</div>
-	{% if user.is_authenticated %}
-				{% if perms.rooms.change_room %}
-			<div class="col-xs-2">
-				<h1><a href="{% url "rooms:editRoom" room.pk %}" class="btn btn-info"><span class="glyphicon glyphicon-pencil"></span> Modifica</a></h1>
-			</div>
-		{% endif %}
-	{% endif %}
-</div>
-</br>
-<div class="container-fluid">
+	<!-- Room info -->
 	<div class="row">
-		<div class="col-xs-3 col-sm-2 col-lg-1">
-			<ul class="list-unstyled">
-				<li>Nome:</li>
-				<li>Descrizione:</li>
-			</ul>
+		<div class="col-xs-10">
+			<h1>{{ room.name }}</h1>
 		</div>
-		<div class="col-xs-9 col-sm-10 col-lg-11">
-			<ul class="list-unstyled">
-				<li>{{ room.name }}</li>
-				<li>{{ room.description }}</li>
-			</ul>
+		{% if user.is_authenticated %}
+			{% if perms.rooms.change_room %}
+				<div class="col-xs-2">
+					<h1><a href="{% url "rooms:editRoom" room.pk %}" class="btn btn-info"><span class="glyphicon glyphicon-pencil"></span> Modifica</a></h1>
+				</div>
+			{% endif %}
+		{% endif %}
+	</div>
+	</br>
+	<div class="container-fluid">
+		<div class="row">
+			{{ room.description }}
 		</div>
 	</div>
-	<!-- RoomRules -->
-	{% if roomRules %}
-	<h3>
-		Restrizioni degli orari
-	</h3>
-	<table class="table table-striped table-hover">
-		<tr>
-			<th>Giorno</th>
-			<th>Orario di apertura</th>
-			<th>Orario di chiusura</th>
-		</tr>
-	{% for rule in roomRules %}
-		<tr>
-			<td>{{ rule.day }}</td>
-			{% if rule.isClosedAllDay %}
-				<td colspan="2">L'aula è chiusa in questo giorno.</td>
-			{% else %}
-				<td>{{ rule.opening_time | date:'H:i' }}</td>
-				<td>{{ rule.closing_time | date:'H:i' }}</td>
-			{% endif %}
-		</tr>
-	{% endfor %}
-	</table>
-	{% endif %}
 	<!-- Building -->
 	<h3>
-		edificio
+			{{ building.name }}
 	</h3>
-	<div class="col-xs-3 col-sm-2 col-lg-1">
-		<ul class="list-unstyled">
-			<li>Nome:</li>
-			<li>Indirizzo:</li>
-		</ul>
+	<div class="container-fluid">
+		<div id="text_address">
+			<a href="https://www.google.com/maps/search/?api=1&{{ building.get_address_for_url }}"> {{ building.address }} </a>
+			<br/>
+		</div>
+		<div class="hidden" id="map_address">
+			<iframe
+				width="800"
+				height="450" style="border:0"
+				src="https://www.google.com/maps/embed/v1/place?key={{ API_KEY }}&q={{ building.get_address_for_url }}" allowfullscreen>
+			</iframe>
+		</div>
 	</div>
-	<div class="col-xs-9 col-sm-10 col-lg-11">
-		<ul class="list-unstyled">
-			<li>{{ building.name }}</li>
-			<li>{{ building.address }}</li>
-		</ul>
-		<iframe
-			width="800"
-			height="450" style="border:0"
-			src="https://www.google.com/maps/embed/v1/place?key={{ API_KEY }}&q={{ building.get_address_for_url }}" allowfullscreen>
-		</iframe>
+	</br>
+	<!-- RoomRules -->
+	{% if roomRules %}
+	<div>
+		<h3>
+			Restrizioni degli orari
+		</h3>
+		<table class="table table-striped table-hover">
+			<tr>
+				<th>Giorno</th>
+				<th>Orario di apertura</th>
+				<th>Orario di chiusura</th>
+			</tr>
+		{% for rule in roomRules %}
+			<tr>
+				<td>{{ rule.day }}</td>
+				{% if rule.isClosedAllDay %}
+					<td colspan="2">L'aula è chiusa in questo giorno.</td>
+				{% else %}
+					<td>{{ rule.opening_time | date:'H:i' }}</td>
+					<td>{{ rule.closing_time | date:'H:i' }}</td>
+				{% endif %}
+			</tr>
+		{% endfor %}
+		</table>
 	</div>
-</div>
+	{% endif %}
 {% endblock main %}
