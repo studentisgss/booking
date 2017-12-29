@@ -54,15 +54,15 @@ class Room(models.Model):
     name = models.CharField(max_length=30, unique=True, verbose_name=_("nome"))
     description = models.CharField(max_length=100, blank=True, verbose_name=_("descrizione"))
     important = models.BooleanField(default=False, verbose_name=_("importante"))
+    building = models.ForeignKey(
+        Building,
+        verbose_name=_("edificio")
+    )
     creator = models.ForeignKey(
         User,
         related_name="room_created",
         on_delete=models.CASCADE,
         verbose_name=_("creatore")
-    )
-    building = models.ForeignKey(
-        Building,
-        verbose_name=_("edificio")
     )
 
     def get_group_perm(self, group):
