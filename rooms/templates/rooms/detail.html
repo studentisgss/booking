@@ -59,7 +59,7 @@
 			</tr>
 		{% for rule in roomRules %}
 			<tr>
-				<td>{{ rule.day }}</td>
+				<td>{{ rule.get_day_display }}</td>
 				{% if rule.isClosedAllDay %}
 					<td colspan="2">L'aula è chiusa in questo giorno.</td>
 				{% else %}
