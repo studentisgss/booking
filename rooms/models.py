@@ -179,6 +179,6 @@ class RoomRule(models.Model):
                 _("Non possono esserci due orari per la stessa aula lo stesso giorno")
             )
 
-        # return true if the room is closed for all the day
-        def isClosedAllDay(self):
-            return opening_time == closing_time
+    # return true if the room is closed for all the day
+    def isClosedAllDay(self):
+        return self.opening_time == self.closing_time

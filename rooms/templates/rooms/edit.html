@@ -2,6 +2,7 @@
 {% load staticfiles %}
 
 {% block head-extra %}
+<script type="text/javascript" src="{% static 'rooms/js/edit.js' %}"></script>
 {% endblock head-extra %}
 
 {% block main %}
@@ -127,7 +128,7 @@
             </div>
           </td>
           <td>
-            <div class="form-group {% if form.DELETE.errors %}has-error{% endif %}">
+            <div class="{% if form.DELETE.errors %}has-error{% endif %}">
               {% if form.DELETE.errors %}
                 <div>
                   {% for error in form.DELETE.errors %}
@@ -135,13 +136,23 @@
                   {% endfor %}
                 </div>
               {% endif %}
+            </div>
+            {{ form.DELETE }}
+            <button type="button" class="btn btn-danger btn-xs remover hidden">
+              <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+            </button>
+          </td>
+          <td class="hidden">{{ form.id }}</td>
+        </tr>
+
+        <!--<td>
               {{ form.DELETE }}
             </div>
           </td>
           <td class="hidden">
             {{ form.id }}
           </td>
-        </tr>
+        </tr>-->
       {% endfor %}
     </table>
       {{ roomRuleForm.management_form }}
