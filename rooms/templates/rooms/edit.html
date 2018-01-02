@@ -61,9 +61,8 @@
             <input  name="newBuilding" type="submit" value="Crea nuovo edificio" class="form-control btn btn-success">
           {% endif %}
         </div>
-
     </div>
-    </div>
+  </div>
   </fieldset>
   <br/>
   <hr/>
@@ -72,16 +71,17 @@
   {% if changeRoomRules %}
   <h1>Modifica orari di apertura</h1>
   <fieldset>
+  {% csrf_token %}
     <table class="table">
       <tr>
         <th>Giorno</th>
         <th>Orario di apertura</th>
         <th>Orario di chiusura</th>
         <th>Elimina</th>
+        <td class="hidden"></td>
       </tr>
       {% for form in roomRuleForm %}
-        {% csrf_token %}
-          {% if form.non_field_errors %}
+        {% if form.non_field_errors %}
           <div class="row">
             <ol class="list-group">
             {% for error in form.non_field_errors %}
@@ -144,21 +144,12 @@
           </td>
           <td class="hidden">{{ form.id }}</td>
         </tr>
-
-        <!--<td>
-              {{ form.DELETE }}
-            </div>
-          </td>
-          <td class="hidden">
-            {{ form.id }}
-          </td>
-        </tr>-->
       {% endfor %}
     </table>
-      {{ roomRuleForm.management_form }}
+    {{ roomRuleForm.management_form }}
   </fieldset>
   {% endif %}
 
   <input type="submit" value="Salva" class="form-control btn btn-info">
-
+</form>
 {% endblock main %}
