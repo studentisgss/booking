@@ -2,72 +2,66 @@
 {% load staticfiles %}
 
 {% block head-extra %}
-<link href="{% static 'rooms/css/editBuilding.css' %}" rel="stylesheet" />
-<script type="text/javascript" src="{% static 'rooms/js/editBuilding.js' %}"></script>
+  <link href="{% static 'rooms/css/editBuilding.css' %}" rel="stylesheet" />
+  <script type="text/javascript" src="{% static 'rooms/js/editBuilding.js' %}"></script>
 {% endblock head-extra %}
 
 {% block main %}
-<form method="POST" action="">
+  <form method="POST">
     {% if edit %}
       <h1>Modifica Edificio</h1>
     {% else %}
       <h1>Crea nuovo Edificio</h1>
     {% endif %}
-    <div>
-      {% csrf_token %}
-      {% if buildingForm.non_field_errors %}
-        <div>
-          <ol class="list-group">
-            {% for error in buildingForm.non_field_errors %}
-              <li class="list-group-item list-group-item-danger">{{ error|escape }}</li>
+    {% csrf_token %}
+    {% if buildingForm.non_field_errors %}
+      <div>
+        <ol class="list-group">
+          {% for error in buildingForm.non_field_errors %}
+            <li class="list-group-item list-group-item-danger">{{ error|escape }}</li>
+          {% endfor %}
+        </ol>
+      </div>
+    {% endif %}
+    <div class="form-group {% if buildingForm.name.errors %}has-error{% endif %}">
+      {{ buildingForm.name.label_tag }}
+        {% if name.errors %}
+          <div>
+            {% for error in buildingForm.name.errors %}
+              <p class="text-danger">{{ error|escape }}</p>
             {% endfor %}
-          </ol>
-        </div>
-      {% endif %}
-      <div class="form-group {% if buildingForm.name.errors %}has-error{% endif %}">
-            {{ buildingForm.name.label_tag }}
-            {% if name.errors %}
-                <div>
-                    {% for error in buildingForm.name.errors %}
-                        <p class="text-danger">{{ error|escape }}</p>
-                    {% endfor %}
-                </div>
-            {% endif %}
-            {{ buildingForm.name }}
-        </div>
-
-        <div id="address-form" class="hidden">
-          <div class="form-group {% if buildingForm.address.errors %}has-error{% endif %}">
-              {{ buildingForm.address.label_tag }}
-              <div id="locationField">
-                <input id="autocomplete" placeholder="Cerca un indirizzo" class="form-control" type="text" ></input>
-              </div>
-              <br/>
-                {% if buildingForm.address.errors %}
-                    <div>
-                        {% for error in buildingForm.address.errors %}
-                            <p class="text-danger">{{ error|escape }}</p>
-                        {% endfor %}
-                    </div>
-                {% endif %}
-              {{ buildingForm.address }}
           </div>
-          <div id="map"></div>
-        </div>
+        {% endif %}
+      {{ buildingForm.name }}
+    </div>
 
+    <div id="address-form" class="hidden">
+      <div class="form-group {% if buildingForm.address.errors %}has-error{% endif %}">
+        {{ buildingForm.address.label_tag }}
+        <div id="locationField">
+          <input id="autocomplete" placeholder="Cerca un indirizzo" class="form-control" type="text">
+        </div>
         <br/>
+        {% if buildingForm.address.errors %}
+          <div>
+            {% for error in buildingForm.address.errors %}
+              <p class="text-danger">{{ error|escape }}</p>
+            {% endfor %}
+          </div>
+        {% endif %}
+        {{ buildingForm.address }}
+      </div>
+      <div id="map"></div>
+    </div>
+    <br/>
+    <div id="address-message" class="alert alert-danger">
+      <span class="glyphicon glyphicon-alert"></span>
+        Non è possibile modificare l'indirizzo, attiva Javascript dalle impostazioni del tuo browser.
+      </div>
 
-        <div id="address-message" class="alert alert-danger">
-          <span class="glyphicon glyphicon-alert"/>
-          Non è possibile modificare l'indirizzo, attiva Javascript dalle impostazioni del tuo browser.
-        </div>
         <script src="https://maps.googleapis.com/maps/api/js?key={{ API_KEY }}&libraries=places&callback=initAutocomplete"
-    async defer></script>
+  async defer></script>
 
-
-
-  <input type="submit" value="Salva{% if editRoom %} e torna a editazione aula{% endif %}" class="form-control btn btn-info">
-
-
-</form>
+      <input type="submit" value="Salva{% if editRoom %} e torna a editazione aula{% endif %}" class="form-control btn btn-info">
+    </form>
 {% endblock main %}

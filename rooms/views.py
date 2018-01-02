@@ -216,7 +216,7 @@ class EditBuildingView(TemplateView):
     def get_context_data(self, **kwargs):
         context=super().get_context_data(**kwargs)
         # Put in the context if we have a pending editing/creation a room
-        if self.request.session["pendingRoom"]:
+        if "pendingRoom"in self.request.session and self.request.session["pendingRoom"]:
             self.request.session["pendingRoom"] = False
             context["pendingRoom"] = "roomForm_data" in self.request.session
             context["editPendingRoom"] = "room_pk" in self.request.session
