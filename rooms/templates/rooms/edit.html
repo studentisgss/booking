@@ -93,6 +93,7 @@
         <tr>
           <td>
             <div class="form-group {% if form.day.errors %}has-error{% endif %}">
+              {{ form.day }}
               {% if form.day.errors %}
                 <div>
                   {% for error in form.day.errors %}
@@ -100,11 +101,11 @@
                   {% endfor %}
                 </div>
               {% endif %}
-              {{ form.day }}
             </div>
           </td>
           <td>
             <div class="form-group {% if form.opening_time.errors %}has-error{% endif %}">
+              {{ form.opening_time }}
               {% if form.opening_time.errors %}
                 <div>
                   {% for error in form.opening_time.errors %}
@@ -112,11 +113,11 @@
                   {% endfor %}
                 </div>
               {% endif %}
-              {{ form.opening_time }}
             </div>
           </td>
           <td>
             <div class="form-group {% if form.closing_time.errors %}has-error{% endif %}">
+              {{ form.closing_time }}
               {% if form.closing_time.errors %}
                 <div>
                   {% for error in form.closing_time.errors %}
@@ -124,11 +125,14 @@
                   {% endfor %}
                 </div>
               {% endif %}
-              {{ form.closing_time }}
             </div>
           </td>
           <td>
             <div class="{% if form.DELETE.errors %}has-error{% endif %}">
+              {{ form.DELETE }}
+              <button type="button" class="btn btn-danger btn-xs remover hidden">
+                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+              </button>
               {% if form.DELETE.errors %}
                 <div>
                   {% for error in form.DELETE.errors %}
@@ -137,10 +141,6 @@
                 </div>
               {% endif %}
             </div>
-            {{ form.DELETE }}
-            <button type="button" class="btn btn-danger btn-xs remover hidden">
-              <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-            </button>
           </td>
           <td class="hidden">{{ form.id }}</td>
         </tr>

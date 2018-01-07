@@ -2,6 +2,8 @@
 var dataTables = [];
 
 $(document).ready(function() {
+    // Remove the search button
+    $("#filter-form div.input-group-btn").remove();
     // Add DataTable
     // remove the possibility to order the column with edit buttons
     if ($('.table').find('tr')[0].cells.length == 3) {
