@@ -6,7 +6,9 @@ import csv
 
 
 class Command(BaseCommand):
-    help = 'Update the users based on a csv file which contains the list of the active users.'
+    help = '''Update the users based on a csv file which contains the list of the active users.
+    The csv file must be without heading and with the fields: username, email, first_name, surname.
+    '''
 
     def add_arguments(self, parser):
         parser.add_argument(
@@ -32,13 +34,16 @@ class Command(BaseCommand):
 
         # Load the csv file into a dictionary: the key are the usernames and the value is another
         # dictionary with the first name and surname
-        reader = csv.DictReader(options["file"], fieldnames=("username", "first_name", "surname"))
+        reader = csv.DictReader(options["file"],
+                                fieldnames=("username", "email", "first_name", "surname"))
         for row in reader:
             uname = row["username"]
             if uname in csv_users:
                 # ERROR: Duplicated username
                 raise CommandError("Duplicated usernames in the csv file")
-            csv_users[uname] = {"first_name": row["first_name"], "surname": row["surname"]}
+            csv_users[uname] = {"first_name": row["first_name"],
+                                "surname": row["surname"],
+                                "email": row["email"]}
 
         # Commit only if all is OK
         with transaction.atomic():
@@ -58,7 +63,7 @@ class Command(BaseCommand):
             for u, name in csv_users.items():
                 user = None
                 try:
-                    user = User.objects.create_user(u, u)
+                    user = User.objects.create_user(u, name["email"])
                     user.first_name = name["first_name"]
                     user.last_name = name["surname"]
                 except IntegrityError as ie:
@@ -66,7 +71,8 @@ class Command(BaseCommand):
                         user = User.objects.get(username=u)
                         # If the user has different a different name raise an exception
                         if (user.first_name != name["first_name"]) or \
-                                (user.last_name != name["surname"]):
+                                (user.last_name != name["surname"]) or \
+                                (user.email != name["email"]):
                             raise CommandError(
                                 "Usernames %s already in the database but with different name" % u
                             )
