@@ -9,6 +9,6 @@ $(document).ready(function() {
     // - hide the row of the table
     $(document).on("click", "button.remover", function() {
         $(this).siblings("input").prop("checked", true);
-        $(this).parent().parent().fadeOut();
+        $(this).parent().parent().parent().fadeOut();
     });
 })
