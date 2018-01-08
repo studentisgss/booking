@@ -7,7 +7,7 @@ $(document).ready(function() {
     // Add DataTable
     // remove the possibility to order the column with edit buttons
     if ($('.table').find('tr')[0].cells.length == 3) {
-      $('table').each(function(i, obj) {
+      $('.table').each(function(i, obj) {
         // inizialize the matrix
         dataTables[i] = [];
         dataTables[i][1] = $(this).DataTable({
@@ -22,7 +22,7 @@ $(document).ready(function() {
         })
       });
     } else {
-      $('table').each(function(i, obj) {
+      $('.table').each(function(i, obj) {
         // inizialize the matrix
         dataTables[i] = [];
         dataTables[i][1] = $(this).DataTable({
