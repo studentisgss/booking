@@ -21,6 +21,7 @@ from booking.settings import DATE_INPUT_FORMATS, DATE_FORMAT, TIME_FORMAT
 from datetime import datetime, timedelta
 from calendar import Calendar
 
+
 class DetailActivityView(TemplateView):
     template_name = "activities/detail.html"
 
@@ -134,16 +135,18 @@ class ActivityEditView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView
             for building in Building.objects.all():
                 choices = []
                 for room in Room.objects.filter(building=building):
-                     # Add the room if the user has the permission to book or require it or
-                     # if it is already be chosen
+                    # Add the room if the user has the permission to book or require it or
+                    # if it is already be chosen
                     if (room in rooms) or (f.initial and (room.id == f.instance.room.pk)):
                         choices.append([room.id, room.get_full_name()])
                 if choices:
-                    room_choices.append((building.name,choices))
-            room_choices = [("","-------")] + room_choices # Append the empty option at the first place so it will be the default one
+                    room_choices.append((building.name, choices))
+            # Append the empty option at the first place so it will be the default one
+            room_choices = [("", "-------")] + room_choices
             f.fields["room"].choices = room_choices
 
-        # Fill the choices of the of the empty forms only with the rooms that the user can book or require
+        # Fill the choices of the of the empty forms only with the rooms
+        # that the user can book or require
         room_choices = []
         for building in Building.objects.all():
             choices = []
@@ -151,8 +154,9 @@ class ActivityEditView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView
                 if room in rooms:
                     choices.append([room.id, room.get_full_name()])
             if choices:
-                room_choices.append((building.name,choices))
-        room_choices = [("","-------")] + room_choices # Append the empty option at the first place so it will be the default one
+                room_choices.append((building.name, choices))
+        # Append the empty option at the first place so it will be the default one
+        room_choices = [("", "-------")] + room_choices
         empty_form = events_form.empty_form
         empty_form.fields["room"].choices = room_choices
 

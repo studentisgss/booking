@@ -31,7 +31,8 @@ class Building(models.Model):
     # Return a different strig for the address wich can be used in the url for the map.
     def get_address_for_url(self):
         s = self.address
-        return s.replace(' ','+')
+        return s.replace(' ', '+')
+
 
 class Room(models.Model):
     """
@@ -82,7 +83,6 @@ class Room(models.Model):
         return "%s - %s" % (self.name, self.building.name)
 
 
-
 class RoomPermission(models.Model):
     """
     Permissions for every room and every group.
@@ -113,7 +113,6 @@ class RoomPermission(models.Model):
         choices=PERMISSION_CHOICES,
         default=10,
         verbose_name=_("permesso"))
-
 
 
 class RoomRule(models.Model):
