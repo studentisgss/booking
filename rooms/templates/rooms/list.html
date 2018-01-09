@@ -23,8 +23,8 @@
       {% endif %}
     </div>
     {% if user.is_authenticated %}
-      <div class="col-xs-4">
-          <h1 class="btn-group" role="group">
+      <div class="col-xs-4" role="group">
+          <h1 class="btn-group" >
             {% if perms.room.add_room %}
               <a class="btn btn-success" href="{% url "rooms:newRoom" %}">Nuova aula</a>
             {% endif %}
@@ -70,7 +70,7 @@
 </div>
 
 {% for building,rooms in list.items %}
-<div>
+<div class="building_div">
   <div class="row">
     <div class="col-xs-10">
       <h3 class="building_name">
@@ -89,7 +89,7 @@
 
   </div>
   <div {% if all %} class="to_be_collapsed" {% else %} class="collapse in" {% endif %} id="collapse{{ building.id }}">
-    <table class="table table-striped table-hover" id="table{{ building.id }}" >
+    <table class="table building_table table-striped table-hover" id="table{{ building.id }}" >
         <thead>
             <tr>
                 <th class="col-xs-5">Nome</th>
@@ -127,9 +127,11 @@
         </tbody>
     </table>
   </div>
+  <hr/>
 </div>
-<hr/>
 {% endfor %}
-
+<div class="hidden" id="no_rooms_search">
+  Nessuna aula corrispondente a "<span id="no_rooms_search_text"></span>" trovata.
+</div>
 
 {% endblock main %}
