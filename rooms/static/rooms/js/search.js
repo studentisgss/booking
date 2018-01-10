@@ -57,20 +57,23 @@ $(document).ready(function() {
       for (i = 0; i < dataTables.length; i++) {
         // filter the rooms in the table
         if (dataTables[i][1] != null) {
-          dataTables[i][1].search("").draw();
+          dataTables[i][1].search("");
           // if the text match with the name of the building dont't filter the rooms
           if (dataTables[i][0].toLowerCase().search(text) == -1) {
             dataTables[i][1].search(text).draw();
+          } else {
+            dataTables[i][1].draw();
           }
         }
         dataTables[i][2].removeClass("hidden");
         // hide all if there are no rooms matched rooms
-        if (dataTables[i][2].find("tr")[1].cells.length == 1) {
+        if (dataTables[i][2].find(".table").find("tr")[1].cells.length == 1) {
           dataTables[i][2].addClass("hidden");
         } else {
           no_buildings_shown = false;
         }
       }
+      // show the non rooms found message
       if (no_buildings_shown) {
         $("#no_rooms_search").removeClass("hidden");
         $("#no_rooms_search_text").html(text);
