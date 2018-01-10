@@ -9,6 +9,7 @@ from rooms.models import Room
 from activities.models import Activity
 from booking import settings
 
+
 # This field will rappresent the relationship between rooms and buildings
 class RoomChoiceField(ModelChoiceField):
     def __init__(self, *args, **kwargs):

@@ -7,7 +7,7 @@ from rooms.models import Building
 
 
 class RoomForm(BookingModelForm):
-    def __init__(self,  *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields["building"].required = False
 
@@ -27,7 +27,8 @@ class RoomForm(BookingModelForm):
     def clean(self):
         super().clean()
         if not self.data["building"]:
-            self.add_error(None, ValidationError("Il campo edificio è obbligatorio. Selezionane uno o premi Crea nouvo edificio per crearne uno."))
+            self.add_error(None, ValidationError("""Il campo edificio è obbligatorio.
+            Selezionane uno o premi Crea nouvo edificio per crearne uno."""))
 
 
 class BuildingForm(BookingModelForm):
@@ -38,6 +39,7 @@ class BuildingForm(BookingModelForm):
             "address"
         ]
 
+
 class RoomRuleForm(BookingModelForm):
     class Meta:
         model = RoomRule
@@ -47,10 +49,14 @@ class RoomRuleForm(BookingModelForm):
             "closing_time"
         ]
 
+
 class BaseRoomRuleInlineFormSet(BaseInlineFormSet):
 
     def get_queryset(self):
         return super().get_queryset().order_by("day")
 
+
 # create a set of forms for the RoomRules on several days
-RoomRuleInlineFormSet = inlineformset_factory(Room, RoomRule, form=RoomRuleForm, formset=BaseRoomRuleInlineFormSet, extra=5, max_num=7)
+RoomRuleInlineFormSet = inlineformset_factory(
+    Room, RoomRule, form=RoomRuleForm, formset=BaseRoomRuleInlineFormSet, extra=5, max_num=7
+)

@@ -56,11 +56,11 @@ migrate-db:
 
 populate-db:
 	$(PYTHON) manage.py loaddata fixtures/users.json
+	$(PYTHON) manage.py loaddata fixtures/buildings.json
 	$(PYTHON) manage.py loaddata fixtures/rooms.json
 	$(PYTHON) manage.py loaddata fixtures/activities.json
 	$(PYTHON) manage.py loaddata fixtures/events.json
 	$(PYTHON) manage.py loaddata fixtures/news.json
-	$(PYTHON) manage.py loaddata fixtures/buildings.json
 
 reset-db: delete-db delete-migrations migrate-db populate-db
 

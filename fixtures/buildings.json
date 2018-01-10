@@ -1,27 +1,29 @@
-{
-  "model": "rooms.building",
-  "pk": 1,
-  "fields": {
-    "name": "Collegio Morgagni",
-    "address": "Via S. Massimo, 33, 35121 Padova PD, Italy",
-    "creator_id": 1
-  }
-},
-{
-  "model": "rooms.building",
-  "pk": 2,
-  "fields": {
-    "name": "Luzzati",
-    "address": "Via Luigi Luzzatti, 35121 Padova PD, Italy",
-    "creator_id": 1
-  }
-},
-{
-  "model": "rooms.building",
-  "pk": 3,
-  "fields": {
-    "name": "Plesso Paolotti",
-    "address": "Via Paolotti, 1, 35121 Padova PD, Italy",
-    "creator_id": 1
-  }
-},
+[
+    {
+      "model": "rooms.building",
+      "pk": 1,
+      "fields": {
+        "name": "Collegio Morgagni",
+        "address": "Via S. Massimo, 33, 35121 Padova PD, Italy",
+        "creator_id": 1
+      }
+    },
+    {
+      "model": "rooms.building",
+      "pk": 2,
+      "fields": {
+        "name": "Luzzati",
+        "address": "Via Luigi Luzzatti, 35121 Padova PD, Italy",
+        "creator_id": 1
+      }
+    },
+    {
+      "model": "rooms.building",
+      "pk": 3,
+      "fields": {
+        "name": "Plesso Paolotti",
+        "address": "Via Paolotti, 1, 35121 Padova PD, Italy",
+        "creator_id": 1
+      }
+    }
+]
