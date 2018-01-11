@@ -27,7 +27,13 @@
         <a id="collapseDescriptionControl" class="btn btn-default" data-toggle="collapse" href="#collapseDescription" aria-expanded="false" aria-controls="collapseDescription">
             Mostra/Nascondi descrizione
         </a>
-        <div class="collapse" id="collapseDescription"><p>{{ activity.description|markdown }}</p></div>
+        <div class="collapse" id="collapseDescription">
+					<div class="panel panel-default">
+						<div class="panel-body">
+					    <p>{{ activity.description|markdown }}</p>
+						</div>
+					</div>
+				</div>
         <p><br /></p>
 	</div>
 	</div>
