@@ -17,6 +17,7 @@ $(document).ready(function() {
           dataTables[i][1] = $(this).find(".building_table").DataTable({
             paging: false,
             info: false,
+            "bAutoWidth": false,
             "language": {
               "emptyTable": "Nessuna aula corrispondente trovata."
             },
@@ -30,6 +31,7 @@ $(document).ready(function() {
           dataTables[i][1] = $(this).find(".building_table").DataTable({
             paging: false,
             info: false,
+            "bAutoWidth": false,
             "language": {
               "emptyTable": "Nessuna aula corrispondente trovata."
             },
