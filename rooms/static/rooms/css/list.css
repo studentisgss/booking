@@ -11,3 +11,7 @@ hr {
 		padding-bottom: 0px;
 		margin-bottom: 5px;
 }
+
+.building_name a {
+		text-decoration: none;
+}
