@@ -1,5 +1,7 @@
 from django.core.management.base import BaseCommand, CommandError
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Permission
+from django.contrib.contenttypes.models import ContentType
+from events.models import Event
 from django.db import transaction, IntegrityError
 import argparse
 import csv
@@ -58,28 +60,36 @@ class Command(BaseCommand):
                     u.is_superuser = False
                     u.save()
                     deactivated_users_count += 1
+            # Remove the active superuser from the list
+            for u in User.objects.filter(is_active=True, is_superuser=True):
+                if u.username in csv_users:
+                    del csv_users[u.username]
             # Add the new users
             self.stdout.write("Adding the new users...")
             for u, name in csv_users.items():
                 user = None
-                try:
+                if not User.objects.filter(username=u).exists():
                     user = User.objects.create_user(u, name["email"])
                     user.first_name = name["first_name"]
                     user.last_name = name["surname"]
-                except IntegrityError as ie:
-                    try:
-                        user = User.objects.get(username=u)
-                        # If the user has different a different name raise an exception
-                        if (user.first_name != name["first_name"]) or \
-                                (user.last_name != name["surname"]) or \
-                                (user.email != name["email"]):
-                            raise CommandError(
-                                "Usernames %s already in the database but with different name" % u
-                            )
-                        # Else reactivate him
-                        user.is_active = True
-                    except User.DoesNotExist:
-                        raise ie  # If the user does not exists then reraise the previous exception
+                    # Set the default permission
+                    c = ContentType.objects.get_for_model(Event)
+                    perms = Permission.objects.filter(content_type=c)
+                    user.user_permissions.add(*perms)
+                else:
+                    user = User.objects.get(username=u)
+                    # If the user has different a different name raise an exception
+                    if (user.first_name != name["first_name"]) or \
+                            (user.last_name != name["surname"]) or \
+                            (user.email != name["email"]):
+                        raise CommandError(
+                            "Usernames %s already in the database but with different name" % u
+                        )
+                    # Else reactivate him
+                    user.is_active = True
+                    c = ContentType.objects.get_for_model(Event)
+                    perms = Permission.objects.filter(content_type=c)
+                    user.user_permissions.add(*perms)
                 user.save()
                 added_users_count += 1
 
