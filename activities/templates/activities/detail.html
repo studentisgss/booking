@@ -56,6 +56,10 @@
 				<td>{{ e.room.name }}</td>
 				<td>{% if e.status == e.APPROVED %}Confermata{% elif e.status == e.WAITING %}In attesa{% else %}Rifiutata{% endif %}</td>
 			</tr>
+		{% empty %}
+			<tr>
+				<td>Nessun evento in questa attivit&agrave;.</td>
+			</tr>
 		{% endfor %}
 	</tbody>
 </table>
