@@ -161,6 +161,12 @@ LOCALE_PATHS = [
     )
 ]
 
+FILE_UPLOAD_HANDLERS = [
+    'django.core.files.uploadhandler.TemporaryFileUploadHandler',
+]
+
+BACKUP_COMMAND = None
+
 # Logging
 # http://ianalexandr.com/blog/getting-started-with-django-logging-in-5-minutes.html
 # https://stackoverflow.com/questions/5739830/simple-log-to-file-example-for-django-1-3

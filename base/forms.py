@@ -1,4 +1,5 @@
-from django.forms import ModelForm, widgets
+from django.forms import Form, ModelForm, widgets
+from django import forms
 
 
 class BookingModelForm(ModelForm):
@@ -28,3 +29,19 @@ class BookingModelForm(ModelForm):
 
             if isinstance(self.fields[field].widget, widgets.SplitDateTimeWidget):
                 self.fields[field].widget.attrs['class'] += " datetime"
+
+
+class BookingForm(Form):
+    """
+    This class extend the Form adding custom class for Bootstrap ("form-control")
+    """
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        classes_to_use = "form-control"
+        for field in self.fields:
+            self.fields[field].widget.attrs.update({'class': classes_to_use})
+
+
+class UserFileForm(BookingForm):
+    user_file = forms.FileField(allow_empty_file=False)

@@ -15,9 +15,13 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from events.views import Calendar
+from base.views import ManagementView, CleanUserView, BackupView
 
 app_name = "base"
 
 urlpatterns = [
     url(r'^$', Calendar.as_view()),
+    url(r'^manage$', ManagementView.as_view(), name="management"),
+    url(r'^manage/clean$', CleanUserView.as_view(), name="clean"),
+    url(r'^manage/backup$', BackupView.as_view(), name="backup"),
 ]
