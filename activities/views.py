@@ -52,7 +52,9 @@ class ListAllActivityView(TemplateView):
             text = self.request.GET.get("search", "")
             context["filterText"] = text
             activities_list = activities_list.filter(
-                Q(title__icontains=text) | Q(description__icontains=text)
+                Q(title__icontains=text) |
+                Q(description__icontains=text) |
+                Q(professor__icontains=text)
             )
         paginator = Paginator(activities_list, per_page=25)
         page = kwargs.get("page", 1)
