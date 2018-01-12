@@ -54,21 +54,26 @@
             {% endfor %}
           </div>
         {% endif %}
-        {{ roomForm.building }}
-
-        <div class="col-xs-2">
-          {% if perms.buildings.create_buildings %}
-            <input  name="newBuilding" type="submit" value="Crea nuovo edificio" class="form-control btn btn-success">
-          {% endif %}
-        </div>
+        {% if perms.rooms.add_building %}
+          <div class="row">
+            <div class="col-xs-10">
+              {{ roomForm.building }}
+            </div>
+            <div class="col-xs-2">
+              <input  name="newBuilding" type="submit" value="Crea nuovo edificio" class="form-control btn btn-success">
+            </div>
+          </div>
+        {% else %}
+          {{ roomForm.building }}
+        {% endif %}
     </div>
   </div>
   </fieldset>
   <br/>
-  <hr/>
 
 <!-- Modify/Add RoomRules -->
-  {% if changeRoomRules %}
+  {% if perms.rooms.change_roomRule %}
+  <hr/>
   <h1>Modifica orari di apertura</h1>
   <fieldset>
   {% csrf_token %}

@@ -25,10 +25,10 @@
     {% if user.is_authenticated %}
       <div class="col-xs-4" role="group">
           <h1 class="btn-group" >
-            {% if perms.room.add_room %}
+            {% if perms.rooms.add_room %}
               <a class="btn btn-success" href="{% url "rooms:newRoom" %}">Nuova aula</a>
             {% endif %}
-            {% if perms.building.add_building %}
+            {% if perms.rooms.add_building %}
               <a class="btn btn-success" href="{% url "rooms:newBuilding" %}">Nuovo edificio</a>
             {% endif %}
           </h1>
@@ -80,7 +80,7 @@
       </h3>
     </div>
     {% if user.is_authenticated %}
-      {% if perms.buildings.change_buildings %}
+      {% if perms.rooms.change_building %}
         <div class="col-xs-2 text-right">
           <h3><a href="{% url "rooms:editBuilding" building.pk %}" class="btn btn-info btn-xs"><span class="glyphicon glyphicon-pencil"> Modifica</span></a></h3>
         </div>

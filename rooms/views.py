@@ -113,7 +113,6 @@ class EditRoomView(TemplateView):
         context["API_KEY"] = GOOGLE_MAPS_API_KEY
         # This flag will allow to edit roomrules only who has the permission
         CAN_CHANGE_RULES = self.request.user.has_perm("roomRule.change_roomRule")
-        context["changeRoomRules"] = CAN_CHANGE_RULES
 
         if self.request.method == "GET":
             if "room_id" in kwargs and kwargs["room_id"]:
@@ -174,11 +173,17 @@ class EditRoomView(TemplateView):
                 roomRuleForms = RoomRuleInlineFormSet(request.POST)
             kwargs["edit"] = False
 
-        # Clear the session before so if we put new data they will be clear
-        request.session.clear()
+        # Clear the session before put new data into
+        if "pendingRoom" in request.session:
+            del request.session["pendingRoom"]
+        if "roomForm_data" in request.session:
+            del request.session["roomFormData"]
+        if "room_pk" in request.session:
+            del request.session["room_pk"]
+
 
         # If the button create new building is pressed
-        if request.POST.get('newBuilding'):
+        if request.POST.get('newBuilding') and self.request.user.has_perm("rooms.add_building"):
             roomForm.is_valid()  # This will fill cleaed_data
             # If is valid filled name and descrition then save them and go to create new building
             # else also the next if will fail and will be displayed the errors
@@ -192,7 +197,7 @@ class EditRoomView(TemplateView):
                     request.session["room_pk"] = room.pk
                 return HttpResponseRedirect(reverse("rooms:newBuilding"))
 
-        if roomForm.is_valid() and (roomRuleForms.is_valid() or not CAN_CHANGE_RULES):
+        if roomForm.is_valid() and (not CAN_CHANGE_RULES or roomRuleForms.is_valid()):
             if CAN_CHANGE_RULES:
                 roomRuleForms.save()
             if kwargs["edit"]:
@@ -227,7 +232,7 @@ class NewRoomView(EditRoomView):
 class EditBuildingView(TemplateView):
     template_name = "rooms/editBuilding.html"
 
-    permission_required = "building.change_building"
+    permission_required = "rooms.change_building"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
