@@ -1,5 +1,5 @@
 SHELL := /bin/bash
-PYTHON ?= python3
+PYTHON ?= python
 PIP ?= pip3
 PYCODESTYLE ?= $(PYTHON) -m pycodestyle
 FLAKE8 ?= $(PYTHON) -m flake8
@@ -56,6 +56,7 @@ migrate-db:
 
 populate-db:
 	$(PYTHON) manage.py loaddata fixtures/users.json
+	$(PYTHON) manage.py loaddata fixtures/buildings.json
 	$(PYTHON) manage.py loaddata fixtures/rooms.json
 	$(PYTHON) manage.py loaddata fixtures/activities.json
 	$(PYTHON) manage.py loaddata fixtures/events.json
