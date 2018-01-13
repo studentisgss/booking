@@ -181,7 +181,6 @@ class EditRoomView(TemplateView):
         if "room_pk" in request.session:
             del request.session["room_pk"]
 
-
         # If the button create new building is pressed
         if request.POST.get('newBuilding') and self.request.user.has_perm("rooms.add_building"):
             roomForm.is_valid()  # This will fill cleaed_data
