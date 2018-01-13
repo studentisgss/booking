@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from activities.views import *
+from activities.feeds import *
 
 app_name = "activities"
 
@@ -30,4 +31,7 @@ urlpatterns = [
 
     url(r'^bookeddates$', BookedDatesAPI.as_view(), name="bookeddates"),
     url(r'^bookedhours$', BookedHoursAPI.as_view(), name="bookedhours"),
+
+    url(r'^feed/rss/(?P<activity_id>[0-9]+)$', RssActivityFeed(), name="rss"),
+    url(r'^feed/atom/(?P<activity_id>[0-9]+)$', AtomActivityFeed(), name="atom"),
 ]

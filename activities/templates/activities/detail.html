@@ -5,13 +5,16 @@
 
 {% block head-extra %}
 <script type="text/javascript" src="{% static 'activities/js/detail.js' %}"></script>
+
+<link href="{% static 'css/feed.css' %}" rel="stylesheet" />
 {% endblock head-extra %}
 
 {% block main %}
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-xs-10">
-			<h1>{{ activity.get_full_title }}</h1>
+            <h1>{{ activity.get_full_title }}
+        </h1>
 		</div>
 		{% if user.is_authenticated %}
         	{% if perms.activities.change_activity %}
@@ -21,23 +24,45 @@
 			{% endif %}
         {% endif %}
 	</div>
-    {% if activity.description %}
 	<div class="row">
-	<div class="col-xs-12">
-        <a id="collapseDescriptionControl" class="btn btn-default" data-toggle="collapse" href="#collapseDescription" aria-expanded="false" aria-controls="collapseDescription">
-            Mostra/Nascondi descrizione
-        </a>
-        <div class="collapse" id="collapseDescription">
-					<div class="panel panel-default">
-						<div class="panel-body">
-					    <p>{{ activity.description|markdown }}</p>
-						</div>
+        {% if activity.description %}
+        <div class="col-xs-10">
+            <a id="collapseDescriptionControl" class="btn btn-default" data-toggle="collapse" href="#collapseDescription" aria-expanded="false" aria-controls="collapseDescription">
+                Mostra/Nascondi descrizione
+            </a>
+        </div>
+        <div class="col-xs-2">
+            <div class="btn-group">
+                <a href="{% url 'activities:rss' activity.id %}" class="btn btn-xs btn-warning">
+                    <img id="feed-icon" src="{% static 'img/feed.svg' %}" />
+                    <span>RSS</span>
+                </a>
+                <a href="{% url 'activities:atom' activity.id %}" class="btn btn-xs btn-warning">Atom</a>
+            </div>
+        </div>
+    	<div class="col-xs-12">
+            <div class="collapse" id="collapseDescription">
+				<div class="panel panel-default">
+					<div class="panel-body">
+				    <p>{{ activity.description|markdown }}</p>
 					</div>
 				</div>
-        <p><br /></p>
+			</div>
+            <p><br /></p>
+    	</div>
+        {% else %}
+        <div class="btn-group col-xs-12">
+            <a href="{% url 'activities:rss' activity.id %}" class="btn btn-xs btn-warning">
+                <img id="feed-icon" src="{% static 'img/feed.svg' %}" />
+                <span>RSS</span>
+            </a>
+            <a href="{% url 'activities:atom' activity.id %}" class="btn btn-xs btn-warning">Atom</a>
+        </div>
+        <div class="col-xs-12">
+            <br />
+        </div>
+        {% endif %}
 	</div>
-	</div>
-    {% endif %}
 </div>
 <table class="table table-striped table-hover">
 	<thead>
