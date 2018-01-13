@@ -15,7 +15,7 @@ class RssActivityFeed(Feed):
     def get_object(self, request, activity_id):
         try:
             return Activity.objects.get(pk=activity_id)
-        except Activity.DoesNotExist:
+        except (Activity.DoesNotExist, OverflowError):
             raise Http404
 
     def title(self, obj):
