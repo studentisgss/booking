@@ -4,6 +4,8 @@
 
 {% block head-extra %}
 <script type="text/javascript" src="{% static 'news/js/list.js' %}"></script>
+
+<link href="{% static 'css/feed.css' %}" rel="stylesheet" />
 {% endblock head-extra %}
 
 {% block main %}
@@ -19,6 +21,16 @@
         </div>
       {% endif %}
     {% endif %}
+    <div class="btn-group col-xs-12">
+        <a href="{% url 'news:rss' %}" class="btn btn-xs btn-warning">
+            <img id="feed-icon" src="{% static 'img/feed.svg' %}" />
+            <span>RSS</span>
+        </a>
+        <a href="{% url 'news:atom' %}" class="btn btn-xs btn-warning">Atom</a>
+    </div>
+    <div class="col-xs-12">
+        <br />
+    </div>
   </div>
 </div>
 

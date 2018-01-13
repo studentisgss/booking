@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from news.views import NewsView, NewsEditView, NewsAddView, NewsDeleteView
+from news.feeds import RssNewsFeed, AtomNewsFeed
 
 app_name = "news"
 
@@ -23,4 +24,7 @@ urlpatterns = [
     url(r'^new$', NewsAddView.as_view(), name="new"),
     url(r'^edit/(?P<pk>\d+)$', NewsEditView.as_view(), name="edit"),
     url(r'^delete/(?P<pk>\d+)$', NewsDeleteView.as_view(), name="delete"),
+
+    url(r'^feed/rss$', RssNewsFeed(), name="rss"),
+    url(r'^feed/atom$', AtomNewsFeed(), name="atom"),
 ]
