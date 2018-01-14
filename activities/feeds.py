@@ -19,13 +19,13 @@ class RssActivityFeed(Feed):
             raise Http404
 
     def title(self, obj):
-        return "Corsi Scuola Galileiana"
+        return "Attività Scuola Galileiana"
 
     def link(self, obj):
         return reverse("events:calendar")
 
     def description(self, obj):
-        return "Corsi della Scuola Galileiana di Studi Superiori"
+        return "Attività della Scuola Galileiana di Studi Superiori"
 
     def items(self, obj):
         return Event.objects.filter(activity=obj, start__date=localnow().date(), status=0)
@@ -33,18 +33,13 @@ class RssActivityFeed(Feed):
     def item_title(self, item):
         return item.activity.get_full_title()
 
-    # def item_description(self, item):
-    #     return "%s, %s - %s" % (
-    #         item.room.name,
-    #         item.start.strftime("%d/%m/%Y %H:%M"),
-    #         item.end.strftime("%H:%M")
-    #     )
-
     def item_link(self, item):
         return reverse("activities:details", kwargs={"activity_id": item.activity_id})
 
-    def item_guid(self, obj):
-        return str(obj.pk)
+    def item_guid(self, item):
+        # Unique identifier of the feed's item
+        return str(item.pk) + str(item.room.pk) + \
+            item.start.strftime("%H%M") + item.end.strftime("%H%M")
 
 
 class AtomActivityFeed(RssActivityFeed):
