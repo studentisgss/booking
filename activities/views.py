@@ -379,4 +379,3 @@ class ActivitiesList(TemplateView):
         context["activities_list"] = activities_list
 
         return context
-        
