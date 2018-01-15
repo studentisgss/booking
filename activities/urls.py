@@ -24,6 +24,7 @@ urlpatterns = [
     url(r'^list/all/(?P<page>[0-9]+)$', ListAllActivityView.as_view(), name="listall"),
     url(r'^list$', ListActivityView.as_view(), name="list"),
     url(r'^list/(?P<page>[0-9]+)$', ListActivityView.as_view(), name="list"),
+    url(r'^activitieslist$', ActivitiesList.as_view(), name="activitieslist"),
 
     url(r'^new$', ActivityAddView.as_view(), name="new"),
     url(r'^edit/(?P<pk>\d+)$', ActivityEditView.as_view(), name="edit"),

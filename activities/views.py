@@ -366,3 +366,17 @@ class BookedHoursAPI(View):
                  for a in hours]
 
         return JsonResponse({"booked": hours, "opening": opening}, safe=False)
+
+
+class ActivitiesList(TemplateView):
+    template_name = "activities/activitieslist.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        activities_list = Activity.objects.filter(archived=False)
+
+        context["activities_list"] = activities_list
+
+        return context
+        
