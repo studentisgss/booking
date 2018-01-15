@@ -7,6 +7,7 @@
 <script type="text/javascript" src="{% static 'activities/js/detail.js' %}"></script>
 
 <link href="{% static 'css/feed.css' %}" rel="stylesheet" />
+<link href="{% static 'activities/css/detail.css' %}" rel="stylesheet" />
 {% endblock head-extra %}
 
 {% block main %}
@@ -19,7 +20,7 @@
 		{% if user.is_authenticated %}
         	{% if perms.activities.change_activity %}
 				<div class="col-xs-2">
-					<h1><a href="{% url "activities:edit" activity.pk %}" class="btn btn-info"><span class="glyphicon glyphicon-pencil"></span> Modifica</a></h1>
+					<h1><a id="edit-a" href="{% url "activities:edit" activity.pk %}" class="btn btn-info col-xs-12"><span class="glyphicon glyphicon-pencil"></span> Modifica</a></h1>
 				</div>
 			{% endif %}
         {% endif %}
@@ -38,6 +39,7 @@
                     <span>RSS</span>
                 </a>
                 <a href="{% url 'activities:atom' activity.id %}" class="btn btn-xs btn-warning">Atom</a>
+                <a href="{% url 'news:messages' activity.id %}" class="btn btn-xs btn-primary">Messaggi</a>
             </div>
         </div>
     	<div class="col-xs-12">
@@ -57,6 +59,7 @@
                 <span>RSS</span>
             </a>
             <a href="{% url 'activities:atom' activity.id %}" class="btn btn-xs btn-warning">Atom</a>
+            <a href="{% url 'news:messages' activity.id %}" class="btn btn-xs btn-primary">Messaggi</a>
         </div>
         <div class="col-xs-12">
             <br />
