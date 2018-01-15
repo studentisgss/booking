@@ -192,4 +192,7 @@ class EventsApprovationConfirmView(LoginRequiredMixin, PermissionRequiredMixin, 
             ev.save()
         else:
             raise Http404
-        return HttpResponseRedirect(reverse('events:approvation'))
+        filter_string = ""
+        if "filter" in request.GET:
+            filter_string = "?filter=" + request.GET.get("filter", None)
+        return HttpResponseRedirect(reverse('events:approvation') + filter_string)
