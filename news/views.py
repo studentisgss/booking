@@ -4,6 +4,7 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.admin.models import LogEntry, ADDITION, CHANGE, DELETION
+import datetime
 
 from news.models import News
 from news.forms import NewsForm
@@ -130,3 +131,22 @@ class NewsDeleteView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
         else:
             raise Http404
         return HttpResponseRedirect(reverse("news:news"))
+
+
+class NewsList(TemplateView):
+    template_name = "news/newslist.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        news = News.objects.filter(start__range= (datetime.date(2015,11,1),datetime.date(2016,3,3)) ).order_by("-start")
+        context["news_list"] = news
+        return context
+
+class NewsDetails(TemplateView):
+    template_name = "news/newsdetails.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        news = News.objects.get(id=kwargs["id"])
+        context["news_detail"] = news
+        return context
