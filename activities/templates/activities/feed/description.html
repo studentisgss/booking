@@ -1,1 +1,1 @@
-{{ obj.room.name }}, {{ obj.start|date:"j F Y, H:i" }} - {{ obj.end|date:"H:i" }}
+{% if type == "event" %}{{ obj.room.name }}, {{ obj.start|date:"j F Y, H:i" }} - {{ obj.end|date:"H:i" }}{% else %}{{ obj.content }}{% endif %}
