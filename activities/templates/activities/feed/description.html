@@ -1,1 +1,5 @@
-{% if type == "event" %}{{ obj.room.name }}, {{ obj.start|date:"j F Y, H:i" }} - {{ obj.end|date:"H:i" }}{% else %}{{ obj.content }}{% endif %}
+{% if type == "event" %}{{ obj.room.name }}, {{ obj.start|date:"j F Y, H:i" }} - {{ obj.end|date:"H:i" }}{% else %}{% if type == "news" %}{{ obj.content }}{% else %}
+{{ obj.content }}
+
+
+{{ obj.time|date:"d/m/Y H:i" }}{% endif %}{% endif %}
