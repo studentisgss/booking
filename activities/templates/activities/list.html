@@ -54,7 +54,7 @@
             <th>Periodo</th>
             {% if user.is_authenticated %}
                 {% if perms.activities.change_activity %}
-                    <th>Modifica</th>
+                    <th class="text-center">Modifica</th>
                 {% endif %}
             {% endif %}
         </tr>
@@ -77,7 +77,7 @@
             <td>{{ e.min_start | date:'F Y' }} - {{ e.max_end | date:'F Y' }}</td>
             {% if user.is_authenticated %}
                 {% if perms.activities.change_activity %}
-                    <td>
+                    <td class="text-center">
                         <a href="{% url "activities:edit" e.pk %}" class="btn btn-info btn-xs"><span class="glyphicon glyphicon-pencil"></span></a>
                     </td>
                 {% endif %}
