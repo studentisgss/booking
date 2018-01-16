@@ -33,7 +33,13 @@
         <a id="collapseDescriptionControl" class="btn btn-default" data-toggle="collapse" href="#collapseDescription" aria-expanded="false" aria-controls="collapseDescription">
             Mostra/Nascondi descrizione
         </a>
-        <div class="collapse" id="collapseDescription"><p>{{ activity.description|markdown }}</p></div>
+        <div class="collapse" id="collapseDescription">
+					<div class="panel panel-default">
+						<div class="panel-body">
+					    <p>{{ activity.description|markdown }}</p>
+						</div>
+					</div>
+				</div>
         <p><br /></p>
 	</div>
 	</div>
@@ -55,6 +61,10 @@
 				<td>{{ e.start | date:'H:i' }} - {{ e.end | date:'H:i' }}</td>
 				<td>{{ e.room.name }}</td>
 				<td>{% if e.status == e.APPROVED %}Confermata{% elif e.status == e.WAITING %}In attesa{% else %}Rifiutata{% endif %}</td>
+			</tr>
+		{% empty %}
+			<tr>
+				<td>Nessun evento in questa attivit&agrave;.</td>
 			</tr>
 		{% endfor %}
 	</tbody>
