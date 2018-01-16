@@ -15,6 +15,7 @@ from events.forms import EventInlineFormSet
 from activities.models import Activity
 from activities.forms import ActivityForm
 from rooms.models import RoomPermission, Room, RoomRule
+from news.models import Message
 from base.utils import localnow, parse_date
 from booking.settings import DATE_INPUT_FORMATS, DATE_FORMAT, TIME_FORMAT
 
@@ -35,6 +36,7 @@ class DetailActivityView(TemplateView):
             raise Http404
         context["activity"] = activity
         context["events_list"] = Event.objects.filter(activity_id=activity_id).order_by("start")
+        context["message_count"] = Message.objects.filter(activity_id=activity.pk).count()
         return context
 
 

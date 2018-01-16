@@ -27,19 +27,19 @@
 	</div>
 	<div class="row">
         {% if activity.description %}
-        <div class="col-xs-10">
+        <div class="col-md-9 col-xs-8">
             <a id="collapseDescriptionControl" class="btn btn-default" data-toggle="collapse" href="#collapseDescription" aria-expanded="false" aria-controls="collapseDescription">
                 Mostra/Nascondi descrizione
             </a>
         </div>
-        <div class="col-xs-2">
+        <div class="col-md-3 col-xs-4 text-right">
             <div class="btn-group">
                 <a href="{% url 'activities:rss' activity.id %}" class="btn btn-xs btn-warning">
                     <img id="feed-icon" src="{% static 'img/feed.svg' %}" />
                     <span>RSS</span>
                 </a>
                 <a href="{% url 'activities:atom' activity.id %}" class="btn btn-xs btn-warning">Atom</a>
-                <a href="{% url 'news:messages' activity.id %}" class="btn btn-xs btn-primary">Messaggi</a>
+                <a href="{% url 'news:messages' activity.id %}" class="btn btn-xs btn-primary">Messaggi {% if message_count != 0 %}<span class="badge">{{ message_count }}</span>{% endif %}</a>
             </div>
         </div>
     	<div class="col-xs-12">
@@ -59,7 +59,7 @@
                 <span>RSS</span>
             </a>
             <a href="{% url 'activities:atom' activity.id %}" class="btn btn-xs btn-warning">Atom</a>
-            <a href="{% url 'news:messages' activity.id %}" class="btn btn-xs btn-primary">Messaggi</a>
+            <a href="{% url 'news:messages' activity.id %}" class="btn btn-xs btn-primary">Messaggi {% if message_count != 0 %}<span class="badge">{{ message_count }}</span>{% endif %}</a>
         </div>
         <div class="col-xs-12">
             <br />
