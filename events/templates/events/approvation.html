@@ -59,10 +59,10 @@
             <td>
 		        {{ e.start|date:"G:i" }}-{{ e.end|date:"G:i" }}
             </td>
-            <td>
+            <td class="text-center">
 		        <a href="{% url 'events:approvationConfirm' e.pk 0 %}{% if filter_string %}?filter={{ filter_string }}{% endif %}" class="btn btn-success"> Accetta </a>
             </td>
-            <td>
+            <td class="text-center">
 		        <a href="{% url 'events:approvationConfirm' e.pk 2 %}{% if filter_string %}?filter={{ filter_string }}{% endif %}" class="btn btn-danger"> Rifiuta </a>
             </td>
 		</tr>
