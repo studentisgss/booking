@@ -25,29 +25,33 @@ $(document).ready(function() {
 
         return false;
     });
-
-    // Filter and sort the table
-    dataTable = $("#table_approvation").DataTable({
-        paging: false,
-        info: false,
-        // Dafault: do not change the order
-        "order": [],
-        "columnDefs": [
-            { "orderable": false, "targets": 4 },
-            { "orderable": false, "targets": 5 },
-            { "searchable": false, "targets": 3 },
-            { "searchable": false, "targets": 4 },
-            { "searchable": false, "targets": 5 },
-        ]
-    });
+    // if the table is not empty
+    if ($("#table_approvation tr")[1].cells.length != 1) {
+      // Filter and sort the table
+      dataTable = $("#table_approvation").DataTable({
+          paging: false,
+          info: false,
+          // Dafault: do not change the order
+          "order": [],
+          "columnDefs": [
+              { "orderable": false, "targets": 4 },
+              { "orderable": false, "targets": 5 },
+              { "searchable": false, "targets": 3 },
+              { "searchable": false, "targets": 4 },
+              { "searchable": false, "targets": 5 },
+          ]
+      });
+    }
 
     // Show the search input
     $("#filter").removeClass("hidden");
     // Remove the DataTable search box
     $("#table_approvation_filter").parent().parent().remove();
     // Add the event handler
-    // After the user type something it immediatly filter the table
-    $("#search").on("keyup", function(){
-        dataTable.search(this.value).draw();
-    });
+    // After the user type something it immediatly filter the table if it is not null
+    if (dataTable != null) {
+      $("#search").on("keyup", function(){
+          dataTable.search(this.value).draw();
+      });
+    }
 });
