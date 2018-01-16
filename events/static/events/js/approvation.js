@@ -31,6 +31,7 @@ $(document).ready(function() {
       dataTable = $("#table_approvation").DataTable({
           paging: false,
           info: false,
+          "bAutoWidth": false,
           // Dafault: do not change the order
           "order": [],
           "columnDefs": [
