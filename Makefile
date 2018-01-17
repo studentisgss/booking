@@ -1,5 +1,5 @@
 SHELL := /bin/bash
-PYTHON ?= python
+PYTHON ?= python3
 PIP ?= pip3
 PYCODESTYLE ?= $(PYTHON) -m pycodestyle
 FLAKE8 ?= $(PYTHON) -m flake8

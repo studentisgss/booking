@@ -1,6 +1,7 @@
 from collections import OrderedDict
 
 from django.views.generic import TemplateView
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
 from django.http import Http404, HttpResponseRedirect
@@ -102,7 +103,7 @@ class ListRoomView(TemplateView):
         return context
 
 
-class EditRoomView(TemplateView):
+class EditRoomView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
     template_name = "rooms/edit.html"
 
     permission_required = "rooms.change_room"
@@ -225,10 +226,11 @@ class EditRoomView(TemplateView):
 
 
 class NewRoomView(EditRoomView):
-    permission_required = "room.create_room"
+
+    permission_required = "rooms.add_room"
 
 
-class EditBuildingView(TemplateView):
+class EditBuildingView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
     template_name = "rooms/editBuilding.html"
 
     permission_required = "rooms.change_building"
@@ -319,4 +321,4 @@ class EditBuildingView(TemplateView):
 
 class NewBuildingView(EditBuildingView):
 
-    permission_required = "building.create_building"
+    permission_required = "rooms.add_building"
