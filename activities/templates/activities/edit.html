@@ -125,14 +125,14 @@ allRooms.push("{{r.pk}}");
                 {% endif %}
             {% endif %}
             <div class="col-sm-2 col-md-1">
-            <label for="{{ form.managers.id_for_label }}" class="control-label">{{ form.managers.label }}:</label>
+              <label for="{{ form.managers.id_for_label }}" class="control-label">{{ form.managers.label }}:</label>
             </div>
             <div class="col-sm-6 col-md-9 {% if form.managers.errors %}has-error{% endif %}">
-                {{ form.managers }}
+              {{ form.managers }}
             </div>
-            <div class="col-sm-2 col-md-1">
-            <label for="{{ form.archived.id_for_label }}" class="control-label">{{ form.archived.label }}:</label>
-            </div>
+              <div class="col-sm-2 col-md-1">
+                <label for="{{ form.archived.id_for_label }}" class="control-label">{{ form.archived.label }}:</label>
+              </div>
             <div class="col-sm-2 col-md-1 {% if form.archived.errors %}has-error{% endif %}">
                 {{ form.archived }}
             </div>
