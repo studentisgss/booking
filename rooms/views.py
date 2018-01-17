@@ -237,6 +237,8 @@ class EditBuildingView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        # This key is needed for using google maps api
+        context["API_KEY"] = GOOGLE_MAPS_API_KEY
         # Put in the context if we have a pending editing/creation a room
         if "pendingRoom"in self.request.session and self.request.session["pendingRoom"]:
             self.request.session["pendingRoom"] = False
