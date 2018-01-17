@@ -379,8 +379,11 @@ class BookedHoursAPI(View):
         rule = RoomRule.objects.all().filter(room_id=room_id, day=day.weekday()).first()
         opening = ""
         if rule is not None:
-            opening = "{} - {}".format(rule.opening_time.strftime(TIME_FORMAT),
-                                       rule.closing_time.strftime(TIME_FORMAT))
+            if rule.isClosedAllDay():
+                opening = "closed"
+            else:
+                opening = "{} - {}".format(rule.opening_time.strftime(TIME_FORMAT),
+                                           rule.closing_time.strftime(TIME_FORMAT))
 
         hours = ["{} - {}".format(a.start.strftime(TIME_FORMAT), a.end.strftime(TIME_FORMAT))
                  for a in hours]
