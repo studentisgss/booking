@@ -25,7 +25,7 @@
 				<table class="table table-hover table-striped">
 					<thead>
 						<tr>
-							<th colspan="2"><span class="h2"><a href="{% url "rooms:details" room_events.grouper.pk %}">{{ room_events.grouper.name }}</a></span></th>
+							<th colspan="2"><span class="h2"><a href="{% url "rooms:details" room_events.grouper.pk %}">{{ room_events.grouper.get_full_name }}</a></span></th>
 						</tr>
 						<tr>
 							<th class="col-md-3">Orario</th>
