@@ -25,7 +25,7 @@
     {% endif %}
     <div class="form-group {% if buildingForm.name.errors %}has-error{% endif %}">
       {{ buildingForm.name.label_tag }}
-        {% if name.errors %}
+        {% if buildingForm.name.errors %}
           <div>
             {% for error in buildingForm.name.errors %}
               <p class="text-danger">{{ error|escape }}</p>
