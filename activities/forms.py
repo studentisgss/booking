@@ -25,7 +25,7 @@ class ActivityForm(BookingModelForm):
             is_active=True
         ).filter(
             Q(groups__permissions=perm) | Q(user_permissions=perm)
-        ).distinct()
+        ).distinct().order_by("first_name", "last_name")
         # Use the full name for the users
         self.fields['managers'].label_from_instance = self.managers_label_from_instance
 
