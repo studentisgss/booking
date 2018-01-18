@@ -85,17 +85,17 @@
         <th>Elimina</th>
         <td class="hidden"></td>
       </tr>
-      {% for form in roomRuleForm %}
-        {% if form.non_field_errors %}
-          <div class="row">
-            <ol class="list-group">
-            {% for error in form.non_field_errors %}
-              <li class="list-group-item list-group-item-danger">{{ error|escape }}</li>
-            {% endfor %}
-            </ol>
-          </div>
-        {% endif %}
-        <tr>
+      <tr>
+        {% for form in roomRuleForm %}
+          {% if form.non_field_errors %}
+            <div class="row">
+              <ol class="list-group">
+              {% for error in form.non_field_errors %}
+                <li class="list-group-item list-group-item-danger">{{ error|escape }}</li>
+              {% endfor %}
+              </ol>
+            </div>
+          {% endif %}
           <td>
             <div class="form-group {% if form.day.errors %}has-error{% endif %}">
               {{ form.day }}
