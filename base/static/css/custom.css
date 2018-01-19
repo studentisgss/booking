@@ -35,3 +35,7 @@ body {
 .error-message {
 	margin-top: 5%;
 }
+
+p.select-all {
+    display: inline-table;
+}
