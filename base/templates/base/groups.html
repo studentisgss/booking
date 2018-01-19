@@ -1,0 +1,103 @@
+{% extends "base/layout.html" %}
+{% load staticfiles %}
+
+{% block head-extra %}
+<script type="text/javascript" src="{% static 'js/jquery.sumoselect.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/groups.js' %}"></script>
+
+<link href="{% static 'css/sumoselect.min.css' %}" rel="stylesheet" />
+<link href="{% static 'css/groups.css' %}" rel="stylesheet" />
+{% endblock head-extra %}
+
+{% block main %}
+<h1>Gestione gruppi</h1>
+<br />
+<div class="container">
+    {% for g in group_forms %}
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <b>{{ g.group.name }}</b>
+            </div>
+            <div class="panel-body">
+                <div class="">
+                    <form method="POST" class="form-horizontal">
+                        {% csrf_token %}
+                        {% if g.add.non_field_errors %}
+                            <div>
+                                <ol class="list-group">
+                                    {% for error in g.add.non_field_errors %}
+                                        <li class="list-group-item list-group-item-danger">{{ error|escape }}</li>
+                                    {% endfor %}
+                                </ol>
+                            </div>
+                        {% endif %}
+                        <div class="form-group">
+                            {% if g.add.members.errors %}
+                                <div class="col-sm-12">
+                                    {% for error in g.add.members.errors %}
+                                        <p class="text-danger">{{ error|escape }}</p>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                            <div class="col-sm-1">
+                                <label for="{{ g.add.members.id_for_label }}" class="control-label">Aggiungi:</label>
+                            </div>
+                            <div class="col-sm-11 {% if g.add.members.errors %}has-error{% endif %}">
+                                {{ g.add.members }}
+                            </div>
+                        </div>
+                    </form>
+
+                    <form method="POST" class="form-horizontal">
+                        {% csrf_token %}
+                        {% if g.remove.non_field_errors %}
+                            <div>
+                                <ol class="list-group">
+                                    {% for error in g.remove.non_field_errors %}
+                                        <li class="list-group-item list-group-item-danger">{{ error|escape }}</li>
+                                    {% endfor %}
+                                </ol>
+                            </div>
+                        {% endif %}
+                        <div class="form-group">
+                            {% if g.remove.members.errors %}
+                                <div class="col-sm-12">
+                                    {% for error in g.remove.members.errors %}
+                                        <p class="text-danger">{{ error|escape }}</p>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                            <div class="col-sm-1">
+                                <label for="{{ g.remove.members.id_for_label }}" class="control-label">Rimuovi:</label>
+                            </div>
+                            <div class="col-sm-11 {% if g.remove.members.errors %}has-error{% endif %}">
+                                {{ g.remove.members }}
+                            </div>
+                        </div>
+                    </form>
+
+                    <div class="row">
+                        <div class="col-sm-1">
+                            <label>Membri:</label>
+                        </div>
+                        <div class="col-sm-11 members">
+                            <ul class="list-group">
+                                {% for u in g.group.user_set.all %}
+                                <li class="list-group-item">{{ u.get_full_name }} <a href="#" class="text-danger"><span aria-hidden="true">&times;</span></a></li>
+                                {% empty %}
+                                <li class="list-group-item">Nessuno.</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% empty %}
+        <p>
+            Nessun gruppo presente.
+        </p>
+    {% endfor %}
+</div>
+
+{% endblock main %}

@@ -6,7 +6,8 @@ from django.core.management.base import CommandError
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
-from base.forms import UserFileForm
+from django.contrib.auth.models import User, Group
+from base.forms import UserFileForm, GroupMembersForm
 from booking.settings import BACKUP_COMMAND
 import subprocess
 
@@ -128,3 +129,21 @@ class BackupView(LoginRequiredMixin, PermissionRequiredMixin, View):
             output = "  Permessi non sufficienti per eseguire il comando. "
         self.request.session["backup_message"] = str(output).replace("\\n", "\n")[2:-1]
         return HttpResponseRedirect(reverse("base:management"))
+
+
+class GroupsMembersView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
+    template_name = "base/groups.html"
+
+    permission_required = ("auth.add_group", "auth.change_group", "auth.delete_group")
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        group_forms = []
+        for g in Group.objects.all():
+            group_forms.append({
+                "group": g,
+                "add": GroupMembersForm(g),
+                "remove": GroupMembersForm(g, False)
+            })
+        context["group_forms"] = group_forms
+        return context
