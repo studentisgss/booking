@@ -178,7 +178,7 @@ class EditRoomView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
         if "pendingRoom" in request.session:
             del request.session["pendingRoom"]
         if "roomForm_data" in request.session:
-            del request.session["roomFormData"]
+            del request.session["roomForm_data"]
         if "room_pk" in request.session:
             del request.session["room_pk"]
 
