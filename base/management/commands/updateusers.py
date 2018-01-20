@@ -72,10 +72,6 @@ class Command(BaseCommand):
                     user = User.objects.create_user(u, name["email"])
                     user.first_name = name["first_name"]
                     user.last_name = name["surname"]
-                    # Set the default permission
-                    c = ContentType.objects.get_for_model(Event)
-                    perms = Permission.objects.filter(content_type=c)
-                    user.user_permissions.add(*perms)
                 else:
                     user = User.objects.get(username=u)
                     # If the user has different a different name raise an exception
