@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.template import RequestContext
 from django.views.generic import TemplateView, View
 from django.core.management.base import CommandError
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, Http404
 from django.core.urlresolvers import reverse
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.models import User, Group
@@ -134,16 +134,78 @@ class BackupView(LoginRequiredMixin, PermissionRequiredMixin, View):
 class GroupsMembersView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
     template_name = "base/groups.html"
 
-    permission_required = ("auth.add_group", "auth.change_group", "auth.delete_group")
+    permission_required = ("auth.change_group",)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         group_forms = []
+        # For every group create the forms to add and remove the users
+        # If there was any error there will be `add_error` or `remove_error` in kwargs
+        # with the id of the relative group
         for g in Group.objects.all():
-            group_forms.append({
+            entry = {
                 "group": g,
-                "add": GroupMembersForm(g),
-                "remove": GroupMembersForm(g, False)
-            })
+                "add": GroupMembersForm(g, True, self.request.POST) if "add_error" in kwargs and
+                kwargs["add_error"] == g.pk else GroupMembersForm(g),
+                "remove": GroupMembersForm(g, False, self.request.POST)
+                if "remove_error" in kwargs and kwargs["remove_error"] == g.pk
+                else GroupMembersForm(g, False),
+                "members": g.user_set.all().order_by("first_name", "last_name")
+            }
+            group_forms.append(entry)
         context["group_forms"] = group_forms
         return context
+
+    def get(self, *args, **kwargs):
+        # Remove a single user
+        if "user" in self.request.GET:
+            if "pk" not in kwargs:
+                raise Http404
+            try:
+                group = Group.objects.get(pk=kwargs["pk"])
+                user = group.user_set.get(pk=self.request.GET["user"])
+            except (Group.DoesNotExist, User.DoesNotExist):
+                raise Http404
+            group.user_set.remove(user)
+
+        # Clear the inactive users in the group (the pk is in kwargs by the url definition)
+        if "operation" in kwargs and kwargs["operation"] == "clear":
+            try:
+                group = Group.objects.get(pk=kwargs["pk"])
+            except (Group.DoesNotExist, User.DoesNotExist):
+                raise Http404
+            inactive = group.user_set.filter(is_active=False)
+            group.user_set.remove(*inactive)
+
+        return super().get(*args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        # Operation identifies what request was made
+        if "operation" not in kwargs or "pk" not in kwargs:
+            raise Http404
+
+        try:
+            group = Group.objects.get(pk=kwargs["pk"])
+        except Group.DoesNotExist:
+            raise Http404
+
+        if kwargs["operation"] == "add":
+            form = GroupMembersForm(group, True, request.POST)
+            if form.is_valid():
+                group.user_set.add(*form.cleaned_data["members"])
+            else:
+                # Set the error key in kwargs
+                kwargs["add_error"] = group.pk
+            return self.get(request, *args, **kwargs)
+
+        elif kwargs["operation"] == "remove":
+            form = GroupMembersForm(group, False, request.POST)
+            if form.is_valid():
+                group.user_set.remove(*form.cleaned_data["members"])
+            else:
+                # Set the error key in kwargs
+                kwargs["remove_error"] = group.pk
+            return self.get(request, *args, **kwargs)
+
+        else:
+            raise Http404

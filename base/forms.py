@@ -64,11 +64,14 @@ class GroupMembersForm(BookingForm):
                 groups=group
             ).distinct()
         else:
-            queryset = User.objects.all().filter(groups=group, is_active=True).distinct()
+            queryset = group.user_set
 
         self.fields['members'].queryset = queryset.order_by("first_name", "last_name")
         # Use the full name for the users
         self.fields['members'].label_from_instance = self.members_label_from_instance
+
+        # Set the prefix to avoid multiple ids
+        self.prefix = "%s-%s" % ("add" if exclude else "rem", group.pk)
 
     def members_label_from_instance(self, obj):
         return obj.get_full_name()

@@ -25,4 +25,10 @@ urlpatterns = [
     url(r'^manage/clean$', CleanUserView.as_view(), name="clean"),
     url(r'^manage/backup$', BackupView.as_view(), name="backup"),
     url(r'^manage/groups$', GroupsMembersView.as_view(), name="groups"),
+    url(r'^manage/groups/add/(?P<pk>\d+)$', GroupsMembersView.as_view(),
+        kwargs={"operation": "add"}, name="groups_add"),
+    url(r'^manage/groups/remove/(?P<pk>\d+)$', GroupsMembersView.as_view(),
+        kwargs={"operation": "remove"}, name="groups_remove"),
+    url(r'^manage/groups/clear/(?P<pk>\d+)$', GroupsMembersView.as_view(),
+        kwargs={"operation": "clear"}, name="groups_clear"),
 ]

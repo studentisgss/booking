@@ -16,11 +16,13 @@
     {% for g in group_forms %}
         <div class="panel panel-default">
             <div class="panel-heading">
-                <b>{{ g.group.name }}</b>
+                <a data-toggle="collapse" href="#collapse{{ g.group.id }}" aria-expanded="true">
+                    <b>{{ g.group.name }}</b>
+                </a>
             </div>
-            <div class="panel-body">
+            <div class="panel-body collapse in" id="collapse{{ g.group.id }}">
                 <div class="">
-                    <form method="POST" class="form-horizontal">
+                    <form method="POST" action="{% url 'base:groups_add' g.group.pk %}" class="form-horizontal">
                         {% csrf_token %}
                         {% if g.add.non_field_errors %}
                             <div>
@@ -42,13 +44,16 @@
                             <div class="col-sm-1">
                                 <label for="{{ g.add.members.id_for_label }}" class="control-label">Aggiungi:</label>
                             </div>
-                            <div class="col-sm-11 {% if g.add.members.errors %}has-error{% endif %}">
+                            <div class="col-sm-10 {% if g.add.members.errors %}has-error{% endif %}">
                                 {{ g.add.members }}
+                            </div>
+                            <div class="col-sm-1">
+                                <input type="submit" class="form-control btn btn-success" value="Esegui" />
                             </div>
                         </div>
                     </form>
 
-                    <form method="POST" class="form-horizontal">
+                    <form method="POST" action="{% url 'base:groups_remove' g.group.pk %}" class="form-horizontal">
                         {% csrf_token %}
                         {% if g.remove.non_field_errors %}
                             <div>
@@ -70,8 +75,11 @@
                             <div class="col-sm-1">
                                 <label for="{{ g.remove.members.id_for_label }}" class="control-label">Rimuovi:</label>
                             </div>
-                            <div class="col-sm-11 {% if g.remove.members.errors %}has-error{% endif %}">
+                            <div class="col-sm-10 {% if g.remove.members.errors %}has-error{% endif %}">
                                 {{ g.remove.members }}
+                            </div>
+                            <div class="col-sm-1">
+                                <input type="submit" class="form-control btn btn-danger" value="Esegui" />
                             </div>
                         </div>
                     </form>
@@ -82,12 +90,23 @@
                         </div>
                         <div class="col-sm-11 members">
                             <ul class="list-group">
-                                {% for u in g.group.user_set.all %}
-                                <li class="list-group-item">{{ u.get_full_name }} <a href="#" class="text-danger"><span aria-hidden="true">&times;</span></a></li>
+                                {% for u in g.members %}
+                                    <li class="list-group-item">
+                                        {{ u.get_full_name }}
+                                        <a href="{% url 'base:groups_remove' g.group.pk %}?user={{ u.pk }}" class="text-danger" title="Rimuovi dal gruppo">
+                                            <span aria-hidden="true">&times;</span>
+                                        </a>
+                                    </li>
                                 {% empty %}
-                                <li class="list-group-item">Nessuno.</li>
+                                    <li class="list-group-item">Nessuno.</li>
                                 {% endfor %}
                             </ul>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-offset-1 col-sm-11">
+                            <a href="{% url 'base:groups_clear' g.group.pk %}" class="btn btn-warning">Pulisci utenti non attivi</a>
                         </div>
                     </div>
                 </div>
