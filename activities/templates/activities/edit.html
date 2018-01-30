@@ -8,6 +8,7 @@
 <script type="text/javascript" src="{% static 'js/jquery-ui.multidatespicker.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/forms.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/simplemde.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/jquery.sumoselect.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'activities/js/edit.js' %}"></script>
 <script type="text/javascript" src="{% static 'activities/js/edit-calendar.js' %}"></script>
 <script type="text/javascript" src="{% static 'activities/js/markdownEditor.js' %}"></script>
@@ -21,6 +22,7 @@
 <link href="{% static 'activities/css/edit.css' %}" rel="stylesheet" />
 <link href="{% static 'activities/css/markdown.css' %}" rel="stylesheet" />
 <link href="{% static 'css/tooltip.css' %}" rel="stylesheet" />
+<link href="{% static 'css/sumoselect.min.css' %}" rel="stylesheet" />
 
 <script type="text/javascript">
 var waitingRooms = []
@@ -51,39 +53,20 @@ allRooms.push("{{r.pk}}");
                 </ol>
             </div>
         {% endif %}
-        <!-- TITLE AND ARCHIVED-->
+        <!-- TITLE -->
         <div class="form-group">
-            {% if form.title.errors or form.archived.errors %}
-                {% if form.title.errors %}
-                    <div class="col-sm-8 col-md-9">
-                        {% for error in form.title.errors %}
-                            <p class="text-danger">{{ error|escape }}</p>
-                        {% endfor %}
-                    </div>
-                {% else %}
-                <div class="col-sm-8 col-md-9"><p>&nbsp;</p></div>
-                {% endif %}
-                {% if form.archived.errors %}
-                    <div class="col-sm-4 col-md-3">
-                        {% for error in form.archived.errors %}
-                            <p class="text-danger">{{ error|escape }}</p>
-                        {% endfor %}
-                    </div>
-                {% else %}
-                <div class="col-sm-4 col-md-3"><p>&nbsp;</p></div>
-                {% endif %}
+            {% if form.title.errors %}
+                <div class="col-sm-12 col-md-12">
+                    {% for error in form.title.errors %}
+                        <p class="text-danger">{{ error|escape }}</p>
+                    {% endfor %}
+                </div>
             {% endif %}
             <div class="col-sm-2 col-md-1">
             <label for="{{ form.title.id_for_label }}" class="control-label">{{ form.title.label }}:</label>
             </div>
-            <div class="col-sm-6 col-md-9 {% if form.title.errors %}has-error{% endif %}">
+            <div class="col-sm-10 col-md-11 {% if form.title.errors %}has-error{% endif %}">
                 {{ form.title }}
-            </div>
-            <div class="col-sm-2 col-md-1">
-            <label for="{{ form.archived.id_for_label }}" class="control-label">{{ form.archived.label }}:</label>
-            </div>
-            <div class="col-sm-2 col-md-1 {% if form.archived.errors %}has-error{% endif %}">
-                {{ form.archived }}
             </div>
         </div>
         <!-- CLASS AND PROFESSOR -->
@@ -119,6 +102,41 @@ allRooms.push("{{r.pk}}");
             </div>
             <div class="col-sm-5 col-md-8 {% if form.professor.errors %}has-error{% endif %}">
                 {{ form.professor }}
+            </div>
+        </div>
+        <!-- MANAGERS AND ARCHIVED -->
+        <div class="form-group">
+            {% if form.managers.errors or form.archived.errors %}
+                {% if form.managers.errors %}
+                    <div class="col-sm-8 col-md-9">
+                        {% for error in form.managers.errors %}
+                            <p class="text-danger">{{ error|escape }}</p>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                <div class="col-sm-8 col-md-9"><p>&nbsp;</p></div>
+                {% endif %}
+                {% if form.archived.errors %}
+                    <div class="col-sm-4 col-md-3">
+                        {% for error in form.archived.errors %}
+                            <p class="text-danger">{{ error|escape }}</p>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                <div class="col-sm-4 col-md-3"><p>&nbsp;</p></div>
+                {% endif %}
+            {% endif %}
+            <div class="col-sm-2 col-md-1">
+              <label for="{{ form.managers.id_for_label }}" class="control-label">{{ form.managers.label }}:</label>
+            </div>
+            <div class="col-sm-6 col-md-9 {% if form.managers.errors %}has-error{% endif %}">
+              {{ form.managers }}
+            </div>
+              <div class="col-sm-2 col-md-1">
+                <label for="{{ form.archived.id_for_label }}" class="control-label">{{ form.archived.label }}:</label>
+              </div>
+            <div class="col-sm-2 col-md-1 {% if form.archived.errors %}has-error{% endif %}">
+                {{ form.archived }}
             </div>
         </div>
         <!-- DESCRIPTION -->
