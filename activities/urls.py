@@ -21,9 +21,9 @@ app_name = "activities"
 urlpatterns = [
     url(r'^detail/(?P<activity_id>[0-9]+)$', DetailActivityView.as_view(), name="details"),
     url(r'^list/all$', ListAllActivityView.as_view(), name="listall"),
-    url(r'^list/all/(?P<page>[0-9]+)$', ListAllActivityView.as_view(), name="listall"),
-    url(r'^list$', ListActivityView.as_view(), name="list"),
-    url(r'^list/(?P<page>[0-9]+)$', ListActivityView.as_view(), name="list"),
+    #url(r'^list/all/(?P<page>[0-9]+)$', ListAllActivityView.as_view(), name="listall"), PAGINATION IS ACTUALLY DISABLED
+    url(r'^list$', ListNotArchivedActivityView.as_view(), name="list"),
+    #url(r'^list/(?P<page>[0-9]+)$', ListNotArchivedActivityView.as_view(), name="list"), PAGINATION IS ACTUALLY DISABLED
 
     url(r'^new$', ActivityAddView.as_view(), name="new"),
     url(r'^edit/(?P<pk>\d+)$', ActivityEditView.as_view(), name="edit"),

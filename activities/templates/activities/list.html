@@ -7,16 +7,24 @@
 
 <script type="text/javascript" src="{% static 'js/datatables.min.js' %}" ></script>
 <script type="text/javascript" src="{% static 'activities/js/search.js' %}" ></script>
+<!-- MAYBE TO ADD <script type="text/javascript" src="{% static 'activities/js/list.js' %}" ></script> -->
 {% endblock head-extra %}
 
 {% block main %}
-<h1>Attività principali</h1>
+<h1>
+  {% if all %}Tutte le attività
+  {% else %}Attività principali
+  {% endif %}
+</h1>
 
 <div class="row">
     <div class="col-md-5">
         <div class="btn-group" role="group">
             <div class="btn-group">
-                <a href="{% url "activities:listall" %}" class="btn btn-default">Visualizza anche attività archiviate</a>
+              {% if all %}<a href="{% url "activities:list" %}" class="btn btn-default">Visualizza solo le attività principali</a>
+              {% else %}<a href="{% url "activities:listall" %}" class="btn btn-default">Visualizza anche attività archiviate</a>
+              {% endif %}
+
             </div>
             {% if user.is_authenticated %}
                  {% if perms.activities.add_activity %}
@@ -29,14 +37,14 @@
     </div>
     <div class="col-md-7">
         <div id="filter" class="text-right">
-            <form id="filter-form" method="GET" action="{% url 'activities:list' %}" class="form-inline">
+            <form id="filter-form" method="GET" action="{% if all %} {% url 'activities:listall' %} {% else %} {% url 'activities:list' %} {% endif %}" class="form-inline">
                 <div class="input-group">
                     <span class="input-group-addon">Filtro: </span>
                     <input type="text" class="form-control" id="search" name="search" value="{{ filterText }}"/>
                     <div class="input-group-btn">
                         <input type="submit" class="btn btn-info" value="Cerca" />
                 {% if filterText %}
-                        <a href="{% url 'activities:list' %}" class="btn btn-warning">Cancella ricerca</a>
+                        <a href="{% if all %} {% url 'activities:listall' %} {% else %} {% url 'activities:list' %} {% endif %}" class="btn btn-warning">Cancella ricerca</a>
                 {% endif %}
                     </div>
                 </div>
@@ -90,5 +98,24 @@
     {% endfor %}
     </tbody>
 </table>
+
+<!-- ABOUT pagination
+I left there the old code for pagination. It must be rewritten in javascript
+<div id="pagination" class="container-fluid">
+    <ul class="pager">
+        {% if list.has_previous %}
+        <li class="previous"><a href="{% url 'activities:listall' list.previous_page_number %}{% if filterText %}?search={{ filterText|urlencode }}{% endif %}"><span>&laquo; Precedenti</span></a></li>
+    {% else %}
+        <li class="previous disabled"><span>&laquo; Precedenti</span></li>
+    {% endif %}
+        <li><span>Pagina {{ list.number }} di {{ list.paginator.num_pages }}</span></li>
+    {% if list.has_next %}
+        <li class="next"><a href="{% url 'activities:listall' list.next_page_number %}{% if filterText %}?search={{ filterText|urlencode }}{% endif %}"><span>Successivi &raquo;</span></a></li>
+    {% else %}
+        <li class="next disabled"><span>Successivi &raquo;</span></li>
+    {% endif %}
+    </ul>
+</div>
+-->
 
 {% endblock main %}

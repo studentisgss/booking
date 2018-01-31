@@ -2,7 +2,6 @@ from django.views.generic import TemplateView
 from django.views import View
 from django.http import Http404, HttpResponseRedirect, JsonResponse
 from django.core.urlresolvers import reverse
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q, Max, Min
 from django.db import transaction
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
@@ -39,7 +38,7 @@ class DetailActivityView(TemplateView):
 
 
 class ListAllActivityView(TemplateView):
-    template_name = "activities/listall.html"
+    template_name = "activities/list.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -56,38 +55,17 @@ class ListAllActivityView(TemplateView):
                 Q(description__icontains=text) |
                 Q(professor__icontains=text)
             )
-        paginator = Paginator(activities_list, per_page=25)
-        page = kwargs.get("page", 1)
-        try:
-            activities = paginator.page(page)
-        except PageNotAnInteger:
-            # If page is not an integer, deliver first page which is 1 not 0.
-            activities = paginator.page(1)
-        except EmptyPage:
-            # If page is out of range (e.g. 9999), deliver last page of results.
-            activities = paginator.page(paginator.num_pages)
-        context["list"] = activities
+        context["list"] = activities_list
+        context["all"] = True
         return context
 
 
-class ListActivityView(TemplateView):
-    template_name = "activities/list.html"
+class ListNotArchivedActivityView(ListAllActivityView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        activities_list = Activity.objects \
-            .filter(archived=False) \
-            .annotate(min_start=Min("event__start")) \
-            .annotate(max_end=Max("event__end")) \
-            .order_by("category", "title", "min_start")
-        # Check for filter-text
-        if "search" in self.request.GET:
-            text = self.request.GET.get("search", "")
-            context["filterText"] = text
-            activities_list = activities_list.filter(
-                Q(title__icontains=text) | Q(description__icontains=text)
-            )
-        context["list"] = activities_list
+        context["list"] = context["list"].filter(archived=False)
+        context["all"] = False
         return context
 
 
