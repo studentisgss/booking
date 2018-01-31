@@ -3,20 +3,45 @@
 
 {% block head-extra %}
 <link href="{% static 'activities/css/list.css' %}" rel="stylesheet" />
+<link href="{% static 'css/datatables.min.css' %}" rel="stylesheet" />
+
+<script type="text/javascript" src="{% static 'js/datatables.min.js' %}" ></script>
+<script type="text/javascript" src="{% static 'events/js/approvation.js' %}"></script>
 {% endblock head-extra %}
 
 {% block main %}
 <h1>Approvazione prenotazioni</h1>
 
-<table class="table table-striped table-hover">
+<div id="filter-form" class="row">
+    <div class="col-md-5 col-sm-6">
+          <div class="btn-group">
+              <a class="btn {% if not filter_string %}btn-info{% else %}btn-default{% endif %} filter" {% if not filter_string %}disabled{% endif %} href="{% url "events:approvation" %}">Tutti</a>
+              <a class="btn {% if filter_string == 'A' %}btn-info{% else %}btn-default{% endif %} filter" {% if filter_string == 'A' %}disabled{% endif %} href="{% url "events:approvation" %}?filter=A">Altro</a>
+              <a class="btn {% if filter_string == 'SN' %}btn-info{% else %}btn-default{% endif %} filter" {% if filter_string == 'SN' %}disabled{% endif %} href="{% url "events:approvation" %}?filter=SN">SN</a>
+              <a class="btn {% if filter_string == 'SM' %}btn-info{% else %}btn-default{% endif %} filter" {% if filter_string == 'SM' %}disabled{% endif %} href="{% url "events:approvation" %}?filter=SM">SM</a>
+              <a class="btn {% if filter_string == 'SS' %}btn-info{% else %}btn-default{% endif %} filter" {% if filter_string == 'SS' %}disabled{% endif %} href="{% url "events:approvation" %}?filter=SS">SS</a>
+          </div>
+    </div>
+    <div class="col-md-3 col-sm-1"></div>
+    <div class="col-md-4 col-sm-5">
+        <div id="filter" class="text-right hidden">
+            <div class="input-group">
+                <span class="input-group-addon">Filtro: </span>
+                <input type="text" class="form-control" id="search" name="search" value=""/>
+            </div>
+        </div>
+    </div>
+</div>
+
+<table class="table table-striped table-hover" id="table_approvation">
 	<thead>
     <tr>
-		<th>Titolo</th>
-		<th>Aula</th>
-		<th>Giorno</th>
-		<th>Ora</th>
-        <th></th>
-        <th></th>
+		<th class="col-md-4">Titolo</th>
+		<th class="col-md-3">Aula</th>
+		<th class="col-md-2">Giorno</th>
+		<th class="col-md-1">Ora</th>
+    <th class="col-md-1"></th>
+    <th class="col-md-1"></th>
     </tr>
 	</thead>
 	<tbody>
@@ -34,11 +59,11 @@
             <td>
 		        {{ e.start|date:"G:i" }}-{{ e.end|date:"G:i" }}
             </td>
-            <td>
-		        <a href="{% url 'events:approvationConfirm' e.pk 0 %}" class="btn btn-success"> Accetta </a>
+            <td class="text-center">
+		        <a href="{% url 'events:approvationConfirm' e.pk 0 %}{% if filter_string %}?filter={{ filter_string }}{% endif %}" class="btn btn-success"> Accetta </a>
             </td>
-            <td>
-		        <a href="{% url 'events:approvationConfirm' e.pk 2 %}" class="btn btn-danger"> Rifiuta </a>
+            <td class="text-center">
+		        <a href="{% url 'events:approvationConfirm' e.pk 2 %}{% if filter_string %}?filter={{ filter_string }}{% endif %}" class="btn btn-danger"> Rifiuta </a>
             </td>
 		</tr>
         {% empty %}

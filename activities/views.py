@@ -3,6 +3,7 @@ from django.views import View
 from django.http import Http404, HttpResponseRedirect, JsonResponse
 from django.core.urlresolvers import reverse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.core.exceptions import PermissionDenied
 from django.db.models import Q, Max, Min
 from django.db import transaction
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
@@ -17,6 +18,7 @@ from activities.forms import ActivityForm
 from rooms.models import RoomPermission, Room, RoomRule
 from news.models import Message
 from base.utils import localnow, parse_date
+from base.models import CLASS_CHOICES
 from booking.settings import DATE_INPUT_FORMATS, DATE_FORMAT, TIME_FORMAT
 
 from datetime import datetime, timedelta
@@ -35,6 +37,20 @@ class DetailActivityView(TemplateView):
         except:
             raise Http404
         context["activity"] = activity
+        # If the user is logged in
+        if self.request.user.is_authenticated:
+            # Check if the user can manage this activity
+            context["can_manage_activity"] = self.request.user.has_perm(
+                "activities.change_activity"
+            ) and self.request.user.has_perm(
+                "activities.change_" + activity.category
+            )
+            # Check if the user is manager only if necessary
+            if not context["can_manage_activity"]:
+                # User is manager if this activity is in his managed_activities
+                context["is_manager"] = self.request.user.managed_activities.filter(
+                    pk=activity_id
+                ).exists()
         context["events_list"] = Event.objects.filter(activity_id=activity_id).order_by("start")
         context["message_count"] = Message.objects.filter(activity_id=activity.pk).count()
         return context
@@ -54,7 +70,9 @@ class ListAllActivityView(TemplateView):
             text = self.request.GET.get("search", "")
             context["filterText"] = text
             activities_list = activities_list.filter(
-                Q(title__icontains=text) | Q(description__icontains=text)
+                Q(title__icontains=text) |
+                Q(description__icontains=text) |
+                Q(professor__icontains=text)
             )
         paginator = Paginator(activities_list, per_page=25)
         page = kwargs.get("page", 1)
@@ -67,6 +85,26 @@ class ListAllActivityView(TemplateView):
             # If page is out of range (e.g. 9999), deliver last page of results.
             activities = paginator.page(paginator.num_pages)
         context["list"] = activities
+        # If the user is authenticated return the activity for which he is a manager
+        if self.request.user.is_authenticated:
+            context["managed_activities"] = self.request.user.managed_activities.all()
+            # If some of the activities are managed by the user set manages_something to True
+            # I have to use set due to some problem with pagination
+            context["manages_something"] = bool(set(context["managed_activities"]) &
+                                                set(activities.object_list))
+
+            # Set the category which the user is allowed to edit
+            if self.request.user.has_perm("activities.change_activity"):
+                context["managed_category"] = \
+                    [c[0] for c in CLASS_CHOICES
+                     if self.request.user.has_perm("activities.change_" + c[0])]
+                managed_category_exists = False
+                for a in activities:
+                    if a.category in context["managed_category"]:
+                        managed_category_exists = True
+                        break  # Not needed to go on
+                context["managed_category_exists"] = managed_category_exists
+
         return context
 
 
@@ -88,13 +126,29 @@ class ListActivityView(TemplateView):
                 Q(title__icontains=text) | Q(description__icontains=text)
             )
         context["list"] = activities_list
+        # If the user is authenticated return the activity for which he is a manager
+        if self.request.user.is_authenticated:
+            context["managed_activities"] = self.request.user.managed_activities.all()
+            # If some of the activities are managed by the user set manages_something to True
+            context["manages_something"] = (context["managed_activities"] &
+                                            activities_list).exists()
+
+            # Set the category which the user is allowed to edit
+            if self.request.user.has_perm("activities.change_activity"):
+                context["managed_category"] = \
+                    [c[0] for c in CLASS_CHOICES
+                     if self.request.user.has_perm("activities.change_" + c[0])]
+                context["managed_category_exists"] = activities_list.filter(
+                    category__in=context["managed_category"]
+                ).exists()
         return context
 
 
-class ActivityEditView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
+class ActivityManagerEditView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
     template_name = "activities/edit.html"
 
-    permission_required = ("activities.change_activity", "rooms.can_book_room")
+    permission_required = ("events.change_event", "rooms.can_book_room")
+    check_for_manager = True
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -118,6 +172,18 @@ class ActivityEditView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView
             events_form = EventInlineFormSet(self.request.POST, instance=activity)
         else:
             raise Http404
+
+        # Check if the user is a manager if required
+        if self.check_for_manager:
+            if not self.request.user.managed_activities.filter(pk=kwargs["pk"]).exists():
+                raise PermissionDenied
+            # Make activity form readonly if the user is only a manager
+            for key in form.fields.keys():
+                form.fields[key].widget.attrs['disabled'] = True
+        # Else check if the user can manage this category
+        else:
+            if not self.request.user.has_perm("activities.change_" + activity.category):
+                raise PermissionDenied
 
         # Get rooms where the user has some permission
         rooms = Room.objects.all().filter(
@@ -157,16 +223,20 @@ class ActivityEditView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView
             events_form = EventInlineFormSet(request.POST, instance=activity)
         else:
             raise Http404
-        if form.is_valid() and events_form.is_valid():
-            # Save the activity and log the change.
-            activity = form.save()
-            LogEntry.objects.log_action(
-                user_id=self.request.user.id,
-                content_type_id=ContentType.objects.get_for_model(activity).pk,
-                object_id=activity.id,
-                object_repr=str(activity),
-                action_flag=CHANGE
-            )
+
+        # Check if the user is a manager if required
+        if self.check_for_manager:
+            if not self.request.user.managed_activities.filter(pk=kwargs["pk"]).exists():
+                raise PermissionDenied
+        # Else check if the user can manage this category
+        else:
+            if not self.request.user.has_perm("activities.change_" + activity.category):
+                raise PermissionDenied
+
+        # If check_for_manager then it is not needed to check the validity of form (activity)
+        # because the user has no permission to modifies it.
+        if (self.check_for_manager or form.is_valid()) and events_form.is_valid():
+            # Do not save the activity: managers are not allowed
             # Save the events
             instances = events_form.save(commit=False)
             with transaction.atomic():
@@ -215,6 +285,36 @@ class ActivityEditView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView
             return HttpResponseRedirect(reverse("activities:list"))
         else:
             return self.get(request, *args, **kwargs)
+
+
+class ActivityEditView(ActivityManagerEditView):
+    template_name = "activities/edit.html"
+
+    permission_required = ("activities.change_activity", "rooms.can_book_room")
+    check_for_manager = False
+
+    def post(self, request, *args, **kwargs):
+        # Call the super function, all check on kwargs are done so
+        # we do not need to repeat them
+        value = super().post(request, *args, **kwargs)
+        activity = Activity.objects.all().get(pk=kwargs["pk"])
+        form = ActivityForm(request.POST, instance=activity)
+        events_form = EventInlineFormSet(request.POST, instance=activity)
+
+        if form.is_valid() and events_form.is_valid():
+            # Save the activity and log the change.
+            # The events are saved in the parent class
+            activity = form.save()
+            LogEntry.objects.log_action(
+                user_id=self.request.user.id,
+                content_type_id=ContentType.objects.get_for_model(activity).pk,
+                object_id=activity.id,
+                object_repr=str(activity),
+                action_flag=CHANGE
+            )
+
+        # The value to be returned is the same of the parent
+        return value
 
 
 class ActivityAddView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):

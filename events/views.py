@@ -10,7 +10,9 @@ from random import shuffle
 from itertools import groupby
 
 from events.models import Event
+from activities.models import Activity
 from base.utils import localnow, default_datetime
+from base.models import CLASS_CHOICES
 from news.models import News
 from rooms.models import Room
 
@@ -161,6 +163,13 @@ class EventsApprovationView(LoginRequiredMixin, PermissionRequiredMixin, Templat
             room__roompermission__group__in=self.request.user.groups.all(),
             room__roompermission__permission=30
         ).distinct().order_by('start')
+        # If filter is set filter on the category
+        if "filter" in self.request.GET:
+            cat = self.request.GET.get("filter", None)
+            if cat not in [x[0] for x in CLASS_CHOICES]:
+                raise Http404
+            context["events_list"] = context["events_list"].filter(activity__category=cat)
+            context["filter_string"] = cat
         return context
 
 
@@ -183,4 +192,7 @@ class EventsApprovationConfirmView(LoginRequiredMixin, PermissionRequiredMixin, 
             ev.save()
         else:
             raise Http404
-        return HttpResponseRedirect(reverse('events:approvation'))
+        filter_string = ""
+        if "filter" in request.GET:
+            filter_string = "?filter=" + request.GET.get("filter", None)
+        return HttpResponseRedirect(reverse('events:approvation') + filter_string)
