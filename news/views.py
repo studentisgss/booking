@@ -151,17 +151,21 @@ class MessageView(TemplateView):
         context["messages"] = Message.objects.filter(activity_id=activity.pk).order_by("-time")
         context["can_send"] = False
         if self.request.user.is_authenticated():
-            if self.request.user.has_perm("activities.change_activity"):  # TODO: Check for class
-                # if self.request.user.has_perm("activities.change_" + activity.category):
+            # Check permission to edit the category
+            if self.request.user.has_perms(
+                    ("activities.change_activity", "activities.change_" + activity.category)):
                 context["can_send"] = True
-            # else:
-            #     if self.request.user.managed_activities.filter(pk=activity.pk).exists():
-            #         context["can_send"] = True
-            if "form_error" in kwargs:
-                form = MessageForm(self.request.POST)
-            else:
-                form = MessageForm()
-            context["form"] = form
+            # Check if the user is a manager
+            if self.request.user.managed_activities.filter(pk=activity.pk).exists():
+                context["can_send"] = True
+
+            # Create the form only if required
+            if context["can_send"]:
+                if "form_error" in kwargs:
+                    form = MessageForm(self.request.POST)
+                else:
+                    form = MessageForm()
+                context["form"] = form
         return context
 
     def post(self, request, *args, **kwargs):
@@ -177,11 +181,11 @@ class MessageView(TemplateView):
         if not self.request.user.is_authenticated():
             return HttpResponseRedirect(reverse("authentication:login"))
 
-        if not self.request.user.has_perm("activities.change_activity"):  # TODO: Check for class
+        # If the user has not the permission to edit this category and is not a manager: denied
+        if not self.request.user.has_perms(
+            ("activities.change_activity", "activities.change_" + activity.category)
+        ) and not self.request.user.managed_activities.filter(pk=activity.pk).exists():
             raise PermissionDenied
-        # if not self.request.user.has_perm("activities.change_" + activity.category) or \
-        #       self.request.user.managed_activities.filter(pk=activity.pk).exists():
-        #         raise PermissionDenied
 
         # If the user can send Messages then go on
         form = MessageForm(request.POST)
