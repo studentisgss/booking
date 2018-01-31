@@ -147,7 +147,7 @@ class EditRoomView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
             raise Http404
         # If there is the building info in the session it means we are back from creating a building
         if ("roomForm_data" in self.request.session) and\
-                self.request.session["roomForm_data"]["building"]:
+                "building" in self.request.session["roomForm_data"]:
             # Update the initial values of the form
             roomForm.initial = self.request.session.pop("roomForm_data")
         context["roomForm"] = roomForm
@@ -190,7 +190,8 @@ class EditRoomView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
             # (fix the the first error displayed will be the missed building)
             if ("name" in roomForm.cleaned_data) and ("description" in roomForm.cleaned_data):
                 request.session["pendingRoom"] = True
-                form_content = roomForm.data
+                form_content = roomForm.data.copy()
+                del form_content["building"]
                 request.session["roomForm_data"] = form_content
 
                 if kwargs["edit"]:  # Save the pk of the room we are editing
