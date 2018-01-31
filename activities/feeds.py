@@ -7,6 +7,7 @@ from news.models import News, Message
 from activities.models import Activity
 from base.utils import localnow
 from booking.settings import TIME_ZONE
+import hashlib
 
 
 class RssActivityFeed(Feed):
@@ -29,9 +30,15 @@ class RssActivityFeed(Feed):
         return "Attività della Scuola Galileiana di Studi Superiori"
 
     def items(self, obj):
-        return list(Event.objects.filter(activity=obj, start__date=localnow().date(), status=0)) + \
+        ret = list(Event.objects.filter(activity=obj, start__date=localnow().date(), status=0)) + \
             list(News.objects.filter(start__lte=localnow().date(), end__gte=localnow().date())) + \
             list(Message.objects.filter(activity=obj))
+        if obj.event_set.all().filter(
+            status=0,
+            start__date__gte=localnow().date()
+        ).exists():
+            ret = [obj] + ret
+        return ret
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -41,17 +48,25 @@ class RssActivityFeed(Feed):
             context["type"] = "news"
         elif isinstance(kwargs["item"], Message):
             context["type"] = "message"
+        elif isinstance(kwargs["item"], Activity):
+            context["type"] = "activity"
+            context["events"] = kwargs["item"].event_set.all().filter(
+                status=0,
+                start__date__gte=localnow().date()
+            ).order_by("start")
         else:
             raise Http404
         return context
 
     def item_title(self, item):
         if isinstance(item, Event):
-            return item.activity.get_full_title()
+            return item.activity.title
         elif isinstance(item, News):
             return item.title
         elif isinstance(item, Message):
-            return item.title
+            return item.activity.title + ": " + item.title
+        elif isinstance(item, Activity):
+            return "Calendario di " + item.title
         else:
             raise Http404
 
@@ -62,6 +77,8 @@ class RssActivityFeed(Feed):
             return reverse("news:news")
         elif isinstance(item, Message):
             return "mailto:%s" % item.creator.email
+        elif isinstance(item, Activity):
+            return reverse("activities:details", kwargs={"activity_id": item.id})
         else:
             raise Http404
 
@@ -74,6 +91,14 @@ class RssActivityFeed(Feed):
             return str(item.pk)
         elif isinstance(item, Message):
             return str(item.pk)
+        elif isinstance(item, Activity):
+            # Use the guid to check if there is chenges in the events
+            guid = "%d" % item.pk
+            for e in item.event_set.all().filter(status=0).order_by("id"):
+                guid += str(e.pk) + str(e.room.pk) + e.start.strftime("%Y%m%d%H%M")
+                guid += e.end.strftime("%Y%m%d%H%M")
+            sha1 = hashlib.sha1(guid.encode())
+            return sha1.hexdigest()
         else:
             raise Http404
 
