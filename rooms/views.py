@@ -306,7 +306,7 @@ class EditBuildingView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView
             # Check if we have a pending editing/creation of a room
             if "roomForm_data" in request.session:
                 # Add the building to the room form data (that will be set as default)
-                roomFormData = request.session["roomForm_data"].copy()
+                roomFormData = request.session["roomForm_data"]
                 roomFormData["building"] = building.pk
                 request.session["roomForm_data"] = roomFormData
                 # If the room pk has been saved then return to modify the room...
