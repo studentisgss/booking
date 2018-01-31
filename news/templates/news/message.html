@@ -20,8 +20,12 @@
 
 {% if can_send %}
 <div class="panel panel-info">
-    <div class="panel-heading lead no-margin-bottom"><b>Invia un messaggio</b></div>
-    <div class="panel-body">
+    <div class="panel-heading lead no-margin-bottom">
+        <a data-toggle="collapse" href="#form-panel-body" aria-expanded="true">
+            <b>Invia un messaggio</b>
+        </a>
+    </div>
+    <div class="panel-body collapse in" id="form-panel-body">
         <form method="POST" class="form-horizontal">
             {% csrf_token %}
             {% if form.non_field_errors %}
