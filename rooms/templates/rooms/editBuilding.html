@@ -62,7 +62,7 @@
         <script src="https://maps.googleapis.com/maps/api/js?key={{ API_KEY }}&libraries=places&callback=initAutocomplete"
   async defer></script>
 
-  <input type="submit" value="Salva {% if pendingRoom %} e torna a {% if editPendingRoom %} modifica {% else %} crea nuova {% endif %} aula {% endif %} " class="form-control btn btn-info">
+  <input type="submit" {% if pendingRoom %} name="pendingRoom" {% endif %} value="Salva {% if pendingRoom %} e torna a {% if editPendingRoom %} modifica {% else %} crea nuova {% endif %} aula {% endif %} " class="form-control btn btn-info">
 
 </form>
 

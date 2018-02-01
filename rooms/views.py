@@ -241,7 +241,7 @@ class EditBuildingView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView
         # This key is needed for using google maps api
         context["API_KEY"] = GOOGLE_MAPS_API_KEY
         # Put in the context if we have a pending editing/creation a room
-        if "pendingRoom"in self.request.session and self.request.session["pendingRoom"]:
+        if "pendingRoom" in self.request.session and self.request.session["pendingRoom"]:
             self.request.session["pendingRoom"] = False
             context["pendingRoom"] = "roomForm_data" in self.request.session
             context["editPendingRoom"] = "room_pk" in self.request.session
@@ -304,7 +304,7 @@ class EditBuildingView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView
                     action_flag=ADDITION
                 )
             # Check if we have a pending editing/creation of a room
-            if "roomForm_data" in request.session:
+            if request.POST.get('pendingRoom'):
                 # Add the building to the room form data (that will be set as default)
                 roomFormData = request.session["roomForm_data"]
                 roomFormData["building"] = building.pk
