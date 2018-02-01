@@ -2,12 +2,10 @@
 {% load staticfiles %}
 
 {% block head-extra %}
-<link href="{% static 'activities/css/list.css' %}" rel="stylesheet" />
 <link href="{% static 'css/datatables.min.css' %}" rel="stylesheet" />
 
 <script type="text/javascript" src="{% static 'js/datatables.min.js' %}" ></script>
 <script type="text/javascript" src="{% static 'activities/js/search.js' %}" ></script>
-<!-- MAYBE TO ADD <script type="text/javascript" src="{% static 'activities/js/list.js' %}" ></script> -->
 {% endblock head-extra %}
 
 {% block main %}
@@ -120,7 +118,7 @@ I left there the old code for pagination. It must be rewritten in javascript
         <li class="next disabled"><span>Successivi &raquo;</span></li>
     {% endif %}
     </ul>
-</div>
--->
+</div> -->
+
 
 {% endblock main %}
