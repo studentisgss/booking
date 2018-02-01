@@ -1,6 +1,7 @@
 $(document).ready(function() {
     $("select").SumoSelect({
     	placeholder: 'Selezionare gli utenti',
+        csvDispCount: 4,
         captionFormat:'{0} selezionati',
         captionFormatAllSelected:'{0} tutti selezionati',
         selectAll: true,
