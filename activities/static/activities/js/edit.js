@@ -122,7 +122,11 @@ $(document).ready(function() {
             }
         }
         else {
-            removeWaitingWarning(tr);
+            if ((allRooms.indexOf(this.value) == -1) && (this.value != "")) {
+                setNoPermissionWarning(tr);
+            } else {
+                removeWaitingWarning(tr);
+            }
         }
     });
 

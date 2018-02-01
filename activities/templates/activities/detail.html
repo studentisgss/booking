@@ -59,7 +59,7 @@
 			<tr {% if e.status == e.WAITING %}class="info"{% elif e.status == e.REJECTED %}class="danger"{% endif %}>
 				<td>{{ e.start | date:'d F Y' }}</td>
 				<td>{{ e.start | date:'H:i' }} - {{ e.end | date:'H:i' }}</td>
-				<td>{{ e.room.name }}</td>
+				<td><a href="{% url "rooms:details" e.room.pk %}">{{ e.room.get_full_name }}</a></td>
 				<td>{% if e.status == e.APPROVED %}Confermata{% elif e.status == e.WAITING %}In attesa{% else %}Rifiutata{% endif %}</td>
 			</tr>
 		{% empty %}

@@ -12,10 +12,10 @@ from django.contrib.admin.models import LogEntry, ADDITION, CHANGE, DELETION
 from django.utils.dateparse import parse_time
 
 from events.models import Event
-from events.forms import EventInlineFormSet
+from events.forms import EventInlineFormSet, RoomChoiceField
 from activities.models import Activity
 from activities.forms import ActivityForm
-from rooms.models import RoomPermission, Room, RoomRule
+from rooms.models import RoomPermission, Room, Building, RoomRule
 from base.utils import localnow, parse_date
 from base.models import CLASS_CHOICES
 from booking.settings import DATE_INPUT_FORMATS, DATE_FORMAT, TIME_FORMAT
@@ -194,18 +194,38 @@ class ActivityManagerEditView(LoginRequiredMixin, PermissionRequiredMixin, Templ
         )
         context["rooms_waiting"] = rooms_waiting
 
-        # For each event form set the rooms to those where the user
-        # has some permission. If the user has no permission
-        # in the room of the event, add that room.
+        # Fill the choices for the rooms in the form, grouping the options by building
+
         for f in events_form.forms:
-            if (not f.initial) or f.instance.room in rooms:
-                f.fields["room"].queryset = rooms
-            else:
-                f.fields["room"].queryset = rooms | Room.objects.filter(
-                    pk=f.instance.room.pk
-                )
+            room_choices = []
+            for building in Building.objects.all():
+                choices = []
+                for room in Room.objects.filter(building=building):
+                    # Add the room if the user has the permission to book or require it or
+                    # if it is already be chosen
+                    if (room in rooms) or (f.initial and (room.id == f.instance.room.pk)):
+                        choices.append([room.id, room.get_full_name()])
+                if choices:
+                    room_choices.append((building.name, choices))
+            # Append the empty option at the first place so it will be the default one
+            room_choices = [("", "-------")] + room_choices
+            f.fields["room"].choices = room_choices
+
+        # Fill the choices of the of the empty forms only with the rooms
+        # that the user can book or require
+        room_choices = []
+        for building in Building.objects.all():
+            choices = []
+            for room in Room.objects.filter(building=building):
+                if room in rooms:
+                    choices.append([room.id, room.get_full_name()])
+            if choices:
+                room_choices.append((building.name, choices))
+        # Append the empty option at the first place so it will be the default one
+        room_choices = [("", "-------")] + room_choices
         empty_form = events_form.empty_form
-        empty_form.fields["room"].queryset = rooms
+        empty_form.fields["room"].choices = room_choices
+
         context["form"] = form
         context["eventForm"] = events_form
         context["emptyForm"] = empty_form
@@ -459,8 +479,11 @@ class BookedHoursAPI(View):
         rule = RoomRule.objects.all().filter(room_id=room_id, day=day.weekday()).first()
         opening = ""
         if rule is not None:
-            opening = "{} - {}".format(rule.opening_time.strftime(TIME_FORMAT),
-                                       rule.closing_time.strftime(TIME_FORMAT))
+            if rule.isClosedAllDay():
+                opening = "closed"
+            else:
+                opening = "{} - {}".format(rule.opening_time.strftime(TIME_FORMAT),
+                                           rule.closing_time.strftime(TIME_FORMAT))
 
         hours = ["{} - {}".format(a.start.strftime(TIME_FORMAT), a.end.strftime(TIME_FORMAT))
                  for a in hours]

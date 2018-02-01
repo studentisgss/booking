@@ -51,7 +51,7 @@
                 <a href="{% url "activities:details" e.activity.pk %}">{{ e.activity.get_full_title }}</a>
             </td>
             <td>
-                {{ e.room.name }}
+                {{ e.room.get_full_name }}
             </td>
             <td>
                 {{ e.start|date:"l j F Y" }}

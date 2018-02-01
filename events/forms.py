@@ -1,5 +1,5 @@
 from base.forms import BookingModelForm
-from django.forms import inlineformset_factory, BaseInlineFormSet
+from django.forms import inlineformset_factory, BaseInlineFormSet, ModelChoiceField
 from django.forms.fields import SplitDateTimeField
 from django.forms.widgets import SplitDateTimeWidget
 from django.core.exceptions import ValidationError
@@ -8,6 +8,12 @@ from events.models import Event
 from rooms.models import Room
 from activities.models import Activity
 from booking import settings
+
+
+# This field will rappresent the relationship between rooms and buildings
+class RoomChoiceField(ModelChoiceField):
+    def __init__(self, *args, **kwargs):
+        super(RoomChoiceField, self).__init__(*args, **kwargs)
 
 
 class EventForm(BookingModelForm):
@@ -20,6 +26,7 @@ class EventForm(BookingModelForm):
             "status",
         ]
         field_classes = {
+            "room": RoomChoiceField,
             "start": SplitDateTimeField,
             "end": SplitDateTimeField,
         }

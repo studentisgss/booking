@@ -6,6 +6,7 @@
       "name": "Galileo 1",
       "description": "Collegio Morgagni",
       "important": true,
+      "building": 1,
       "creator": 1
     }
   },
@@ -16,6 +17,7 @@
       "name": "Galileo 2",
       "description": "Collegio Morgagni",
       "important": true,
+      "building": 1,
       "creator": 1
     }
   },
@@ -26,6 +28,7 @@
       "name": "Galileo 3",
       "description": "Collegio Morgagni",
       "important": true,
+      "building": 1,
       "creator": 1
     }
   },
@@ -36,6 +39,7 @@
       "name": "Galileo 4",
       "description": "Collegio Morgagni",
       "important": true,
+      "building": 1,
       "creator": 1
     }
   },
@@ -46,6 +50,7 @@
       "name": "Aula Dante",
       "description": "Collegio Morgagni",
       "important": true,
+      "building": 1,
       "creator": 1
     }
   },
@@ -56,6 +61,7 @@
       "name": "Aula Magna",
       "description": "Collegio Morgagni",
       "important": true,
+      "building": 1,
       "creator": 1
     }
   },
@@ -66,6 +72,7 @@
       "name": "LuM250",
       "description": "Plesso Paolotti,via Luzzati",
       "important": false,
+      "building": 2,
       "creator": 1
     }
   },
@@ -76,6 +83,7 @@
       "name": "LuF1",
       "description": "Plesso Paolotti,via Luzzati",
       "important": false,
+      "building": 2,
       "creator": 1
     }
   },
@@ -86,6 +94,7 @@
       "name": "P200",
       "description": "Plesso Paolotti,via Belzoni",
       "important": false,
+      "building": 3,
       "creator": 1
   }}
 ]
