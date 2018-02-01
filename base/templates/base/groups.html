@@ -88,7 +88,7 @@
                         <div class="col-sm-1">
                             <label>Membri:</label>
                         </div>
-                        <div class="col-sm-11 members">
+                        <div class="col-sm-9 members">
                             <ul class="list-group">
                                 {% for u in g.members %}
                                     <li class="list-group-item">
@@ -102,10 +102,7 @@
                                 {% endfor %}
                             </ul>
                         </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-sm-offset-1 col-sm-11">
+                        <div class="col-sm-offset-1 col-sm-11 col-lg-offset-0 col-lg-2">
                             <a href="{% url 'base:groups_clear' g.group.pk %}" class="btn btn-warning">Pulisci utenti non attivi</a>
                         </div>
                     </div>
