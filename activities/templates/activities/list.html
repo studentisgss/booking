@@ -40,12 +40,17 @@
             <form id="filter-form" method="GET" action="{% if all %} {% url 'activities:listall' %} {% else %} {% url 'activities:list' %} {% endif %}" class="form-inline">
                 <div class="input-group">
                     <span class="input-group-addon">Filtro: </span>
-                    <input type="text" class="form-control" id="search" name="search" value="{{ filterText }}"/>
+                      <input type="text" class="form-control" id="search" name="search" value="{{ filterText }}" />
                     <div class="input-group-btn">
+                        {% if filterText %}
+                          <a href="{% if all %} {% url 'activities:listall' %} {% else %} {% url 'activities:list' %} {% endif %}" class="btn btn-default" aria-label="Clear">
+                            <span class="glyphicon glyphicon-remove"></span>
+                          </a>
+                        {% endif %}
                         <input type="submit" class="btn btn-info" value="Cerca" />
-                {% if filterText %}
+              <!--  {% if filterText %}
                         <a href="{% if all %} {% url 'activities:listall' %} {% else %} {% url 'activities:list' %} {% endif %}" class="btn btn-warning">Cancella ricerca</a>
-                {% endif %}
+                    {% endif %} -->
                     </div>
                 </div>
             </form>
