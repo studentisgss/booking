@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
-from rooms.models import Room, RoomRule
+from rooms.models import Room, RoomRule, Building
 from base.utils import default_datetime
 
 
@@ -23,8 +23,12 @@ class RoomsDetailsUrlTest(TestCase):
 class RoomRuleCleanTest(TestCase):
     def setUp(self):
         self.user = User.objects.create_user(username="test")
-        self.room = Room.objects.create(name="Room 1", description="", creator=self.user)
-        self.room2 = Room.objects.create(name="Room 2", description="", creator=self.user)
+        self.building = Building.objects.create(name="Building", address="Neverland",
+                                                creator=self.user)
+        self.room = Room.objects.create(name="Room 1", description="", building=self.building,
+                                        creator=self.user)
+        self.room2 = Room.objects.create(name="Room 2", description="", building=self.building,
+                                         creator=self.user)
         RoomRule.objects.create(
             room=self.room,
             day=0,

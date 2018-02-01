@@ -3,57 +3,137 @@
 
 {% block head-extra %}
 <link href="{% static 'rooms/css/list.css' %}" rel="stylesheet" />
+<link href="{% static 'activities/css/list.css' %}" rel="stylesheet" />
+<link href="{% static 'css/datatables.min.css' %}" rel="stylesheet" />
+
+<script type="text/javascript" src="{% static 'js/datatables.min.js' %}" ></script>
+<script type="text/javascript" src="{% static 'js/datatables.js' %}" ></script>
+<script type="text/javascript" src="{% static 'rooms/js/list.js' %}"></script>
+<script type="text/javascript" src="{% static 'rooms/js/search.js' %}"></script>
 {% endblock head-extra %}
 
 {% block main %}
-<h1>Aule principali</h1>
-
-<div class="row">
-    <div class="col-md-5">
-        <p><a href="{% url "rooms:listall" %}" class="btn btn-default">Visualizza tutte le aule</a></p>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-8">
+      {% if all %}
+        <h1>Tutte le aule</h1>
+      {% else %}
+        <h1>Aule principali</h1>
+      {% endif %}
     </div>
-    <div class="col-md-7">
-        <div id="filter" class="text-right">
-            <form id="filter-form" method="GET" action="{% url 'rooms:list' %}" class="form-inline">
-                <div class="input-group">
-                    <span class="input-group-addon">Filtro: </span>
-                    <input type="text" class="form-control" id="search" name="search" value="{{ filterText }}"/>
-                    <div class="input-group-btn">
-                        <input type="submit" class="btn btn-info" value="Cerca" />
-                {% if filterText %}
-                        <a href="{% url 'rooms:list' %}" class="btn btn-warning">Cancella ricerca</a>
+    {% if user.is_authenticated %}
+      <div class="col-xs-4" role="group">
+          <h1 class="btn-group" >
+            {% if perms.rooms.add_room %}
+              <a class="btn btn-success" href="{% url "rooms:newRoom" %}">Nuova aula</a>
+            {% endif %}
+            {% if perms.rooms.add_building %}
+              <a class="btn btn-success" href="{% url "rooms:newBuilding" %}">Nuovo edificio</a>
+            {% endif %}
+          </h1>
+      </div>
+    {% endif %}
+  </div>
+</div>
+<div class="row">
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+          {% if all %}
+            <p><a href="{% url "rooms:list" %}" class="btn btn-default">Visualizza solo le aule principali</a></p>
+          {% else %}
+            <p><a href="{% url "rooms:listall" %}" class="btn btn-default">Visualizza tutte le aule</a></p>
+          {% endif %}
+        </div>
+        <div class="col-md-4">
+            <div id="filter" class="text-right">
+                {% if all %}
+                  <form id="filter-form" method="GET" action="{% url 'rooms:listall' %}" class="form-inline">
+                {% else %}
+                  <form id="filter-form" method="GET" action="{% url 'rooms:list' %}" class="form-inline">
                 {% endif %}
+                    <div class="input-group col-xs-12">
+                        <span class="input-group-addon">Filtro: </span>
+                        <input type="text" class="form-control" id="search" name="search" value="{{ filterText }}"/>
+                        <div class="input-group-btn">
+                            <input type="submit" class="btn btn-info" value="Cerca" />
+                    {% if filterText %}
+                            <a href="{% url 'rooms:list' %}" class="btn btn-warning">Cancella ricerca</a>
+                    {% endif %}
+                        </div>
                     </div>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
     </div>
 </div>
 
-<table class="table table-striped table-hover" id="table_events">
-    <thead>
-        <tr>
-            <th>Nome</th>
-            <th>Descrizione</th>
-        </tr>
-    </thead>
-    <tbody>
-    {% for e in list %}
-        <tr>
-            <td>
-                {% if e.important %}
-                    <span class="glyphicon glyphicon-star star-color" aria-hidden="true"></span>
+{% for building,rooms in list.items %}
+<div class="building_div">
+  <div class="row">
+    <div class="col-xs-10">
+      <h3 class="building_name">
+        <a data-toggle="collapse" href="#collapse{{ building.id }}" {% if all %}aria-expanded="false"{% else %}aria-expanded="true"{% endif %}>
+          {{ building.name }}
+        </a>
+      </h3>
+    </div>
+    {% if user.is_authenticated %}
+      {% if perms.rooms.change_building %}
+        <div class="col-xs-2 text-right">
+          <h3><a href="{% url "rooms:editBuilding" building.pk %}" class="btn btn-info btn-xs"><span class="glyphicon glyphicon-pencil"> Modifica</span></a></h3>
+        </div>
+      {% endif %}
+    {% endif %}
+
+  </div>
+  <div {% if all %} class="to_be_collapsed" {% else %} class="collapse in" {% endif %} id="collapse{{ building.id }}">
+    <table class="table building_table table-striped table-hover" id="table{{ building.id }}" >
+        <thead>
+            <tr>
+                <th class="col-xs-5">Nome</th>
+                <th class="col-xs-6">Descrizione</th>
+                  {% if user.is_authenticated %}
+                    {% if perms.rooms.change_room %}
+                      <th class="text-center col-xs-1">Modifica</th>
+                    {% endif %}
+                  {% endif %}
+            </tr>
+        </thead>
+        <tbody>
+        {% for room in rooms %}
+            <tr>
+                <td>
+                    {% if room.important %}
+                        <span class="glyphicon glyphicon-star star-color" aria-hidden="true"></span>
+                    {% endif %}
+                    <a href="{% url "rooms:details" room.pk %}">{{ room.name }}</a>
+                </td>
+                <td>{{ room.description }}</td>
+                {% if user.is_authenticated %}
+                  {% if perms.rooms.change_room %}
+                    <td class="text-center">
+                      <a href="{% url "rooms:editRoom" room.pk %}" class="btn btn-info btn-xs"><span class="glyphicon glyphicon-pencil"></span></a>
+                    </td>
+                  {% endif %}
                 {% endif %}
-                <a href="{% url "rooms:details" e.pk %}">{{ e.name }}</a>
-            </td>
-            <td>{{ e.description }}</td>
-        </tr>
-    {% empty %}
-        <tr>
-            <td colspan="2">Nessuna aula trovata.</td>
-        </tr>
-    {% endfor %}
-    </tbody>
-</table>
+            </tr>
+        {% empty %}
+            <tr>
+                <td colspan="2">Nessuna aula trovata in questo edificio.</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+  </div>
+  <hr/>
+</div>
+{% endfor %}
+<div class="hidden" id="no_rooms_search">
+  Nessuna aula corrispondente a "<span id="no_rooms_search_text"></span>" trovata.
+</div>
 
 {% endblock main %}
