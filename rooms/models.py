@@ -131,6 +131,26 @@ class RoomPermission(models.Model):
         default=10,
         verbose_name=_("permesso"))
 
+    def clean(self):
+        if self.room_id is None:
+            raise ValidationError(_("L'aula è obbligatoria"))
+
+        if self.group is None:
+            raise ValidationError(_("Il gruppo è obbligatorio"))
+
+        # Check that there are not two timetables for the same room the same day
+        overlapping_roomPermissions = RoomPermission.objects.filter(
+            room_id=self.room.pk,
+            group=self.group)
+        # If the event is already in the database exclude it
+        if self.pk is not None:
+            overlapping_roomPermissions = overlapping_roomPermissions.exclude(
+                id=self.pk)
+        if overlapping_roomPermissions.exists():
+            raise ValidationError(
+                _("Non possono permessi per la stessa aula e lo stesso gruppo")
+            )
+
 
 class RoomRule(models.Model):
     """
