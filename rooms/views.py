@@ -214,6 +214,7 @@ class EditRoomView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
                 room = roomForm.save(commit=False)
                 room.creator = request.user
                 room.save()
+                room.create_roompermission()
                 LogEntry.objects.log_action(
                     user_id=self.request.user.id,
                     content_type_id=ContentType.objects.get_for_model(room).pk,

@@ -52,6 +52,23 @@ class Room(models.Model):
     def __str__(self):
         return "%s %s-%s" % ("*" if self.important else "", self.name, self.building.name)
 
+    # Set the roompermission as default
+    def create_room_permission(self):
+        # delete existing roompermissions
+        self.roompermission_set.all().delete()
+        if self.important:
+            for group in Group.objects.all():
+                if self.creator.can_book_room:
+                    permission = RoomPermission(room=self, group=group, permission=30)
+                    permission.save()
+                else:
+                    permission = RoomPermission(room=self, group=group, permission=10)
+                    permission.save()
+        else:
+            for group in Group.objects.all():
+                permission = RoomPermission(room=self, group=group, permission=10)
+                permission.save()
+
     name = models.CharField(max_length=30, unique=True, verbose_name=_("nome"))
     description = models.CharField(max_length=100, blank=True, verbose_name=_("descrizione"))
     important = models.BooleanField(default=False, verbose_name=_("importante"))
