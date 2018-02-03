@@ -5,7 +5,7 @@ $(document).ready(function() {
     //Add DataTable
     if ($("#table_events th").length == 4) {
         dataTable = $("#table_events").DataTable({
-            paging: true,
+            paging: ($("#table_events tr").length > 25),
             info: false,
             "pageLength": 25,
             "columnDefs": [
@@ -14,7 +14,7 @@ $(document).ready(function() {
         });
     } else {
         dataTable = $("#table_events").DataTable({
-            paging: true,
+            paging: ($("#table_events tr").length > 25),
             info: false,
             "pageLength": 25,
             "columnDefs": [
@@ -26,6 +26,8 @@ $(document).ready(function() {
     }
     // Remove the search button
     $("#filter-form div.input-group-btn").remove();
+    // Prevent html+javascript double search making a do-nothing form
+    $("#filter-form").attr("action","javascript:return false;");
     // Add the event handler
     // After the user type something it immediatly filter the table
     $("#search").on("keyup", function(){

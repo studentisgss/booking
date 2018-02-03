@@ -6,6 +6,12 @@
 
 <script type="text/javascript" src="{% static 'js/datatables.min.js' %}" ></script>
 <script type="text/javascript" src="{% static 'activities/js/search.js' %}" ></script>
+
+<!-- PREVENT DOUBLE SEARCH HTML AND JAVASCRIPT -->
+{% if filterText %}
+<script type="text/javascript">window.location.replace("{% if all %} {% url 'activities:listall' %} {% else %} {% url 'activities:list' %} {% endif %}"); </script>
+{% endif %}
+
 {% endblock head-extra %}
 
 {% block main %}
@@ -46,9 +52,6 @@
                           </a>
                         {% endif %}
                         <input type="submit" class="btn btn-info" value="Cerca" />
-              <!--  {% if filterText %}
-                        <a href="{% if all %} {% url 'activities:listall' %} {% else %} {% url 'activities:list' %} {% endif %}" class="btn btn-warning">Cancella ricerca</a>
-                    {% endif %} -->
                     </div>
                 </div>
             </form>
@@ -101,24 +104,5 @@
     {% endfor %}
     </tbody>
 </table>
-
-<!-- ABOUT pagination
-I left there the old code for pagination. It must be rewritten in javascript
-<div id="pagination" class="container-fluid">
-    <ul class="pager">
-        {% if list.has_previous %}
-        <li class="previous"><a href="{% url 'activities:listall' list.previous_page_number %}{% if filterText %}?search={{ filterText|urlencode }}{% endif %}"><span>&laquo; Precedenti</span></a></li>
-    {% else %}
-        <li class="previous disabled"><span>&laquo; Precedenti</span></li>
-    {% endif %}
-        <li><span>Pagina {{ list.number }} di {{ list.paginator.num_pages }}</span></li>
-    {% if list.has_next %}
-        <li class="next"><a href="{% url 'activities:listall' list.next_page_number %}{% if filterText %}?search={{ filterText|urlencode }}{% endif %}"><span>Successivi &raquo;</span></a></li>
-    {% else %}
-        <li class="next disabled"><span>Successivi &raquo;</span></li>
-    {% endif %}
-    </ul>
-</div> -->
-
 
 {% endblock main %}
