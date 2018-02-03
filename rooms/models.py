@@ -5,7 +5,7 @@ from django.core.exceptions import ValidationError
 from datetime import time
 
 from string import *
-
+from django.contrib.auth.models import Permission
 
 class Building(models.Model):
     """
@@ -53,19 +53,19 @@ class Room(models.Model):
         return "%s %s-%s" % ("*" if self.important else "", self.name, self.building.name)
 
     # Set the roompermission as default
-    def create_room_permission(self):
+    def create_roompermission(self):
         # delete existing roompermissions
         self.roompermission_set.all().delete()
+        can_book_room_permission = Permission.objects.get(codename="can_book_room")
         if self.important:
-            for group in Group.objects.all():
-                if self.creator.can_book_room:
-                    permission = RoomPermission(room=self, group=group, permission=30)
-                    permission.save()
-                else:
-                    permission = RoomPermission(room=self, group=group, permission=10)
-                    permission.save()
+            for group in Group.objects.filter(permissions=can_book_room_permission):
+                permission = RoomPermission(room=self, group=group, permission=10)
+                permission.save()
         else:
-            for group in Group.objects.all():
+            for group in Group.objects.filter(permissions=can_book_room_permission):
+                permission = RoomPermission(room=self, group=group, permission=30)
+                permission.save()
+            for group in Group.objects.exclude(permissions=can_book_room_permission):
                 permission = RoomPermission(room=self, group=group, permission=10)
                 permission.save()
 
