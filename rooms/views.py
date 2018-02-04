@@ -12,8 +12,8 @@ from django.contrib.contenttypes.models import ContentType
 from django.core.urlresolvers import reverse
 
 from booking.settings import GOOGLE_MAPS_API_KEY
-from rooms.models import Room, Building, RoomRule
-from rooms.forms import RoomForm, BuildingForm, RoomRuleInlineFormSet, RoomRuleForm
+from rooms.models import Group, Room, Building, RoomRule, RoomPermission
+from rooms.forms import RoomForm, BuildingForm, RoomRuleInlineFormSet, RoomPermissionInlineFormSet, RoomRuleForm, RoomPermissionForm
 
 
 class DetailRoomView(TemplateView):
@@ -32,6 +32,8 @@ class DetailRoomView(TemplateView):
         except:
             raise Http404
         context["room"] = room
+        context["can_require"] = Group.objects.filter(roompermission__room=room, roompermission__permission=10)
+        context["can_book"] = Group.objects.filter(roompermission__room=room, roompermission__permission=30)
         context["building"] = room.building
         context["roomRules"] = RoomRule.objects.filter(room=room).order_by("day")
         return context
@@ -113,7 +115,8 @@ class EditRoomView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
         # This key is needed for using google maps api
         context["API_KEY"] = GOOGLE_MAPS_API_KEY
         # This flag will allow to edit roomrules only who has the permission
-        CAN_CHANGE_RULES = self.request.user.has_perm("roomRule.change_roomRule")
+        CAN_CHANGE_RULES = self.request.user.has_perm("rooms.change_roomRule") and self.request.user.has_perm("rooms.add_roomRule")
+        CAN_CHANGE_PERMISSIONS = self.request.user.has_perm("rooms.change_roomPermission") and self.request.user.has_perm("rooms.add_roomPermission")
 
         if self.request.method == "GET":
             if "room_id" in kwargs and kwargs["room_id"]:
@@ -124,11 +127,15 @@ class EditRoomView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
                 roomForm = RoomForm(instance=room)
                 if CAN_CHANGE_RULES:
                     roomRuleForms = RoomRuleInlineFormSet(instance=room)
+                if CAN_CHANGE_PERMISSIONS:
+                    RoomPermissionForms = RoomPermissionInlineFormSet(instance=room)
                 context["edit"] = True
             else:
                 roomForm = RoomForm()
                 if CAN_CHANGE_RULES:
                     roomRuleForms = RoomRuleInlineFormSet()
+                if CAN_CHANGE_PERMISSIONS:
+                    RoomPermissionForms = RoomPermissionInlineFormSet()
         elif self.request.method == "POST":
             if "room_id" in kwargs and kwargs["room_id"]:
                 try:
@@ -138,10 +145,14 @@ class EditRoomView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
                 roomForm = RoomForm(self.request.POST, instance=room)
                 if CAN_CHANGE_RULES:
                     roomRuleForms = RoomRuleInlineFormSet(self.request.POST, instance=room)
+                if CAN_CHANGE_PERMISSIONS:
+                    RoomPermissionForms = RoomPermissionInlineFormSet(self.request.POST, instance=room)
             else:
                 roomForm = RoomForm(self.request.POST)
                 if CAN_CHANGE_RULES:
                     roomRuleForms = RoomRuleInlineFormSet(self.request.POST)
+                if CAN_CHANGE_PERMISSIONS:
+                    RoomPermissionForms = RoomPermissionInlineFormSet(self.request.POST)
             context["edit"] = kwargs["edit"]
         else:
             raise Http404
@@ -153,11 +164,13 @@ class EditRoomView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
         context["roomForm"] = roomForm
         if CAN_CHANGE_RULES:
             context["roomRuleForm"] = roomRuleForms
+        if CAN_CHANGE_PERMISSIONS:
+            context["RoomPermissionForm"] = RoomPermissionForms
         return context
 
     def post(self, request, *args, **kwargs):
 
-        CAN_CHANGE_RULES = self.request.user.has_perm("roomRule.change_roomRule")
+        CAN_CHANGE_RULES = self.request.user.has_perm("rooms.change_roomRule")
 
         if "room_id" in kwargs and kwargs["room_id"]:
             try:

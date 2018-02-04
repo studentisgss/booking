@@ -21,6 +21,13 @@
 			{% endif %}
 		{% endif %}
 	</div>
+	{% if user.is_authenticated %}
+		<div>
+			{% if not can_require %}Nessuno {% endif %}{% for group in can_require %}{{ group.name }} {% endfor %} pu&oacute; richiedere di prenotare l'aula.
+			{% if not can_book %}Nessuno {% endif %}{% for group in can_book %}{{ group.name }} {% endfor %} pu&oacute; prenotare l'aula.
+		</br>
+		</div>
+	{% endif %}
 	</br>
 	{% if room.description %}
 		<div class="container-fluid">
