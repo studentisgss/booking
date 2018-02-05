@@ -90,10 +90,10 @@
     {% endfor %}
     <table class="table">
       <tr>
-        <th>Giorno</th>
-        <th>Orario di apertura</th>
-        <th>Orario di chiusura</th>
-        <th>Elimina</th>
+        <th class="col-xs-3">Giorno</th>
+        <th class="col-xs-3">Orario di apertura</th>
+        <th class="col-xs-3">Orario di chiusura</th>
+        <th class="col-xs-1">Elimina</th>
         <td class="hidden"></td>
       </tr>
       {% for form in roomRuleForm %}
@@ -161,7 +161,7 @@
 <!-- Modify/Add RoomPermissions -->
   {% if perms.rooms.change_roomPermission %}
   <hr/>
-  <h1>Modifica orari di apertura</h1>
+  <h1>Modifica permessi</h1>
   <fieldset>
   {% csrf_token %}
     {% for form in RoomPermissionForm %}
@@ -177,9 +177,9 @@
     {% endfor %}
     <table class="table">
       <tr>
-        <th>Gruppo</th>
-        <th>Tipo di permesso</th>
-        <th>Elimina</th>
+        <th class="col-xs-5">Gruppo</th>
+        <th class="col-xs-4">Tipo di permesso</th>
+        <th class="col-xs-1">Elimina</th>
         <td class="hidden"></td>
       </tr>
       {% for form in RoomPermissionForm %}
