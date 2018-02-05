@@ -13,7 +13,7 @@ from django.core.urlresolvers import reverse
 
 from booking.settings import GOOGLE_MAPS_API_KEY
 from rooms.models import Group, Room, Building, RoomRule, RoomPermission
-from rooms.forms import RoomForm, BuildingForm, RoomRuleInlineFormSet, RoomPermissionInlineFormSet, RoomRuleForm, RoomPermissionForm
+from rooms.forms import RoomForm, BuildingForm, RoomRuleInlineFormSet, RoomPermissionInlineFormSet, RoomRuleForm, RoomPermissionForm, get_default_permissions
 
 
 class DetailRoomView(TemplateView):
@@ -135,7 +135,7 @@ class EditRoomView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
                 if CAN_CHANGE_RULES:
                     roomRuleForms = RoomRuleInlineFormSet()
                 if CAN_CHANGE_PERMISSIONS:
-                    RoomPermissionForms = RoomPermissionInlineFormSet()
+                    RoomPermissionForms = RoomPermissionInlineFormSet(initial=get_default_permissions())
         elif self.request.method == "POST":
             if "room_id" in kwargs and kwargs["room_id"]:
                 try:
@@ -171,6 +171,7 @@ class EditRoomView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
     def post(self, request, *args, **kwargs):
 
         CAN_CHANGE_RULES = self.request.user.has_perm("rooms.change_roomRule")
+        CAN_CHANGE_PERMISSIONS = self.request.user.has_perm("rooms.change_roomPermission")
 
         if "room_id" in kwargs and kwargs["room_id"]:
             try:
@@ -180,11 +181,15 @@ class EditRoomView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
             roomForm = RoomForm(request.POST, instance=room)
             if CAN_CHANGE_RULES:
                 roomRuleForms = RoomRuleInlineFormSet(request.POST, instance=room)
+            if CAN_CHANGE_PERMISSIONS:
+                RoomPermissionForms = RoomPermissionInlineFormSet(request.POST, instance=room)
             kwargs["edit"] = True
         else:
             roomForm = RoomForm(request.POST)
             if CAN_CHANGE_RULES:
                 roomRuleForms = RoomRuleInlineFormSet(request.POST)
+            if CAN_CHANGE_PERMISSIONS:
+                RoomPermissionForms = RoomPermissionInlineFormSet(request.POST)
             kwargs["edit"] = False
 
         # Clear the session before put new data into
@@ -211,9 +216,11 @@ class EditRoomView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
                     request.session["room_pk"] = room.pk
                 return HttpResponseRedirect(reverse("rooms:newBuilding"))
 
-        if roomForm.is_valid() and (not CAN_CHANGE_RULES or roomRuleForms.is_valid()):
+        if roomForm.is_valid() and (not CAN_CHANGE_RULES or roomRuleForms.is_valid()) and (not CAN_CHANGE_PERMISSIONS or RoomPermissionForms.is_valid()):
             if CAN_CHANGE_RULES:
                 roomRuleForms.save()
+            if CAN_CHANGE_PERMISSIONS:
+                RoomPermissionForms.save()
             if kwargs["edit"]:
                 room = roomForm.save()
                 LogEntry.objects.log_action(
@@ -227,7 +234,8 @@ class EditRoomView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
                 room = roomForm.save(commit=False)
                 room.creator = request.user
                 room.save()
-                room.create_roompermission()
+                if not CAN_CHANGE_PERMISSIONS:
+                    room.create_roompermission()
                 LogEntry.objects.log_action(
                     user_id=self.request.user.id,
                     content_type_id=ContentType.objects.get_for_model(room).pk,

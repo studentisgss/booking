@@ -1,11 +1,10 @@
 from django.db import models
-from django.contrib.auth.models import User, Group
+from django.contrib.auth.models import User, Group, Permission
 from django.utils.translation import ugettext_lazy as _
 from django.core.exceptions import ValidationError
 from datetime import time
 
 from string import *
-from django.contrib.auth.models import Permission
 
 class Building(models.Model):
     """

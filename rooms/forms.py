@@ -1,5 +1,6 @@
 from django.forms import inlineformset_factory, BaseInlineFormSet
 from django.core.exceptions import ValidationError
+from django.contrib.auth.models import Permission, Group
 
 from base.forms import BookingModelForm
 from rooms.models import Room, RoomRule, RoomPermission
@@ -63,7 +64,7 @@ class BaseRoomRuleInlineFormSet(BaseInlineFormSet):
 class BaseRoomPermissionInlineFormSet(BaseInlineFormSet):
 
     def get_queryset(self):
-        return super().get_queryset().order_by("permission")
+        return super().get_queryset().order_by("-permission")
 
 
 # create a set of forms for the RoomRules on several days
@@ -75,3 +76,12 @@ RoomRuleInlineFormSet = inlineformset_factory(
 RoomPermissionInlineFormSet = inlineformset_factory(
     Room, RoomPermission, form=RoomPermissionForm, formset=BaseRoomPermissionInlineFormSet, extra=3
 )
+
+def get_default_permissions():
+    initial = []
+    can_book_room_permission = Permission.objects.get(codename="can_book_room")
+    for group in Group.objects.filter(permissions=can_book_room_permission):
+        initial.append({"group":group, "permission":30})
+    for group in Group.objects.exclude(permissions=can_book_room_permission):
+        initial.append({"group":group, "permission":10})
+    return initial
