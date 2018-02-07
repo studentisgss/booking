@@ -13,7 +13,8 @@ from django.core.urlresolvers import reverse
 
 from booking.settings import GOOGLE_MAPS_API_KEY
 from rooms.models import Group, Room, Building, RoomRule, RoomPermission
-from rooms.forms import RoomForm, BuildingForm, RoomRuleInlineFormSet, RoomPermissionInlineFormSet, RoomRuleForm, RoomPermissionForm, get_default_permissions
+from rooms.forms import RoomForm, BuildingForm, RoomRuleInlineFormSet, \
+    RoomPermissionInlineFormSet, RoomRuleForm, RoomPermissionForm, get_default_permissions
 
 
 class DetailRoomView(TemplateView):
@@ -32,8 +33,10 @@ class DetailRoomView(TemplateView):
         except:
             raise Http404
         context["room"] = room
-        context["can_require"] = Group.objects.filter(roompermission__room=room, roompermission__permission=10)
-        context["can_book"] = Group.objects.filter(roompermission__room=room, roompermission__permission=30)
+        context["can_require"] = Group.objects.filter(
+            roompermission__room=room, roompermission__permission=10)
+        context["can_book"] = Group.objects.filter(
+            roompermission__room=room, roompermission__permission=30)
         context["building"] = room.building
         context["roomRules"] = RoomRule.objects.filter(room=room).order_by("day")
         return context
@@ -115,8 +118,10 @@ class EditRoomView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
         # This key is needed for using google maps api
         context["API_KEY"] = GOOGLE_MAPS_API_KEY
         # This flag will allow to edit roomrules only who has the permission
-        CAN_CHANGE_RULES = self.request.user.has_perm("rooms.change_roomRule") and self.request.user.has_perm("rooms.add_roomRule")
-        CAN_CHANGE_PERMISSIONS = self.request.user.has_perm("rooms.change_roomPermission") and self.request.user.has_perm("rooms.add_roomPermission")
+        CAN_CHANGE_RULES = self.request.user.has_perm("rooms.change_roomRule") \
+            and self.request.user.has_perm("rooms.add_roomRule")
+        CAN_CHANGE_PERMISSIONS = self.request.user.has_perm("rooms.change_roomPermission") \
+            and self.request.user.has_perm("rooms.add_roomPermission")
 
         if self.request.method == "GET":
             if "room_id" in kwargs and kwargs["room_id"]:
@@ -135,7 +140,8 @@ class EditRoomView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
                 if CAN_CHANGE_RULES:
                     roomRuleForms = RoomRuleInlineFormSet()
                 if CAN_CHANGE_PERMISSIONS:
-                    RoomPermissionForms = RoomPermissionInlineFormSet(initial=get_default_permissions())
+                    RoomPermissionForms = RoomPermissionInlineFormSet(
+                        initial=get_default_permissions())
         elif self.request.method == "POST":
             if "room_id" in kwargs and kwargs["room_id"]:
                 try:
@@ -146,7 +152,8 @@ class EditRoomView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
                 if CAN_CHANGE_RULES:
                     roomRuleForms = RoomRuleInlineFormSet(self.request.POST, instance=room)
                 if CAN_CHANGE_PERMISSIONS:
-                    RoomPermissionForms = RoomPermissionInlineFormSet(self.request.POST, instance=room)
+                    RoomPermissionForms = RoomPermissionInlineFormSet(
+                        self.request.POST, instance=room)
             else:
                 roomForm = RoomForm(self.request.POST)
                 if CAN_CHANGE_RULES:
@@ -215,7 +222,8 @@ class EditRoomView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
                     request.session["room_pk"] = room.pk
                 return HttpResponseRedirect(reverse("rooms:newBuilding"))
 
-        if roomForm.is_valid() and (not CAN_CHANGE_RULES or roomRuleForms.is_valid()) and (not CAN_CHANGE_PERMISSIONS or RoomPermissionForms.is_valid()):
+        if roomForm.is_valid() and (not CAN_CHANGE_RULES or roomRuleForms.is_valid()) and \
+                (not CAN_CHANGE_PERMISSIONS or RoomPermissionForms.is_valid()):
             if CAN_CHANGE_RULES:
                 roomRuleForms.save()
             if CAN_CHANGE_PERMISSIONS:

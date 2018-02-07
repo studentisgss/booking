@@ -128,20 +128,19 @@ class RoomPermission(models.Model):
         verbose_name=_("gruppo"))
     permission = models.SmallIntegerField(
         choices=PERMISSION_CHOICES,
-        default=10,
         verbose_name=_("permesso"))
 
     def clean(self):
-        if self.room_id is None:
-            raise ValidationError(_("L'aula è obbligatoria"))
+        #if self.room_id is None:
+        #    raise ValidationError(_("L'aula è obbligatoria"))
 
-        if self.group is None:
-            raise ValidationError(_("Il gruppo è obbligatorio"))
+        if self.group_id is None:
+            raise ValidationError(_("Il nome del gruppo è obbligatorio"))
 
         # Check that there are not two timetables for the same room the same day
         overlapping_roomPermissions = RoomPermission.objects.filter(
             room_id=self.room.pk,
-            group=self.group)
+            group_id=self.group.pk)
         # If the event is already in the database exclude it
         if self.pk is not None:
             overlapping_roomPermissions = overlapping_roomPermissions.exclude(

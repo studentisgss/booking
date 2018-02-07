@@ -74,7 +74,8 @@ RoomRuleInlineFormSet = inlineformset_factory(
 
 # create a set of forms for the RoomPermission on different groups
 RoomPermissionInlineFormSet = inlineformset_factory(
-    Room, RoomPermission, form=RoomPermissionForm, formset=BaseRoomPermissionInlineFormSet, extra=0, min_num=Group.objects.all().count()
+    Room, RoomPermission, form=RoomPermissionForm, formset=BaseRoomPermissionInlineFormSet,
+    extra=0, min_num=Group.objects.all().count()
 )
 
 
