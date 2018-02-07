@@ -211,7 +211,6 @@ class EditRoomView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
                 form_content = roomForm.data.copy()
                 del form_content["building"]
                 request.session["roomForm_data"] = form_content
-
                 if kwargs["edit"]:  # Save the pk of the room we are editing
                     request.session["room_pk"] = room.pk
                 return HttpResponseRedirect(reverse("rooms:newBuilding"))
@@ -235,6 +234,7 @@ class EditRoomView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
                 room.creator = request.user
                 room.save()
                 if not CAN_CHANGE_PERMISSIONS:
+                    # create the RoomPermissions as deafault
                     room.create_roompermission()
                 LogEntry.objects.log_action(
                     user_id=self.request.user.id,

@@ -77,11 +77,12 @@ RoomPermissionInlineFormSet = inlineformset_factory(
     Room, RoomPermission, form=RoomPermissionForm, formset=BaseRoomPermissionInlineFormSet, extra=0, min_num=Group.objects.all().count()
 )
 
+
 def get_default_permissions():
     initial = []
     can_book_room_permission = Permission.objects.get(codename="can_book_room")
     for group in Group.objects.filter(permissions=can_book_room_permission):
-        initial.append({"group":group, "permission":30})
+        initial.append({"group": group, "permission": 30})
     for group in Group.objects.exclude(permissions=can_book_room_permission):
-        initial.append({"group":group, "permission":10})
+        initial.append({"group": group, "permission": 10})
     return initial
