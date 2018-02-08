@@ -199,9 +199,9 @@ class EditRoomView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
                 return HttpResponseRedirect(reverse("rooms:newBuilding"))
 
         if roomForm.is_valid() and (not CAN_CHANGE_RULES or roomRuleForms.is_valid()):
-            if CAN_CHANGE_RULES:
-                roomRuleForms.save()
             if kwargs["edit"]:
+                if CAN_CHANGE_RULES:
+                    roomRuleForms.save()
                 room = roomForm.save()
                 LogEntry.objects.log_action(
                     user_id=self.request.user.id,
@@ -214,6 +214,11 @@ class EditRoomView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
                 room = roomForm.save(commit=False)
                 room.creator = request.user
                 room.save()
+                if CAN_CHANGE_RULES:
+                    roomRules = roomRuleForms.save(commit=False)
+                    for rule in roomRules:
+                        rule.room = room
+                        rule.save()    
                 LogEntry.objects.log_action(
                     user_id=self.request.user.id,
                     content_type_id=ContentType.objects.get_for_model(room).pk,

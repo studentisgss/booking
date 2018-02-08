@@ -151,8 +151,8 @@ class RoomRule(models.Model):
         verbose_name=_("orario di chiusura"))
 
     def clean(self):
-        if self.room_id is None:
-            raise ValidationError(_("L'aula è obbligatoria"))
+        #if self.room_id is None:
+        #    raise ValidationError(_("L'aula è obbligatoria"))
 
         if self.day is None:
             raise ValidationError(_("Il giorno è obbligatorio"))
