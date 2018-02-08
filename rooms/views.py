@@ -223,13 +223,11 @@ class EditRoomView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
 
         if roomForm.is_valid() and (not CAN_CHANGE_RULES or roomRuleForms.is_valid()) and \
                 (not CAN_CHANGE_PERMISSIONS or RoomPermissionForms.is_valid()):
-            if CAN_CHANGE_RULES:
-                roomRuleForms.save()
-            if CAN_CHANGE_PERMISSIONS:
-                RoomPermissionForms.save()
             if kwargs["edit"]:
                 if CAN_CHANGE_RULES:
                     roomRuleForms.save()
+                if CAN_CHANGE_PERMISSIONS:
+                    RoomPermissionForms.save()
                 room = roomForm.save()
                 LogEntry.objects.log_action(
                     user_id=self.request.user.id,
@@ -242,14 +240,17 @@ class EditRoomView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
                 room = roomForm.save(commit=False)
                 room.creator = request.user
                 room.save()
-
                 if CAN_CHANGE_RULES:
                     roomRules = roomRuleForms.save(commit=False)
                     for rule in roomRules:
                         rule.room = room
                         rule.save()
+                if CAN_CHANGE_PERMISSIONS:
+                    roomPermissions = RoomPermissionForms.save(commit=False)
+                    for permission in roomPermissions:
+                        permission.room = room
+                        permission.save()
                 LogEntry.objects.log_action(
-
                     user_id=self.request.user.id,
                     content_type_id=ContentType.objects.get_for_model(room).pk,
                     object_id=room.id,

@@ -132,8 +132,7 @@ class RoomPermission(models.Model):
         verbose_name=_("permesso"))
 
     def clean(self):
-        if self.room_id is None:
-            raise ValidationError(_("L'aula è obbligatoria"))
+        # Do not check if there is the room!
 
         if self.group_id is None:
             raise ValidationError(_("Il nome del gruppo è obbligatorio"))
@@ -188,8 +187,7 @@ class RoomRule(models.Model):
         verbose_name=_("orario di chiusura"))
 
     def clean(self):
-        #if self.room_id is None:
-        #    raise ValidationError(_("L'aula è obbligatoria"))
+        # Do not check if there is the room!
 
         if self.day is None:
             raise ValidationError(_("Il giorno è obbligatorio"))
