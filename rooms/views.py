@@ -152,8 +152,7 @@ class EditRoomView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
                 if CAN_CHANGE_RULES:
                     roomRuleForms = RoomRuleInlineFormSet(self.request.POST, instance=room)
                 if CAN_CHANGE_PERMISSIONS:
-                    RoomPermissionForms = RoomPermissionInlineFormSet(
-                        self.request.POST, instance=room)
+                    RoomPermissionForms = RoomPermissionInlineFormSet(self.request.POST, instance=room)
             else:
                 roomForm = RoomForm(self.request.POST)
                 if CAN_CHANGE_RULES:
@@ -180,7 +179,7 @@ class EditRoomView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
         CAN_CHANGE_RULES = self.request.user.has_perm("rooms.change_roomRule")
         CAN_CHANGE_PERMISSIONS = self.request.user.has_perm("rooms.change_roomPermission")
 
-        if "room_id" in kwargs and kwargs["room_id"]:
+        if "room_id" in kwargs and kwargs["room_id"]: # editing room
             try:
                 room = Room.objects.get(pk=kwargs["room_id"])
             except:
@@ -191,7 +190,7 @@ class EditRoomView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
             if CAN_CHANGE_PERMISSIONS:
                 RoomPermissionForms = RoomPermissionInlineFormSet(request.POST, instance=room)
             kwargs["edit"] = True
-        else:
+        else: # creating new room
             roomForm = RoomForm(request.POST)
             if CAN_CHANGE_RULES:
                 roomRuleForms = RoomRuleInlineFormSet(request.POST)
@@ -244,7 +243,7 @@ class EditRoomView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
                 if not CAN_CHANGE_PERMISSIONS:
                     # create the RoomPermissions as deafault
                     room.create_roompermission()
-                LogEntry.objects.log_action(
+                    LogEntry.objects.log_action(
                     user_id=self.request.user.id,
                     content_type_id=ContentType.objects.get_for_model(room).pk,
                     object_id=room.id,

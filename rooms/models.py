@@ -128,11 +128,12 @@ class RoomPermission(models.Model):
         verbose_name=_("gruppo"))
     permission = models.SmallIntegerField(
         choices=PERMISSION_CHOICES,
+        default=10,
         verbose_name=_("permesso"))
 
     def clean(self):
-        #if self.room_id is None:
-        #    raise ValidationError(_("L'aula è obbligatoria"))
+        if self.room_id is None:
+            raise ValidationError(_("L'aula è obbligatoria"))
 
         if self.group_id is None:
             raise ValidationError(_("Il nome del gruppo è obbligatorio"))
