@@ -179,7 +179,7 @@ class EditRoomView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
         CAN_CHANGE_RULES = self.request.user.has_perm("rooms.change_roomRule")
         CAN_CHANGE_PERMISSIONS = self.request.user.has_perm("rooms.change_roomPermission")
 
-        if "room_id" in kwargs and kwargs["room_id"]: # editing room
+        if "room_id" in kwargs and kwargs["room_id"]:  # editing room
             try:
                 room = Room.objects.get(pk=kwargs["room_id"])
             except:
@@ -190,7 +190,7 @@ class EditRoomView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
             if CAN_CHANGE_PERMISSIONS:
                 RoomPermissionForms = RoomPermissionInlineFormSet(request.POST, instance=room)
             kwargs["edit"] = True
-        else: # creating new room
+        else:  # creating new room
             roomForm = RoomForm(request.POST)
             if CAN_CHANGE_RULES:
                 roomRuleForms = RoomRuleInlineFormSet(request.POST)
