@@ -250,6 +250,9 @@ class EditRoomView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
                     for permission in roomPermissions:
                         permission.room = room
                         permission.save()
+                else:
+                    # create the RoomPermissions as deafault
+                    room.create_roompermission()
                 LogEntry.objects.log_action(
                     user_id=self.request.user.id,
                     content_type_id=ContentType.objects.get_for_model(room).pk,
