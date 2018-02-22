@@ -10,6 +10,7 @@ $(document).ready(function() {
             "pageLength": 25,
             "columnDefs": [
                 { "searchable": false, "targets": 3 },
+                { "type" : "formatteddate", "targets" : 3}
             ]
         });
     } else {
@@ -21,6 +22,7 @@ $(document).ready(function() {
                 { "orderable": false, "targets": 4 },
                 { "searchable": false, "targets": 3 },
                 { "searchable": false, "targets": 4 },
+                { "type" : "formatteddate", "targets" : 3}
             ]
         });
     }
