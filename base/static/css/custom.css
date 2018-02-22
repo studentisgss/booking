@@ -35,3 +35,8 @@ body {
 .error-message {
 	margin-top: 5%;
 }
+
+/*center pagination button in datatables*/
+div.paging_simple_numbers {
+	text-align:center !important;
+}
