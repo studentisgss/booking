@@ -21,13 +21,6 @@
 			{% endif %}
 		{% endif %}
 	</div>
-	{% if user.is_staff %}
-		<div>
-			{% if not can_require %}Nessuno {% endif %}{% for group in can_require %}{{ group.name }} {% endfor %} pu&oacute; richiedere di prenotare l'aula.
-			{% if not can_book %}Nessuno {% endif %}{% for group in can_book %}{{ group.name }} {% endfor %} pu&oacute; prenotare l'aula.
-		</br>
-		</div>
-	{% endif %}
 	</br>
 	{% if room.description %}
 		<div class="container-fluid">
@@ -38,6 +31,17 @@
 				  </div>
 				</div>
 			</div>
+		</div>
+	{% endif %}
+    {% if user.is_staff %}
+		<div>
+			<p>
+                Richiedere di prenotare l'aula: {% if not can_require %}Nessuno{% endif %}{% for group in can_require %}{{ group.name }}{% if not forloop.last %}, {% endif %}{% endfor %}.
+            </p>
+			<p>
+                Prenotare l'aula: {% if not can_book %}Nessuno{% endif %}{% for group in can_book %}{{ group.name }}{% if not forloop.last %}, {% endif %}{% endfor %}.
+            </p>
+		</br>
 		</div>
 	{% endif %}
 	<!-- Building -->
