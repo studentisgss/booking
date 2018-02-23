@@ -2,6 +2,7 @@ from collections import OrderedDict
 
 from django.views.generic import TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.contrib.auth.models import Group
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
 from django.http import Http404, HttpResponseRedirect
@@ -123,6 +124,8 @@ class EditRoomView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
         CAN_CHANGE_PERMISSIONS = self.request.user.has_perm("rooms.change_roomPermission") \
             and self.request.user.has_perm("rooms.add_roomPermission")
 
+        roomRuleForms_max_num = Group.objects.all().count()
+
         if self.request.method == "GET":
             if "room_id" in kwargs and kwargs["room_id"]:
                 try:
@@ -134,6 +137,7 @@ class EditRoomView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
                     roomRuleForms = RoomRuleInlineFormSet(instance=room)
                 if CAN_CHANGE_PERMISSIONS:
                     RoomPermissionForms = RoomPermissionInlineFormSet(instance=room)
+                    RoomPermissionForms.max_num = roomRuleForms_max_num
                 context["edit"] = True
             else:
                 roomForm = RoomForm()
@@ -142,6 +146,7 @@ class EditRoomView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
                 if CAN_CHANGE_PERMISSIONS:
                     RoomPermissionForms = RoomPermissionInlineFormSet(
                         initial=get_default_permissions())
+                    RoomPermissionForms.max_num = roomRuleForms_max_num
         elif self.request.method == "POST":
             if "room_id" in kwargs and kwargs["room_id"]:
                 try:
@@ -153,12 +158,14 @@ class EditRoomView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
                     roomRuleForms = RoomRuleInlineFormSet(self.request.POST, instance=room)
                 if CAN_CHANGE_PERMISSIONS:
                     RoomPermissionForms = RoomPermissionInlineFormSet(self.request.POST, instance=room)
+                    RoomPermissionForms.max_num = roomRuleForms_max_num
             else:
                 roomForm = RoomForm(self.request.POST)
                 if CAN_CHANGE_RULES:
                     roomRuleForms = RoomRuleInlineFormSet(self.request.POST)
                 if CAN_CHANGE_PERMISSIONS:
                     RoomPermissionForms = RoomPermissionInlineFormSet(self.request.POST)
+                    RoomPermissionForms.max_num = roomRuleForms_max_num
             context["edit"] = kwargs["edit"]
         else:
             raise Http404
@@ -228,7 +235,9 @@ class EditRoomView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
                     roomRuleForms.save()
                 if CAN_CHANGE_PERMISSIONS:
                     RoomPermissionForms.save()
-                room = roomForm.save()
+                room = roomForm.save(commit=False)
+                room.important = False
+                room.save()
                 LogEntry.objects.log_action(
                     user_id=self.request.user.id,
                     content_type_id=ContentType.objects.get_for_model(room).pk,
@@ -238,6 +247,7 @@ class EditRoomView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
                 )
             else:
                 room = roomForm.save(commit=False)
+                room.important = False
                 room.creator = request.user
                 room.save()
                 if CAN_CHANGE_RULES:
