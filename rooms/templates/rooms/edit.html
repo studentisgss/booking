@@ -90,10 +90,10 @@
     {% endfor %}
     <table class="table">
       <tr>
-        <th>Giorno</th>
-        <th>Orario di apertura</th>
-        <th>Orario di chiusura</th>
-        <th>Elimina</th>
+        <th class="col-xs-3">Giorno</th>
+        <th class="col-xs-3">Orario di apertura</th>
+        <th class="col-xs-3">Orario di chiusura</th>
+        <th class="col-xs-1">Elimina</th>
         <td class="hidden"></td>
       </tr>
       {% for form in roomRuleForm %}
@@ -154,6 +154,80 @@
       {% endfor %}
     </table>
     {{ roomRuleForm.management_form }}
+  </fieldset>
+  {% endif %}
+
+
+<!-- Modify/Add RoomPermissions -->
+  {% if perms.rooms.change_roomPermission %}
+  <hr/>
+  <h1>Modifica permessi</h1>
+  <fieldset>
+  {% csrf_token %}
+    {% for form in RoomPermissionForm %}
+      {% if form.non_field_errors %}
+        <div class="row">
+            <ol class="list-group">
+            {% for error in form.non_field_errors %}
+              <li class="list-group-item list-group-item-danger">{{ error|escape }}</li>
+            {% endfor %}
+            </ol>
+        </div>
+      {% endif %}
+    {% endfor %}
+    <table class="table">
+      <tr>
+        <th class="col-xs-5">Gruppo</th>
+        <th class="col-xs-4">Tipo di permesso</th>
+        <th class="col-xs-1">Elimina</th>
+        <td class="hidden"></td>
+      </tr>
+      {% for form in RoomPermissionForm %}
+        <tr>
+          <td>
+            <div class="form-group {% if form.group.errors %}has-error{% endif %}">
+              {{ form.group }}
+              {% if form.group.errors %}
+                <div>
+                  {% for error in form.group.errors %}
+                    <p class="text-danger">{{ error|escape }}</p>
+                  {% endfor %}
+                </div>
+              {% endif %}
+            </div>
+          </td>
+          <td>
+            <div class="form-group {% if form.permission.errors %}has-error{% endif %}">
+              {{ form.permission }}
+              {% if form.permission.errors %}
+                <div>
+                  {% for error in form.permission.errors %}
+                    <p class="text-danger">{{ error|escape }}</p>
+                  {% endfor %}
+                </div>
+              {% endif %}
+            </div>
+          </td>
+          <td>
+            <div class="{% if form.DELETE.errors %}has-error{% endif %}">
+              {{ form.DELETE }}
+              <button type="button" class="btn btn-danger btn-xs remover hidden">
+                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+              </button>
+              {% if form.DELETE.errors %}
+                <div>
+                  {% for error in form.DELETE.errors %}
+                    <p class="text-danger">{{ error|escape }}</p>
+                  {% endfor %}
+                </div>
+              {% endif %}
+            </div>
+          </td>
+          <td class="hidden">{{ form.id }}</td>
+        </tr>
+      {% endfor %}
+    </table>
+    {{ RoomPermissionForm.management_form }}
   </fieldset>
   {% endif %}
 
