@@ -21,7 +21,7 @@
 			{% endif %}
 		{% endif %}
 	</div>
-	</br>
+	<br/>
 	{% if room.description %}
 		<div class="container-fluid">
 			<div class="row">
@@ -41,7 +41,7 @@
 			<p>
                 Prenotare l'aula: {% if not can_book %}Nessuno{% endif %}{% for group in can_book %}{{ group.name }}{% if not forloop.last %}, {% endif %}{% endfor %}.
             </p>
-		</br>
+		<br/>
 		</div>
 	{% endif %}
 	<!-- Building -->
@@ -61,7 +61,7 @@
 			</iframe>
 		</div>
 	</div>
-	</br>
+	<br/>
 	<!-- RoomRules -->
 	{% if roomRules %}
 	<div>
