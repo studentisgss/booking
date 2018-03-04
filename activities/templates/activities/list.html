@@ -89,7 +89,10 @@
                 <a href="{% url "activities:details" e.pk %}">{{ e.title }}</a>
             </td>
             <td>{{ e.professor }}</td>
-            <td>{{ e.min_start | date:'F Y' }} - {{ e.max_end | date:'F Y' }}</td>
+            <td>
+              <div class="hidden">|{{ e.max_end | date:'Ymd' }}{{ e.min_start | date:'Ymd' }}|</div>
+              {{ e.min_start | date:'F Y' }} - {{ e.max_end | date:'F Y' }}
+            </td>
             {% if user.is_authenticated %}
                 {% if perms.activities.change_activity %}
                     <td class="text-center">
