@@ -35,7 +35,6 @@ body {
 .error-message {
 	margin-top: 5%;
 }
-
 /* JQUERY SUMOSELECT style like bootstrap form-control */
 
 div.SumoSelect {
@@ -54,4 +53,9 @@ div.SumoSelect p.SelectBox {
 
 div.SumoSelect label {
     font-weight: normal;
+
+/*center pagination button in datatables*/
+div.paging_simple_numbers {
+	text-align:center !important;
+
 }

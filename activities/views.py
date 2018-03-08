@@ -55,7 +55,7 @@ class DetailActivityView(TemplateView):
 
 
 class ListAllActivityView(TemplateView):
-    template_name = "activities/listall.html"
+    template_name = "activities/list.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -72,62 +72,12 @@ class ListAllActivityView(TemplateView):
                 Q(description__icontains=text) |
                 Q(professor__icontains=text)
             )
-        paginator = Paginator(activities_list, per_page=25)
-        page = kwargs.get("page", 1)
-        try:
-            activities = paginator.page(page)
-        except PageNotAnInteger:
-            # If page is not an integer, deliver first page which is 1 not 0.
-            activities = paginator.page(1)
-        except EmptyPage:
-            # If page is out of range (e.g. 9999), deliver last page of results.
-            activities = paginator.page(paginator.num_pages)
-        context["list"] = activities
+
         # If the user is authenticated return the activity for which he is a manager
         if self.request.user.is_authenticated:
             context["managed_activities"] = self.request.user.managed_activities.all()
             # If some of the activities are managed by the user set manages_something to True
             # I have to use set due to some problem with pagination
-            context["manages_something"] = bool(set(context["managed_activities"]) &
-                                                set(activities.object_list))
-
-            # Set the category which the user is allowed to edit
-            if self.request.user.has_perm("activities.change_activity"):
-                context["managed_category"] = \
-                    [c[0] for c in CLASS_CHOICES
-                     if self.request.user.has_perm("activities.change_" + c[0])]
-                managed_category_exists = False
-                for a in activities:
-                    if a.category in context["managed_category"]:
-                        managed_category_exists = True
-                        break  # Not needed to go on
-                context["managed_category_exists"] = managed_category_exists
-
-        return context
-
-
-class ListActivityView(TemplateView):
-    template_name = "activities/list.html"
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        activities_list = Activity.objects \
-            .filter(archived=False) \
-            .annotate(min_start=Min("event__start")) \
-            .annotate(max_end=Max("event__end")) \
-            .order_by("category", "title", "min_start")
-        # Check for filter-text
-        if "search" in self.request.GET:
-            text = self.request.GET.get("search", "")
-            context["filterText"] = text
-            activities_list = activities_list.filter(
-                Q(title__icontains=text) | Q(description__icontains=text)
-            )
-        context["list"] = activities_list
-        # If the user is authenticated return the activity for which he is a manager
-        if self.request.user.is_authenticated:
-            context["managed_activities"] = self.request.user.managed_activities.all()
-            # If some of the activities are managed by the user set manages_something to True
             context["manages_something"] = (context["managed_activities"] &
                                             activities_list).exists()
 
@@ -136,16 +86,31 @@ class ListActivityView(TemplateView):
                 context["managed_category"] = \
                     [c[0] for c in CLASS_CHOICES
                      if self.request.user.has_perm("activities.change_" + c[0])]
-                context["managed_category_exists"] = activities_list.filter(
-                    category__in=context["managed_category"]
-                ).exists()
+                managed_category_exists = False
+                for a in activities_list:
+                    if a.category in context["managed_category"]:
+                        managed_category_exists = True
+                        break  # Not needed to go on
+                context["managed_category_exists"] = managed_category_exists
+
+        context["list"] = activities_list
+        context["all"] = True
         return context
 
 
-class ActivityManagerEditView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
+class ListNotArchivedActivityView(ListAllActivityView):
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["list"] = context["list"].filter(archived=False)
+        context["all"] = False
+        return context
+
+
+class ActivityManagerEditView(LoginRequiredMixin, TemplateView):
     template_name = "activities/edit.html"
 
-    permission_required = ("events.change_event", "rooms.can_book_room")
+    #permission_required = ("events.change_event", "rooms.can_book_room")
     check_for_manager = True
 
     def get_context_data(self, **kwargs):
@@ -305,7 +270,7 @@ class ActivityManagerEditView(LoginRequiredMixin, PermissionRequiredMixin, Templ
             return self.get(request, *args, **kwargs)
 
 
-class ActivityEditView(ActivityManagerEditView):
+class ActivityEditView(ActivityManagerEditView, PermissionRequiredMixin):
     template_name = "activities/edit.html"
 
     permission_required = ("activities.change_activity", "rooms.can_book_room")
