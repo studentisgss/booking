@@ -14,6 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include(blog_urls))
 """
 from django.conf.urls import include, url
+from django.views.decorators.cache import cache_page
 from activities.views import *
 from activities.feeds import *
 
@@ -33,6 +34,8 @@ urlpatterns = [
     url(r'^bookeddates$', BookedDatesAPI.as_view(), name="bookeddates"),
     url(r'^bookedhours$', BookedHoursAPI.as_view(), name="bookedhours"),
 
-    url(r'^feed/rss/(?P<activity_id>[0-9]+)$', RssActivityFeed(), name="rss"),
-    url(r'^feed/atom/(?P<activity_id>[0-9]+)$', AtomActivityFeed(), name="atom"),
+    url(r'^feed/rss/(?P<activity_id>[0-9]+)$',
+        cache_page(15 * 60)(RssActivityFeed()), name="rss"),
+    url(r'^feed/atom/(?P<activity_id>[0-9]+)$',
+        cache_page(15 * 60)(AtomActivityFeed()), name="atom"),
 ]

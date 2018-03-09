@@ -14,6 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include(blog_urls))
 """
 from django.conf.urls import include, url
+from django.views.decorators.cache import cache_page
 from news.views import NewsView, NewsEditView, NewsAddView, NewsDeleteView, MessageView
 from news.feeds import RssNewsFeed, AtomNewsFeed
 
@@ -27,6 +28,6 @@ urlpatterns = [
 
     url(r'^messages/(?P<activity_id>\d+)$', MessageView.as_view(), name="messages"),
 
-    url(r'^feed/rss$', RssNewsFeed(), name="rss"),
-    url(r'^feed/atom$', AtomNewsFeed(), name="atom"),
+    url(r'^feed/rss$', cache_page(15 * 60)(RssNewsFeed()), name="rss"),
+    url(r'^feed/atom$', cache_page(15 * 60)(AtomNewsFeed()), name="atom"),
 ]
