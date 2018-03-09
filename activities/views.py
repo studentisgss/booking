@@ -107,10 +107,10 @@ class ListNotArchivedActivityView(ListAllActivityView):
         return context
 
 
-class ActivityManagerEditView(LoginRequiredMixin, TemplateView):
+class ActivityManagerEditView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
     template_name = "activities/edit.html"
 
-    #permission_required = ("events.change_event", "rooms.can_book_room")
+    permission_required = ("events.change_event", "rooms.can_book_room")
     check_for_manager = True
 
     def get_context_data(self, **kwargs):
@@ -270,7 +270,7 @@ class ActivityManagerEditView(LoginRequiredMixin, TemplateView):
             return self.get(request, *args, **kwargs)
 
 
-class ActivityEditView(ActivityManagerEditView, PermissionRequiredMixin):
+class ActivityEditView(ActivityManagerEditView):
     template_name = "activities/edit.html"
 
     permission_required = ("activities.change_activity", "rooms.can_book_room")

@@ -99,7 +99,7 @@
                         <a href="{% url "activities:edit" e.pk %}" class="btn btn-info btn-xs"><span class="glyphicon glyphicon-pencil"></span></a>
                     </td>
                 {% else %}
-                    {% if manages_something %}
+                    {% if perms.events.change_event and manages_something %}
                         {% if e in managed_activities %}
                             <td class="text-center">
                                 <a href="{% url "activities:editmanager" e.pk %}" class="btn btn-info btn-xs"><span class="glyphicon glyphicon-pencil"></span></a>
@@ -108,7 +108,9 @@
                             <td></td>
                         {% endif %}
                     {% else %}
-                        <td></td>
+                        {% if perms.activities.change_activity and managed_category_exists or perms.events.change_event and manages_something %}
+                            <td></td>
+                        {% endif %}
                     {% endif %}
                 {% endif %}
             {% endif %}
