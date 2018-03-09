@@ -50,7 +50,7 @@
 				<li><a href="{% url "activities:list" %}">Attività</a></li>
 				<li><a href="{% url "rooms:list" %}">Aule</a></li>
 				<li><a href="{% url "news:news" %}">Avvisi</a></li>
-                                {% if user.is_authenticated %}
+                                {% if user.is_authenticated and perms.events.change_event and perms.activities.change_activity %}
 				<li><a href="{% url "events:approvation" %}">Approvazioni</a></li>
                                 {% endif %}
 			</ul>
