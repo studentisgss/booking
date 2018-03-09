@@ -35,6 +35,10 @@ body {
 .error-message {
 	margin-top: 5%;
 }
+
+#navbar>ul>li>a>span.badge {
+    line-height: 13px;
+}
 /* JQUERY SUMOSELECT style like bootstrap form-control */
 
 div.SumoSelect {
