@@ -39,6 +39,5 @@ urlpatterns = [
     url(r'^feed/atom/(?P<activity_id>[0-9]+)$',
         cache_page(15 * 60)(AtomActivityFeed()), name="atom"),
     url(r'^feed/ics/(?P<activity_id>[0-9]+)$',
-        ICalActivityFeed.as_view(), name="ics"),
-    # cache_page(15 * 60)(ICalActivityFeed()), name="atom"),
+        cache_page(15 * 60)(ICalActivityFeed.as_view()), name="ics"),
 ]

@@ -33,14 +33,18 @@
 	</div>
 	<div class="row">
         {% if activity.description %}
-        <div class="col-md-9 col-xs-8">
+        <div class="col-md-9 col-xs-7">
             <a id="collapseDescriptionControl" class="btn btn-default" data-toggle="collapse" href="#collapseDescription" aria-expanded="false" aria-controls="collapseDescription">
                 Mostra/Nascondi descrizione
             </a>
         </div>
         {% if not activity.archived %}
-            <div class="col-md-3 col-xs-4 text-right">
+            <div class="col-md-3 col-xs-5 text-right">
                 <div class="btn-group">
+                    <a href="{% url 'activities:ics' activity.id %}" class="btn btn-xs btn-success">
+                        <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+                        <span>iCal</span>
+                    </a>
                     <a href="{% url 'activities:rss' activity.id %}" class="btn btn-xs btn-warning">
                         <img id="feed-icon" src="{% static 'img/feed.svg' %}" />
                         <span>RSS</span>
@@ -63,6 +67,10 @@
         {% else %}
             {% if not activity.archived %}
                 <div class="btn-group col-xs-12">
+                    <a href="{% url 'activities:ics' activity.id %}" class="btn btn-xs btn-success">
+                        <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+                        <span>iCal</span>
+                    </a>
                     <a href="{% url 'activities:rss' activity.id %}" class="btn btn-xs btn-warning">
                         <img id="feed-icon" src="{% static 'img/feed.svg' %}" />
                         <span>RSS</span>
