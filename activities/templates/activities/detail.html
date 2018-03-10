@@ -38,16 +38,18 @@
                 Mostra/Nascondi descrizione
             </a>
         </div>
-        <div class="col-md-3 col-xs-4 text-right">
-            <div class="btn-group">
-                <a href="{% url 'activities:rss' activity.id %}" class="btn btn-xs btn-warning">
-                    <img id="feed-icon" src="{% static 'img/feed.svg' %}" />
-                    <span>RSS</span>
-                </a>
-                <a href="{% url 'activities:atom' activity.id %}" class="btn btn-xs btn-warning">Atom</a>
-                <a href="{% url 'news:messages' activity.id %}" class="btn btn-xs btn-primary">Messaggi {% if message_count != 0 %}<span class="badge">{{ message_count }}</span>{% endif %}</a>
+        {% if not activity.archived %}
+            <div class="col-md-3 col-xs-4 text-right">
+                <div class="btn-group">
+                    <a href="{% url 'activities:rss' activity.id %}" class="btn btn-xs btn-warning">
+                        <img id="feed-icon" src="{% static 'img/feed.svg' %}" />
+                        <span>RSS</span>
+                    </a>
+                    <a href="{% url 'activities:atom' activity.id %}" class="btn btn-xs btn-warning">Atom</a>
+                    <a href="{% url 'news:messages' activity.id %}" class="btn btn-xs btn-primary">Messaggi {% if message_count != 0 %}<span class="badge">{{ message_count }}</span>{% endif %}</a>
+                </div>
             </div>
-        </div>
+        {% endif %}
     	<div class="col-xs-12">
             <div class="collapse" id="collapseDescription">
 				<div class="panel panel-default">
@@ -59,14 +61,16 @@
             <p><br /></p>
     	</div>
         {% else %}
-        <div class="btn-group col-xs-12">
-            <a href="{% url 'activities:rss' activity.id %}" class="btn btn-xs btn-warning">
-                <img id="feed-icon" src="{% static 'img/feed.svg' %}" />
-                <span>RSS</span>
-            </a>
-            <a href="{% url 'activities:atom' activity.id %}" class="btn btn-xs btn-warning">Atom</a>
-            <a href="{% url 'news:messages' activity.id %}" class="btn btn-xs btn-primary">Messaggi {% if message_count != 0 %}<span class="badge">{{ message_count }}</span>{% endif %}</a>
-        </div>
+            {% if not activity.archived %}
+                <div class="btn-group col-xs-12">
+                    <a href="{% url 'activities:rss' activity.id %}" class="btn btn-xs btn-warning">
+                        <img id="feed-icon" src="{% static 'img/feed.svg' %}" />
+                        <span>RSS</span>
+                    </a>
+                    <a href="{% url 'activities:atom' activity.id %}" class="btn btn-xs btn-warning">Atom</a>
+                    <a href="{% url 'news:messages' activity.id %}" class="btn btn-xs btn-primary">Messaggi {% if message_count != 0 %}<span class="badge">{{ message_count }}</span>{% endif %}</a>
+                </div>
+            {% endif %}
         <div class="col-xs-12">
             <br />
         </div>
