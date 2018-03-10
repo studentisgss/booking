@@ -1,4 +1,6 @@
 from django.contrib.syndication.views import Feed
+from django.views import View
+from django.http import HttpResponse
 from django.utils.feedgenerator import Atom1Feed
 from django.urls import reverse
 from django.http import Http404
@@ -8,6 +10,8 @@ from activities.models import Activity
 from base.utils import localnow
 from booking.settings import TIME_ZONE
 import hashlib
+import icalendar
+from datetime import timedelta
 
 
 class RssActivityFeed(Feed):
@@ -108,3 +112,43 @@ class AtomActivityFeed(RssActivityFeed):
 
     def subtitle(self, obj):
         return "Corsi della Scuola Galileiana di Studi Superiori"
+
+
+class ICalActivityFeed(View):
+
+    def get(self, request, activity_id):
+        # Get the activity
+        try:
+            activity = Activity.objects.get(pk=activity_id)
+        except (Activity.DoesNotExist, OverflowError):
+            raise Http404
+        # Do not process archived activity
+        if (activity.archived):
+            raise Http404
+        # Initializa the calendar
+        cal = icalendar.Calendar()
+        cal.add("PRODID", "-//Scuola Galileiana di Studi Superiori di Padova//Booking//IT")
+        cal.add("VERSION", "2.0")
+        cal.add("METHOD", "PUBLISH")
+        cal.add("CALSCALE", "GREGORIAN")
+        cal.add("NAME", activity.get_full_title())
+        cal.add("X-WR-CALNAME", activity.get_full_title())
+        duration = icalendar.vDuration(timedelta(hours=8))
+        cal.add("REFRESH-INTERVAL", duration)
+        cal.add("X-PUBLISHED-TTL", duration)
+        # Add the confirmed event
+        url = request.build_absolute_uri(
+            reverse("activities:details", kwargs={"activity_id": activity_id})
+        )
+        for e in Event.objects.filter(activity=activity, status=0).order_by("start"):
+            event = icalendar.Event()
+            event.add("dtstamp", localnow())
+            event.add("uid", str(e.pk) + "@booking.scuolagalileiana.unipd.it")
+            event.add("dtstart", e.start)
+            event.add("dtend", e.end)
+            event.add("summary", activity.title)
+            event.add("location", e.room.get_full_name())
+            event.add("status", "CONFIRMED")
+            event.add("url", url)
+            cal.add_component(event)
+        return HttpResponse(cal.to_ical(), content_type="text/calendar")
