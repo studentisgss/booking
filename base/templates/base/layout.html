@@ -86,7 +86,7 @@
 <footer class="footer">
 	<div class="container">
 		<p>
-			<a href="https://validator.w3.org/check?uri=referer">Validazione HTML</a>
+			{% if DEMO %}<a href="https://validator.w3.org/check?uri=referer">Validazione HTML</a>{% endif %}
             <span class="pull-right text-muted">Sito sviluppato dagli studenti della Scuola Galileiana di Studi Superiori di Padova</span>
         </p>
 	</div>
