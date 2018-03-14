@@ -339,6 +339,7 @@ class ActivityAddView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView)
             activity = form.save(commit=False)
             activity.creator = request.user
             activity.save()
+            form.save_m2m()
             # Log the action
             LogEntry.objects.log_action(
                 user_id=self.request.user.id,
