@@ -13,6 +13,7 @@ class ActivityForm(BookingModelForm):
             "title",
             "professor",
             "archived",
+            "brochure",
             "description",
             "managers",
         ]
