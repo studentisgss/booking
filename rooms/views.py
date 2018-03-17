@@ -11,6 +11,7 @@ from django.template import RequestContext
 from django.contrib.admin.models import LogEntry, CHANGE, ADDITION
 from django.contrib.contenttypes.models import ContentType
 from django.core.urlresolvers import reverse
+from django.core.exceptions import PermissionDenied
 
 from booking.settings import GOOGLE_MAPS_API_KEY
 from rooms.models import Group, Room, Building, RoomRule, RoomPermission
@@ -232,7 +233,7 @@ class EditRoomView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
                 (not CAN_CHANGE_PERMISSIONS or RoomPermissionForms.is_valid()):
             if not self.request.user.has_perm("rooms.can_change_important"):
                 if "important" in roomForm.changed_data:
-                    raise HttpResponseServerError()
+                    raise PermissionDenied
             if kwargs["edit"]:
                 if CAN_CHANGE_RULES:
                     roomRuleForms.save()
