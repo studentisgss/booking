@@ -4,7 +4,7 @@ from django.views.generic import TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.models import Group
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.db.models import Q, BooleanField
+from django.db.models import Q
 from django.http import Http404, HttpResponseServerError, HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template import RequestContext
@@ -232,7 +232,7 @@ class EditRoomView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
                 (not CAN_CHANGE_PERMISSIONS or RoomPermissionForms.is_valid()):
             if not self.request.user.has_perm("rooms.can_change_important"):
                 if "important" in roomForm.changed_data:
-                    raise  HttpResponseServerError()
+                    raise HttpResponseServerError()
             if kwargs["edit"]:
                 if CAN_CHANGE_RULES:
                     roomRuleForms.save()
