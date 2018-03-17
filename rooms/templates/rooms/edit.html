@@ -64,6 +64,7 @@
           {{ roomForm.name }}
         </div>
       </div>
+      {{ roomForm.important.as_hidden }}
     {% endif %}
     {% if roomForm.description.errors %}
       <div>
