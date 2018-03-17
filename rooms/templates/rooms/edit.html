@@ -3,6 +3,8 @@
 
 {% block head-extra %}
 <script type="text/javascript" src="{% static 'rooms/js/edit.js' %}"></script>
+
+<link href="{% static 'rooms/css/edit.css' %}" rel="stylesheet" />
 {% endblock head-extra %}
 
 {% block main %}
@@ -13,6 +15,7 @@
   <fieldset>
   <div>
     {% csrf_token %}
+
     {% if roomForm.non_field_errors %}
       <div>
         <ol class="list-group">
@@ -23,49 +26,85 @@
       </div>
     {% endif %}
 
-    <div class="form-group {% if roomForm.name.errors %}has-error{% endif %}">
-        {{ roomForm.name.label_tag }}
-        {% if roomForm.name.errors %}
-          <div>
-            {% for error in roomForm.name.errors %}
-              <p class="text-danger">{{ error|escape }}</p>
-            {% endfor %}
-          </div>
-        {% endif %}
-        {{ roomForm.name }}
-    </div>
-    <div class="form-group {% if roomForm.description.errors %}has-error{% endif %}">
+    {% if roomForm.name.errors %}
+      <div>
+        {% for error in roomForm.name.errors %}
+          <p class="text-danger">{{ error|escape }}</p>
+        {% endfor %}
+      </div>
+    {% endif %}
+    {% if roomForm.important.errors %}
+      <div>
+        {% for error in roomForm.important.errors %}
+          <p class="text-danger">{{ error|escape }}</p>
+        {% endfor %}
+      </div>
+    {% endif %}
+    {% if perms.rooms.can_change_important %}
+      <div class="row">
+        <div class="col-xs-2">
+          {{ roomForm.name.label_tag }}
+        </div>
+        <div class="col-xs-7 form-group {% if roomForm.name.errors %}has-error{% endif %}">
+          {{ roomForm.name }}
+        </div>
+        <div class="col-xs-2">
+          {{ roomForm.important.label_tag }}
+        </div>
+        <div class="col-xs-1 form-group {% if roomForm.important.errors %}has-error{% endif %}">
+          {{ roomForm.important }}
+        </div>
+      </div>
+    {% else %}
+      <div class="row">
+        <div class="col-xs-2">
+          {{ roomForm.name.label_tag }}
+        </div>
+        <div class="col-xs-10 form-group {% if roomForm.name.errors %}has-error{% endif %}">
+          {{ roomForm.name }}
+        </div>
+      </div>
+      {{ roomForm.important.as_hidden }}
+    {% endif %}
+    {% if roomForm.description.errors %}
+      <div>
+        {% for error in roomForm.description.errors %}
+          <p class="text-danger">{{ error|escape }}</p>
+        {% endfor %}
+      </div>
+    {% endif %}
+    <div class="row">
+      <div class="col-xs-2">
         {{ roomForm.description.label_tag }}
-        {% if roomForm.description.errors %}
-          <div>
-            {% for error in roomForm.description.errors %}
-              <p class="text-danger">{{ error|escape }}</p>
-            {% endfor %}
-          </div>
-        {% endif %}
+      </div>
+      <div class="col-xs-10 form-group {% if roomForm.description.errors %}has-error{% endif %}">
         {{ roomForm.description }}
+      </div>
     </div>
-    <div class="form-group {% if roomForm.building.errors %}has-error{% endif %}">
+    <br/>
+    {% if roomForm.building.errors %}
+      <div>
+        {% for error in roomForm.building.errors %}
+          <p class="text-danger">{{ error|escape }}</p>
+        {% endfor %}
+      </div>
+    {% endif %}
+    <div class="row">
+      <div class="col-xs-2">
         {{ roomForm.building.label_tag }}
-        {% if roomForm.building.errors %}
-          <div>
-            {% for error in roomForm.building.errors %}
-              <p class="text-danger">{{ error|escape }}</p>
-            {% endfor %}
-          </div>
-        {% endif %}
-        {% if perms.rooms.add_building %}
-          <div class="row">
-            <div class="col-xs-10">
-              {{ roomForm.building }}
-            </div>
-            <div class="col-xs-2">
-              <input  name="newBuilding" type="submit" value="Crea nuovo edificio" class="form-control btn btn-success">
-            </div>
-          </div>
-        {% else %}
+      </div>
+      {% if perms.rooms.add_building %}
+        <div class="col-xs-8 form-group {% if roomForm.building.errors %}has-error{% endif %}">
           {{ roomForm.building }}
-        {% endif %}
+        </div>
+        <div class="col-xs-2">
+          <input  name="newBuilding" type="submit" value="Crea nuovo edificio" class="form-control btn btn-success">
+        </div>
+      {% else %}
+        <div class="col-xs-10 form-group {% if roomForm.building.errors %}has-error{% endif %}">
+          {{ roomForm.building }}
+        </div>
+      {% endif %}
     </div>
   </div>
   </fieldset>

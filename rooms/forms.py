@@ -18,6 +18,7 @@ class RoomForm(BookingModelForm):
             "name",
             "description",
             "building",
+            "important",
         ]
 
     def clean(self):

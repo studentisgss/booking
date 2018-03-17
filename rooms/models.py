@@ -47,6 +47,7 @@ class Room(models.Model):
         verbose_name_plural = _("aule")
         permissions = (
             ("can_book_room", _("Può prenotare qualche aula")),
+            ("can_change_important", _("Può cambiare importanza aula")),
         )
 
     def __str__(self):
