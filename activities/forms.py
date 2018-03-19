@@ -32,3 +32,12 @@ class ActivityForm(BookingModelForm):
 
     def managers_label_from_instance(self, obj):
         return obj.get_full_name()
+
+    def clean_description(self):
+        # Remove default lines in description__icontains
+        spl_descr = Activity.DESCRIPTION_TEMPLATE.split("\n")
+        act_descr = self.cleaned_data["description"]
+        for spl_str in spl_descr:
+                if len(spl_str.strip()) > 0:
+                    act_descr = act_descr.replace(spl_str.strip(),'')
+        return act_descr.rstrip()
