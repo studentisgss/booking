@@ -147,6 +147,9 @@ class ActivityManagerEditView(LoginRequiredMixin, PermissionRequiredMixin, Templ
         else:
             if not self.request.user.has_perm("activities.change_" + activity.category):
                 raise PermissionDenied
+            # Check whether the user can change the actvity flag, if not make it read-only
+            if not self.request.user.has_perm("activities.change_brochure"):
+                form.fields["brochure"].widget.attrs['disabled'] = True
 
         # Get rooms where the user has some permission
         rooms = Room.objects.all().filter(
@@ -285,6 +288,10 @@ class ActivityEditView(ActivityManagerEditView):
         events_form = EventInlineFormSet(request.POST, instance=activity)
 
         if form.is_valid() and events_form.is_valid():
+            # Check if the brochure flag is modified and it the user has the permission
+            if not self.request.user.has_perm("activities.change_brochure"):
+                if "brochure" in form.changed_data:
+                    raise PermissionDenied
             # Save the activity and log the change.
             # The events are saved in the parent class
             activity = form.save()
@@ -314,6 +321,9 @@ class ActivityAddView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView)
             form = ActivityForm(self.request.POST)
         else:
             raise Http404
+            # Check if the user can change the brochure flag
+        if not self.request.user.has_perm("activities.change_brochure"):
+            form.fields["brochure"].widget.attrs['disabled'] = True
         context["form"] = form
         return context
 
@@ -321,10 +331,15 @@ class ActivityAddView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView)
         form = ActivityForm(request.POST)
 
         if form.is_valid():
+            # Check if the brochure flag is modified and it the user has the permission
+            if not self.request.user.has_perm("activities.change_brochure"):
+                if "brochure" in form.changed_data:
+                    raise PermissionDenied
             # Create the new activity and set the creator
             activity = form.save(commit=False)
             activity.creator = request.user
             activity.save()
+            form.save_m2m()
             # Log the action
             LogEntry.objects.log_action(
                 user_id=self.request.user.id,

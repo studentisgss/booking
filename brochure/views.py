@@ -24,9 +24,7 @@ class BrochurePDFView(View):
         # context for body
         if category in self.CLASS_INITIALS:
             activities_list = Activity.objects \
-                .filter(archived=False, category=category) \
-                .exclude(professor=None) \
-                .exclude(professor="") \
+                .filter(archived=False, category=category, brochure=True) \
                 .order_by("title")
         else:
             activities_list = []
