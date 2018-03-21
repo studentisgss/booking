@@ -39,5 +39,5 @@ class ActivityForm(BookingModelForm):
         act_descr = self.cleaned_data["description"]
         for spl_str in spl_descr:
                 if len(spl_str.strip()) > 0:
-                    act_descr = act_descr.replace(spl_str.strip(),'')
+                    act_descr = act_descr.replace(spl_str.strip(), '')
         return act_descr.rstrip()
