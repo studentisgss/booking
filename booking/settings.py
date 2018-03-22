@@ -89,6 +89,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.i18n',
                 'base.context_processors.demo',
+                'base.context_processors.waiting_events_counter',
             ],
         },
     },

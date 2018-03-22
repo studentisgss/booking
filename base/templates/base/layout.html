@@ -61,9 +61,15 @@
 				<li><a href="{% url "activities:list" %}">Attività</a></li>
 				<li><a href="{% url "rooms:list" %}">Aule</a></li>
 				<li><a href="{% url "news:news" %}">Avvisi</a></li>
-                                {% if user.is_authenticated %}
-				<li><a href="{% url "events:approvation" %}">Approvazioni</a></li>
-                                {% endif %}
+                {% if user.is_authenticated and perms.events.change_event and perms.activities.change_activity %}
+				    <li>
+                        <a href="{% url "events:approvation" %}">Approvazioni
+                            {% if waiting_events_count and waiting_events_count != 0 %}
+                                <span class="badge">{{ waiting_events_count }}</span>
+                            {% endif %}
+                        </a>
+                    </li>
+                {% endif %}
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
 				{% if DEMO %}<li><p class="navbar-text" id="demo-message">Questo sito è una DEMO in continuo sviluppo.</p></li>{% endif %}

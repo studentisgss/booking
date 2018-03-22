@@ -152,13 +152,16 @@ class Monitor(TemplateView):
 class EventsApprovationView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
     template_name = "events/approvation.html"
 
-    permission_required = "events.change_event"
+    permission_required = ("events.change_event", "activities.change_activity")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         # show only waitings events that can be approved
+        managed_category = [c[0] for c in CLASS_CHOICES
+                            if self.request.user.has_perm("activities.change_" + c[0])]
         context["events_list"] = Event.objects.filter(
-            status=Event.WAITING
+            status=Event.WAITING,
+            activity__category__in=managed_category
         ).filter(
             room__roompermission__group__in=self.request.user.groups.all(),
             room__roompermission__permission=30
@@ -175,7 +178,7 @@ class EventsApprovationView(LoginRequiredMixin, PermissionRequiredMixin, Templat
 
 class EventsApprovationConfirmView(LoginRequiredMixin, PermissionRequiredMixin, View):
 
-    permission_required = "events.change_event"
+    permission_required = ("events.change_event", "activities.change_activity")
 
     def get(self, request, **kwargs):
         try:
@@ -184,10 +187,12 @@ class EventsApprovationConfirmView(LoginRequiredMixin, PermissionRequiredMixin, 
             raise Http404
         if not int(kwargs["action"]) in [x[0] for x in Event.STATUS_CHOICES]:
             raise Http404
+        managed_category = [c[0] for c in CLASS_CHOICES
+                            if self.request.user.has_perm("activities.change_" + c[0])]
         if ev.room.roompermission_set.filter(
                 group__in=request.user.groups.all(),
                 permission=30
-        ).exists():
+        ).exists() and ev.activity.category in managed_category:
             ev.status = kwargs["action"]
             ev.save()
         else:
