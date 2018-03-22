@@ -14,10 +14,16 @@
 			<h1>{{ activity.get_full_title }}</h1>
 		</div>
 		{% if user.is_authenticated %}
-        	{% if perms.activities.change_activity %}
+        	{% if perms.activities.change_activity and can_manage_activity %}
 				<div class="col-xs-2">
 					<h1><a href="{% url "activities:edit" activity.pk %}" class="btn btn-info"><span class="glyphicon glyphicon-pencil"></span> Modifica</a></h1>
 				</div>
+            {% else %}
+                {% if perms.events.change_event and is_manager %}
+                    <div class="col-xs-2">
+                        <h1><a href="{% url "activities:editmanager" activity.pk %}" class="btn btn-info"><span class="glyphicon glyphicon-pencil"></span> Modifica</a></h1>
+                    </div>
+                {% endif %}
 			{% endif %}
         {% endif %}
 	</div>
@@ -27,7 +33,13 @@
         <a id="collapseDescriptionControl" class="btn btn-default" data-toggle="collapse" href="#collapseDescription" aria-expanded="false" aria-controls="collapseDescription">
             Mostra/Nascondi descrizione
         </a>
-        <div class="collapse" id="collapseDescription"><p>{{ activity.description|markdown }}</p></div>
+        <div class="collapse" id="collapseDescription">
+					<div class="panel panel-default">
+						<div class="panel-body">
+					    <p>{{ activity.description|markdown }}</p>
+						</div>
+					</div>
+				</div>
         <p><br /></p>
 	</div>
 	</div>
@@ -47,8 +59,12 @@
 			<tr {% if e.status == e.WAITING %}class="info"{% elif e.status == e.REJECTED %}class="danger"{% endif %}>
 				<td>{{ e.start | date:'d F Y' }}</td>
 				<td>{{ e.start | date:'H:i' }} - {{ e.end | date:'H:i' }}</td>
-				<td>{{ e.room.name }}</td>
+				<td><a href="{% url "rooms:details" e.room.pk %}">{{ e.room.get_full_name }}</a></td>
 				<td>{% if e.status == e.APPROVED %}Confermata{% elif e.status == e.WAITING %}In attesa{% else %}Rifiutata{% endif %}</td>
+			</tr>
+		{% empty %}
+			<tr>
+				<td>Nessun evento in questa attivit&agrave;.</td>
 			</tr>
 		{% endfor %}
 	</tbody>

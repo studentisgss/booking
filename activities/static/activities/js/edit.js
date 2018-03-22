@@ -122,9 +122,25 @@ $(document).ready(function() {
             }
         }
         else {
-            removeWaitingWarning(tr);
+            if ((allRooms.indexOf(this.value) == -1) && (this.value != "")) {
+                setNoPermissionWarning(tr);
+            } else {
+                removeWaitingWarning(tr);
+            }
         }
     });
+
+    // Enhanced select control with jquery sumoselect
+
+    $("#id_managers").SumoSelect({
+    	placeholder: 'Selezionare i referenti',
+        captionFormat:'{0} selezionati',
+        captionFormatAllSelected:'{0} tutti selezionati',
+        search: true,
+        searchText: 'Cerca...',
+        noMatch: 'Nessuna corrispondenza per "{0}"',
+        locale: ['OK', 'Annulla', 'Seleziona tutti']
+	});
 
     // Enhance delete
     var span = $("span.glyphicon-trash");
@@ -132,8 +148,41 @@ $(document).ready(function() {
     span.parent().siblings("input").addClass("hidden");
 
     $(document).on("click", "button.remover", function() {
-        $(this).siblings("input").prop("checked", true);
-        $(this).parent().parent().fadeOut();
+        if ($(this).siblings("input").prop("checked")) {
+            $(this).siblings("input").prop("checked", false);
+            var removeTr = $(this).parent().parent();
+            $("input", removeTr).each(function(i){
+                $(this).prop("readonly", $(this).data("previous-state"));
+            });
+            $("button > span.glyphicon-retweet", removeTr).parent().prop("disabled", $("button > span.glyphicon-retweet", removeTr).parent().data("previous-state"));
+            $("td:not(:nth-last-child(3))", removeTr).css("opacity", 1);
+            // Check if the previous tr is an error
+            if ($(removeTr).prev().children().length == 1) {
+                $(removeTr).prev().css("opacity", 1);
+            }
+            //Chage the button
+            $(this).html("<span class=\"glyphicon glyphicon-trash\" aria-hidden=\"true\"></span>");
+            $(this).removeClass("btn-info");
+            $(this).addClass("btn-danger");
+        } else {
+            $(this).siblings("input").prop("checked", true);
+            var removeTr = $(this).parent().parent();
+            $("input", removeTr).each(function(i){
+                $(this).data("previous-state", $(this).prop("readonly"));
+                $(this).prop("readonly", true);
+            });
+            $("button > span.glyphicon-retweet", removeTr).parent().data("previous-state", $("button > span.glyphicon-retweet", removeTr).parent().prop("disabled"));
+            $("button > span.glyphicon-retweet", removeTr).parent().prop("disabled", true);
+            $("td:not(:nth-last-child(3))", removeTr).css("opacity", 0.3);
+            // Check if the previous tr is an error
+            if ($(removeTr).prev().children().length == 1) {
+                $(removeTr).prev().css("opacity", 0.3);
+            }
+            //Chage the button
+            $(this).html("<span class=\"glyphicon glyphicon-repeat\" aria-hidden=\"true\"></span>");
+            $(this).removeClass("btn-danger");
+            $(this).addClass("btn-info");
+        }
     });
 
     // Set the dates of start and end automatically

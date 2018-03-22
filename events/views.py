@@ -10,7 +10,9 @@ from random import shuffle
 from itertools import groupby
 
 from events.models import Event
+from activities.models import Activity
 from base.utils import localnow, default_datetime
+from base.models import CLASS_CHOICES
 from news.models import News
 from rooms.models import Room
 
@@ -84,7 +86,7 @@ class Monitor(TemplateView):
             where the sum of the events in each pages is not over the events_per_page
             as soon as there is not a single room with more event than thet numeber
             """
-            events_grouped = groupby(items, lambda e: e.room.name)
+            events_grouped = groupby(items, lambda e: e.room.get_full_name())
             events_list = []
             page = []
             events_in_current_page = 0
@@ -150,23 +152,33 @@ class Monitor(TemplateView):
 class EventsApprovationView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
     template_name = "events/approvation.html"
 
-    permission_required = "events.change_event"
+    permission_required = ("events.change_event", "activities.change_activity")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         # show only waitings events that can be approved
+        managed_category = [c[0] for c in CLASS_CHOICES
+                            if self.request.user.has_perm("activities.change_" + c[0])]
         context["events_list"] = Event.objects.filter(
-            status=Event.WAITING
+            status=Event.WAITING,
+            activity__category__in=managed_category
         ).filter(
             room__roompermission__group__in=self.request.user.groups.all(),
             room__roompermission__permission=30
         ).distinct().order_by('start')
+        # If filter is set filter on the category
+        if "filter" in self.request.GET:
+            cat = self.request.GET.get("filter", None)
+            if cat not in [x[0] for x in CLASS_CHOICES]:
+                raise Http404
+            context["events_list"] = context["events_list"].filter(activity__category=cat)
+            context["filter_string"] = cat
         return context
 
 
 class EventsApprovationConfirmView(LoginRequiredMixin, PermissionRequiredMixin, View):
 
-    permission_required = "events.change_event"
+    permission_required = ("events.change_event", "activities.change_activity")
 
     def get(self, request, **kwargs):
         try:
@@ -175,12 +187,17 @@ class EventsApprovationConfirmView(LoginRequiredMixin, PermissionRequiredMixin, 
             raise Http404
         if not int(kwargs["action"]) in [x[0] for x in Event.STATUS_CHOICES]:
             raise Http404
+        managed_category = [c[0] for c in CLASS_CHOICES
+                            if self.request.user.has_perm("activities.change_" + c[0])]
         if ev.room.roompermission_set.filter(
                 group__in=request.user.groups.all(),
                 permission=30
-        ).exists():
+        ).exists() and ev.activity.category in managed_category:
             ev.status = kwargs["action"]
             ev.save()
         else:
             raise Http404
-        return HttpResponseRedirect(reverse('events:approvation'))
+        filter_string = ""
+        if "filter" in request.GET:
+            filter_string = "?filter=" + request.GET.get("filter", None)
+        return HttpResponseRedirect(reverse('events:approvation') + filter_string)

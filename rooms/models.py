@@ -1,8 +1,37 @@
 from django.db import models
-from django.contrib.auth.models import User, Group
+from django.contrib.auth.models import User, Group, Permission
 from django.utils.translation import ugettext_lazy as _
 from django.core.exceptions import ValidationError
+
 from datetime import time
+from string import *
+
+
+class Building(models.Model):
+    """
+    A building is where the real rooms are located.
+    It has a name, a creator and an address.
+    The address is a normal string with spaces.
+    """
+    class Meta:
+        verbose_name = _("edificio")
+        verbose_name_plural = _("edifici")
+
+    def __str__(self):
+        return self.name
+
+    name = models.CharField(max_length=30, unique=True, verbose_name=_("nome"))
+    address = models.CharField(max_length=100, unique=True, verbose_name=_("indirizzo"))
+    creator = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        verbose_name=_("creatore")
+    )
+
+    # Return a different strig for the address wich can be used in the url for the map.
+    def get_address_for_url(self):
+        s = self.address
+        return s.replace(' ', '+')
 
 
 class Room(models.Model):
@@ -11,20 +40,43 @@ class Room(models.Model):
     firstable galileo rooms, aula magna and so on...
     Others rooms can be added later.
     "important"-tagged rooms will be highlighted by the software.
+    Every room is part of a building.
     """
     class Meta:
         verbose_name = _("aula")
         verbose_name_plural = _("aule")
         permissions = (
             ("can_book_room", _("Può prenotare qualche aula")),
+            ("can_change_important", _("Può cambiare importanza aula")),
         )
 
     def __str__(self):
-        return "%s %s" % ("*" if self.important else "", self.name)
+        return "%s %s-%s" % ("*" if self.important else "", self.name, self.building.name)
+
+    # Set the roompermission as default
+    def create_roompermission(self):
+        # delete existing roompermissions
+        self.roompermission_set.all().delete()
+        can_book_room_permission = Permission.objects.get(codename="can_book_room")
+        if self.important:
+            for group in Group.objects.filter(permissions=can_book_room_permission):
+                permission = RoomPermission(room=self, group=group, permission=10)
+                permission.save()
+        else:
+            for group in Group.objects.filter(permissions=can_book_room_permission):
+                permission = RoomPermission(room=self, group=group, permission=30)
+                permission.save()
+            for group in Group.objects.exclude(permissions=can_book_room_permission):
+                permission = RoomPermission(room=self, group=group, permission=10)
+                permission.save()
 
     name = models.CharField(max_length=30, unique=True, verbose_name=_("nome"))
-    description = models.CharField(max_length=100, verbose_name=_("descrizione"))
+    description = models.CharField(max_length=100, blank=True, verbose_name=_("descrizione"))
     important = models.BooleanField(default=False, verbose_name=_("importante"))
+    building = models.ForeignKey(
+        Building,
+        verbose_name=_("edificio")
+    )
     creator = models.ForeignKey(
         User,
         related_name="room_created",
@@ -43,6 +95,10 @@ class Room(models.Model):
 
     def show_request_to_group(self, group):
         return RoomPermission.objects.get(room=self, group=group).showrequest
+
+    # Return the name of the room made of the name of the room and the name of the building
+    def get_full_name(self):
+        return "%s - %s" % (self.name, self.building.name)
 
 
 class RoomPermission(models.Model):
@@ -76,6 +132,25 @@ class RoomPermission(models.Model):
         default=10,
         verbose_name=_("permesso"))
 
+    def clean(self):
+        # Do not check if there is the room!
+
+        if self.group_id is None:
+            raise ValidationError(_("Il nome del gruppo è obbligatorio"))
+
+        # Check that there are not two timetables for the same room the same day
+        overlapping_roomPermissions = RoomPermission.objects.filter(
+            room_id=self.room.pk,
+            group_id=self.group.pk)
+        # If the event is already in the database exclude it
+        if self.pk is not None:
+            overlapping_roomPermissions = overlapping_roomPermissions.exclude(
+                id=self.pk)
+        if overlapping_roomPermissions.exists():
+            raise ValidationError(
+                _("Non possono permessi per la stessa aula e lo stesso gruppo")
+            )
+
 
 class RoomRule(models.Model):
     """
@@ -106,15 +181,14 @@ class RoomRule(models.Model):
         verbose_name=_("aula"))
     day = models.SmallIntegerField(
         choices=DAYS_OF_WEEK,
-        verbose_name="giorno")
+        verbose_name=_("giorno"))
     opening_time = models.TimeField(
-        verbose_name="orario di apertura")
+        verbose_name=_("orario di apertura"))
     closing_time = models.TimeField(
-        verbose_name="orario di chiusura")
+        verbose_name=_("orario di chiusura"))
 
     def clean(self):
-        if self.room_id is None:
-            raise ValidationError(_("L'aula è obbligatoria"))
+        # Do not check if there is the room!
 
         if self.day is None:
             raise ValidationError(_("Il giorno è obbligatorio"))
@@ -139,3 +213,7 @@ class RoomRule(models.Model):
             raise ValidationError(
                 _("Non possono esserci due orari per la stessa aula lo stesso giorno")
             )
+
+    # return true if the room is closed for all the day
+    def isClosedAllDay(self):
+        return self.opening_time == self.closing_time

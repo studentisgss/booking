@@ -224,7 +224,11 @@ $(document).ready(function() {
                                                     var title = "";
                                                     if (data["booked"].length == 0){
                                                         if (data["opening"] != ""){
-                                                            title = "Orario apertura:\n" + data["opening"];
+                                                            if (data["opening"] == "closed") {
+                                                                title = "Aula chiusa in questo giorno."
+                                                            } else {
+                                                                title = "Orario apertura:\n" + data["opening"];
+                                                            }
                                                         } else {
                                                             title = "Nessuna prenotazione.";
                                                         }
@@ -232,6 +236,7 @@ $(document).ready(function() {
                                                         title = "Aula prenotata:\n"
                                                         title += data["booked"].join("\n");
                                                         if (data["opening"] != ""){
+                                                            // The room can not be closed if there are bookings
                                                             title += "\n\nOrario apertura:\n" + data["opening"];
                                                         }
                                                     }

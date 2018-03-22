@@ -8,14 +8,15 @@ from django.core.cache import cache
 import weasyprint as wp
 
 from activities.models import Activity
+from base.models import CLASSES_WITH_TRANSLATION
 
 
 class BrochurePDFView(View):
     CLASS_INITIALS = [choice[0] for choice in
-                      Activity.CLASSES_WITH_TRANSLATION if choice[0] != 'A']
+                      CLASSES_WITH_TRANSLATION if choice[0] != 'A']
 
     CLASS_NAME = dict([(choice[0], choice[2]) for choice in
-                       Activity.CLASSES_WITH_TRANSLATION if choice[0] != 'A'])
+                       CLASSES_WITH_TRANSLATION if choice[0] != 'A'])
 
     def get_context_data(self, category=None, **kwargs):
         context = {}
@@ -23,9 +24,7 @@ class BrochurePDFView(View):
         # context for body
         if category in self.CLASS_INITIALS:
             activities_list = Activity.objects \
-                .filter(archived=False, category=category) \
-                .exclude(professor=None) \
-                .exclude(professor="") \
+                .filter(archived=False, category=category, brochure=True) \
                 .order_by("title")
         else:
             activities_list = []

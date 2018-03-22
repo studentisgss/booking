@@ -5,3 +5,13 @@
 .badge-warning {
     background-color: #f0ad4e;
 }
+
+hr {
+		margin-top: 20px;
+		padding-bottom: 0px;
+		margin-bottom: 5px;
+}
+
+.building_name a {
+		text-decoration: none;
+}
