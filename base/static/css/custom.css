@@ -59,6 +59,11 @@ div.SumoSelect label {
     font-weight: normal;
 }
 
+p.select-all {
+    display: inline-table;
+    width: 100%;
+}
+
 /* Fix disabled state */
 
 select.SumoUnder[disabled] {
