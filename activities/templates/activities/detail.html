@@ -15,12 +15,14 @@
 	<div class="row">
 		<div class="col-xs-10">
 			<h1>{{ activity.title }}</h1>
-			{% if activity.professor %}
-				<h3>{{ activity.professor }}</h3>
-			{% endif %}
-			{% if "A" not in activity.category %}
-				<h3>Classe di {{ activity.get_category_display }}</h3>
-			{% endif %}
+			<h3>
+                {% if "A" not in activity.category %}
+				    <span class="label {% if activity.category == 'SN' %}label-success{% else %}{% if activity.category == 'SM' %}label-danger{% else %}label-info{% endif %}{% endif %}">Classe di {{ activity.get_category_display }}</span>
+			    {% endif %}
+                 {% if activity.professor %}
+                    <span class="label label-default">{{ activity.professor }}</span>
+                {% endif %}
+            </h3>
 		</div>
 		{% if user.is_authenticated %}
       {% if perms.activities.change_activity and can_manage_activity %}
