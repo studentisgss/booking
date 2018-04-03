@@ -35,9 +35,9 @@ class ActivityForm(BookingModelForm):
 
     def clean_description(self):
         # Remove default lines in description__icontains
-        spl_descr = Activity.DESCRIPTION_TEMPLATE.split("\n")
-        act_descr = self.cleaned_data["description"]
-        for spl_str in spl_descr:
-                if len(spl_str.strip()) > 0:
-                    act_descr = act_descr.replace(spl_str.strip(), '')
-        return act_descr.rstrip()
+        spl_descr = Activity.DESCRIPTION_TEMPLATE.strip()
+        act_descr = self.cleaned_data["description"].strip()
+        # In UNIX system, there can be problem with "\r" auto adding, so we delete it
+        act_descr = act_descr.replace('\r', '')
+        spl_descr = spl_descr.replace('\r', '')
+        return act_descr.replace(spl_descr,'').strip()
