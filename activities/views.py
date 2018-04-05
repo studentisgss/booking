@@ -58,7 +58,7 @@ class DetailActivityView(TemplateView):
 
 
 class ListAllActivityView(TemplateView):
-    template_name = "activities/listall.html"
+    template_name = "activities/list.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -75,62 +75,12 @@ class ListAllActivityView(TemplateView):
                 Q(description__icontains=text) |
                 Q(professor__icontains=text)
             )
-        paginator = Paginator(activities_list, per_page=25)
-        page = kwargs.get("page", 1)
-        try:
-            activities = paginator.page(page)
-        except PageNotAnInteger:
-            # If page is not an integer, deliver first page which is 1 not 0.
-            activities = paginator.page(1)
-        except EmptyPage:
-            # If page is out of range (e.g. 9999), deliver last page of results.
-            activities = paginator.page(paginator.num_pages)
-        context["list"] = activities
+
         # If the user is authenticated return the activity for which he is a manager
         if self.request.user.is_authenticated:
             context["managed_activities"] = self.request.user.managed_activities.all()
             # If some of the activities are managed by the user set manages_something to True
             # I have to use set due to some problem with pagination
-            context["manages_something"] = bool(set(context["managed_activities"]) &
-                                                set(activities.object_list))
-
-            # Set the category which the user is allowed to edit
-            if self.request.user.has_perm("activities.change_activity"):
-                context["managed_category"] = \
-                    [c[0] for c in CLASS_CHOICES
-                     if self.request.user.has_perm("activities.change_" + c[0])]
-                managed_category_exists = False
-                for a in activities:
-                    if a.category in context["managed_category"]:
-                        managed_category_exists = True
-                        break  # Not needed to go on
-                context["managed_category_exists"] = managed_category_exists
-
-        return context
-
-
-class ListActivityView(TemplateView):
-    template_name = "activities/list.html"
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        activities_list = Activity.objects \
-            .filter(archived=False) \
-            .annotate(min_start=Min("event__start")) \
-            .annotate(max_end=Max("event__end")) \
-            .order_by("category", "title", "min_start")
-        # Check for filter-text
-        if "search" in self.request.GET:
-            text = self.request.GET.get("search", "")
-            context["filterText"] = text
-            activities_list = activities_list.filter(
-                Q(title__icontains=text) | Q(description__icontains=text)
-            )
-        context["list"] = activities_list
-        # If the user is authenticated return the activity for which he is a manager
-        if self.request.user.is_authenticated:
-            context["managed_activities"] = self.request.user.managed_activities.all()
-            # If some of the activities are managed by the user set manages_something to True
             context["manages_something"] = (context["managed_activities"] &
                                             activities_list).exists()
 
@@ -139,9 +89,24 @@ class ListActivityView(TemplateView):
                 context["managed_category"] = \
                     [c[0] for c in CLASS_CHOICES
                      if self.request.user.has_perm("activities.change_" + c[0])]
-                context["managed_category_exists"] = activities_list.filter(
-                    category__in=context["managed_category"]
-                ).exists()
+                managed_category_exists = False
+                for a in activities_list:
+                    if a.category in context["managed_category"]:
+                        managed_category_exists = True
+                        break  # Not needed to go on
+                context["managed_category_exists"] = managed_category_exists
+
+        context["list"] = activities_list
+        context["all"] = True
+        return context
+
+
+class ListNotArchivedActivityView(ListAllActivityView):
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["list"] = context["list"].filter(archived=False)
+        context["all"] = False
         return context
 
 
@@ -185,6 +150,9 @@ class ActivityManagerEditView(LoginRequiredMixin, PermissionRequiredMixin, Templ
         else:
             if not self.request.user.has_perm("activities.change_" + activity.category):
                 raise PermissionDenied
+            # Check whether the user can change the actvity flag, if not make it read-only
+            if not self.request.user.has_perm("activities.change_brochure"):
+                form.fields["brochure"].widget.attrs['disabled'] = True
 
         # Get rooms where the user has some permission
         rooms = Room.objects.all().filter(
@@ -323,6 +291,10 @@ class ActivityEditView(ActivityManagerEditView):
         events_form = EventInlineFormSet(request.POST, instance=activity)
 
         if form.is_valid() and events_form.is_valid():
+            # Check if the brochure flag is modified and it the user has the permission
+            if not self.request.user.has_perm("activities.change_brochure"):
+                if "brochure" in form.changed_data:
+                    raise PermissionDenied
             # Save the activity and log the change.
             # The events are saved in the parent class
             activity = form.save()
@@ -352,6 +324,9 @@ class ActivityAddView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView)
             form = ActivityForm(self.request.POST)
         else:
             raise Http404
+            # Check if the user can change the brochure flag
+        if not self.request.user.has_perm("activities.change_brochure"):
+            form.fields["brochure"].widget.attrs['disabled'] = True
         context["form"] = form
         return context
 
@@ -359,10 +334,15 @@ class ActivityAddView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView)
         form = ActivityForm(request.POST)
 
         if form.is_valid():
+            # Check if the brochure flag is modified and it the user has the permission
+            if not self.request.user.has_perm("activities.change_brochure"):
+                if "brochure" in form.changed_data:
+                    raise PermissionDenied
             # Create the new activity and set the creator
             activity = form.save(commit=False)
             activity.creator = request.user
             activity.save()
+            form.save_m2m()
             # Log the action
             LogEntry.objects.log_action(
                 user_id=self.request.user.id,

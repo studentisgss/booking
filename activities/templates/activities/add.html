@@ -6,9 +6,12 @@
 <!-- <script type="text/javascript" src="{% static 'js/forms.js' %}"></script> Not needed here -->
 <script type="text/javascript" src="{% static 'js/simplemde.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'activities/js/markdownEditor.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/jquery.sumoselect.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'activities/js/add.js' %}"></script>
 
 <link href="{% static 'css/simplemde.min.css' %}" rel="stylesheet" />
 <link href="{% static 'activities/css/markdown.css' %}" rel="stylesheet" />
+<link href="{% static 'css/sumoselect.min.css' %}" rel="stylesheet" />
 {% endblock head-extra %}
 
 {% block main %}
@@ -42,73 +45,94 @@
                 {{ form.title }}
             </div>
         </div>
-        <!-- CLASS AND PROFESSOR -->
+        <!-- CLASS, PROFESSOR AND BROCHURE -->
         <div class="form-group">
-            {% if form.category.errors or form.professor.errors %}
+            {% if form.category.errors or form.professor.errors or form.brochure.errors %}
                 {% if form.category.errors %}
-                    <div class="col-sm-5 col-md-3">
-                        {% for error in form.category.errors %}
-                            <p class="text-danger">{{ error|escape }}</p>
-                        {% endfor %}
-                    </div>
-                {% else %}
-                <div class="col-sm-5 col-md-3"><p>&nbsp;</p></div>
-                {% endif %}
-                {% if form.professor.errors %}
-                    <div class="col-sm-7 col-md-9">
-                        {% for error in form.professor.errors %}
-                            <p class="text-danger">{{ error|escape }}</p>
-                        {% endfor %}
-                    </div>
-                {% else %}
-                <div class="col-sm-7 col-md-9"><p>&nbsp;</p></div>
-                {% endif %}
-            {% endif %}
-            <div class="col-sm-2 col-md-1">
-            <label for="{{ form.category.id_for_label }}" class="control-label">{{ form.category.label }}:</label>
-            </div>
-            <div class="col-sm-3 col-md-2 {% if form.category.errors %}has-error{% endif %}">
-                {{ form.category }}
-            </div>
-            <div class="col-sm-2 col-md-1">
-            <label for="{{ form.professor.id_for_label }}" class="control-label">{{ form.professor.label }}:</label>
-            </div>
-            <div class="col-sm-5 col-md-8 {% if form.professor.errors %}has-error{% endif %}">
-                {{ form.professor }}
-            </div>
-        </div>
-        <!-- MANAGERS AND ARCHIVED -->
-        <div class="form-group">
-            {% if form.managers.errors or form.archived.errors %}
-                {% if form.managers.errors %}
-                    <div class="col-sm-8 col-md-9">
-                        {% for error in form.managers.errors %}
-                            <p class="text-danger">{{ error|escape }}</p>
-                        {% endfor %}
-                    </div>
-                {% else %}
-                <div class="col-sm-8 col-md-9"><p>&nbsp;</p></div>
-                {% endif %}
-                {% if form.archived.errors %}
                     <div class="col-sm-4 col-md-3">
-                        {% for error in form.archived.errors %}
+                        {% for error in form.category.errors %}
                             <p class="text-danger">{{ error|escape }}</p>
                         {% endfor %}
                     </div>
                 {% else %}
                 <div class="col-sm-4 col-md-3"><p>&nbsp;</p></div>
                 {% endif %}
+                {% if form.professor.errors %}
+                    <div class="{% if perms.activities.change_brochure %}col-sm-5 col-md-7{% else %}col-sm-8 col-md-9{% endif %}">
+                        {% for error in form.professor.errors %}
+                            <p class="text-danger">{{ error|escape }}</p>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                <div class="{% if perms.activities.change_brochure %}col-sm-5 col-md-7{% else %}col-sm-8 col-md-9{% endif %}"><p>&nbsp;</p></div>
+                {% endif %}
+                {% if perms.activities.change_brochure %}
+                    {% if form.brochure.errors %}
+                        <div class="col-sm-3 col-md-2">
+                            {% for error in form.brochure.errors %}
+                                <p class="text-danger">{{ error|escape }}</p>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                    <div class="col-sm-3 col-md-2"><p>&nbsp;</p></div>
+                    {% endif %}
+                {% endif %}
             {% endif %}
             <div class="col-sm-2 col-md-1">
-            <label for="{{ form.managers.id_for_label }}" class="control-label">{{ form.managers.label }}:</label>
+            <label for="{{ form.category.id_for_label }}" class="control-label">{{ form.category.label }}:</label>
             </div>
-            <div class="col-sm-6 col-md-9 {% if form.managers.errors %}has-error{% endif %}">
-                {{ form.managers }}
+            <div class="col-sm-2 col-md-2 {% if form.category.errors %}has-error{% endif %}">
+                {{ form.category }}
             </div>
             <div class="col-sm-2 col-md-1">
-            <label for="{{ form.archived.id_for_label }}" class="control-label">{{ form.archived.label }}:</label>
+            <label for="{{ form.professor.id_for_label }}" class="control-label">{{ form.professor.label }}:</label>
             </div>
-            <div class="col-sm-2 col-md-1 {% if form.archived.errors %}has-error{% endif %}">
+            <div class="{% if perms.activities.change_brochure %}col-sm-3 col-md-6{% else %}col-sm-6 col-md-8{% endif %} {% if form.professor.errors %}has-error{% endif %}">
+                {{ form.professor }}
+            </div>
+            {% if perms.activities.change_brochure %}
+                <div class="col-sm-2 col-md-1">
+                  <label for="{{ form.brochure.id_for_label }}" class="control-label">{{ form.brochure.label }}:</label>
+                </div>
+                <div class="col-sm-1 col-md-1 {% if form.brochure.errors %}has-error{% endif %}">
+                  {{ form.brochure }}
+                </div>
+            {% else %}
+                {{ form.brochure.as_hidden }}
+            {% endif %}
+        </div>
+        <!-- MANAGERS AND ARCHIVED -->
+        <div class="form-group">
+            {% if form.managers.errors or form.archived.errors %}
+                {% if form.managers.errors %}
+                    <div class="col-sm-9 col-md-9">
+                        {% for error in form.managers.errors %}
+                            <p class="text-danger">{{ error|escape }}</p>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                <div class="col-sm-9 col-md-9"><p>&nbsp;</p></div>
+                {% endif %}
+                {% if form.archived.errors %}
+                    <div class="col-sm-3 col-md-3">
+                        {% for error in form.archived.errors %}
+                            <p class="text-danger">{{ error|escape }}</p>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                <div class="col-sm-3 col-md-3"><p>&nbsp;</p></div>
+                {% endif %}
+            {% endif %}
+            <div class="col-sm-2 col-md-1">
+              <label for="{{ form.managers.id_for_label }}" class="control-label">{{ form.managers.label }}:</label>
+            </div>
+            <div class="col-sm-7 col-md-9 {% if form.managers.errors %}has-error{% endif %}">
+              {{ form.managers }}
+            </div>
+              <div class="col-sm-2 col-md-1">
+                <label for="{{ form.archived.id_for_label }}" class="control-label">{{ form.archived.label }}:</label>
+              </div>
+            <div class="col-sm-1 col-md-1 {% if form.archived.errors %}has-error{% endif %}">
                 {{ form.archived }}
             </div>
         </div>

@@ -1,8 +1,9 @@
 from django.forms import inlineformset_factory, BaseInlineFormSet
 from django.core.exceptions import ValidationError
+from django.contrib.auth.models import Permission, Group
 
 from base.forms import BookingModelForm
-from rooms.models import Room, RoomRule
+from rooms.models import Room, RoomRule, RoomPermission
 from rooms.models import Building
 
 
@@ -17,12 +18,8 @@ class RoomForm(BookingModelForm):
             "name",
             "description",
             "building",
+            "important",
         ]
-
-    # Since is_valid don't check if the building field is not none,
-    # this method return true only if the room form is well filled (compatible with the model)
-    def is_almost_clean(self):
-        return super().clean()
 
     def clean(self):
         super().clean()
@@ -50,13 +47,44 @@ class RoomRuleForm(BookingModelForm):
         ]
 
 
+class RoomPermissionForm(BookingModelForm):
+    class Meta:
+        model = RoomPermission
+        fields = [
+            "group",
+            "permission"
+        ]
+
+
 class BaseRoomRuleInlineFormSet(BaseInlineFormSet):
 
     def get_queryset(self):
         return super().get_queryset().order_by("day")
 
 
+class BaseRoomPermissionInlineFormSet(BaseInlineFormSet):
+
+    def get_queryset(self):
+        return super().get_queryset().order_by("-permission")
+
+
 # create a set of forms for the RoomRules on several days
 RoomRuleInlineFormSet = inlineformset_factory(
     Room, RoomRule, form=RoomRuleForm, formset=BaseRoomRuleInlineFormSet, extra=5, max_num=7
 )
+
+# create a set of forms for the RoomPermission on different groups
+RoomPermissionInlineFormSet = inlineformset_factory(
+    Room, RoomPermission, form=RoomPermissionForm, formset=BaseRoomPermissionInlineFormSet,
+    extra=100
+)
+
+
+def get_default_permissions():
+    initial = []
+    can_book_room_permission = Permission.objects.get(codename="can_book_room")
+    for group in Group.objects.filter(permissions=can_book_room_permission):
+        initial.append({"group": group, "permission": 30})
+    for group in Group.objects.exclude(permissions=can_book_room_permission):
+        initial.append({"group": group, "permission": 10})
+    return initial

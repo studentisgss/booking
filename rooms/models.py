@@ -1,9 +1,9 @@
 from django.db import models
-from django.contrib.auth.models import User, Group
+from django.contrib.auth.models import User, Group, Permission
 from django.utils.translation import ugettext_lazy as _
 from django.core.exceptions import ValidationError
-from datetime import time
 
+from datetime import time
 from string import *
 
 
@@ -47,10 +47,28 @@ class Room(models.Model):
         verbose_name_plural = _("aule")
         permissions = (
             ("can_book_room", _("Può prenotare qualche aula")),
+            ("can_change_important", _("Può cambiare importanza aula")),
         )
 
     def __str__(self):
         return "%s %s-%s" % ("*" if self.important else "", self.name, self.building.name)
+
+    # Set the roompermission as default
+    def create_roompermission(self):
+        # delete existing roompermissions
+        self.roompermission_set.all().delete()
+        can_book_room_permission = Permission.objects.get(codename="can_book_room")
+        if self.important:
+            for group in Group.objects.filter(permissions=can_book_room_permission):
+                permission = RoomPermission(room=self, group=group, permission=10)
+                permission.save()
+        else:
+            for group in Group.objects.filter(permissions=can_book_room_permission):
+                permission = RoomPermission(room=self, group=group, permission=30)
+                permission.save()
+            for group in Group.objects.exclude(permissions=can_book_room_permission):
+                permission = RoomPermission(room=self, group=group, permission=10)
+                permission.save()
 
     name = models.CharField(max_length=30, unique=True, verbose_name=_("nome"))
     description = models.CharField(max_length=100, blank=True, verbose_name=_("descrizione"))
@@ -114,6 +132,25 @@ class RoomPermission(models.Model):
         default=10,
         verbose_name=_("permesso"))
 
+    def clean(self):
+        # Do not check if there is the room!
+
+        if self.group_id is None:
+            raise ValidationError(_("Il nome del gruppo è obbligatorio"))
+
+        # Check that there are not two timetables for the same room the same day
+        overlapping_roomPermissions = RoomPermission.objects.filter(
+            room_id=self.room.pk,
+            group_id=self.group.pk)
+        # If the event is already in the database exclude it
+        if self.pk is not None:
+            overlapping_roomPermissions = overlapping_roomPermissions.exclude(
+                id=self.pk)
+        if overlapping_roomPermissions.exists():
+            raise ValidationError(
+                _("Non possono permessi per la stessa aula e lo stesso gruppo")
+            )
+
 
 class RoomRule(models.Model):
     """
@@ -151,8 +188,7 @@ class RoomRule(models.Model):
         verbose_name=_("orario di chiusura"))
 
     def clean(self):
-        if self.room_id is None:
-            raise ValidationError(_("L'aula è obbligatoria"))
+        # Do not check if there is the room!
 
         if self.day is None:
             raise ValidationError(_("Il giorno è obbligatorio"))

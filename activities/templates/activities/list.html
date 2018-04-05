@@ -2,21 +2,34 @@
 {% load staticfiles %}
 
 {% block head-extra %}
-<link href="{% static 'activities/css/list.css' %}" rel="stylesheet" />
 <link href="{% static 'css/datatables.min.css' %}" rel="stylesheet" />
 
 <script type="text/javascript" src="{% static 'js/datatables.min.js' %}" ></script>
+<script type="text/javascript" src="{% static 'js/datatables_custom.js' %}" ></script>
 <script type="text/javascript" src="{% static 'activities/js/search.js' %}" ></script>
+
+<!-- PREVENT DOUBLE SEARCH HTML AND JAVASCRIPT -->
+{% if filterText %}
+<script type="text/javascript">window.location.replace("{% if all %} {% url 'activities:listall' %} {% else %} {% url 'activities:list' %} {% endif %}"); </script>
+{% endif %}
+
 {% endblock head-extra %}
 
 {% block main %}
-<h1>Attività principali</h1>
+<h1>
+  {% if all %}Tutte le attività
+  {% else %}Attività principali
+  {% endif %}
+</h1>
 
 <div class="row">
     <div class="col-md-5">
         <div class="btn-group" role="group">
             <div class="btn-group">
-                <a href="{% url "activities:listall" %}" class="btn btn-default">Visualizza anche attività archiviate</a>
+              {% if all %}<a href="{% url "activities:list" %}" class="btn btn-default">Visualizza solo le attività principali</a>
+              {% else %}<a href="{% url "activities:listall" %}" class="btn btn-default">Visualizza anche attività archiviate</a>
+              {% endif %}
+
             </div>
             {% if user.is_authenticated %}
                  {% if perms.activities.add_activity %}
@@ -29,15 +42,17 @@
     </div>
     <div class="col-md-7">
         <div id="filter" class="text-right">
-            <form id="filter-form" method="GET" action="{% url 'activities:list' %}" class="form-inline">
+            <form id="filter-form" method="GET" action="{% if all %} {% url 'activities:listall' %} {% else %} {% url 'activities:list' %} {% endif %}" class="form-inline">
                 <div class="input-group">
                     <span class="input-group-addon">Filtro: </span>
-                    <input type="text" class="form-control" id="search" name="search" value="{{ filterText }}"/>
+                      <input type="text" class="form-control" id="search" name="search" value="{{ filterText }}" />
                     <div class="input-group-btn">
+                        {% if filterText %}
+                          <a href="{% if all %} {% url 'activities:listall' %} {% else %} {% url 'activities:list' %} {% endif %}" class="btn btn-default" aria-label="Clear">
+                            <span class="glyphicon glyphicon-remove"></span>
+                          </a>
+                        {% endif %}
                         <input type="submit" class="btn btn-info" value="Cerca" />
-                {% if filterText %}
-                        <a href="{% url 'activities:list' %}" class="btn btn-warning">Cancella ricerca</a>
-                {% endif %}
                     </div>
                 </div>
             </form>
@@ -74,7 +89,10 @@
                 <a href="{% url "activities:details" e.pk %}">{{ e.title }}</a>
             </td>
             <td>{{ e.professor }}</td>
-            <td>{{ e.min_start | date:'F Y' }} - {{ e.max_end | date:'F Y' }}</td>
+            <td>
+              <div class="hidden">|{{ e.max_end | date:'Ymd' }}{{ e.min_start | date:'Ymd' }}|</div>
+              {{ e.min_start | date:'F Y' }} - {{ e.max_end | date:'F Y' }}
+            </td>
             {% if user.is_authenticated %}
                 {% if perms.activities.change_activity and e.category in managed_category  %}
                     <td class="text-center">
@@ -90,7 +108,9 @@
                             <td></td>
                         {% endif %}
                     {% else %}
-                        <td></td>
+                        {% if perms.activities.change_activity and managed_category_exists or perms.events.change_event and manages_something %}
+                            <td></td>
+                        {% endif %}
                     {% endif %}
                 {% endif %}
             {% endif %}

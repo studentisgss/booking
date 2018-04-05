@@ -1,0 +1,100 @@
+{% extends "base/layout.html" %}
+{% load staticfiles %}
+
+{% block head-extra %}
+
+{% endblock head-extra %}
+
+{% block main %}
+<h1>Gestione sito</h1>
+<br />
+<div class="panel panel-default">
+    <div class="panel-heading">
+        Aggiornamento utenti da file
+    </div>
+    <div class="panel-body">
+        {% if user_file_alert %}
+            {% if user_file_success %}
+                <div class="alert alert-success">
+                    Utenti aggiornati con successo.
+                </div>
+            {% else %}
+                <div class="alert alert-danger">
+                    Errore durante l'operazione:<br /> {{ user_file_error }}.
+                </div>
+            {% endif %}
+        {% endif %}
+        <div>
+            <form enctype="multipart/form-data" method="post" class="form-horizontal">
+                {% csrf_token %}
+                {% if form.non_field_errors %}
+                    <div>
+                        <ol class="list-group">
+                            {% for error in form.non_field_errors %}
+                                <li class="list-group-item list-group-item-danger">{{ error|escape }}</li>
+                            {% endfor %}
+                        </ol>
+                    </div>
+                {% endif %}
+                <div class="form-group">
+                    {% if form.user_file.errors %}
+                        <div class="col-sm-12">
+                            {% for error in form.user_file.errors %}
+                                <p class="text-danger">{{ error|escape }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    <div class="col-sm-12 {% if form.user_file.errors %}has-error{% endif %}">
+                        {{ form.user_file }}
+                    </div>
+                </div>
+                <div class="col-sm-4 col-sm-offset-4">
+                    <input type="submit" value="Invia" class="form-control btn btn-info"/>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        Pulizia utenti non attivi
+    </div>
+    <div class="panel-body">
+        {% if clean_users_alert %}
+            {% if clean_users_success %}
+                <div class="alert alert-success">
+                    Pulizia utenti eseguita con successo.
+                </div>
+            {% else %}
+                <div class="alert alert-danger">
+                    Errore durante l'operazione:<br /> {{ clean_users_error }}.
+                </div>
+            {% endif %}
+        {% endif %}
+        <div class="col-sm-4 col-sm-offset-4">
+            <a href={% url "base:clean" %} class="form-control btn btn-warning">Esegui</a>
+        </div>
+    </div>
+</div>
+
+{% if backup %}
+<div class="panel panel-default">
+    <div class="panel-heading">
+        Backup del database
+    </div>
+    <div class="panel-body">
+        {% if backup_alert %}
+            <div class="alert {% if backup_success %}alert-info{% else %}alert-danger{% endif %}">
+                Comando di backup eseguito:<br />
+                <pre>{{ backup_message }}</pre>
+            </div>
+        {% endif %}
+        <div class="col-sm-4 col-sm-offset-4">
+            <a href={% url "base:backup" %} class="form-control btn btn-success">Esegui backup</a>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+{% endblock main %}

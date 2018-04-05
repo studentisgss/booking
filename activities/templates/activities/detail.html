@@ -4,6 +4,9 @@
 {% load markdown %}
 
 {% block head-extra %}
+<link href="{% static 'css/datatables.min.css' %}" rel="stylesheet" />
+
+<script type="text/javascript" src="{% static 'js/datatables.min.js' %}" ></script>
 <script type="text/javascript" src="{% static 'activities/js/detail.js' %}"></script>
 
 <link href="{% static 'css/feed.css' %}" rel="stylesheet" />
@@ -14,22 +17,29 @@
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-xs-10">
-            <h1>{{ activity.get_full_title }}
-        </h1>
+			<h1>{{ activity.title }}</h1>
+			<h3>
+                {% if "A" not in activity.category %}
+				    <span class="label {% if activity.category == 'SN' %}label-success{% else %}{% if activity.category == 'SM' %}label-danger{% else %}label-info{% endif %}{% endif %}">Classe di {{ activity.get_category_display }}</span>
+			    {% endif %}
+                 {% if activity.professor %}
+                    <span class="label label-default">{{ activity.professor }}</span>
+                {% endif %}
+            </h3>
 		</div>
 		{% if user.is_authenticated %}
-        	{% if perms.activities.change_activity and can_manage_activity %}
+      {% if perms.activities.change_activity and can_manage_activity %}
 				<div class="col-xs-2">
 					<h1><a id="edit-a" href="{% url "activities:edit" activity.pk %}" class="btn btn-info col-xs-12"><span class="glyphicon glyphicon-pencil"></span> Modifica</a></h1>
 				</div>
-            {% else %}
-                {% if perms.events.change_event and is_manager %}
-                    <div class="col-xs-2">
-                        <h1><a href="{% url "activities:editmanager" activity.pk %}" class="btn btn-info"><span class="glyphicon glyphicon-pencil"></span> Modifica</a></h1>
-                    </div>
-                {% endif %}
-			{% endif %}
+      {% else %}
+        {% if perms.events.change_event and is_manager %}
+          <div class="col-xs-2">
+            <h1><a href="{% url "activities:editmanager" activity.pk %}" class="btn btn-info"><span class="glyphicon glyphicon-pencil"></span> Modifica</a></h1>
+          </div>
         {% endif %}
+			{% endif %}
+    {% endif %}
 	</div>
 	<div class="row">
         {% if activity.description %}
@@ -58,7 +68,7 @@
             <div class="collapse" id="collapseDescription">
 				<div class="panel panel-default">
 					<div class="panel-body">
-				    <p>{{ activity.description|markdown }}</p>
+    				    {{ activity.description|markdown }}
 					</div>
 				</div>
 			</div>
@@ -85,7 +95,7 @@
         {% endif %}
 	</div>
 </div>
-<table class="table table-striped table-hover">
+<table class="table table-striped table-hover" id="events_table">
 	<thead>
 		<tr>
 			<th>Data</th>
@@ -109,4 +119,5 @@
 		{% endfor %}
 	</tbody>
 </table>
+</div>
 {% endblock main %}

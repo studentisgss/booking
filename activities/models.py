@@ -13,6 +13,7 @@ class Activity(models.Model):
     then eventually others: lecturer/professor, description or class.
     "status" contains the state of acceptance [IGNORE-EXTRA].
     "archived"-tagged activities will be not highlighted by software.
+    "brochure"-tagged activities will be inserted into the brochure.
     "creator" is the user that created the course.
     "manager" is the manager of the course.
     """
@@ -20,7 +21,8 @@ class Activity(models.Model):
         verbose_name = _("attività")
         verbose_name_plural = _("attività")
         permissions = tuple([("change_" + c[0], "Can change activity of the category " + c[1])
-                            for c in CLASS_CHOICES])
+                            for c in CLASS_CHOICES] +
+                            [("change_brochure", "Can change the brochure field")])
 
     def __str__(self):
         return "%s%s " % ("* " if not self.archived else "",
@@ -64,6 +66,7 @@ Inserire qui il testo
     description = models.TextField(blank=True, verbose_name=_("descrizione"),
                                    default=DESCRIPTION_TEMPLATE)
     archived = models.BooleanField(default=False, verbose_name=_("archiviata"))
+    brochure = models.BooleanField(default=False, verbose_name=_("brochure"))
     managers = models.ManyToManyField(User, blank=True, related_name="managed_activities",
                                       verbose_name=_("referenti"))
     creator = models.ForeignKey(

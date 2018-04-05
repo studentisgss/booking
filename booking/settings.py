@@ -89,6 +89,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.i18n',
                 'base.context_processors.demo',
+                'base.context_processors.waiting_events_counter',
             ],
         },
     },
@@ -162,6 +163,12 @@ LOCALE_PATHS = [
         'base',
     )
 ]
+
+FILE_UPLOAD_HANDLERS = [
+    'django.core.files.uploadhandler.TemporaryFileUploadHandler',
+]
+
+BACKUP_COMMAND = None
 
 # Logging
 # http://ianalexandr.com/blog/getting-started-with-django-logging-in-5-minutes.html
