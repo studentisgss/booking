@@ -40,4 +40,4 @@ class ActivityForm(BookingModelForm):
         # In UNIX system, there can be problem with "\r" auto adding, so we delete it
         act_descr = act_descr.replace('\r', '')
         spl_descr = spl_descr.replace('\r', '')
-        return act_descr.replace(spl_descr,'').strip()
+        return act_descr.replace(spl_descr, '').strip()
