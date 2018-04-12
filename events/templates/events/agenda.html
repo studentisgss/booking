@@ -21,18 +21,18 @@
 <table class="table table-striped table-hover" id="table_events">
   <thead>
     <tr>
-      <th>Data</th>
-      <th>Orario</th>
-      <th>Aula</th>
+      <th class="fit-column">Data</th>
+      <th class="fit-column">Orario</th>
+      <th class="fit-column">Aula</th>
       <th>Attività</th>
     </tr>
   </thead>
   <tbody>
   {% for e in list %}
       <tr>
-        <td>{{ e.start|date:"d/m/Y" }}</td>
-        <td>{{ e.start|date:"G:i" }} - {{ e.end|date:"G:i" }}</td>
-        <td><a href="{% url "rooms:details" e.room.pk %}">{{ e.room.get_full_name }}</a></td>
+        <td class="fit-column">{{ e.start|date:"d/m/Y" }}</td>
+        <td class="fit-column">{{ e.start|date:"G:i" }} - {{ e.end|date:"G:i" }}</td>
+        <td class="fit-column"><a href="{% url "rooms:details" e.room.pk %}">{{ e.room.get_full_name }}</a></td>
         <td><a href="{% url "activities:details" e.activity.pk %}">{{ e.activity.get_full_title }}</a></td>
       </tr>
   {% endfor %}
