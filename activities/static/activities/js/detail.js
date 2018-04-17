@@ -8,6 +8,7 @@ $(document).ready(function() {
         info: false,
         "columnDefs": [
             { "orderable": false, "targets": 1 },
+            { "type" : "formatteddate", "targets" : 0}
         ]
     });
 

@@ -7,6 +7,7 @@
 <link href="{% static 'css/datatables.min.css' %}" rel="stylesheet" />
 
 <script type="text/javascript" src="{% static 'js/datatables.min.js' %}" ></script>
+<script type="text/javascript" src="{% static 'js/datatables_custom.js' %}" ></script>
 <script type="text/javascript" src="{% static 'activities/js/detail.js' %}"></script>
 {% endblock head-extra %}
 
@@ -69,7 +70,7 @@
 	<tbody>
 		{% for e in events_list %}
 			<tr {% if e.status == e.WAITING %}class="info"{% elif e.status == e.REJECTED %}class="danger"{% endif %}>
-				<td>{{ e.start | date:'d F Y' }}</td>
+				<td><div class="hidden">|{{ e.start | date:'Ymd' }}|</div>{{ e.start | date:'d F Y' }}</td>
 				<td>{{ e.start | date:'H:i' }} - {{ e.end | date:'H:i' }}</td>
 				<td><a href="{% url "rooms:details" e.room.pk %}">{{ e.room.get_full_name }}</a></td>
 				<td>{% if e.status == e.APPROVED %}Confermata{% elif e.status == e.WAITING %}In attesa{% else %}Rifiutata{% endif %}</td>
