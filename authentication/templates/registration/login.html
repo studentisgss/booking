@@ -9,12 +9,12 @@
 {% endblock head-extra %}
 
 {% block main %}
-<div class="col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
+<div class="col-md-10 offset-md-1 col-lg-8 offset-lg-2">
     <h1>Accedi</h1>
     <p><br /><br /></p>
-    <div class="text-center panel panel-primary">
-        <div class="panel-body">
-            <h2>Accedi con il Single Sign On di Ateneo</h2>
+    <div class="text-center card border-primary">
+        <div class="card-body">
+            <h2 class="card-title">Accedi con il Single Sign On di Ateneo</h2>
             <p></p>
             <a href="{% url 'authentication:login-sso' %}{% if next %}?next={{ next }}{% endif %}">
                 <img src="{% static 'authentication/img/sso.gif' %}" alt="Single Sign On" />
@@ -22,11 +22,11 @@
         </div>
     </div>
     <p></br /><br /></p>
-    <div class="text-center panel">
-        <div class="panel-body">
+    <div class="text-center card">
+        <div class="card-body">
             <h4>Accedi con un account locale</h4>
             <p></p>
-            <a href="{% url 'authentication:login-local' %}{% if next %}?next={{ next }}{% endif %}" class="btn btn-default">Accedi</a>
+            <a href="{% url 'authentication:login-local' %}{% if next %}?next={{ next }}{% endif %}" class="btn btn-secondary">Accedi</a>
         </div>
     </div>
 </div>
