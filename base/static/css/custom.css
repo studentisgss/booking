@@ -12,14 +12,16 @@ html {
 }
 body {
 	/* Margin bottom by footer height */
-	margin-bottom: 80px;
+	margin-bottom: 50px;
+    /* Padding for navbar */
+    padding-top: 80px;
 }
 .footer {
 	position: absolute;
 	bottom: 0;
 	width: 100%;
 	/* Set the fixed height of the footer here */
-	height: 60px;
+	height: 40px;
 	background-color: #f5f5f5;
 	border-top: 1px solid #ddd;
 }
@@ -36,9 +38,6 @@ body {
 	margin-top: 5%;
 }
 
-#navbar>ul>li>a>span.badge {
-    line-height: 13px;
-}
 /* JQUERY SUMOSELECT style like bootstrap form-control */
 
 div.SumoSelect {
