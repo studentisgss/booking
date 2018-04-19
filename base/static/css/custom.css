@@ -38,6 +38,12 @@ body {
 	margin-top: 5%;
 }
 
+/* Avoid text warp in table cells */
+.table td.fit-column,
+.table th.fit-column {
+    white-space: nowrap;
+}
+
 /* JQUERY SUMOSELECT style like bootstrap form-control */
 
 div.SumoSelect {
@@ -90,4 +96,9 @@ div.SumoSelect.disabled>p>span{
 div.paging_simple_numbers {
 	text-align:center !important;
 
+}
+
+/* Prevent Datatable to use separate */
+.table.table-striped {
+    border-collapse: collapse !important;
 }

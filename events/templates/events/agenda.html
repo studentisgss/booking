@@ -12,8 +12,10 @@
 
 {% if not list %}
 
-<div class="panel">
-    <p class="top-buffer">Nessun evento.</p>
+<div class="card">
+    <div class="card-body">
+        <p class="card-text">Nessun evento.</p>
+    </div>
 </div>
 
 {% else %}
@@ -40,21 +42,21 @@
 </table>
 
 <div id="pagination" class="container-fluid">
-    <ul class="pager">
+    <ul class="pagination justify-content-center">
         {% if list.has_previous %}
-            <li class="previous">
-                <a href="{% url 'events:agenda' list.previous_page_number %}"><span>&laquo; Precedenti</span></a>
+            <li class="page-item">
+                <a class="page-link" href="{% url 'events:agenda' list.previous_page_number %}"><span>&laquo; Precedenti</span></a>
             </li>
         {% else %}
-            <li class="previous disabled"><span>&laquo; Precedenti</span></li>
+            <li class="page-item disabled"><span class="page-link">&laquo; Precedenti</span></li>
         {% endif %}
-            <li><span>Pagina {{ list.number }} di {{ list.paginator.num_pages }}</span></li>
+            <li class="page-item disabled"><span class="page-link text-muted">Pagina {{ list.number }} di {{ list.paginator.num_pages }}</span></li>
         {% if list.has_next %}
-            <li class="next">
-                <a href="{% url 'events:agenda' list.next_page_number %}"><span>Successivi &raquo;</span></a>
+            <li class="page-item">
+                <a class="page-link" href="{% url 'events:agenda' list.next_page_number %}"><span>Successivi &raquo;</span></a>
             </li>
         {% else %}
-            <li class="next disabled"><span>Successivi &raquo;</span></li>
+            <li class="page-item disabled"><span class="page-link">Successivi &raquo;</span></li>
         {% endif %}
     </ul>
 </div>

@@ -9,6 +9,7 @@
 	<link rel="manifest" href="{% static 'img/site.webmanifest' %}">
 	<link rel="mask-icon" href="{% static 'img/safari-pinned-tab.svg' %}" color="#5bbad5">
 	<link rel="shortcut icon" href="{% static 'img/favicon.ico' %}">
+    <link rel="icon" href="{% static 'img/favicon.ico' %}">
 	<meta name="msapplication-TileColor" content="#da532c">
 	<meta name="msapplication-config" content="{% static 'img/browserconfig.xml' %}">
 	<meta name="theme-color" content="#ffffff">
@@ -16,8 +17,6 @@
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<title>{% block page_title %}Booking SGSS{% endblock %}</title>
-
-	<link href="{% static 'favicon.png' %}" rel="icon" type="image/png" />
 
 	<!-- ADD CSS HERE -->
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" />
@@ -91,7 +90,7 @@
                     {% endif %}
                 {% endif %}
                 <li class="dropdown nav-item">
-                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Account</span></a>
+                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Account</a>
                     <div class="dropdown-menu dropdown-menu-right">
                         {% if not request.session.AUTH_SHIB %}
                             <a class="dropdown-item" href="{% url 'authentication:password_change' %}">Cambia password</a>
