@@ -29,7 +29,7 @@ $(document).ready(function() {
       }
     }
     // Remove the search button
-    $("#filter-form div.input-group-btn").remove();
+    $("#filter-form div.input-group-append").remove();
     // Prevent html+javascript double search making a do-nothing form
     $("#filter-form").attr("action","javascript:return false;");
     // Add the event handler

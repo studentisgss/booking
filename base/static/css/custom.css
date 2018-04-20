@@ -93,8 +93,8 @@ div.SumoSelect.disabled>p>span{
 }
 
 /*center pagination button in datatables*/
-div.paging_simple_numbers {
-	text-align:center !important;
+div.paging_simple_numbers ul {
+	justify-content: center !important;
 
 }
 

@@ -23,11 +23,11 @@
 </h1>
 
 <div class="row">
-    <div class="col-md-5">
+    <div class="col-md-8">
         <div class="btn-group" role="group">
             <div class="btn-group">
-              {% if all %}<a href="{% url "activities:list" %}" class="btn btn-default">Visualizza solo le attività principali</a>
-              {% else %}<a href="{% url "activities:listall" %}" class="btn btn-default">Visualizza anche attività archiviate</a>
+              {% if all %}<a href="{% url "activities:list" %}" class="btn btn-secondary">Visualizza solo le attività principali</a>
+              {% else %}<a href="{% url "activities:listall" %}" class="btn btn-secondary">Visualizza anche attività archiviate</a>
               {% endif %}
 
             </div>
@@ -40,19 +40,21 @@
             {% endif %}
         </div>
     </div>
-    <div class="col-md-7">
+    <div class="col-md-4">
         <div id="filter" class="text-right">
             <form id="filter-form" method="GET" action="{% if all %} {% url 'activities:listall' %} {% else %} {% url 'activities:list' %} {% endif %}" class="form-inline">
                 <div class="input-group">
-                    <span class="input-group-addon">Filtro: </span>
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Filtro: </span>
+                    </div>
                       <input type="text" class="form-control" id="search" name="search" value="{{ filterText }}" />
-                    <div class="input-group-btn">
+                    <div class="input-group-append">
                         {% if filterText %}
-                          <a href="{% if all %} {% url 'activities:listall' %} {% else %} {% url 'activities:list' %} {% endif %}" class="btn btn-default" aria-label="Clear">
-                            <span class="glyphicon glyphicon-remove"></span>
+                          <a href="{% if all %} {% url 'activities:listall' %} {% else %} {% url 'activities:list' %} {% endif %}" class="btn btn-outline-secondary" aria-label="Clear">
+                            <span class="fas fa-times"></span>
                           </a>
                         {% endif %}
-                        <input type="submit" class="btn btn-info" value="Cerca" />
+                        <input type="submit" class="btn btn-outline-info" value="Cerca" />
                     </div>
                 </div>
             </form>
@@ -84,25 +86,25 @@
             </td>
             <td>
                 {% if not e.archived %}
-                    <span class="glyphicon glyphicon-star star-color" aria-hidden="true"></span>
+                    <span class="fas fa-star star-color" aria-hidden="true"></span>
                 {% endif %}
                 <a href="{% url "activities:details" e.pk %}">{{ e.title }}</a>
             </td>
             <td>{{ e.professor }}</td>
             <td>
-              <div class="hidden">|{{ e.max_end | date:'Ymd' }}{{ e.min_start | date:'Ymd' }}|</div>
+              <div class="d-none">|{{ e.max_end | date:'Ymd' }}{{ e.min_start | date:'Ymd' }}|</div>
               {{ e.min_start | date:'F Y' }} - {{ e.max_end | date:'F Y' }}
             </td>
             {% if user.is_authenticated %}
                 {% if perms.activities.change_activity and e.category in managed_category  %}
                     <td class="text-center">
-                        <a href="{% url "activities:edit" e.pk %}" class="btn btn-info btn-xs"><span class="glyphicon glyphicon-pencil"></span></a>
+                        <a href="{% url "activities:edit" e.pk %}" class="btn btn-info btn-sm"><span class="fas fa-edit"></span></a>
                     </td>
                 {% else %}
                     {% if perms.events.change_event and manages_something %}
                         {% if e in managed_activities %}
                             <td class="text-center">
-                                <a href="{% url "activities:editmanager" e.pk %}" class="btn btn-info btn-xs"><span class="glyphicon glyphicon-pencil"></span></a>
+                                <a href="{% url "activities:editmanager" e.pk %}" class="btn btn-info btn-sm"><span class="fas fa-edit"></span></a>
                             </td>
                         {% else %}
                             <td></td>

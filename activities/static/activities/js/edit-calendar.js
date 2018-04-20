@@ -16,7 +16,7 @@ function strPadding(obj) {
 
 $(document).ready(function() {
     // Set multidatepicker, remove date input and show div
-    $("#calendar-booking").removeClass("hidden");
+    $("#calendar-booking").removeClass("d-none");
     $("#calendar-booking .datetime:even").remove();
     var calendarBooking = $("#calendar-booking");
     // onChangeMonthYear: when changing month retrieve the disabled day for the next/previous month
@@ -137,19 +137,19 @@ $(document).ready(function() {
             var dateEnd = Date.parse("01/01/2004 " + endTime);
             // Avoid that the last character is ':'
             if (isNaN(dateStart) || isNaN(dateEnd) || (dateStart >= dateEnd) || (startTime.slice(-1) == ":") || (endTime.slice(-1) == ":")) {
-                $("input[name*='start']", calendarBooking).parent().parent().addClass("has-error");
-                $("input[name*='end']", calendarBooking).parent().parent().addClass("has-error");
+                $("input[name*='start']", calendarBooking).addClass("is-invalid");
+                $("input[name*='end']", calendarBooking).addClass("is-invalid");
                 validInput = false;
             } else {
-                $("input[name*='start']", calendarBooking).parent().parent().removeClass("has-error");
-                $("input[name*='end']", calendarBooking).parent().parent().removeClass("has-error");
+                $("input[name*='start']", calendarBooking).removeClass("is-invalid");
+                $("input[name*='end']", calendarBooking).removeClass("is-invalid");
                 // Update input if time is in the form hh to hh:00
                 $("input[name*='start']", calendarBooking).val(startTime);
                 $("input[name*='end']", calendarBooking).val(endTime);
             }
         } else {
-            $("input[name*='start']", calendarBooking).parent().parent().removeClass("has-error");
-            $("input[name*='end']", calendarBooking).parent().parent().removeClass("has-error");
+            $("input[name*='start']", calendarBooking).removeClass("is-invalid");
+            $("input[name*='end']", calendarBooking).removeClass("is-invalid");
         }
 
 
