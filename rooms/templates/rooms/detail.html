@@ -10,23 +10,23 @@
 {% block main %}
 	<!-- Room info -->
 	<div class="row">
-		<div class="col-xs-10">
+		<div class="col-9 co-sm-10">
 			<h1>{{ room.name }}</h1>
 		</div>
 		{% if user.is_authenticated %}
 			{% if perms.rooms.change_room %}
-				<div class="col-xs-2">
-					<h1><a href="{% url "rooms:editRoom" room.pk %}" class="btn btn-info"><span class="glyphicon glyphicon-pencil"></span> Modifica</a></h1>
+				<div class="col-3 co-sm-2">
+					<h1><a href="{% url "rooms:editRoom" room.pk %}" class="btn btn-info"><span class="fas fa-edit"></span> Modifica</a></h1>
 				</div>
 			{% endif %}
 		{% endif %}
 	</div>
 	<br/>
 	{% if room.description %}
-		<div class="container-fluid">
+		<div class="container">
 			<div class="row">
-				<div class="panel panel-default">
-					<div class="panel-body">
+				<div class="card bg-light w-100">
+					<div class="card-body">
 					  <p>{{ room.description }}</p>
 				  </div>
 				</div>
@@ -53,7 +53,7 @@
 			<a href="https://www.google.com/maps/search/?api=1&{{ building.get_address_for_url }}"> {{ building.address }} </a>
 			<br/>
 		</div>
-		<div class="hidden" id="map_address">
+		<div class="d-none" id="map_address">
 			<iframe
 				width="800"
 				height="450" style="border:0"

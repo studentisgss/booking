@@ -23,7 +23,7 @@
         </ol>
       </div>
     {% endif %}
-    <div class="form-group {% if buildingForm.name.errors %}has-error{% endif %}">
+    <div class="form-group {% if buildingForm.name.errors %}is-invalid{% endif %}">
       {{ buildingForm.name.label_tag }}
         {% if buildingForm.name.errors %}
           <div>
@@ -35,8 +35,8 @@
       {{ buildingForm.name }}
     </div>
 
-    <div id="address-form" class="hidden">
-      <div class="form-group {% if buildingForm.address.errors %}has-error{% endif %}">
+    <div id="address-form" class="d-none">
+      <div class="form-group {% if buildingForm.address.errors %}is-invalid{% endif %}">
         {{ buildingForm.address.label_tag }}
         <div id="locationField">
           <input id="autocomplete" placeholder="Cerca un indirizzo" class="form-control" type="text">
@@ -55,7 +55,7 @@
     </div>
     <br/>
     <div id="address-message" class="alert alert-danger">
-      <span class="glyphicon glyphicon-alert"></span>
+      <span class="fas fa-exclamation-triangle"></span>
         Non è possibile modificare l'indirizzo, attiva Javascript dalle impostazioni del tuo browser.
       </div>
 
@@ -65,6 +65,4 @@
   <input type="submit" {% if pendingRoom %} name="pendingRoom" {% endif %} value="Salva {% if pendingRoom %} e torna a {% if editPendingRoom %} modifica {% else %} crea nuova {% endif %} aula {% endif %} " class="form-control btn btn-info">
 
 </form>
-
-    </form>
 {% endblock main %}

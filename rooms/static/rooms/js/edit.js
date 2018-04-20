@@ -1,9 +1,9 @@
 $(document).ready(function() {
     // Enhance delete
     // if js is enabled substitute the button
-    var span = $("span.glyphicon-trash");
-    span.parent().removeClass("hidden");
-    span.parent().siblings("input").addClass("hidden");
+    var span = $("span.fa-trash-alt");
+    span.parent().removeClass("d-none");
+    span.parent().siblings("input").addClass("d-none");
     // when the button is clicked then
     // - check the form
     // - hide the row of the table
