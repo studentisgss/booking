@@ -173,7 +173,6 @@
             </div>
           </td>
           <td>
-            <div class="{% if form.DELETE.errors %}is-invalid{% endif %}">
               {{ form.DELETE }}
               <button type="button" class="btn btn-danger btn-sm remover d-none">
                 <span class="fas fa-trash-alt" aria-hidden="true"></span>
@@ -185,7 +184,6 @@
                   {% endfor %}
                 </div>
               {% endif %}
-            </div>
           </td>
           <td class="d-none">{{ form.id }}</td>
         </tr>
@@ -247,7 +245,6 @@
             </div>
           </td>
           <td>
-            <div class="{% if form.DELETE.errors %}is-invalid{% endif %}">
               {{ form.DELETE }}
               <button type="button" class="btn btn-danger btn-sm remover d-none">
                 <span class="fas fa-trash-alt" aria-hidden="true"></span>
@@ -259,7 +256,6 @@
                   {% endfor %}
                 </div>
               {% endif %}
-            </div>
           </td>
           <td class="d-none">{{ form.id }}</td>
         </tr>
