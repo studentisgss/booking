@@ -15,7 +15,7 @@
     {% if user.is_authenticated %}
       {% if perms.news.add_news %}
         <div class="col-3 col-sm-2">
-          <h1><a href="{% url "news:new" %}" class="btn btn-success">Nuovo</a></h1>
+          <h1><a href="{% url "news:new" %}" class="btn btn-success"><span class="fas fa-plus-circle"></span> Nuovo</a></h1>
         </div>
       {% endif %}
     {% endif %}
@@ -31,10 +31,10 @@
     		<div class="btn btn-light w-100 mb-1" role="tab" id="heading{{ e.pk }}">
        			<div role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ e.pk }}">
                     <div class="row">
-      					<span class="col-md-8 text-left text-primary">{{ e.title }}</span>
-      					<span class="col-md-3">{{ e.start | date:'d/m/y' }} - {{ e.end | date:'d/m/y' }}</span>
+      					<span class="col-12 col-md-7 col-xl-8 text-left text-primary">{{ e.title }}</span>
+      					<span class="col-6 col-md-3 col-xl-3">{{ e.start | date:'d/m/y' }} - {{ e.end | date:'d/m/y' }}</span>
                         {% if user.is_authenticated %}
-                            <span class="col-md-1">
+                            <span class="col-6 col-md-2 col-xl-1">
                                 {% if perms.news.change_news %}
                                     <a href="{% url "news:edit" pk=e.pk %}" class="btn btn-info btn-sm"><span class="fas fa-edit"></span></a>
                                 {% endif %}

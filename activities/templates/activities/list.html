@@ -34,7 +34,7 @@
             {% if user.is_authenticated %}
                  {% if perms.activities.add_activity %}
                     <div class="btn-group">
-                        <a href="{% url "activities:new" %}" class="btn btn-success">Nuova</a>
+                        <a href="{% url "activities:new" %}" class="btn btn-success"><span class="fas fa-plus-circle"></span> Nuova</a>
                     </div>
                 {% endif %}
             {% endif %}
