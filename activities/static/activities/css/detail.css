@@ -2,3 +2,7 @@
     margin-top: 8px;
     margin-bottom: 10px;
 }
+
+.popover-link {
+    width: auto !important;
+}
