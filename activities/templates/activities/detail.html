@@ -51,15 +51,15 @@
         {% if not activity.archived %}
             <div class="col-md-3 col-xs-5 text-right">
                 <div class="btn-group">
-                    <a href="{% url 'activities:ics' activity.id %}" class="btn btn-xs btn-success">
+                    <a href="{% url 'activities:ics' activity.id %}" class="btn btn-xs btn-success feed-link" id="ics-link" tabindex="0" role="button" data-title="Feed iCal" data-content="" data-toggle="popover">
                         <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
                         <span>iCal</span>
                     </a>
-                    <a href="{% url 'activities:rss' activity.id %}" class="btn btn-xs btn-warning">
+                    <a href="{% url 'activities:rss' activity.id %}" class="btn btn-xs btn-warning feed-link" id="rss-link" tabindex="0" role="button" data-title="Feed RSS" data-content="" data-toggle="popover">
                         <img id="feed-icon" src="{% static 'img/feed.svg' %}" />
                         <span>RSS</span>
                     </a>
-                    <a href="{% url 'activities:atom' activity.id %}" class="btn btn-xs btn-warning">Atom</a>
+                    <a href="{% url 'activities:atom' activity.id %}" class="btn btn-xs btn-warning feed-link" id="atom-link" tabindex="0" role="button" data-title="Feed Atom" data-content="" data-toggle="popover">Atom</a>
                     <a href="{% url 'news:messages' activity.id %}" class="btn btn-xs btn-primary">Messaggi {% if message_count != 0 %}<span class="badge">{{ message_count }}</span>{% endif %}</a>
                 </div>
             </div>
