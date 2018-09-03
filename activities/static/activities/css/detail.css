@@ -3,6 +3,6 @@
     margin-bottom: 10px;
 }
 
-.popover-link {
-    width: auto !important;
+.popover.in {
+    min-width: 276px;
 }
