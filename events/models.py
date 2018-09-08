@@ -18,6 +18,7 @@ class Event(models.Model):
     for example lessons of internal courses.
     "room" and "activity" are activity and room associated to the booking.
     "start" and "end" are time of the beginning and ending
+    "exam" is a flag to tell apart lectures from exams
     [WN: we require that beginning and ending are the same date]
     "status" is the state of acceptance of the booking.
     "creator" is the user that created/required the booking.
@@ -55,6 +56,7 @@ class Event(models.Model):
     activity = models.ForeignKey(Activity, on_delete=models.CASCADE, verbose_name=_("attività"))
     start = models.DateTimeField(_("ora di inizio"))
     end = models.DateTimeField(_("ora di fine"))
+    exam = models.BooleanField(default=False, verbose_name=_("esame"))
     status = models.SmallIntegerField(choices=STATUS_CHOICES,
                                       default=APPROVED, verbose_name=_("stato"))
     creator = models.ForeignKey(
