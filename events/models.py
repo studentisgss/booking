@@ -66,6 +66,9 @@ class Event(models.Model):
         verbose_name=_("creatore")
     )
 
+    def get_full_title(self):
+        return self.activity.get_full_title(self.exam)
+
     def clean(self):
         if self.start is None:
             raise ValidationError(_("La data/ora d'inizio non è corretta"))
