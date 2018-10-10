@@ -156,11 +156,17 @@ class ActivityManagerEditView(LoginRequiredMixin, PermissionRequiredMixin, Templ
             roompermission__group__in=self.request.user.groups.all()
         )
         context["rooms_all"] = rooms
+        # If the user is in more than one group consider only those with all permission set to 10
         rooms_waiting = Room.objects.filter(
             roompermission__group__in=self.request.user.groups.all(),
             roompermission__permission=10
         )
-        context["rooms_waiting"] = rooms_waiting
+        # Exclude rooms for which he user has a higer permission from another group
+        rooms_waiting_exclude = Room.objects.filter(
+            roompermission__group__in=self.request.user.groups.all(),
+            roompermission__permission__gt=10
+        )
+        context["rooms_waiting"] = rooms_waiting.difference(rooms_waiting_exclude)
 
         # Fill the choices for the rooms in the form, grouping the options by building
 
