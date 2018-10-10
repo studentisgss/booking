@@ -162,11 +162,19 @@ class ActivityManagerEditView(LoginRequiredMixin, PermissionRequiredMixin, Templ
             roompermission__permission=10
         )
         # Exclude rooms for which he user has a higer permission from another group
+
+        # THIS SIMPLE SOLUTION DOES NOT WORK ON MYSQL... So I had to use tho next one
+        # rooms_waiting_exclude = Room.objects.filter(
+        #     roompermission__group__in=self.request.user.groups.all(),
+        #     roompermission__permission__gt=10
+        # )
+        # context["rooms_waiting"] = rooms_waiting.difference(rooms_waiting_exclude)
+
         rooms_waiting_exclude = Room.objects.filter(
             roompermission__group__in=self.request.user.groups.all(),
             roompermission__permission__gt=10
-        )
-        context["rooms_waiting"] = rooms_waiting.difference(rooms_waiting_exclude)
+        ).values_list("id", flat=True)
+        context["rooms_waiting"] = rooms_waiting.exclude(id__in=rooms_waiting_exclude).distinct()
 
         # Fill the choices for the rooms in the form, grouping the options by building
 
