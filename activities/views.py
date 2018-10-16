@@ -49,8 +49,10 @@ class DetailActivityView(TemplateView):
                 # User is manager if this activity is in his managed_activities
                 context["is_manager"] = self.request.user.managed_activities.filter(
                     pk=activity_id
-                ).exists()
+                ).exists
+
         context["events_list"] = Event.objects.filter(activity_id=activity_id).order_by("start")
+        context["has_exams"] = any([e.exam for e in context["events_list"]])
         return context
 
 

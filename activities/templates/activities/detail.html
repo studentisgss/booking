@@ -5,6 +5,7 @@
 
 {% block head-extra %}
 <link href="{% static 'css/datatables.min.css' %}" rel="stylesheet" />
+<link href="{% static 'activities/css/detail.css' %}" rel="stylesheet" />
 
 <script type="text/javascript" src="{% static 'js/datatables.min.js' %}" ></script>
 <script type="text/javascript" src="{% static 'js/datatables_custom.js' %}" ></script>
@@ -63,15 +64,17 @@
 		<tr>
 			<th>Data</th>
 			<th>Orario</th>
-			<th>Aula</th>
+            {% if has_exams %}<th>Esame</th> <!-- Empty column to mark the exams -->{% endif %}
+			<th>Aula</th>has_exams
 			<th>Approvazione</th>
 		</tr>
 	</thead>
 	<tbody>
 		{% for e in events_list %}
-			<tr {% if e.status == e.WAITING %}class="info"{% elif e.status == e.REJECTED %}class="danger"{% endif %}>
+			<tr {% if e.status == e.WAITING %}class="info"{% elif e.status == e.REJECTED %}class="danger"{% elif e.exam %}class="success" title="Esame"{% endif %}>
 				<td><div class="hidden">|{{ e.start | date:'Ymd' }}|</div>{{ e.start | date:'d F Y' }}</td>
 				<td>{{ e.start | date:'H:i' }} - {{ e.end | date:'H:i' }}</td>
+                {% if has_exams %}<td class="text-center">{% if e.exam %}<span class="glyphicon glyphicon-edit"></span>{% endif %}</td>{% endif %}
 				<td><a href="{% url "rooms:details" e.room.pk %}">{{ e.room.get_full_name }}</a></td>
 				<td>{% if e.status == e.APPROVED %}Confermata{% elif e.status == e.WAITING %}In attesa{% else %}Rifiutata{% endif %}</td>
 			</tr>
