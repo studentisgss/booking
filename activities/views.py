@@ -131,7 +131,10 @@ class ActivityManagerEditView(LoginRequiredMixin, PermissionRequiredMixin, Templ
                 activity = Activity.objects.all().get(pk=kwargs["pk"])
             except:
                 raise Http404
-            form = ActivityForm(self.request.POST, instance=activity)
+            if self.check_for_manager:                      # If the user is a manager the POST for
+                form = ActivityForm(instance=activity)      # the activity will be empty, so do not
+            else:                                           # use it. Otherwise use it.
+                form = ActivityForm(self.request.POST, instance=activity)
             events_form = EventInlineFormSet(self.request.POST, instance=activity)
         else:
             raise Http404
