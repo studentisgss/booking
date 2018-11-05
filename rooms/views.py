@@ -120,10 +120,10 @@ class EditRoomView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
         # This key is needed for using google maps api
         context["API_KEY"] = GOOGLE_MAPS_API_KEY
         # This flag will allow to edit roomrules only who has the permission
-        CAN_CHANGE_RULES = self.request.user.has_perm("rooms.change_roomRule") \
-            and self.request.user.has_perm("rooms.add_roomRule")
-        CAN_CHANGE_PERMISSIONS = self.request.user.has_perm("rooms.change_roomPermission") \
-            and self.request.user.has_perm("rooms.add_roomPermission")
+        CAN_CHANGE_RULES = self.request.user.has_perm("rooms.change_roomrule") \
+            and self.request.user.has_perm("rooms.add_roomrule")
+        CAN_CHANGE_PERMISSIONS = self.request.user.has_perm("rooms.change_roompermission") \
+            and self.request.user.has_perm("rooms.add_roompermission")
 
         roomRuleForms_max_num = Group.objects.all().count()
 
@@ -184,8 +184,8 @@ class EditRoomView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
 
     def post(self, request, *args, **kwargs):
 
-        CAN_CHANGE_RULES = self.request.user.has_perm("rooms.change_roomRule")
-        CAN_CHANGE_PERMISSIONS = self.request.user.has_perm("rooms.change_roomPermission")
+        CAN_CHANGE_RULES = self.request.user.has_perm("rooms.change_roomrule")
+        CAN_CHANGE_PERMISSIONS = self.request.user.has_perm("rooms.change_roompermission")
 
         if "room_id" in kwargs and kwargs["room_id"]:  # editing room
             try:
