@@ -8,7 +8,18 @@
 
 {% block main %}
 <h1>Agenda</h1>
-<p>Lista degli eventi</p>
+
+<div class="row">
+  <div class="col-md-5">
+      <div class="btn-group">
+          <a href="{% url 'events:agenda' %}" class="btn {% if not clas %}btn-info{% else %}btn-default{% endif %}">Tutto</a>
+          <a href="{% url 'events:agenda' "SM" %}" class="btn {% if clas == 'SM' %}btn-info{% else %}btn-default{% endif %}">SM</a>
+          <a href="{% url 'events:agenda' "SN" %}" class="btn {% if clas == 'SN' %}btn-info{% else %}btn-default{% endif %}">SN</a>
+          <a href="{% url 'events:agenda' "SS" %}" class="btn {% if clas == 'SS' %}btn-info{% else %}btn-default{% endif %}">SS</a>
+          <a href="{% url 'events:agenda' "A" %}" class="btn {% if clas == 'A' %}btn-info{% else %}btn-default{% endif %}">Altro</a>
+      </div>
+  </div>
+</div>
 
 {% if not list %}
 
