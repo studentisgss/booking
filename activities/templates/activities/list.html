@@ -62,11 +62,20 @@
 <div class="row">
   <div class="col-md-12 text-right">
     <div class="btn-group">
+    {% if all %}
       <a href="{% url 'activities:listall' %}" class="btn {% if not clas %}btn-info{% else %}btn-default{% endif %}">Tutto</a>
       <a href="{% url 'activities:listall' "SM" %}" class="btn {% if clas == 'SM' %}btn-info{% else %}btn-default{% endif %}">SM</a>
       <a href="{% url 'activities:listall' "SN" %}" class="btn {% if clas == 'SN' %}btn-info{% else %}btn-default{% endif %}">SN</a>
       <a href="{% url 'activities:listall' "SS" %}" class="btn {% if clas == 'SS' %}btn-info{% else %}btn-default{% endif %}">SS</a>
       <a href="{% url 'activities:listall' "A" %}" class="btn {% if clas == 'A' %}btn-info{% else %}btn-default{% endif %}">Altro</a>
+    {% else %}
+      <a href="{% url 'activities:list' %}" class="btn {% if not clas %}btn-info{% else %}btn-default{% endif %}">Tutto</a>
+      <a href="{% url 'activities:list' "SM" %}" class="btn {% if clas == 'SM' %}btn-info{% else %}btn-default{% endif %}">SM</a>
+      <a href="{% url 'activities:list' "SN" %}" class="btn {% if clas == 'SN' %}btn-info{% else %}btn-default{% endif %}">SN</a>
+      <a href="{% url 'activities:list' "SS" %}" class="btn {% if clas == 'SS' %}btn-info{% else %}btn-default{% endif %}">SS</a>
+      <a href="{% url 'activities:list' "A" %}" class="btn {% if clas == 'A' %}btn-info{% else %}btn-default{% endif %}">Altro</a>
+
+    {% endif %}
     </div>
   </div>
 </div>
