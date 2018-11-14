@@ -3,6 +3,7 @@
 
 {% block head-extra %}
 <link href="{% static 'css/datatables.min.css' %}" rel="stylesheet" />
+<link href="{% static 'activities/css/list.css' %}" rel="stylesheet" />
 
 <script type="text/javascript" src="{% static 'js/datatables.min.js' %}" ></script>
 <script type="text/javascript" src="{% static 'js/datatables_custom.js' %}" ></script>
@@ -41,7 +42,7 @@
         </div>
     </div>
     <div class="col-md-4">
-        <div id="filter" class="text-right">
+        <div id="filter" class="float-right">
             <form id="filter-form" method="GET" action="{% if all %} {% url 'activities:listall' %} {% else %} {% url 'activities:list' %} {% endif %}" class="form-inline">
                 <div class="input-group">
                     <div class="input-group-prepend">

@@ -5,6 +5,7 @@
 
 {% block head-extra %}
 <link href="{% static 'css/datatables.min.css' %}" rel="stylesheet" />
+<link href="{% static 'activities/css/detail.css' %}" rel="stylesheet" />
 
 <script type="text/javascript" src="{% static 'js/datatables.min.js' %}" ></script>
 <script type="text/javascript" src="{% static 'js/datatables_custom.js' %}" ></script>
@@ -28,7 +29,9 @@
 		{% if user.is_authenticated %}
       {% if perms.activities.change_activity and can_manage_activity %}
 				<div class="col-3 col-sm-2">
-					<h1><a href="{% url "activities:edit" activity.pk %}" class="btn btn-info"><span class="fas fa-edit"></span> Modifica</a></h1>
+					<div class="float-right">
+                        <h1><a href="{% url "activities:edit" activity.pk %}" class="btn btn-info"><span class="fas fa-edit"></span> Modifica</a></h1>
+                    </div>
 				</div>
       {% else %}
         {% if perms.events.change_event and is_manager %}
