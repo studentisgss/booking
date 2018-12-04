@@ -26,6 +26,9 @@ class Agenda(TemplateView):
         context = super().get_context_data(**kwargs)
         num_per_page = 25
         event_list = Event.objects.filter(status=0).order_by("start")
+        if "clas" in kwargs:
+            event_list = event_list.filter(activity__category=kwargs["clas"])
+            context["clas"] = kwargs["clas"]
         paginator = Paginator(event_list, num_per_page)
         if "page" in kwargs:  # Number of the page to display
             page = kwargs["page"]
