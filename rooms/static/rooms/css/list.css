@@ -15,3 +15,8 @@ hr {
 .building_name a {
 		text-decoration: none;
 }
+
+.dataTables_wrapper.container-fluid.dt-bootstrap4.no-footer {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}

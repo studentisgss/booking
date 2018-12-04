@@ -15,16 +15,16 @@
 <div id="filter-form" class="row">
     <div class="col-md-5 col-sm-6">
           <div class="btn-group">
-              <a class="btn {% if not filter_string %}btn-info{% else %}btn-light{% endif %} filter" {% if not filter_string %}disabled{% endif %} href="{% url "events:approvation" %}">Tutti</a>
-              <a class="btn {% if filter_string == 'A' %}btn-info{% else %}btn-light{% endif %} filter" {% if filter_string == 'A' %}disabled{% endif %} href="{% url "events:approvation" %}?filter=A">Altro</a>
-              <a class="btn {% if filter_string == 'SN' %}btn-info{% else %}btn-light{% endif %} filter" {% if filter_string == 'SN' %}disabled{% endif %} href="{% url "events:approvation" %}?filter=SN">SN</a>
-              <a class="btn {% if filter_string == 'SM' %}btn-info{% else %}btn-light{% endif %} filter" {% if filter_string == 'SM' %}disabled{% endif %} href="{% url "events:approvation" %}?filter=SM">SM</a>
-              <a class="btn {% if filter_string == 'SS' %}btn-info{% else %}btn-light{% endif %} filter" {% if filter_string == 'SS' %}disabled{% endif %} href="{% url "events:approvation" %}?filter=SS">SS</a>
+              <a class="btn {% if not filter_string %}btn-info{% else %}btn-secondary{% endif %} filter" {% if not filter_string %}disabled{% endif %} href="{% url "events:approvation" %}">Tutti</a>
+              <a class="btn {% if filter_string == 'A' %}btn-info{% else %}btn-secondary{% endif %} filter" {% if filter_string == 'A' %}disabled{% endif %} href="{% url "events:approvation" %}?filter=A">Altro</a>
+              <a class="btn {% if filter_string == 'SN' %}btn-info{% else %}btn-secondary{% endif %} filter" {% if filter_string == 'SN' %}disabled{% endif %} href="{% url "events:approvation" %}?filter=SN">SN</a>
+              <a class="btn {% if filter_string == 'SM' %}btn-info{% else %}btn-secondary{% endif %} filter" {% if filter_string == 'SM' %}disabled{% endif %} href="{% url "events:approvation" %}?filter=SM">SM</a>
+              <a class="btn {% if filter_string == 'SS' %}btn-info{% else %}btn-secondary{% endif %} filter" {% if filter_string == 'SS' %}disabled{% endif %} href="{% url "events:approvation" %}?filter=SS">SS</a>
           </div>
     </div>
     <div class="col-md-3 col-sm-1"></div>
     <div class="col-md-4 col-sm-5">
-        <div id="filter" class="text-right d-none">
+        <div id="filter" class="float-right d-none">
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text">Filtro: </span>
