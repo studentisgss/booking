@@ -25,7 +25,7 @@
                     <span class="badge badge-secondary">{{ activity.professor }}</span>
                 {% endif %}
                 {% if activity.managers.all and user.is_authenticated %}
-                        <span class="label label-default">Referent{{ activity.managers.all|length|pluralize:"e,i" }}:{% for obj in activity.managers.all %} {{ obj.get_full_name }}{% if not forloop.last %},{% endif %}{% endfor %}</span>
+                        <span class="badge badge-light">Referent{{ activity.managers.all|length|pluralize:"e,i" }}:{% for obj in activity.managers.all %} {{ obj.get_full_name }}{% if not forloop.last %},{% endif %}{% endfor %}</span>
                 {% endif %}
             </h3>
 		</div>
