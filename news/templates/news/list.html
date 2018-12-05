@@ -8,53 +8,54 @@
 
 {% block main %}
 <div class="container">
-  <div class="row">
-    <div class="col-xs-10">
+  <div class="row mb-3">
+    <div class="col-9 col-sm-10">
       <h1>Avvisi</h1>
     </div>
     {% if user.is_authenticated %}
       {% if perms.news.add_news %}
-        <div class="col-xs-2">
-          <h1><a href="{% url "news:new" %}" class="btn btn-success">Nuovo</a></h1>
+        <div class="col-3 col-sm-2">
+          <div class="float-right">
+              <h1><a href="{% url "news:new" %}" class="btn btn-success"><span class="fas fa-plus-circle"></span> Nuovo</a></h1>
+          </div>
         </div>
       {% endif %}
     {% endif %}
   </div>
 </div>
-
-<div class="panel-group" id="accordion" role="tablist">
-	{% if not news_list %}
-		Non ci sono avvisi.
-	{% else %}
-  	<div class="panel panel-default">
-		{% for e in news_list %}
-    		<div class="panel-heading" role="tab" id="heading{{ e.pk }}">
-				<div class="row">
-      				<h4 class="panel-title">
-       					<a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ e.pk }}">
-  							<span class="col-md-8">{{ e.title }}</span>
-  							<span class="col-md-3">{{ e.start | date:'d/m/y' }} - {{ e.end | date:'d/m/y' }}</span>
-                {% if user.is_authenticated %}
-                  <span class="col-md-1">
-                    {% if perms.news.change_news %}
-                      <a href="{% url "news:edit" pk=e.pk %}" class="btn btn-info btn-xs"><span class="glyphicon glyphicon-pencil"></span></a>
-                    {% endif %}
-                    {% if perms.news.delete_news %}
-                      <a href="{% url "news:delete" pk=e.pk %}" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash"></span></a>
-                    {% endif %}
-                  </span>
-                {% endif %}
-        				</a>
-      				</h4>
-				</div>
-    		</div>
-    		<div id="collapse{{ e.pk }}" class="panel-collapse collapse in" role="tabpanel">
-      			<div class="panel-body">
-        			{{ e.content }}
-      			</div>
-			</div>
-		{% endfor %}
-	</div>
-	{% endif %}
+<div class="container">
+    <div class="panel-group" id="accordion" role="tablist">
+    	{% if not news_list %}
+    		Non ci sono avvisi.
+    	{% else %}
+      	<div class="">
+    		{% for e in news_list %}
+        		<div class="btn btn-light w-100 mb-1" role="tab" id="heading{{ e.pk }}">
+           			<div role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ e.pk }}">
+                        <div class="row">
+          					<span class="col-12 col-md-7 col-xl-8 text-left text-primary">{{ e.title }}</span>
+          					<span class="col-6 col-md-3 col-xl-3">{{ e.start | date:'d/m/y' }} - {{ e.end | date:'d/m/y' }}</span>
+                            {% if user.is_authenticated %}
+                                <span class="col-6 col-md-2 col-xl-1">
+                                    {% if perms.news.change_news %}
+                                        <a href="{% url "news:edit" pk=e.pk %}" class="btn btn-info btn-sm"><span class="fas fa-edit"></span></a>
+                                    {% endif %}
+                                    {% if perms.news.delete_news %}
+                                        <a href="{% url "news:delete" pk=e.pk %}" class="btn btn-danger btn-sm"><span class="fas fa-trash-alt"></span></a>
+                                    {% endif %}
+                                </span>
+                            {% endif %}
+                        </div>
+            		</div>
+        		</div>
+        		<div id="collapse{{ e.pk }}" class="collapse show card border-0 mb-2" role="tabpanel">
+          			<div class="card-body">
+            			{{ e.content }}
+          			</div>
+    			</div>
+    		{% endfor %}
+    	</div>
+    	{% endif %}
+    </div>
 </div>
 {% endblock main %}

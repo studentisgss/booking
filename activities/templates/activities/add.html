@@ -18,7 +18,7 @@
 <h1>Gestione attività</h1>
 
 <div>
-    <form method="POST" class="form-horizontal">
+    <form method="POST">
         {% csrf_token %}
         {% if form.non_field_errors %}
             <div>
@@ -30,7 +30,7 @@
             </div>
         {% endif %}
         <!-- TITLE -->
-        <div class="form-group">
+        <div class="form-group row">
             {% if form.title.errors %}
                 <div class="col-sm-12 col-md-12">
                     {% for error in form.title.errors %}
@@ -41,12 +41,12 @@
             <div class="col-sm-2 col-md-1">
             <label for="{{ form.title.id_for_label }}" class="control-label">{{ form.title.label }}:</label>
             </div>
-            <div class="col-sm-10 col-md-11 {% if form.title.errors %}has-error{% endif %}">
+            <div class="col-sm-10 col-md-11 {% if form.title.errors %}is-invalid{% endif %}">
                 {{ form.title }}
             </div>
         </div>
         <!-- CLASS, PROFESSOR AND BROCHURE -->
-        <div class="form-group">
+        <div class="form-group row">
             {% if form.category.errors or form.professor.errors or form.brochure.errors %}
                 {% if form.category.errors %}
                     <div class="col-sm-4 col-md-3">
@@ -81,20 +81,20 @@
             <div class="col-sm-2 col-md-1">
             <label for="{{ form.category.id_for_label }}" class="control-label">{{ form.category.label }}:</label>
             </div>
-            <div class="col-sm-2 col-md-2 {% if form.category.errors %}has-error{% endif %}">
+            <div class="col-sm-2 col-md-2 {% if form.category.errors %}is-invalid{% endif %}">
                 {{ form.category }}
             </div>
             <div class="col-sm-2 col-md-1">
             <label for="{{ form.professor.id_for_label }}" class="control-label">{{ form.professor.label }}:</label>
             </div>
-            <div class="{% if perms.activities.change_brochure %}col-sm-3 col-md-6{% else %}col-sm-6 col-md-8{% endif %} {% if form.professor.errors %}has-error{% endif %}">
+            <div class="{% if perms.activities.change_brochure %}col-sm-3 col-md-6{% else %}col-sm-6 col-md-8{% endif %} {% if form.professor.errors %}is-invalid{% endif %}">
                 {{ form.professor }}
             </div>
             {% if perms.activities.change_brochure %}
                 <div class="col-sm-2 col-md-1">
                   <label for="{{ form.brochure.id_for_label }}" class="control-label">{{ form.brochure.label }}:</label>
                 </div>
-                <div class="col-sm-1 col-md-1 {% if form.brochure.errors %}has-error{% endif %}">
+                <div class="col-sm-1 col-md-1 {% if form.brochure.errors %}is-invalid{% endif %}">
                   {{ form.brochure }}
                 </div>
             {% else %}
@@ -102,7 +102,7 @@
             {% endif %}
         </div>
         <!-- MANAGERS AND ARCHIVED -->
-        <div class="form-group">
+        <div class="form-group row">
             {% if form.managers.errors or form.archived.errors %}
                 {% if form.managers.errors %}
                     <div class="col-sm-9 col-md-9">
@@ -126,18 +126,18 @@
             <div class="col-sm-2 col-md-1">
               <label for="{{ form.managers.id_for_label }}" class="control-label">{{ form.managers.label }}:</label>
             </div>
-            <div class="col-sm-7 col-md-9 {% if form.managers.errors %}has-error{% endif %}">
+            <div class="col-sm-7 col-md-9 {% if form.managers.errors %}is-invalid{% endif %}">
               {{ form.managers }}
             </div>
               <div class="col-sm-2 col-md-1">
                 <label for="{{ form.archived.id_for_label }}" class="control-label">{{ form.archived.label }}:</label>
               </div>
-            <div class="col-sm-1 col-md-1 {% if form.archived.errors %}has-error{% endif %}">
+            <div class="col-sm-1 col-md-1 {% if form.archived.errors %}is-invalid{% endif %}">
                 {{ form.archived }}
             </div>
         </div>
         <!-- DESCRIPTION -->
-        <div class="form-group">
+        <div class="form-group row">
             {% if form.description.errors %}
                 <div class="col-sm-12 col-md-10">
                     <ol class="list-group">
@@ -148,7 +148,7 @@
                 </div>
             {% endif %}
             <label for="{{ form.description.id_for_label }}" class="col-sm-2 col-md-1 control-label">{{ form.description.label }}:</label>
-            <div class="col-sm-10 col-md-11 {% if form.description.errors %}has-error{% endif %}">
+            <div class="col-sm-10 col-md-11 {% if form.description.errors %}is-invalid{% endif %}">
                 {{ form.description }}
             </div>
         </div>

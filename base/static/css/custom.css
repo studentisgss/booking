@@ -12,14 +12,16 @@ html {
 }
 body {
 	/* Margin bottom by footer height */
-	margin-bottom: 80px;
+	margin-bottom: 50px;
+    /* Padding for navbar */
+    padding-top: 80px;
 }
 .footer {
 	position: absolute;
 	bottom: 0;
 	width: 100%;
 	/* Set the fixed height of the footer here */
-	height: 60px;
+	height: 40px;
 	background-color: #f5f5f5;
 	border-top: 1px solid #ddd;
 }
@@ -36,9 +38,12 @@ body {
 	margin-top: 5%;
 }
 
-#navbar>ul>li>a>span.badge {
-    line-height: 13px;
+/* Avoid text warp in table cells */
+.table td.fit-column,
+.table th.fit-column {
+    white-space: nowrap;
 }
+
 /* JQUERY SUMOSELECT style like bootstrap form-control */
 
 div.SumoSelect {
@@ -88,7 +93,12 @@ div.SumoSelect.disabled>p>span{
 }
 
 /*center pagination button in datatables*/
-div.paging_simple_numbers {
-	text-align:center !important;
+div.paging_simple_numbers ul {
+	justify-content: center !important;
 
+}
+
+/* Prevent Datatable to use separate */
+.table.table-striped {
+    border-collapse: collapse !important;
 }
