@@ -10,23 +10,23 @@
 	<link rel="manifest" href="{% static 'img/site.webmanifest' %}">
 	<link rel="mask-icon" href="{% static 'img/safari-pinned-tab.svg' %}" color="#5bbad5">
 	<link rel="shortcut icon" href="{% static 'img/favicon.ico' %}">
+    <link rel="icon" href="{% static 'img/favicon.ico' %}">
 	<meta name="msapplication-TileColor" content="#da532c">
 	<meta name="msapplication-config" content="{% static 'img/browserconfig.xml' %}">
 	<meta name="theme-color" content="#ffffff">
 
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<title>{% block page_title %}Booking SGSS{% endblock %}</title>
-
-	<link href="{% static 'favicon.png' %}" rel="icon" type="image/png" />
 
 	<!-- ADD CSS HERE -->
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" />
-    <link href="{% static 'css/bootstrap-theme.min.css' %}" rel="stylesheet" />
+    <link href="{% static 'css/fontawesome-all.min.css' %}" rel="stylesheet" />
     <link href="{% static 'css/custom.css' %}" rel="stylesheet" />
 
 	<!-- ADD SCRIPT HERE -->
-	<script type="text/javascript" src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
 
     {% block head-extra %}
         <!-- ADD EXTRA CSS OR SCRIPT HERE -->
@@ -44,82 +44,75 @@
 
 <body>
 <!-- Fixed navbar -->
-<nav class="navbar navbar-inverse navbar-static-top">
-	<div class="container">
-		<div class="navbar-header">
-			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
-				<span class="sr-only">Toggle navigation</span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-			</button>
-			<a class="navbar-brand" href="/">Booking SGSS</a>
-		</div>
-		<div id="navbar" class="navbar-collapse collapse">
-			<ul class="nav navbar-nav">
-				<li><a href="{% url "events:calendar" %}">Calendario</a></li>
-				<li><a href="{% url "events:agenda" %}">Agenda</a></li>
-				<li><a href="{% url "activities:list" %}">Attività</a></li>
-				<li><a href="{% url "rooms:list" %}">Aule</a></li>
-				<li><a href="{% url "news:news" %}">Avvisi</a></li>
-                {% if user.is_authenticated and perms.events.change_event and perms.activities.change_activity %}
-				    <li>
-                        <a href="{% url "events:approvation" %}">Approvazioni
-                            {% if waiting_events_count and waiting_events_count != 0 %}
-                                <span class="badge">{{ waiting_events_count }}</span>
-                            {% endif %}
-                        </a>
-                    </li>
-                {% endif %}
-			</ul>
-			<ul class="nav navbar-nav navbar-right">
-				{% if DEMO %}<li><p class="navbar-text" id="demo-message">Questo sito è una DEMO in continuo sviluppo.</p></li>{% endif %}
-                {% if user.is_authenticated %}
-                    {% if perms.auth.change_user or perms.auth.change_group %}
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Amministrazione <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                {% if user.is_staff %}
-                                    <li><a href="{% url 'admin:index' %}">Amministrazione</a></li>
-                                    <li role="separator" class="divider"></li>
-                                {% endif %}
-                                {% if perms.auth.change_user %}
-                                    <li><a href="{% url 'base:management' %}">Gestione sito</a></li>
-                                {% endif %}
-                                {% if perms.auth.change_group %}
-                                    <li><a href="{% url 'base:groups' %}">Gestione gruppi</a></li>
-                                {% endif %}
-                            </ul>
-                        </li>
-                    {% else %}
-                        {% if user.is_staff %}
-                            <li><a href="{% url 'admin:index' %}">Amministrazione</a></li>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <a class="navbar-brand" href="/">Booking SGSS</a>
+	<button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+	<div id="navbar" class="navbar-collapse collapse">
+		<ul class="navbar-nav mr-auto">
+			<li class="nav-item"><a class="nav-link" href="{% url "events:calendar" %}">Calendario</a></li>
+			<li class="nav-item"><a class="nav-link" href="{% url "events:agenda" %}">Agenda</a></li>
+			<li class="nav-item"><a class="nav-link" href="{% url "activities:list" %}">Attività</a></li>
+			<li class="nav-item"><a class="nav-link" href="{% url "rooms:list" %}">Aule</a></li>
+			<li class="nav-item"><a class="nav-link" href="{% url "news:news" %}">Avvisi</a></li>
+            {% if user.is_authenticated and perms.events.change_event and perms.activities.change_activity %}
+			    <li class="nav-item">
+                    <a class="nav-link" href="{% url "events:approvation" %}">Approvazioni
+                        {% if waiting_events_count and waiting_events_count != 0 %}
+                            <span class="badge badge-secondary badge-pill">{{ waiting_events_count }}</span>
                         {% endif %}
-                    {% endif %}
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Account <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            {% if not request.session.AUTH_SHIB %}
-                                <li><a href="{% url 'authentication:password_change' %}">Cambia password</a></li>
-                                <li role="separator" class="divider"></li>
+                    </a>
+                </li>
+            {% endif %}
+		</ul>
+        {% if DEMO %}<span class="navbar-text" id="demo-message">Questo sito è una DEMO in continuo sviluppo.</span>{% endif %}
+		<ul class="navbar-nav">
+            {% if user.is_authenticated %}
+                {% if perms.auth.change_user or perms.auth.change_group %}
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Amministrazione</a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            {% if user.is_staff %}
+                                <a class="dropdown-item" href="{% url 'admin:index' %}">Amministrazione</a>
+                                <div class="dropdown-divider"></div>
                             {% endif %}
-                            <li><a href="{% url 'authentication:logout' %}">Logout</a></li>
-                        </ul>
+                            {% if perms.auth.change_user %}
+                                <a class="dropdown-item" href="{% url 'base:management' %}">Gestione sito</a>
+                            {% endif %}
+                            {% if perms.auth.change_group %}
+                                <a class="dropdown-item" href="{% url 'base:groups' %}">Gestione gruppi</a>
+                            {% endif %}
+                        </div>
                     </li>
                 {% else %}
-                    <li><a href="{% url 'authentication:login' %}?next={{ request.path }}">Login</a></li>
+                    {% if user.is_staff %}
+                        <li class="nav-item"><a class="nav-link" href="{% url 'admin:index' %}">Amministrazione</a></li>
+                    {% endif %}
                 {% endif %}
-			</ul>
-		</div><!--/.nav-collapse -->
-	</div>
+                <li class="dropdown nav-item">
+                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Account</a>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        {% if not request.session.AUTH_SHIB %}
+                            <a class="dropdown-item" href="{% url 'authentication:password_change' %}">Cambia password</a>
+                            <div class="dropdown-divider"></div>
+                        {% endif %}
+                        <a class="dropdown-item" href="{% url 'authentication:logout' %}">Logout</a>
+                    </div>
+                </li>
+            {% else %}
+                <li class="nav-item"><a class="nav-link" href="{% url 'authentication:login' %}?next={{ request.path }}">Login</a></li>
+            {% endif %}
+		</ul>
+	</div><!--/.nav-collapse -->
 </nav>
 
-<div class="container theme-showcase" role="main" id="main">
+<div class="container" role="main" id="main">
     {% if messages %}
         <!-- ALERTS SECTION -->
         <div>
             {% for message in messages %}
-                <div class="alert {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}alert-danger{% elif message.level == DEFAULT_MESSAGE_LEVELS.WARNING %}alert-warning{% elif message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}alert-success{% elif message.level == DEFAULT_MESSAGE_LEVELS.INFO %}alert-info{% endif %} alert-dismissible" role="alert">
+                <div class="alert {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}alert-danger{% elif message.level == DEFAULT_MESSAGE_LEVELS.WARNING %}alert-warning{% elif message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}alert-success{% elif message.level == DEFAULT_MESSAGE_LEVELS.INFO %}alert-info{% endif %} alert-dismissible fade show" role="alert">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     {{ message|markdown }}
                 </div>
@@ -132,11 +125,9 @@
 </div>
 
 <footer class="footer">
-	<div class="container">
-		<p>
-			{% if DEMO %}<a href="https://validator.w3.org/check?uri=referer">Validazione HTML</a>{% endif %}
-            <span class="pull-right text-muted">Sito sviluppato dagli studenti della Scuola Galileiana di Studi Superiori di Padova</span>
-        </p>
+	<div class="container pt-1">
+        {% if DEMO %}<div class="float-left"><a href="https://validator.w3.org/check?uri=referer">Validazione HTML</a></div>{% endif %}
+        <div class="float-right"><span class="text-muted">Sito sviluppato dagli studenti della Scuola Galileiana di Studi Superiori di Padova</span></div>
 	</div>
 </footer>
 

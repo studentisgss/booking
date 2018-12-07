@@ -42,25 +42,25 @@
     {% endif %}
     {% if perms.rooms.can_change_important %}
       <div class="row">
-        <div class="col-xs-2">
+        <div class="col-2">
           {{ roomForm.name.label_tag }}
         </div>
-        <div class="col-xs-7 form-group {% if roomForm.name.errors %}has-error{% endif %}">
+        <div class="col-7 form-group {% if roomForm.name.errors %}is-invalid{% endif %}">
           {{ roomForm.name }}
         </div>
-        <div class="col-xs-2">
+        <div class="col-2">
           {{ roomForm.important.label_tag }}
         </div>
-        <div class="col-xs-1 form-group {% if roomForm.important.errors %}has-error{% endif %}">
+        <div class="col-1 form-group {% if roomForm.important.errors %}is-invalid{% endif %}">
           {{ roomForm.important }}
         </div>
       </div>
     {% else %}
       <div class="row">
-        <div class="col-xs-2">
+        <div class="col-2">
           {{ roomForm.name.label_tag }}
         </div>
-        <div class="col-xs-10 form-group {% if roomForm.name.errors %}has-error{% endif %}">
+        <div class="col-10 form-group {% if roomForm.name.errors %}is-invalid{% endif %}">
           {{ roomForm.name }}
         </div>
       </div>
@@ -74,14 +74,13 @@
       </div>
     {% endif %}
     <div class="row">
-      <div class="col-xs-2">
+      <div class="col-2">
         {{ roomForm.description.label_tag }}
       </div>
-      <div class="col-xs-10 form-group {% if roomForm.description.errors %}has-error{% endif %}">
+      <div class="col-10 form-group {% if roomForm.description.errors %}is-invalid{% endif %}">
         {{ roomForm.description }}
       </div>
     </div>
-    <br/>
     {% if roomForm.building.errors %}
       <div>
         {% for error in roomForm.building.errors %}
@@ -90,18 +89,18 @@
       </div>
     {% endif %}
     <div class="row">
-      <div class="col-xs-2">
+      <div class="col-2">
         {{ roomForm.building.label_tag }}
       </div>
       {% if perms.rooms.add_building %}
-        <div class="col-xs-8 form-group {% if roomForm.building.errors %}has-error{% endif %}">
+        <div class="col-8 form-group {% if roomForm.building.errors %}is-invalid{% endif %}">
           {{ roomForm.building }}
         </div>
-        <div class="col-xs-2">
+        <div class="col-2">
           <input  name="newBuilding" type="submit" value="Crea nuovo edificio" class="form-control btn btn-success">
         </div>
       {% else %}
-        <div class="col-xs-10 form-group {% if roomForm.building.errors %}has-error{% endif %}">
+        <div class="col-10 form-group {% if roomForm.building.errors %}is-invalid{% endif %}">
           {{ roomForm.building }}
         </div>
       {% endif %}
@@ -129,16 +128,16 @@
     {% endfor %}
     <table class="table">
       <tr>
-        <th class="col-xs-3">Giorno</th>
-        <th class="col-xs-3">Orario di apertura</th>
-        <th class="col-xs-3">Orario di chiusura</th>
-        <th class="col-xs-1">Elimina</th>
-        <td class="hidden"></td>
+        <th>Giorno</th>
+        <th>Orario di apertura</th>
+        <th>Orario di chiusura</th>
+        <th>Elimina</th>
+        <td class="d-none"></td>
       </tr>
       {% for form in roomRuleForm %}
         <tr>
           <td>
-            <div class="form-group {% if form.day.errors %}has-error{% endif %}">
+            <div class="form-group {% if form.day.errors %}is-invalid{% endif %}">
               {{ form.day }}
               {% if form.day.errors %}
                 <div>
@@ -150,7 +149,7 @@
             </div>
           </td>
           <td>
-            <div class="form-group {% if form.opening_time.errors %}has-error{% endif %}">
+            <div class="form-group {% if form.opening_time.errors %}is-invalid{% endif %}">
               {{ form.opening_time }}
               {% if form.opening_time.errors %}
                 <div>
@@ -162,7 +161,7 @@
             </div>
           </td>
           <td>
-            <div class="form-group {% if form.closing_time.errors %}has-error{% endif %}">
+            <div class="form-group {% if form.closing_time.errors %}is-invalid{% endif %}">
               {{ form.closing_time }}
               {% if form.closing_time.errors %}
                 <div>
@@ -174,10 +173,9 @@
             </div>
           </td>
           <td>
-            <div class="{% if form.DELETE.errors %}has-error{% endif %}">
               {{ form.DELETE }}
-              <button type="button" class="btn btn-danger btn-xs remover hidden">
-                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+              <button type="button" class="btn btn-danger btn-sm remover d-none">
+                <span class="fas fa-trash-alt" aria-hidden="true"></span>
               </button>
               {% if form.DELETE.errors %}
                 <div>
@@ -186,9 +184,8 @@
                   {% endfor %}
                 </div>
               {% endif %}
-            </div>
           </td>
-          <td class="hidden">{{ form.id }}</td>
+          <td class="d-none">{{ form.id }}</td>
         </tr>
       {% endfor %}
     </table>
@@ -216,15 +213,15 @@
     {% endfor %}
     <table class="table">
       <tr>
-        <th class="col-xs-5">Gruppo</th>
-        <th class="col-xs-4">Tipo di permesso</th>
-        <th class="col-xs-1">Elimina</th>
-        <td class="hidden"></td>
+        <th>Gruppo</th>
+        <th>Tipo di permesso</th>
+        <th>Elimina</th>
+        <td class="d-none"></td>
       </tr>
       {% for form in RoomPermissionForm %}
         <tr>
           <td>
-            <div class="form-group {% if form.group.errors %}has-error{% endif %}">
+            <div class="form-group {% if form.group.errors %}is-invalid{% endif %}">
               {{ form.group }}
               {% if form.group.errors %}
                 <div>
@@ -236,7 +233,7 @@
             </div>
           </td>
           <td>
-            <div class="form-group {% if form.permission.errors %}has-error{% endif %}">
+            <div class="form-group {% if form.permission.errors %}is-invalid{% endif %}">
               {{ form.permission }}
               {% if form.permission.errors %}
                 <div>
@@ -248,10 +245,9 @@
             </div>
           </td>
           <td>
-            <div class="{% if form.DELETE.errors %}has-error{% endif %}">
               {{ form.DELETE }}
-              <button type="button" class="btn btn-danger btn-xs remover hidden">
-                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+              <button type="button" class="btn btn-danger btn-sm remover d-none">
+                <span class="fas fa-trash-alt" aria-hidden="true"></span>
               </button>
               {% if form.DELETE.errors %}
                 <div>
@@ -260,9 +256,8 @@
                   {% endfor %}
                 </div>
               {% endif %}
-            </div>
           </td>
-          <td class="hidden">{{ form.id }}</td>
+          <td class="d-none">{{ form.id }}</td>
         </tr>
       {% endfor %}
     </table>

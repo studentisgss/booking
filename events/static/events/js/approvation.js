@@ -45,7 +45,7 @@ $(document).ready(function() {
     }
 
     // Show the search input
-    $("#filter").removeClass("hidden");
+    $("#filter").removeClass("d-none");
     // Remove the DataTable search box
     $("#table_approvation_filter").parent().parent().remove();
     // Add the event handler
