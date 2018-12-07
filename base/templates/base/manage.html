@@ -8,11 +8,11 @@
 {% block main %}
 <h1>Gestione sito</h1>
 <br />
-<div class="panel panel-default">
-    <div class="panel-heading">
+<div class="card bg-light mb-3">
+    <div class="card-header">
         Aggiornamento utenti da file
     </div>
-    <div class="panel-body">
+    <div class="card-body">
         {% if user_file_alert %}
             {% if user_file_success %}
                 <div class="alert alert-success">
@@ -48,7 +48,7 @@
                         {{ form.user_file }}
                     </div>
                 </div>
-                <div class="col-sm-4 col-sm-offset-4">
+                <div class="col-sm-4 offset-sm-4">
                     <input type="submit" value="Invia" class="form-control btn btn-info"/>
                 </div>
             </form>
@@ -56,11 +56,11 @@
     </div>
 </div>
 
-<div class="panel panel-default">
-    <div class="panel-heading">
+<div class="card bg-light mb-3">
+    <div class="card-header">
         Pulizia utenti non attivi
     </div>
-    <div class="panel-body">
+    <div class="card-body">
         {% if clean_users_alert %}
             {% if clean_users_success %}
                 <div class="alert alert-success">
@@ -72,25 +72,25 @@
                 </div>
             {% endif %}
         {% endif %}
-        <div class="col-sm-4 col-sm-offset-4">
+        <div class="col-sm-4 offset-sm-4">
             <a href={% url "base:clean" %} class="form-control btn btn-warning">Esegui</a>
         </div>
     </div>
 </div>
 
 {% if backup %}
-<div class="panel panel-default">
-    <div class="panel-heading">
+<div class="card bg-light mb-3">
+    <div class="card-header">
         Backup del database
     </div>
-    <div class="panel-body">
+    <div class="card-body">
         {% if backup_alert %}
             <div class="alert {% if backup_success %}alert-info{% else %}alert-danger{% endif %}">
                 Comando di backup eseguito:<br />
                 <pre>{{ backup_message }}</pre>
             </div>
         {% endif %}
-        <div class="col-sm-4 col-sm-offset-4">
+        <div class="col-sm-4 offset-sm-4">
             <a href={% url "base:backup" %} class="form-control btn btn-success">Esegui backup</a>
         </div>
     </div>

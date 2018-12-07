@@ -18,11 +18,11 @@ $(document).ready(function() {
     $("#collapseDescriptionControl").on("click", function() {
         descriptionShown = !descriptionShown;
         if (descriptionShown) {
-            $("#collapseDescriptionControl").html("<span class=\"glyphicon glyphicon-chevron-up\"></span> Nascondi descrizione <span class=\"glyphicon glyphicon-chevron-up\"></span>");
+            $("#collapseDescriptionControl").html("<span class=\"fas fa-chevron-up\"></span> Nascondi descrizione <span class=\"fas fa-chevron-up\"></span>");
         } else {
-            $("#collapseDescriptionControl").html("<span class=\"glyphicon glyphicon-chevron-down\"></span> Mostra descrizione <span class=\"glyphicon glyphicon-chevron-down\"></span>");
+            $("#collapseDescriptionControl").html("<span class=\"fas fa-chevron-down\"></span> Mostra descrizione <span class=\"fas fa-chevron-down\"></span>");
         }
     });
-    $("#collapseDescriptionControl").html("<span class=\"glyphicon glyphicon-chevron-down\"></span> Mostra descrizione <span class=\"glyphicon glyphicon-chevron-down\"></span>");
+    $("#collapseDescriptionControl").html("<span class=\"fas fa-chevron-down\"></span> Mostra descrizione <span class=\"fas fa-chevron-down\"></span>");
 
 });

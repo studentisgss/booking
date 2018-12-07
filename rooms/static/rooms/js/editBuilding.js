@@ -2,7 +2,7 @@
   // Let the possibility to modify address if javascipt is enabled
   // and disable the address form so only fillInAddress can fill it
   $(document).ready(function(){
-    $("#address-form").removeClass("hidden");
+    $("#address-form").removeClass("d-none");
     $("#address-message").remove();
     $("#id_address").prop('readonly', true);
   });

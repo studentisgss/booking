@@ -43,7 +43,7 @@ allRooms.push("{{r.pk}}");
 <h1>Gestione attività</h1>
 
 <div>
-    <form method="POST" class="form-horizontal">
+    <form method="POST">
         {% csrf_token %}
         {% if form.non_field_errors %}
             <div>
@@ -55,7 +55,7 @@ allRooms.push("{{r.pk}}");
             </div>
         {% endif %}
         <!-- TITLE -->
-        <div class="form-group">
+        <div class="form-group row">
             {% if form.title.errors %}
                 <div class="col-sm-12 col-md-12">
                     {% for error in form.title.errors %}
@@ -71,7 +71,7 @@ allRooms.push("{{r.pk}}");
             </div>
         </div>
         <!-- CLASS, PROFESSOR AND BROCHURE -->
-        <div class="form-group">
+        <div class="form-group row">
             {% if form.category.errors or form.professor.errors or form.brochure.errors %}
                 {% if form.category.errors %}
                     <div class="col-sm-4 col-md-3">
@@ -127,7 +127,7 @@ allRooms.push("{{r.pk}}");
             {% endif %}
         </div>
         <!-- MANAGERS AND ARCHIVED -->
-        <div class="form-group">
+        <div class="form-group row">
             {% if form.managers.errors or form.archived.errors %}
                 {% if form.managers.errors %}
                     <div class="col-sm-9 col-md-9">
@@ -162,7 +162,7 @@ allRooms.push("{{r.pk}}");
             </div>
         </div>
         <!-- DESCRIPTION -->
-        <div class="form-group">
+        <div class="form-group row">
             {% if form.description.errors %}
                 <div class="col-sm-12 col-md-10">
                     {% for error in form.description.errors %}
@@ -181,37 +181,37 @@ allRooms.push("{{r.pk}}");
         Le prenotazioni per le aule dove non si ha il permesso di approvazione verranno messe in attesa di conferma (le righe corrispondenti saranno evidenziate in giallo).</p>
         {% if eventForm.errors %}<p class="text-danger">Correggere gli errori indicati prima di salvare le modifiche.</p>{% endif %}
         <!-- CALENDAR BOOKING -->
-        <div class="container-fluid hidden" id="calendar-booking">
+        <div class="container-fluid d-none" id="calendar-booking">
             <div class="row">
             	<div class="col-sm-6 col-md-5 col-lg-4">
             		<div id="calendar" class="space-bottom"></div>
             	</div>
             	<div class="col-sm-6 col-md-7 col-lg-8">
-                    <div class="form-group">
+                    <div class="form-group row">
                         <label for="{{ emptyForm.room.id_for_label }}" class="col-sm-2 col-md-1 control-label">Aula:</label>
                         <div class="col-sm-10 col-md-11">
                             {{ emptyForm.room }}
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group row">
                         <label for="{{ emptyForm.start.id_for_label }}" class="col-sm-2 col-md-1 control-label">Inizio:</label>
                         <div class="col-sm-10 col-md-11">
                             {{ emptyForm.start }}
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group row">
                         <label for="{{ emptyForm.end.id_for_label }}" class="col-sm-2 col-md-1 control-label">Fine:</label>
                         <div class="col-sm-10 col-md-11">
                             {{ emptyForm.end }}
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group row">
                         <label for="{{ emptyForm.status.id_for_label }}" class="col-sm-2 col-md-1 control-label">Stato:</label>
                         <div class="col-sm-10 col-md-11">
                             {{ emptyForm.status }}
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group row">
                         <div class="col-sm-10 col-md-11">
                             <button type="button" class="btn btn-success" id="add-from-calendar"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Aggiungi</button>
                         </div>
@@ -236,7 +236,7 @@ allRooms.push("{{r.pk}}");
                 <th>Fine</th>
                 <th>Stato</th>
                 <th>Rimuovi</th>
-                <th class="hidden">Ripeti</th>
+                <th class="d-none">Ripeti</th>
                 <th></th>
             </tr>
             {% for f in eventForm.forms %}
@@ -284,19 +284,19 @@ allRooms.push("{{r.pk}}");
                     </td>
                     <td {% if f.non_field_errors %}class="no-border-top"{% endif %}>
                         {{ f.DELETE }}
-                        <button type="button" class="btn btn-danger btn-xs remover hidden">
-                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                        <button type="button" class="btn btn-danger btn-sm remover d-none">
+                            <span class="fas fa-trash-alt" aria-hidden="true"></span>
                         </button>
                     </td>
                     <td {% if f.non_field_errors %}class="no-border-top"{% endif %}>
-                        <button type="button" class="btn btn-warning btn-xs hidden" data-toggle="modal" data-target="#repeat-modal">
-                            <span class="glyphicon glyphicon-retweet" aria-hidden="true"></span>
+                        <button type="button" class="btn btn-warning btn-sm d-none" data-toggle="modal" data-target="#repeat-modal">
+                            <span class="fas fa-sync" aria-hidden="true"></span>
                         </button>
                     </td>
-                    <td class="hidden{% if f.non_field_errors %} no-border-top{% endif %}">{{ f.id }}{{ f.activity }}</td>
+                    <td class="d-none{% if f.non_field_errors %} no-border-top{% endif %}">{{ f.id }}{{ f.activity }}</td>
                 </tr>
             {% endfor %}
-            <tr id="tr-button" class="hidden">
+            <tr id="tr-button" class="d-none">
                 <td>
                     <input type="button" name="add-button" id="add-button" value="Aggiungi" class="form-control btn btn-success" />
                 </td>
@@ -307,7 +307,7 @@ allRooms.push("{{r.pk}}");
                 <td></td>
                 <td></td>
             </tr>
-            <tr class="hidden" id="tr-empty">
+            <tr class="d-none" id="tr-empty">
                 <td>
                     {{ emptyForm.room }}
                 </td>
@@ -322,16 +322,16 @@ allRooms.push("{{r.pk}}");
                 </td>
                 <td>
                     {{ emptyForm.DELETE }}
-                    <button type="button" class="btn btn-danger btn-xs remover hidden">
-                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                    <button type="button" class="btn btn-danger btn-sm remover hidden">
+                        <span class="fas fa-trash-alt" aria-hidden="true"></span>
                     </button>
                 </td>
                 <td>
-                    <button type="button" class="btn btn-warning btn-xs hidden" data-toggle="modal" data-target="#repeat-modal">
-                        <span class="glyphicon glyphicon-retweet" aria-hidden="true"></span>
+                    <button type="button" class="btn btn-warning btn-sm hidden" data-toggle="modal" data-target="#repeat-modal">
+                        <span class="fas fa-sync" aria-hidden="true"></span>
                     </button>
                 </td>
-                <td class="hidden">{{ emptyForm.id }}{{ emptyForm.activity }}</td>
+                <td class="d-none">{{ emptyForm.id }}{{ emptyForm.activity }}</td>
             </tr>
         </table>
 
@@ -346,21 +346,21 @@ allRooms.push("{{r.pk}}");
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">Ripeti</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body">
                 <form class="form-inline">
                     <p>Ripeti nei giorni:</p>
                     <div id="repeat-form">
                         <div class="form-group">
-                            <input type="checkbox" name="day" value="1" id="day1" class="form-control"><label class="space-right" for="day1">Luned&igrave;</label>
-                            <input type="checkbox" name="day" value="2" id="day2" class="form-control"><label class="space-right" for="day2">Marted&igrave;</label>
-                            <input type="checkbox" name="day" value="3" id="day3" class="form-control"><label class="space-right" for="day3">Mercoled&igrave;</label>
-                            <input type="checkbox" name="day" value="4" id="day4" class="form-control"><label class="space-right" for="day4">Gioved&igrave;</label>
-                            <input type="checkbox" name="day" value="5" id="day5" class="form-control"><label class="space-right" for="day5">Venerd&igrave;</label>
-                            <input type="checkbox" name="day" value="6" id="day6" class="form-control"><label class="space-right" for="day6">Sabato</label>
-                            <input type="checkbox" name="day" value="0" id="day0" class="form-control"><label class="space-right" for="day0">Domenica</label>
+                            <div class="form-check form-check-inline"><input type="checkbox" name="day" value="1" id="day1" class="form-control form-check-input"><label class="space-right form-check-label" for="day1">Luned&igrave;</label></div>
+                            <div class="form-check form-check-inline"><input type="checkbox" name="day" value="2" id="day2" class="form-control form-check-input"><label class="space-right form-check-label" for="day2">Marted&igrave;</label></div>
+                            <div class="form-check form-check-inline"><input type="checkbox" name="day" value="3" id="day3" class="form-control form-check-input"><label class="space-right form-check-label" for="day3">Mercoled&igrave;</label></div>
+                            <div class="form-check form-check-inline"><input type="checkbox" name="day" value="4" id="day4" class="form-control form-check-input"><label class="space-right form-check-label" for="day4">Gioved&igrave;</label></div>
+                            <div class="form-check form-check-inline"><input type="checkbox" name="day" value="5" id="day5" class="form-control form-check-input"><label class="space-right form-check-label" for="day5">Venerd&igrave;</label></div>
+                            <div class="form-check form-check-inline"><input type="checkbox" name="day" value="6" id="day6" class="form-control form-check-input"><label class="space-right form-check-label" for="day6">Sabato</label></div>
+                            <div class="form-check form-check-inline"><input type="checkbox" name="day" value="0" id="day0" class="form-control form-check-input"><label class="space-right form-check-label" for="day0">Domenica</label></div>
                         </div>
                         <p><br>A partire dal (compreso):</p>
                         <input type="text" name="date-from" id="date-from" class="form-control date">
@@ -370,7 +370,7 @@ allRooms.push("{{r.pk}}");
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Annulla</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Annulla</button>
                 <button type="button" class="btn btn-primary" id="btn-repeat">Conferma</button>
             </div>
         </div><!-- /.modal-content -->

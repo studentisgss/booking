@@ -2,3 +2,7 @@
     max-height: 250px;
     overflow-y: scroll;
 }
+
+.clear-user {
+    white-space: pre-wrap;
+}
