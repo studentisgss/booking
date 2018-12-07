@@ -15,26 +15,31 @@
 {% block main %}
 <div class="container-fluid">
 	<div class="row">
-		<div class="col-xs-10">
+		<div class="col-9 col-sm-10">
 			<h1>{{ activity.title }}</h1>
 			<h3>
                 {% if "A" not in activity.category %}
-				    <span class="label {% if activity.category == 'SN' %}label-success{% else %}{% if activity.category == 'SM' %}label-danger{% else %}label-info{% endif %}{% endif %}">Classe di {{ activity.get_category_display }}</span>
+				    <span class="badge {% if activity.category == 'SN' %}badge-success{% else %}{% if activity.category == 'SM' %}badge-danger{% else %}badge-info{% endif %}{% endif %}">Classe di {{ activity.get_category_display }}</span>
 			    {% endif %}
                  {% if activity.professor %}
-                    <span class="label label-default">{{ activity.professor }}</span>
+                    <span class="badge badge-secondary">{{ activity.professor }}</span>
+                {% endif %}
+                {% if activity.managers.all and user.is_authenticated %}
+                        <span class="badge badge-light">Referent{{ activity.managers.all|length|pluralize:"e,i" }}:{% for obj in activity.managers.all %} {{ obj.get_full_name }}{% if not forloop.last %},{% endif %}{% endfor %}</span>
                 {% endif %}
             </h3>
 		</div>
 		{% if user.is_authenticated %}
       {% if perms.activities.change_activity and can_manage_activity %}
-				<div class="col-xs-2">
-					<h1><a href="{% url "activities:edit" activity.pk %}" class="btn btn-info"><span class="glyphicon glyphicon-pencil"></span> Modifica</a></h1>
+				<div class="col-3 col-sm-2">
+					<div class="float-right">
+                        <h1><a href="{% url "activities:edit" activity.pk %}" class="btn btn-info"><span class="fas fa-edit"></span> Modifica</a></h1>
+                    </div>
 				</div>
       {% else %}
         {% if perms.events.change_event and is_manager %}
-          <div class="col-xs-2">
-            <h1><a href="{% url "activities:editmanager" activity.pk %}" class="btn btn-info"><span class="glyphicon glyphicon-pencil"></span> Modifica</a></h1>
+          <div class="col-3 col-sm-2">
+            <h1><a href="{% url "activities:editmanager" activity.pk %}" class="btn btn-info"><span class="fas fa-edit"></span> Modifica</a></h1>
           </div>
         {% endif %}
 			{% endif %}
@@ -43,13 +48,13 @@
 <div>
   {% if activity.description %}
 		<div class="row">
-			<div class="col-xs-12">
-      	<a id="collapseDescriptionControl" class="btn btn-default" data-toggle="collapse" href="#collapseDescription" aria-expanded="false" aria-controls="collapseDescription">
+			<div class="col-12">
+      	<a id="collapseDescriptionControl" class="btn btn-light border border-secondary mb-3" data-toggle="collapse" href="#collapseDescription" aria-expanded="false" aria-controls="collapseDescription">
             Mostra/Nascondi descrizione
         </a>
         	<div class="collapse" id="collapseDescription">
-						<div class="panel panel-default">
-							<div class="panel-body">
+						<div class="card bg-light">
+							<div class="card-body">
 					    	{{ activity.description|markdown }}
 							</div>
 						</div>
@@ -65,16 +70,16 @@
 			<th>Data</th>
 			<th>Orario</th>
             {% if has_exams %}<th>Esame</th> <!-- Empty column to mark the exams -->{% endif %}
-			<th>Aula</th>has_exams
+			<th>Aula</th>
 			<th>Approvazione</th>
 		</tr>
 	</thead>
 	<tbody>
 		{% for e in events_list %}
-			<tr {% if e.status == e.WAITING %}class="info"{% elif e.status == e.REJECTED %}class="danger"{% elif e.exam %}class="success" title="Esame"{% endif %}>
-				<td><div class="hidden">|{{ e.start | date:'Ymd' }}|</div>{{ e.start | date:'d F Y' }}</td>
+			<tr {% if e.status == e.WAITING %}class="table-info"{% elif e.status == e.REJECTED %}class="table-danger"{% elif e.exam %}class="table-dark" title="Esame"{% endif %}>
+				<td><div class="d-none">|{{ e.start | date:'Ymd' }}|</div>{{ e.start | date:'d F Y' }}</td>
 				<td>{{ e.start | date:'H:i' }} - {{ e.end | date:'H:i' }}</td>
-                {% if has_exams %}<td class="text-center">{% if e.exam %}<span class="glyphicon glyphicon-edit"></span>{% endif %}</td>{% endif %}
+                {% if has_exams %}<td class="text-center">{% if e.exam %}<span class="fas fa-tasks"></span>{% endif %}</td>{% endif %}
 				<td><a href="{% url "rooms:details" e.room.pk %}">{{ e.room.get_full_name }}</a></td>
 				<td>{% if e.status == e.APPROVED %}Confermata{% elif e.status == e.WAITING %}In attesa{% else %}Rifiutata{% endif %}</td>
 			</tr>

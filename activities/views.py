@@ -133,7 +133,10 @@ class ActivityManagerEditView(LoginRequiredMixin, PermissionRequiredMixin, Templ
                 activity = Activity.objects.all().get(pk=kwargs["pk"])
             except:
                 raise Http404
-            form = ActivityForm(self.request.POST, instance=activity)
+            if self.check_for_manager:                      # If the user is a manager the POST for
+                form = ActivityForm(instance=activity)      # the activity will be empty, so do not
+            else:                                           # use it. Otherwise use it.
+                form = ActivityForm(self.request.POST, instance=activity)
             events_form = EventInlineFormSet(self.request.POST, instance=activity)
         else:
             raise Http404
@@ -158,11 +161,25 @@ class ActivityManagerEditView(LoginRequiredMixin, PermissionRequiredMixin, Templ
             roompermission__group__in=self.request.user.groups.all()
         )
         context["rooms_all"] = rooms
+        # If the user is in more than one group consider only those with all permission set to 10
         rooms_waiting = Room.objects.filter(
             roompermission__group__in=self.request.user.groups.all(),
             roompermission__permission=10
         )
-        context["rooms_waiting"] = rooms_waiting
+        # Exclude rooms for which he user has a higer permission from another group
+
+        # THIS SIMPLE SOLUTION DOES NOT WORK ON MYSQL... So I had to use tho next one
+        # rooms_waiting_exclude = Room.objects.filter(
+        #     roompermission__group__in=self.request.user.groups.all(),
+        #     roompermission__permission__gt=10
+        # )
+        # context["rooms_waiting"] = rooms_waiting.difference(rooms_waiting_exclude)
+
+        rooms_waiting_exclude = Room.objects.filter(
+            roompermission__group__in=self.request.user.groups.all(),
+            roompermission__permission__gt=10
+        ).values_list("id", flat=True)
+        context["rooms_waiting"] = rooms_waiting.exclude(id__in=rooms_waiting_exclude).distinct()
 
         # Fill the choices for the rooms in the form, grouping the options by building
 

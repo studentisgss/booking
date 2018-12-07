@@ -5,8 +5,3 @@
 .top-buffer {
     margin-top: 8px;
 }
-
-.table td.fit-column,
-.table th.fit-column {
-    white-space: nowrap;
-}

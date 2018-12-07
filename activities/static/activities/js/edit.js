@@ -3,7 +3,7 @@ var repeatTarget = null;
 
 // HELPER FUNCTION
 function setWaitingWarning(tr) {
-    tr.addClass("bg-warning");
+    tr.addClass("table-warning");
     tr.attr("title", "Questa prenotazione verrà messa in attesa di approvazione.");
     var select = $("select[name*='status']", tr);
     if (select.val() == 0) {
@@ -13,7 +13,7 @@ function setWaitingWarning(tr) {
 }
 
 function removeWaitingWarning(tr) {
-    tr.removeClass("bg-warning");
+    tr.removeClass("table-warning");
     tr.attr("title", "");
     var valOriginal = $("select[name*='status']", tr).val();
     $("select[name*='status']", tr).html(
@@ -23,10 +23,10 @@ function removeWaitingWarning(tr) {
 }
 
 function setNoPermissionWarning(tr) {
-    tr.addClass("bg-danger");
+    tr.addClass("table-danger");
     tr.attr("title", "Non si possiede nessun permesso su quest'aula. Per poter modificare questa prenotazione si deve selezionare un'altra aula.");
     $("input", tr).prop("readonly", true);
-    $("button > span.glyphicon-retweet", tr).parent().prop("disabled", true);
+    $("button > span.fa-sync", tr).parent().prop("disabled", true);
     var status = $("select[name*='status']", tr);
     $("option:not(:selected)", status).each(function() {
         $(this).remove();
@@ -34,9 +34,9 @@ function setNoPermissionWarning(tr) {
 }
 
 function removeNoPermissionWarning(tr) {
-    tr.removeClass("bg-danger");
+    tr.removeClass("table-danger");
     $("input", tr).prop("readonly", false);
-    $("button > span.glyphicon-retweet", tr).parent().prop("disabled", false);
+    $("button > span.fa-sync", tr).parent().prop("disabled", false);
     $("option", this).filter(function(i, el){
         return (allRooms.indexOf(el.value) == -1) && (el.value != "");
     }).remove();
@@ -73,7 +73,7 @@ function addForm(element, before = false) {
     else {
         el.insertBefore($('#tr-button'));
     }
-    el.removeClass("hidden");
+    el.removeClass("d-none");
     $(".datetime:even", el).removeClass("hasDatepicker");
     $(".datetime:even", el).datepicker();
     return el;
@@ -143,9 +143,9 @@ $(document).ready(function() {
 	});
 
     // Enhance delete
-    var span = $("span.glyphicon-trash");
-    span.parent().removeClass("hidden");
-    span.parent().siblings("input").addClass("hidden");
+    var span = $("span.fa-trash-alt");
+    span.parent().removeClass("d-none");
+    span.parent().siblings("input").addClass("d-none");
 
     $(document).on("click", "button.remover", function() {
         if ($(this).siblings("input").prop("checked")) {
@@ -154,14 +154,14 @@ $(document).ready(function() {
             $("input", removeTr).each(function(i){
                 $(this).prop("readonly", $(this).data("previous-state"));
             });
-            $("button > span.glyphicon-retweet", removeTr).parent().prop("disabled", $("button > span.glyphicon-retweet", removeTr).parent().data("previous-state"));
+            $("button > span.fa-sync", removeTr).parent().prop("disabled", $("button > span.fa-sync", removeTr).parent().data("previous-state"));
             $("td:not(:nth-last-child(3))", removeTr).css("opacity", 1);
             // Check if the previous tr is an error
             if ($(removeTr).prev().children().length == 1) {
                 $(removeTr).prev().css("opacity", 1);
             }
             //Chage the button
-            $(this).html("<span class=\"glyphicon glyphicon-trash\" aria-hidden=\"true\"></span>");
+            $(this).html("<span class=\"fas fa-trash-alt\" aria-hidden=\"true\"></span>");
             $(this).removeClass("btn-info");
             $(this).addClass("btn-danger");
         } else {
@@ -171,15 +171,15 @@ $(document).ready(function() {
                 $(this).data("previous-state", $(this).prop("readonly"));
                 $(this).prop("readonly", true);
             });
-            $("button > span.glyphicon-retweet", removeTr).parent().data("previous-state", $("button > span.glyphicon-retweet", removeTr).parent().prop("disabled"));
-            $("button > span.glyphicon-retweet", removeTr).parent().prop("disabled", true);
+            $("button > span.fa-sync", removeTr).parent().data("previous-state", $("button > span.fa-sync", removeTr).parent().prop("disabled"));
+            $("button > span.fa-sync", removeTr).parent().prop("disabled", true);
             $("td:not(:nth-last-child(3))", removeTr).css("opacity", 0.3);
             // Check if the previous tr is an error
             if ($(removeTr).prev().children().length == 1) {
                 $(removeTr).prev().css("opacity", 0.3);
             }
             //Chage the button
-            $(this).html("<span class=\"glyphicon glyphicon-repeat\" aria-hidden=\"true\"></span>");
+            $(this).html("<span class=\"fas fa-undo\" aria-hidden=\"true\"></span>");
             $(this).removeClass("btn-danger");
             $(this).addClass("btn-info");
         }
@@ -192,14 +192,14 @@ $(document).ready(function() {
     });
 
     // Add button
-    $("#tr-button").removeClass("hidden");
+    $("#tr-button").removeClass("d-none");
     $("#add-button").on("click", function() {
         addForm($('#tr-empty'));
     });
 
     //REPEAT FUNCTION
-    $("button[data-target=\"#repeat-modal\"]").removeClass("hidden");
-    $("th").removeClass("hidden");
+    $("button[data-target=\"#repeat-modal\"]").removeClass("d-none");
+    $("th").removeClass("d-none");
 
     $("#repeat-modal").on("show.bs.modal", function(e) {
         clearModal();

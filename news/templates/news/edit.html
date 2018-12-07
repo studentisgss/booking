@@ -29,7 +29,7 @@
             </div>
         {% endif %}
         {% for field in form %}
-            <div class="form-group {% if field.errors %}has-error{% endif %}">
+            <div class="form-group {% if field.errors %}is-invalid{% endif %}">
                 {{ field.label_tag }}
                 {% if field.errors %}
                     <div>

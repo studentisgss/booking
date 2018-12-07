@@ -8,12 +8,25 @@
 
 {% block main %}
 <h1>Agenda</h1>
-<p>Lista degli eventi</p>
+
+<div class="row mb-3">
+  <div class="col-md-5">
+      <div class="btn-group">
+          <a href="{% url 'events:agenda' %}" class="btn {% if not clas %}btn-info{% else %}btn-secondary{% endif %}">Tutto</a>
+          <a href="{% url 'events:agenda' "SM" %}" class="btn {% if clas == 'SM' %}btn-info{% else %}btn-secondary{% endif %}">SM</a>
+          <a href="{% url 'events:agenda' "SN" %}" class="btn {% if clas == 'SN' %}btn-info{% else %}btn-secondary{% endif %}">SN</a>
+          <a href="{% url 'events:agenda' "SS" %}" class="btn {% if clas == 'SS' %}btn-info{% else %}btn-secondary{% endif %}">SS</a>
+          <a href="{% url 'events:agenda' "A" %}" class="btn {% if clas == 'A' %}btn-info{% else %}btn-secondary{% endif %}">Altro</a>
+      </div>
+  </div>
+</div>
 
 {% if not list %}
 
-<div class="panel">
-    <p class="top-buffer">Nessun evento.</p>
+<div class="card">
+    <div class="card-body">
+        <p class="card-text">Nessun evento.</p>
+    </div>
 </div>
 
 {% else %}
@@ -40,21 +53,29 @@
 </table>
 
 <div id="pagination" class="container-fluid">
-    <ul class="pager">
+    <ul class="pagination justify-content-center">
         {% if list.has_previous %}
-            <li class="previous">
-                <a href="{% url 'events:agenda' list.previous_page_number %}"><span>&laquo; Precedenti</span></a>
+            <li class="page-item">
+              {% if clas %}
+                <a class="page-link" href="{% url 'events:agenda' clas list.previous_page_number %}"><span>&laquo; Precedenti</span></a>
+              {% else %}
+                <a class="page-link" href="{% url 'events:agenda' list.previous_page_number %}"><span>&laquo; Precedenti</span></a>
+              {% endif %}
             </li>
         {% else %}
-            <li class="previous disabled"><span>&laquo; Precedenti</span></li>
+            <li class="page-item disabled"><span class="page-link">&laquo; Precedenti</span></li>
         {% endif %}
-            <li><span>Pagina {{ list.number }} di {{ list.paginator.num_pages }}</span></li>
+            <li class="page-item disabled"><span class="page-link text-muted">Pagina {{ list.number }} di {{ list.paginator.num_pages }}</span></li>
         {% if list.has_next %}
-            <li class="next">
-                <a href="{% url 'events:agenda' list.next_page_number %}"><span>Successivi &raquo;</span></a>
+            <li class="page-item">
+              {% if clas %}
+                <a class="page-link" href="{% url 'events:agenda' clas list.next_page_number %}"><span>Successivi &raquo;</span></a>
+              {% else %}
+                <a class="page-link" href="{% url 'events:agenda' list.next_page_number %}"><span>Successivi &raquo;</span></a>
+              {% endif %}
             </li>
         {% else %}
-            <li class="next disabled"><span>Successivi &raquo;</span></li>
+            <li class="page-item disabled"><span class="page-link">Successivi &raquo;</span></li>
         {% endif %}
     </ul>
 </div>

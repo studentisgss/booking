@@ -15,21 +15,21 @@
 {% block main %}
 <h1>Calendario delle prenotazioni &ndash; {{ date | date:'l d F Y' }}</h1>
 <div class="row">
-	<div class="col-sm-6 col-md-5 col-lg-4">
-		<div id="calendar" class="top-buffer"></div>
+	<div class="col-md-6 col-lg-5 col-xl-4">
+		<div id="calendar" class="top-buffer pb-3"></div>
 	</div>
-	<div class="col-sm-6 col-md-7 col-lg-8" id="events-table">
+	<div class="col-md-6 col-lg-7 col-xl-8" id="events-table">
 		{% if events %}
 			{% regroup events|dictsort:"room_id" by room as events_by_room %}
 			{% for room_events in events_by_room %}
-				<table class="table table-hover table-striped">
+				<table class="table table-hover table-striped border-top-0">
 					<thead>
 						<tr>
-							<th colspan="2"><span class="h2"><a href="{% url "rooms:details" room_events.grouper.pk %}">{{ room_events.grouper.get_full_name }}</a></span></th>
+							<th colspan="2" class="border-top-0"><span class="h2 font-weight-normal"><a href="{% url "rooms:details" room_events.grouper.pk %}">{{ room_events.grouper.get_full_name }}</a></span></th>
 						</tr>
 						<tr>
-							<th class="col-md-3">Orario</th>
-							<th class="col-md-9">Attività</th>
+							<th class="w-25">Orario</th>
+							<th class="w-75">Attività</th>
 						</tr>
 					</thead>
 					<tbody>
