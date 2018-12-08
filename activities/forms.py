@@ -32,3 +32,12 @@ class ActivityForm(BookingModelForm):
 
     def managers_label_from_instance(self, obj):
         return obj.get_full_name()
+
+    def clean_description(self):
+        # Remove default lines in description__icontains
+        spl_descr = Activity.DESCRIPTION_TEMPLATE.strip()
+        act_descr = self.cleaned_data["description"].strip()
+        # In UNIX system, there can be problem with "\r" auto adding, so we delete it
+        act_descr = act_descr.replace('\r', '')
+        spl_descr = spl_descr.replace('\r', '')
+        return act_descr.replace(spl_descr, '').strip()

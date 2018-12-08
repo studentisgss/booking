@@ -20,7 +20,7 @@ class Building(models.Model):
     def __str__(self):
         return self.name
 
-    name = models.CharField(max_length=30, unique=True, verbose_name=_("nome"))
+    name = models.CharField(max_length=50, unique=True, verbose_name=_("nome"))
     address = models.CharField(max_length=100, unique=True, verbose_name=_("indirizzo"))
     creator = models.ForeignKey(
         User,
@@ -49,6 +49,7 @@ class Room(models.Model):
             ("can_book_room", _("Può prenotare qualche aula")),
             ("can_change_important", _("Può cambiare importanza aula")),
         )
+        unique_together = ("name", "building")
 
     def __str__(self):
         return "%s %s-%s" % ("*" if self.important else "", self.name, self.building.name)
@@ -70,7 +71,7 @@ class Room(models.Model):
                 permission = RoomPermission(room=self, group=group, permission=10)
                 permission.save()
 
-    name = models.CharField(max_length=30, unique=True, verbose_name=_("nome"))
+    name = models.CharField(max_length=30, unique=False, verbose_name=_("nome"))
     description = models.CharField(max_length=100, blank=True, verbose_name=_("descrizione"))
     important = models.BooleanField(default=False, verbose_name=_("importante"))
     building = models.ForeignKey(

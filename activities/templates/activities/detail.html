@@ -5,8 +5,10 @@
 
 {% block head-extra %}
 <link href="{% static 'css/datatables.min.css' %}" rel="stylesheet" />
+<link href="{% static 'activities/css/detail.css' %}" rel="stylesheet" />
 
 <script type="text/javascript" src="{% static 'js/datatables.min.js' %}" ></script>
+<script type="text/javascript" src="{% static 'js/datatables_custom.js' %}" ></script>
 <script type="text/javascript" src="{% static 'activities/js/detail.js' %}"></script>
 
 <link href="{% static 'css/feed.css' %}" rel="stylesheet" />
@@ -16,26 +18,31 @@
 {% block main %}
 <div class="container-fluid">
 	<div class="row">
-		<div class="col-xs-10">
+		<div class="col-9 col-sm-10">
 			<h1>{{ activity.title }}</h1>
 			<h3>
                 {% if "A" not in activity.category %}
-				    <span class="label {% if activity.category == 'SN' %}label-success{% else %}{% if activity.category == 'SM' %}label-danger{% else %}label-info{% endif %}{% endif %}">Classe di {{ activity.get_category_display }}</span>
+				    <span class="badge {% if activity.category == 'SN' %}badge-success{% else %}{% if activity.category == 'SM' %}badge-danger{% else %}badge-info{% endif %}{% endif %}">Classe di {{ activity.get_category_display }}</span>
 			    {% endif %}
                  {% if activity.professor %}
-                    <span class="label label-default">{{ activity.professor }}</span>
+                    <span class="badge badge-secondary">{{ activity.professor }}</span>
+                {% endif %}
+                {% if activity.managers.all and user.is_authenticated %}
+                        <span class="badge badge-light">Referent{{ activity.managers.all|length|pluralize:"e,i" }}:{% for obj in activity.managers.all %} {{ obj.get_full_name }}{% if not forloop.last %},{% endif %}{% endfor %}</span>
                 {% endif %}
             </h3>
 		</div>
 		{% if user.is_authenticated %}
       {% if perms.activities.change_activity and can_manage_activity %}
-				<div class="col-xs-2">
-					<h1><a id="edit-a" href="{% url "activities:edit" activity.pk %}" class="btn btn-info col-xs-12"><span class="glyphicon glyphicon-pencil"></span> Modifica</a></h1>
+				<div class="col-3 col-sm-2">
+					<div class="float-right">
+                        <h1><a id="edit-a" href="{% url "activities:edit" activity.pk %}" class="btn btn-info"><span class="fas fa-edit"></span> Modifica</a></h1>
+                    </div>
 				</div>
       {% else %}
         {% if perms.events.change_event and is_manager %}
-          <div class="col-xs-2">
-            <h1><a href="{% url "activities:editmanager" activity.pk %}" class="btn btn-info"><span class="glyphicon glyphicon-pencil"></span> Modifica</a></h1>
+          <div class="col-3 col-sm-2">
+            <h1><a href="{% url "activities:editmanager" activity.pk %}" class="btn btn-info"><span class="fas fa-edit"></span> Modifica</a></h1>
           </div>
         {% endif %}
 			{% endif %}
@@ -43,31 +50,31 @@
 	</div>
 	<div class="row">
         {% if activity.description %}
-        <div class="col-md-9 col-xs-7">
-            <a id="collapseDescriptionControl" class="btn btn-default" data-toggle="collapse" href="#collapseDescription" aria-expanded="false" aria-controls="collapseDescription">
+        <div class="col-md-7 col-5">
+            <a id="collapseDescriptionControl" class="btn btn-light border border-secondary mb-3" data-toggle="collapse" href="#collapseDescription" aria-expanded="false" aria-controls="collapseDescription">
                 Mostra/Nascondi descrizione
             </a>
         </div>
         {% if not activity.archived %}
-            <div class="col-md-3 col-xs-5 text-right">
-                <div class="btn-group">
-                    <a href="{% url 'activities:ics' activity.id %}" class="btn btn-xs btn-success feed-link" id="ics-link" tabindex="0" role="button" data-title="Feed iCal" data-content="" data-toggle="popover">
-                        <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+            <div class="col-md-5 col-7">
+                <div class="btn-group float-right">
+                    <a href="{% url 'activities:ics' activity.id %}" class="btn btn-sm btn-success feed-link" id="ics-link" tabindex="0" role="button" data-title="Feed iCal" data-content="" data-toggle="popover">
+                        <span class="fas fa-calendar-alt" aria-hidden="true"></span>
                         <span>iCal</span>
                     </a>
-                    <a href="{% url 'activities:rss' activity.id %}" class="btn btn-xs btn-warning feed-link" id="rss-link" tabindex="0" role="button" data-title="Feed RSS" data-content="" data-toggle="popover">
+                    <a href="{% url 'activities:rss' activity.id %}" class="btn btn-sm btn-warning feed-link" id="rss-link" tabindex="0" role="button" data-title="Feed RSS" data-content="" data-toggle="popover">
                         <img id="feed-icon" src="{% static 'img/feed.svg' %}" />
                         <span>RSS</span>
                     </a>
-                    <a href="{% url 'activities:atom' activity.id %}" class="btn btn-xs btn-warning feed-link" id="atom-link" tabindex="0" role="button" data-title="Feed Atom" data-content="" data-toggle="popover">Atom</a>
-                    <a href="{% url 'news:messages' activity.id %}" class="btn btn-xs btn-primary">Messaggi {% if message_count != 0 %}<span class="badge">{{ message_count }}</span>{% endif %}</a>
+                    <a href="{% url 'activities:atom' activity.id %}" class="btn btn-sm btn-warning feed-link" id="atom-link" tabindex="0" role="button" data-title="Feed Atom" data-content="" data-toggle="popover">Atom</a>
+                    <a href="{% url 'news:messages' activity.id %}" class="btn btn-sm btn-primary">Messaggi {% if message_count != 0 %}<span class="badge badge-pill badge-light">{{ message_count }}</span>{% endif %}</a>
                 </div>
             </div>
         {% endif %}
-    	<div class="col-xs-12">
+    	<div class="col-12">
             <div class="collapse" id="collapseDescription">
-				<div class="panel panel-default">
-					<div class="panel-body">
+				<div class="card bg-light">
+					<div class="card-body">
     				    {{ activity.description|markdown }}
 					</div>
 				</div>
@@ -76,18 +83,20 @@
     	</div>
         {% else %}
             {% if not activity.archived %}
-                <div class="btn-group col-xs-12">
-                    <a href="{% url 'activities:ics' activity.id %}" class="btn btn-xs btn-success">
-                        <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+            <div class="col-12">
+                <div class="btn-group">
+                    <a href="{% url 'activities:ics' activity.id %}" class="btn btn-sm btn-success feed-link" id="ics-link" tabindex="0" role="button" data-title="Feed iCal" data-content="" data-toggle="popover">
+                        <span class="fas fa-calendar-alt" aria-hidden="true"></span>
                         <span>iCal</span>
                     </a>
-                    <a href="{% url 'activities:rss' activity.id %}" class="btn btn-xs btn-warning">
+                    <a href="{% url 'activities:rss' activity.id %}" class="btn btn-sm btn-warning feed-link" id="rss-link" tabindex="0" role="button" data-title="Feed RSS" data-content="" data-toggle="popover">
                         <img id="feed-icon" src="{% static 'img/feed.svg' %}" />
                         <span>RSS</span>
                     </a>
-                    <a href="{% url 'activities:atom' activity.id %}" class="btn btn-xs btn-warning">Atom</a>
-                    <a href="{% url 'news:messages' activity.id %}" class="btn btn-xs btn-primary">Messaggi {% if message_count != 0 %}<span class="badge">{{ message_count }}</span>{% endif %}</a>
+                    <a href="{% url 'activities:atom' activity.id %}" class="btn btn-sm btn-warning feed-link" id="atom-link" tabindex="0" role="button" data-title="Feed Atom" data-content="" data-toggle="popover">Atom</a>
+                    <a href="{% url 'news:messages' activity.id %}" class="btn btn-sm btn-primary">Messaggi {% if message_count != 0 %}<span class="badge badge-pill badge-light">{{ message_count }}</span>{% endif %}</a>
                 </div>
+            </div>
             {% endif %}
         <div class="col-xs-12">
             <br />
@@ -106,8 +115,8 @@
 	</thead>
 	<tbody>
 		{% for e in events_list %}
-			<tr {% if e.status == e.WAITING %}class="info"{% elif e.status == e.REJECTED %}class="danger"{% endif %}>
-				<td>{{ e.start | date:'d F Y' }}</td>
+			<tr {% if e.status == e.WAITING %}class="table-info"{% elif e.status == e.REJECTED %}class="table-danger"{% endif %}>
+				<td><div class="d-none">|{{ e.start | date:'Ymd' }}|</div>{{ e.start | date:'d F Y' }}</td>
 				<td>{{ e.start | date:'H:i' }} - {{ e.end | date:'H:i' }}</td>
 				<td><a href="{% url "rooms:details" e.room.pk %}">{{ e.room.get_full_name }}</a></td>
 				<td>{% if e.status == e.APPROVED %}Confermata{% elif e.status == e.WAITING %}In attesa{% else %}Rifiutata{% endif %}</td>

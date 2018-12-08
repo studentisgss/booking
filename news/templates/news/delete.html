@@ -6,34 +6,38 @@
 </div>
 
 <div>
-    <div class="panel">
-        <table class="table">
-            <tr>
-                <td class="col-xs-3">Titolo: </td>
-                <td class="col-xs-9">{{ news.title }}</td>
-            </tr>
-            <tr>
-                <td>Contenuto: </td>
-                <td>{{ news.content }}</td>
-            </tr>
-            <tr>
-                <td>Visualizzata dal: </td>
-                <td>{{ news.start|date:'d/m/Y' }}</td>
-            </tr>
-            <tr>
-                <td>Fino al: </td>
-                <td>{{ news.end|date:'d/m/Y' }}</td>
-            </tr>
-        </table>
+    <div class="card">
+        <div class="card-body">
+            <table class="table">
+                <tr>
+                    <td class="w-25 border-top-0">Titolo: </td>
+                    <td class="w-75 border-top-0">{{ news.title }}</td>
+                </tr>
+                <tr>
+                    <td>Contenuto: </td>
+                    <td>{{ news.content }}</td>
+                </tr>
+                <tr>
+                    <td>Visualizzata dal: </td>
+                    <td>{{ news.start|date:'d/m/Y' }}</td>
+                </tr>
+                <tr>
+                    <td>Fino al: </td>
+                    <td>{{ news.end|date:'d/m/Y' }}</td>
+                </tr>
+            </table>
+        </div>
     </div>
-    <div class="panel lead">
-    <p>Sicuro di volere eliminare questo avviso?</p>
+    <div class="card bg-light lead mt-3">
+        <div class="card-body">
+            <p>Sicuro di volere eliminare questo avviso?</p>
 
-    <form method="POST" action="">
-        {% csrf_token %}
-        <input type="submit" value="S&igrave;, sono sicuro." name="confirm" class="btn btn-danger">
-        <a href="{% url 'news:news' %}" class="btn btn-info">No, torna indietro.</a>
-    </form>
+            <form method="POST" action="">
+                {% csrf_token %}
+                <input type="submit" value="S&igrave;, sono sicuro." name="confirm" class="btn btn-danger">
+                <a href="{% url 'news:news' %}" class="btn btn-info">No, torna indietro.</a>
+            </form>
+        </div>
     </div>
 </div>
 {% endblock main %}

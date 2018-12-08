@@ -1,8 +1,8 @@
-#edit-a {
-    margin-top: 8px;
-    margin-bottom: 10px;
-}
+#events_table_wrapper {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
 
-.popover.in {
-    min-width: 276px;
-}
+#edit-a {
+        margin-top: 8px;
+        margin-bottom: 10px;
+    }
