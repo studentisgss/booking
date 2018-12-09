@@ -51,7 +51,7 @@
         		{% for e in events_list %}
         	    <tr>
                     <td>
-                        <a href="{% url "activities:details" e.activity.pk %}">{{ e.activity.get_full_title }}</a>
+                        <a href="{% url "activities:details" e.activity.pk %}">{{ e.get_full_title }}</a>
                     </td>
                     <td>
                         {{ e.room.get_full_name }}
