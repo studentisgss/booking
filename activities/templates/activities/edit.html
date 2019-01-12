@@ -233,6 +233,7 @@ allRooms.push("{{r.pk}}");
                 <th>Aula</th>
                 <th>Inizio</th>
                 <th>Fine</th>
+                <th>Esame</th>
                 <th>Stato</th>
                 <th>Rimuovi</th>
                 <th class="d-none">Ripeti</th>
@@ -269,6 +270,14 @@ allRooms.push("{{r.pk}}");
                         {{ f.end }}
                         {% if f.end.errors %}
                                 {% for error in f.end.errors %}
+                                    <p class="text-danger">{{ error|escape }}</p>
+                                {% endfor %}
+                        {% endif %}
+                    </td>
+                    <td {% if f.non_field_errors %}class="no-border-top"{% endif %}>
+                        {{ f.exam }}
+                        {% if f.exam.errors %}
+                                {% for error in f.exam.errors %}
                                     <p class="text-danger">{{ error|escape }}</p>
                                 {% endfor %}
                         {% endif %}

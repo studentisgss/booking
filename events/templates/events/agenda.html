@@ -46,7 +46,7 @@
         <td class="fit-column">{{ e.start|date:"d/m/Y" }}</td>
         <td class="fit-column">{{ e.start|date:"G:i" }} - {{ e.end|date:"G:i" }}</td>
         <td class="fit-column"><a href="{% url "rooms:details" e.room.pk %}">{{ e.room.get_full_name }}</a></td>
-        <td><a href="{% url "activities:details" e.activity.pk %}">{{ e.activity.get_full_title }}</a></td>
+        <td><a href="{% url "activities:details" e.activity.pk %}">{{ e.get_full_title }}</a></td>
       </tr>
   {% endfor %}
   </tbody>
