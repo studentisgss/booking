@@ -3,6 +3,16 @@
 
 {% block head-extra %}
   <link href="{% static 'rooms/css/editBuilding.css' %}" rel="stylesheet" />
+
+  <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.1/mapbox-gl.js'></script>
+  <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.1/mapbox-gl.css' rel='stylesheet' />
+  <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v3.1.6/mapbox-gl-geocoder.min.js'></script>
+  <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v3.1.6/mapbox-gl-geocoder.css' type='text/css' />
+
+  <script>
+    mapboxgl.accessToken = '{{TOKEN}}';
+  </script>
+
   <script type="text/javascript" src="{% static 'rooms/js/editBuilding.js' %}"></script>
 {% endblock head-extra %}
 
@@ -38,9 +48,7 @@
     <div id="address-form" class="d-none">
       <div class="form-group {% if buildingForm.address.errors %}is-invalid{% endif %}">
         {{ buildingForm.address.label_tag }}
-        <div id="locationField">
-          <input id="autocomplete" placeholder="Cerca un indirizzo" class="form-control" type="text">
-        </div>
+        <div id="locationField"></div>
         <br/>
         {% if buildingForm.address.errors %}
           <div>
@@ -58,9 +66,6 @@
       <span class="fas fa-exclamation-triangle"></span>
         Non è possibile modificare l'indirizzo, attiva Javascript dalle impostazioni del tuo browser.
       </div>
-
-        <script src="https://maps.googleapis.com/maps/api/js?key={{ API_KEY }}&libraries=places&callback=initAutocomplete"
-  async defer></script>
 
   <input type="submit" {% if pendingRoom %} name="pendingRoom" {% endif %} value="Salva {% if pendingRoom %} e torna a {% if editPendingRoom %} modifica {% else %} crea nuova {% endif %} aula {% endif %} " class="form-control btn btn-info">
 

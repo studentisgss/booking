@@ -13,7 +13,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.core.urlresolvers import reverse
 from django.core.exceptions import PermissionDenied
 
-from booking.settings import GOOGLE_MAPS_API_KEY
+from booking.settings import MAPBOX_TOKEN, GOOGLE_MAPS_API_KEY
 from rooms.models import Group, Room, Building, RoomRule, RoomPermission
 from rooms.forms import RoomForm, BuildingForm, RoomRuleInlineFormSet, \
     RoomPermissionInlineFormSet, RoomRuleForm, RoomPermissionForm, get_default_permissions
@@ -288,8 +288,8 @@ class EditBuildingView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        # This key is needed for using google maps api
-        context["API_KEY"] = GOOGLE_MAPS_API_KEY
+        # This key is needed for using mapbox api
+        context["TOKEN"] = MAPBOX_TOKEN
         # Put in the context if we have a pending editing/creation a room
         if "pendingRoom" in self.request.session and self.request.session["pendingRoom"]:
             self.request.session["pendingRoom"] = False

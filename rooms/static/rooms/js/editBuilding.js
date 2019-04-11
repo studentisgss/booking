@@ -5,72 +5,59 @@
     $("#address-form").removeClass("d-none");
     $("#address-message").remove();
     $("#id_address").prop('readonly', true);
+
+    function updateGeocoderProximity() {
+        // proximity is designed for local scale, if the user is looking at the whole world,
+        // it doesn't make sense to factor in the arbitrary centre of the map
+        if (map.getZoom() > 9) {
+            var center = map.getCenter().wrap(); // ensures the longitude falls within -180 to 180 as the Geocoding API doesn't accept values outside this range
+            geocoder.setProximity({ longitude: center.lng, latitude: center.lat });
+        } else {
+            geocoder.setProximity(null);
+        }
+    }
+
+  var map = new mapboxgl.Map({
+  container: 'map',
+  style: 'mapbox://styles/mapbox/streets-v11',
+  center: [11.8874945, 45.4050894],
+  zoom: 13
   });
 
-  // Fill the address using the Google Maps API
-  var placeSearch, autocomplete, map, marker;
+  var geocoder = new MapboxGeocoder({
+  accessToken: mapboxgl.accessToken
+  });
 
-  function initAutocomplete() {
-    var input = document.getElementById('autocomplete');
-    // Create the autocomplete object.
-    autocomplete = new google.maps.places.Autocomplete(
-        /** @type {!HTMLInputElement} */(input),
-        {types: ['address']});
-    // Crate the maps centered at Collegio Morgagni 45.4050894,11.8874945; zoom 14 center in the address if edit
-    map = new google.maps.Map(document.getElementById('map'), {
-      center: {lat: 45.4050894, lng: 11.8874945},
-      zoom: 14
-    });
-    // Center the map at the existing address of the building
-    // (if we are creating a new building will remani the address of Coleggio Morgagni)
-    var geocoder = new google.maps.Geocoder();
-    // take the address from the form
-    var address = document.getElementById('id_address').value;
-    geocoder.geocode({'address': address}, function(results, status) {
-      if (status === 'OK') {
-        map.setCenter(results[0].geometry.location);
-        map.setZoom(17);
-        // inizialize the marker whit the address
-        marker = new google.maps.Marker({
-          map: map,
-          position: results[0].geometry.location
-        });
-      } else {
-      // inizialize the marker
-        marker = new google.maps.Marker({
-          map: map,
-          anchorPoint: new google.maps.Point(0, -29)
-        });
-      }
-    });
-    // Bind the map's bounds (viewport) property to the autocomplete object,
-    // so that the autocomplete requests use the current map bounds for the
-    // bounds option in the request.
-    autocomplete.bindTo('bounds', map);
-    // When the user selects an address from the dropdown, populate the address form
-    // and recenter the map
-    autocomplete.addListener('place_changed', fillInAddress);
-  }
+  document.getElementById('locationField').appendChild(geocoder.onAdd(map));
 
-    function fillInAddress() {
-    marker.setVisible(false);
-    // Get the place details from the autocomplete object.
-    var place = autocomplete.getPlace();
-    if (!place.geometry) {
-      // User entered the name of a Place that was not suggested and
-      // pressed the Enter key, or the Place Details request failed.
-      window.alert("Spiacenti: '" + place.name + "' non è stato trovato. Riprova.");
-      return;
-    }
-    // If the place has a geometry, then present it on a map.
-    if (place.geometry.viewport) {
-      map.fitBounds(place.geometry.viewport);
-    } else {
-      map.setCenter(place.geometry.location);
-      map.setZoom(17);  // Why 17? Because it looks good.
-    }
-    marker.setPosition(place.geometry.location);
-    marker.setVisible(true);
-    // Get the address from the place details and fill the form.
-    document.getElementById("id_address").value=place.formatted_address;
+  // After the map style has loaded on the page, add a source layer and default
+  // styling for a single point.
+  map.on('load', function() {
+    updateGeocoderProximity()
+  map.addSource('single-point', {
+  "type": "geojson",
+  "data": {
+  "type": "FeatureCollection",
+  "features": []
   }
+  });
+
+  map.addLayer({
+  "id": "point",
+  "source": "single-point",
+  "type": "circle",
+  "paint": {
+  "circle-radius": 10,
+  "circle-color": "#007cbf"
+  }
+  });
+
+  // Listen for the `result` event from the MapboxGeocoder that is triggered when a user
+  // makes a selection and add a symbol that matches the result.
+  geocoder.on('result', function(ev) {
+  map.getSource('single-point').setData(ev.result.geometry);
+  document.getElementById("id_address").value = ev.result.place_name;
+  });
+  map.on('moveend', updateGeocoderProximity);
+  });
+});
