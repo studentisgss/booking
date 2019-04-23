@@ -45,7 +45,7 @@ class Message(models.Model):
     def __str__(self):
         return self.title
 
-    title = models.CharField(max_length=100, verbose_name=_("titolo"))
+    title = models.CharField(max_length=100, verbose_name=_("oggetto"))
     activity = models.ForeignKey(Activity, on_delete=models.CASCADE, verbose_name=_("attvità"))
     content = models.TextField(verbose_name=_("contenuto"))
     time = models.DateTimeField(auto_now_add=True, verbose_name=_("inviato"))

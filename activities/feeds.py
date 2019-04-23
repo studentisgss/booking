@@ -110,6 +110,9 @@ class RssActivityFeed(Feed):
         else:
             raise Http404
 
+    def item_guid_is_permalink(self, item):
+        return False
+
 
 class AtomActivityFeed(RssActivityFeed):
     feed_type = Atom1Feed
