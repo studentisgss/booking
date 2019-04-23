@@ -3,7 +3,7 @@ var dataTables = [];
 
 $(document).ready(function() {
     // Remove the search button
-    $("#filter-form div.input-group-btn").remove();
+    $("#filter-form div.input-group-append").remove();
     // this flag is true only if there the column with the edit buttons in the tables
     edit_column = $(".table").find('tr')[0].cells.length == 3;
     $('.building_div').each(function(i, obj) {
@@ -49,7 +49,7 @@ $(document).ready(function() {
     });
 
     // hide the search input on every table
-    $('.dataTables_filter').addClass("hidden");
+    $('.dataTables_filter').addClass("d-none");
     // search: filter by room or building
     $('#search').keyup(function() {
       // searched text
@@ -67,20 +67,20 @@ $(document).ready(function() {
             dataTables[i][1].draw();
           }
         }
-        dataTables[i][2].removeClass("hidden");
+        dataTables[i][2].removeClass("d-none");
         // hide all if there are no rooms matched rooms
         if (dataTables[i][2].find(".table").find("tr")[1].cells.length == 1) {
-          dataTables[i][2].addClass("hidden");
+          dataTables[i][2].addClass("d-none");
         } else {
           no_buildings_shown = false;
         }
       }
       // show the non rooms found message
       if (no_buildings_shown) {
-        $("#no_rooms_search").removeClass("hidden");
+        $("#no_rooms_search").removeClass("d-none");
         $("#no_rooms_search_text").html(text);
       } else {
-        $("#no_rooms_search").addClass("hidden");
+        $("#no_rooms_search").addClass("d-none");
       }
     });
 });

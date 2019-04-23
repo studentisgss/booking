@@ -1,3 +1,9 @@
 #filter-form .form-group {
 	padding-right: 15px;
 }
+
+#table_events_wrapper {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    padding-top: 15px !important;
+}

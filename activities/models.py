@@ -28,10 +28,12 @@ class Activity(models.Model):
         return "%s%s " % ("* " if not self.archived else "",
                           self.title)
 
-    def get_full_title(self):
+    def get_full_title(self, exam=False):
         t = ""
         if self.category != "A":
             t = "%s - " % (self.category)
+        if exam:
+            t += "ESAME: "
         t += self.title
         if self.professor != "":
             t += " (%s)" % (self.professor)

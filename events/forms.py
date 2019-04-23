@@ -24,6 +24,7 @@ class EventForm(BookingModelForm):
             "start",
             "end",
             "status",
+            "exam",
         ]
         field_classes = {
             "room": RoomChoiceField,
@@ -85,4 +86,5 @@ EventInlineFormSet = inlineformset_factory(Activity, Event, fields=(
     "start",
     "end",
     "status",
+    "exam",
 ), form=EventForm, formset=BaseEventInlineFormset, extra=2)

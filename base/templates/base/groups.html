@@ -14,15 +14,15 @@
 <br />
 <div class="container">
     {% for g in group_forms %}
-        <div class="panel panel-default">
-            <div class="panel-heading">
+        <div class="card bg-light mb-3">
+            <div class="card-header">
                 <a data-toggle="collapse" href="#collapse{{ g.group.id }}" aria-expanded="true">
                     <b>{{ g.group.name }}</b>
                 </a>
             </div>
-            <div class="panel-body collapse in" id="collapse{{ g.group.id }}">
+            <div class="card-body collapse show" id="collapse{{ g.group.id }}">
                 <div class="">
-                    <form method="POST" action="{% url 'base:groups_add' g.group.pk %}" class="form-horizontal">
+                    <form method="POST" action="{% url 'base:groups_add' g.group.pk %}">
                         {% csrf_token %}
                         {% if g.add.non_field_errors %}
                             <div>
@@ -33,7 +33,7 @@
                                 </ol>
                             </div>
                         {% endif %}
-                        <div class="form-group">
+                        <div class="form-group row">
                             {% if g.add.members.errors %}
                                 <div class="col-sm-12">
                                     {% for error in g.add.members.errors %}
@@ -41,19 +41,19 @@
                                     {% endfor %}
                                 </div>
                             {% endif %}
-                            <div class="col-sm-1">
+                            <div class="col-lg-1">
                                 <label for="{{ g.add.members.id_for_label }}" class="control-label">Aggiungi:</label>
                             </div>
-                            <div class="col-sm-9 {% if g.add.members.errors %}has-error{% endif %}">
+                            <div class="col-lg-9 {% if g.add.members.errors %}has-error{% endif %}">
                                 {{ g.add.members }}
                             </div>
-                            <div class="col-sm-2">
+                            <div class="col-lg-2">
                                 <input type="submit" class="form-control btn btn-success" value="Aggiungi" />
                             </div>
                         </div>
                     </form>
 
-                    <form method="POST" action="{% url 'base:groups_remove' g.group.pk %}" class="form-horizontal">
+                    <form method="POST" action="{% url 'base:groups_remove' g.group.pk %}">
                         {% csrf_token %}
                         {% if g.remove.non_field_errors %}
                             <div>
@@ -64,7 +64,7 @@
                                 </ol>
                             </div>
                         {% endif %}
-                        <div class="form-group">
+                        <div class="form-group row">
                             {% if g.remove.members.errors %}
                                 <div class="col-sm-12">
                                     {% for error in g.remove.members.errors %}
@@ -72,23 +72,23 @@
                                     {% endfor %}
                                 </div>
                             {% endif %}
-                            <div class="col-sm-1">
+                            <div class="col-lg-1">
                                 <label for="{{ g.remove.members.id_for_label }}" class="control-label">Rimuovi:</label>
                             </div>
-                            <div class="col-sm-9 {% if g.remove.members.errors %}has-error{% endif %}">
+                            <div class="col-lg-9 {% if g.remove.members.errors %}has-error{% endif %}">
                                 {{ g.remove.members }}
                             </div>
-                            <div class="col-sm-2">
+                            <div class="col-lg-2">
                                 <input type="submit" class="form-control btn btn-danger" value="Rimuovi" />
                             </div>
                         </div>
                     </form>
 
                     <div class="row">
-                        <div class="col-sm-1">
+                        <div class="col-lg-1">
                             <label>Membri:</label>
                         </div>
-                        <div class="col-sm-9 members">
+                        <div class="col-lg-9 members">
                             <ul class="list-group">
                                 {% for u in g.members %}
                                     <li class="list-group-item">
@@ -102,8 +102,8 @@
                                 {% endfor %}
                             </ul>
                         </div>
-                        <div class="col-sm-offset-1 col-sm-11 col-lg-offset-0 col-lg-2">
-                            <a href="{% url 'base:groups_clear' g.group.pk %}" class="btn btn-warning">Pulisci utenti non attivi</a>
+                        <div class="col-12 offset-lg-0 col-lg-2 pt-1">
+                            <a href="{% url 'base:groups_clear' g.group.pk %}" class="btn btn-warning col-12 clear-user">Pulisci utenti non attivi</a>
                         </div>
                     </div>
                 </div>
