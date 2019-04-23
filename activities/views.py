@@ -76,6 +76,10 @@ class ListAllActivityView(TemplateView):
                 Q(professor__icontains=text)
             )
 
+        if "clas" in kwargs:
+            activities_list = activities_list.filter(category=kwargs["clas"])
+            context["clas"] = kwargs["clas"]
+
         # If the user is authenticated return the activity for which he is a manager
         if self.request.user.is_authenticated:
             context["managed_activities"] = self.request.user.managed_activities.all()
