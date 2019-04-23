@@ -209,3 +209,10 @@ class GroupsMembersView(LoginRequiredMixin, PermissionRequiredMixin, TemplateVie
 
         else:
             raise Http404
+
+
+class About(TemplateView):
+    template_name = "base/about.html"
+
+    def get_context_data(self, **kwargs):
+        return super().get_context_data(**kwargs)
