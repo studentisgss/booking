@@ -1,12 +1,14 @@
 from django.views.generic import TemplateView
 from django.http import Http404, HttpResponseRedirect
+from django.core.exceptions import PermissionDenied
 from django.core.urlresolvers import reverse
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.admin.models import LogEntry, ADDITION, CHANGE, DELETION
 
-from news.models import News
-from news.forms import NewsForm
+from news.models import News, Message
+from news.forms import NewsForm, MessageForm
+from activities.models import Activity
 
 
 class NewsView(TemplateView):
@@ -130,3 +132,77 @@ class NewsDeleteView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
         else:
             raise Http404
         return HttpResponseRedirect(reverse("news:news"))
+
+
+class MessageView(TemplateView):
+    template_name = "news/message.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Http method
+        if "activity_id" in kwargs and kwargs["activity_id"]:
+            try:
+                activity = Activity.objects.get(pk=kwargs["activity_id"])
+            except:
+                raise Http404
+        else:
+            raise Http404
+        context["activity"] = activity
+        context["messages"] = Message.objects.filter(activity_id=activity.pk).order_by("-time")
+        context["can_send"] = False
+        if self.request.user.is_authenticated():
+            # Check permission to edit the category
+            if self.request.user.has_perms(
+                    ("activities.change_activity", "activities.change_" + activity.category)):
+                context["can_send"] = True
+            # Check if the user is a manager
+            if self.request.user.managed_activities.filter(pk=activity.pk).exists():
+                context["can_send"] = True
+
+            # Create the form only if required
+            if context["can_send"]:
+                if "form_error" in kwargs:
+                    form = MessageForm(self.request.POST)
+                else:
+                    form = MessageForm()
+                context["form"] = form
+        return context
+
+    def post(self, request, *args, **kwargs):
+        if "activity_id" in kwargs and kwargs["activity_id"]:
+            try:
+                activity = Activity.objects.all().get(pk=kwargs["activity_id"])
+            except:
+                raise Http404
+        else:
+            raise Http404
+
+        # Check if the user can send Messages
+        if not self.request.user.is_authenticated():
+            return HttpResponseRedirect(reverse("authentication:login"))
+
+        # If the user has not the permission to edit this category and is not a manager: denied
+        if not self.request.user.has_perms(
+            ("activities.change_activity", "activities.change_" + activity.category)
+        ) and not self.request.user.managed_activities.filter(pk=activity.pk).exists():
+            raise PermissionDenied
+
+        # If the user can send Messages then go on
+        form = MessageForm(request.POST)
+        if form.is_valid():
+            mes = form.save(commit=False)
+            mes.creator = request.user
+            mes.activity = activity
+            mes.save()
+            LogEntry.objects.log_action(
+                user_id=self.request.user.id,
+                content_type_id=ContentType.objects.get_for_model(mes).pk,
+                object_id=mes.id,
+                object_repr=str(mes),
+                action_flag=ADDITION
+            )
+            return HttpResponseRedirect(reverse("news:messages",
+                                                kwargs={"activity_id": activity.pk}))
+        else:
+            kwargs["form_error"] = True
+            return self.get(request, *args, **kwargs)

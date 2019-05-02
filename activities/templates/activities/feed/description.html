@@ -1,0 +1,8 @@
+{% if type == "event" %}<table style="border:none;"><tr><td style="padding:6px;padding-left:0;">{{ obj.start | date:'d F Y' }}</td><td style="padding:6px;">{{ obj.room.get_full_name }}</td><td style="padding:6px;">{{ obj.start | date:'H:i' }} - {{ obj.end | date:'H:i' }}</td></tr></table>{% else %}{% if type == "news" %}{{ obj.content }}{% else %}{% if type == "message" %}
+{{ obj.content|linebreaksbr }}
+<br  />
+<br  />
+{{ obj.creator.get_full_name }} - {{ obj.time|date:"d/m/Y H:i" }}{% else %}{# activity #}
+<table style="border:none;">
+{% for e in events %}<tr><td style="padding:6px;padding-left:0;">{{ e.start | date:'d F Y' }}</td><td style="padding:6px;">{{ e.room.get_full_name }}</td><td style="padding:6px;">{{ e.start | date:'H:i' }} - {{ e.end | date:'H:i' }}</td></tr>{% endfor %}
+</table>{% endif %}{% endif %}{% endif %}

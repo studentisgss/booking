@@ -16,6 +16,8 @@ from events.models import Event
 from events.forms import EventInlineFormSet, RoomChoiceField
 from activities.models import Activity
 from activities.forms import ActivityForm
+
+from news.models import Message
 from rooms.models import RoomPermission, Room, Building, RoomRule
 from base.utils import localnow, parse_date
 from base.models import CLASS_CHOICES
@@ -53,6 +55,7 @@ class DetailActivityView(TemplateView):
                 ).exists()
 
         context["events_list"] = Event.objects.filter(activity_id=activity_id).order_by("start")
+        context["message_count"] = Message.objects.filter(activity_id=activity.pk).count()
         context["has_exams"] = any([e.exam for e in context["events_list"]])
         return context
 

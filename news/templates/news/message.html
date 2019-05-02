@@ -1,0 +1,104 @@
+{% extends "base/layout.html" %}
+
+{% load staticfiles %}
+
+{% block head-extra %}
+<link href="{% static 'news/css/message.css' %}" rel="stylesheet" />
+
+{% endblock head-extra %}
+
+{% block main %}
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <h1>{{ activity.get_full_title }}</h1>
+      <h2>Messaggi</h2>
+      <br  />
+    </div>
+  </div>
+</div>
+
+{% if can_send %}
+<div class="card border-info mb-3">
+    <div class="card-header no-margin-bottom">
+        <a data-toggle="collapse" href="#form-panel-body" aria-expanded="true">
+            <b>Invia un messaggio</b>
+        </a>
+    </div>
+    <div class="card-body collapse in" id="form-panel-body">
+        <form method="POST" class="">
+            {% csrf_token %}
+            {% if form.non_field_errors %}
+            <div class="form-group row">
+                <div class="col-12">
+                    <ol class="list-group">
+                        {% for error in form.non_field_errors %}
+                            <li class="list-group-item list-group-item-danger">{{ error|escape }}</li>
+                        {% endfor %}
+                    </ol>
+                </div>
+            </div>
+            {% endif %}
+
+            {% if form.title.errors %}
+            <div class="form-group row">
+                <div class="col-12">
+                    <ol class="list-group">
+                        {% for error in form.title.errors %}
+                            <li class="list-group-item list-group-item-danger">{{ error|escape }}</li>
+                        {% endfor %}
+                    </ol>
+                </div>
+            </div>
+            {% endif %}
+            <div class="form-group row">
+                <label for="{{ form.title.id_for_label }}" class="control-label col-12 col-sm-3 col-md-2">{{ form.title.label }}:</label>
+                <div class="col-12 col-sm-9 col-md-10 {% if form.title.errors %}has-error{% endif %}">
+                    {{ form.title }}
+                </div>
+            </div>
+
+            {% if form.content.errors %}
+            <div class="form-group row">
+                <div class="col-12">
+                    <ol class="list-group">
+                        {% for error in form.content.errors %}
+                            <li class="list-group-item list-group-item-danger">{{ error|escape }}</li>
+                        {% endfor %}
+                    </ol>
+                </div>
+            </div>
+            {% endif %}
+            <div class="form-group row">
+                <label for="{{ form.content.id_for_label }}" class="control-label col-12 col-sm-3 col-md-2">Messaggio:</label>
+                <div class="col-12 col-sm-9 col-md-10 {% if form.content.errors %}has-error{% endif %}">
+                    {{ form.content }}
+                </div>
+            </div>
+            <div class="form-group row"><div class="col-12 col-sm-9 col-md-10 offset-sm-3 offset-md-2"><input type="submit" value="Invia" class="btn btn-info" /></div></div>
+        </form>
+    </div>
+</div>
+{% endif %}
+
+<div>
+    {% for m in messages %}
+        <div class="card mb-3">
+            <div class="card-header no-margin-bottom"><b>{{ m.title }}</b></div>
+            <div class="card-body">
+                <p>
+                    {{ m.content|linebreaksbr }}
+                </p>
+            </div>
+             <div class="card-footer"><i>{{ m.creator.get_full_name }}</i> - {{ m.time|date:'d/m/Y H:i' }}</div>
+        </div>
+    {% empty %}
+        <div class="card">
+            <div class="card-body">
+                <h5>Nessun messaggio per questa attività.</h5>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+{% endblock main %}

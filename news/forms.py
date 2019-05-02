@@ -1,5 +1,5 @@
 from base.forms import BookingModelForm
-from news.models import News
+from news.models import News, Message
 
 
 class NewsForm(BookingModelForm):
@@ -11,3 +11,9 @@ class NewsForm(BookingModelForm):
             "start",
             "end",
         ]
+
+
+class MessageForm(BookingModelForm):
+    class Meta:
+        model = Message
+        fields = ["title", "content"]

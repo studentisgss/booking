@@ -14,7 +14,9 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include(blog_urls))
 """
 from django.conf.urls import include, url
-from news.views import NewsView, NewsEditView, NewsAddView, NewsDeleteView
+from django.views.decorators.cache import cache_page
+from news.views import NewsView, NewsEditView, NewsAddView, NewsDeleteView, MessageView
+from news.feeds import RssNewsFeed, AtomNewsFeed
 
 app_name = "news"
 
@@ -23,4 +25,9 @@ urlpatterns = [
     url(r'^new$', NewsAddView.as_view(), name="new"),
     url(r'^edit/(?P<pk>\d+)$', NewsEditView.as_view(), name="edit"),
     url(r'^delete/(?P<pk>\d+)$', NewsDeleteView.as_view(), name="delete"),
+
+    url(r'^messages/(?P<activity_id>\d+)$', MessageView.as_view(), name="messages"),
+
+    url(r'^feed/rss$', cache_page(15 * 60)(RssNewsFeed()), name="rss"),
+    url(r'^feed/atom$', cache_page(15 * 60)(AtomNewsFeed()), name="atom"),
 ]
