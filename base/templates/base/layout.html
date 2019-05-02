@@ -1,4 +1,5 @@
 {% load staticfiles %}
+{% load markdown %}
 <!DOCTYPE html>
 <html lang="it">
 	<head>
@@ -107,6 +108,18 @@
 </nav>
 
 <div class="container" role="main" id="main">
+    {% if messages %}
+        <!-- ALERTS SECTION -->
+        <div>
+            {% for message in messages %}
+                <div class="alert {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}alert-danger{% elif message.level == DEFAULT_MESSAGE_LEVELS.WARNING %}alert-warning{% elif message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}alert-success{% elif message.level == DEFAULT_MESSAGE_LEVELS.INFO %}alert-info{% endif %} alert-dismissible fade show" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    {{ message|markdown }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
 	{% block main %}
 	{% endblock main %}
 </div>
@@ -114,7 +127,7 @@
 <footer class="footer">
 	<div class="container pt-1">
         {% if DEMO %}<div class="float-left"><a href="https://validator.w3.org/check?uri=referer">Validazione HTML</a></div>{% endif %}
-        <div class="float-right"><span class="text-muted">Sito sviluppato dagli studenti della Scuola Galileiana di Studi Superiori di Padova</span></div>
+        <div class="float-right"><a href="{% url 'base:about' %}" class="text-muted">Sito sviluppato dagli studenti della Scuola Galileiana di Studi Superiori di Padova</a></div>
 	</div>
 </footer>
 

@@ -67,6 +67,9 @@ reset-db: delete-db delete-migrations migrate-db populate-db
 server:
 	$(PYTHON) manage.py runserver
 
+superuser:
+		$(PYTHON) manage.py createsuperuser
+
 internationalization:
 	@for d in $$( ls -d */ | cut -f1 -d'/' ); do \
 		cd $$d; \

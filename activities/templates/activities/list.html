@@ -24,7 +24,7 @@
 </h1>
 
 <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-8 mb-2">
         <div class="btn-group" role="group">
             <div class="btn-group">
               {% if all %}<a href="{% url "activities:list" %}" class="btn btn-secondary">Visualizza solo le attività principali</a>
@@ -41,7 +41,7 @@
             {% endif %}
         </div>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-4 mb-2">
         <div id="filter" class="float-right">
             <form id="filter-form" method="GET" action="{% if all %} {% url 'activities:listall' %} {% else %} {% url 'activities:list' %} {% endif %}" class="form-inline">
                 <div class="input-group">
@@ -61,6 +61,25 @@
             </form>
         </div>
     </div>
+</div>
+<div class="row">
+  <div class="col-md-12 mb-4">
+    <div class="btn-group">
+    {% if all %}
+      <a href="{% url 'activities:listall' %}" class="btn {% if not clas %}btn-info{% else %}btn-btn-secondary{% endif %}">Tutto</a>
+      <a href="{% url 'activities:listall' "SM" %}" class="btn {% if clas == 'SM' %}btn-info{% else %}btn-secondary{% endif %}">SM</a>
+      <a href="{% url 'activities:listall' "SN" %}" class="btn {% if clas == 'SN' %}btn-info{% else %}btn-secondary{% endif %}">SN</a>
+      <a href="{% url 'activities:listall' "SS" %}" class="btn {% if clas == 'SS' %}btn-info{% else %}btn-secondary{% endif %}">SS</a>
+      <a href="{% url 'activities:listall' "A" %}" class="btn {% if clas == 'A' %}btn-info{% else %}btn-secondary{% endif %}">Altro</a>
+    {% else %}
+      <a href="{% url 'activities:list' %}" class="btn {% if not clas %}btn-info{% else %}btn-secondary{% endif %}">Tutto</a>
+      <a href="{% url 'activities:list' "SM" %}" class="btn {% if clas == 'SM' %}btn-info{% else %}btn-secondary{% endif %}">SM</a>
+      <a href="{% url 'activities:list' "SN" %}" class="btn {% if clas == 'SN' %}btn-info{% else %}btn-secondary{% endif %}">SN</a>
+      <a href="{% url 'activities:list' "SS" %}" class="btn {% if clas == 'SS' %}btn-info{% else %}btn-secondary{% endif %}">SS</a>
+      <a href="{% url 'activities:list' "A" %}" class="btn {% if clas == 'A' %}btn-info{% else %}btn-secondary{% endif %}">Altro</a>
+    {% endif %}
+    </div>
+  </div>
 </div>
 
 <table class="table table-striped table-hover" id="table_events">

@@ -7,7 +7,8 @@
 <script type="text/javascript" src="{% static 'js/datepicker-it.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/jquery-ui.multidatespicker.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/forms.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/simplemde.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/ckeditor.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/translations/it.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/jquery.sumoselect.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'activities/js/edit.js' %}"></script>
 <script type="text/javascript" src="{% static 'activities/js/edit-calendar.js' %}"></script>
@@ -15,7 +16,7 @@
 
 
 <link href="{% static 'css/jquery-ui.min.css' %}" rel="stylesheet" />
-<link href="{% static 'css/simplemde.min.css' %}" rel="stylesheet" />
+
 <link href="{% static 'css/jquery-ui.structure.min.css' %}" rel="stylesheet" />
 <link href="{% static 'css/jquery-ui.theme.min.css' %}" rel="stylesheet" />
 <link href="{% static 'css/jquery-ui.multidatespicker.css' %}" rel="stylesheet" />
@@ -233,6 +234,7 @@ allRooms.push("{{r.pk}}");
                 <th>Aula</th>
                 <th>Inizio</th>
                 <th>Fine</th>
+                <th>Esame</th>
                 <th>Stato</th>
                 <th>Rimuovi</th>
                 <th class="d-none">Ripeti</th>
@@ -269,6 +271,14 @@ allRooms.push("{{r.pk}}");
                         {{ f.end }}
                         {% if f.end.errors %}
                                 {% for error in f.end.errors %}
+                                    <p class="text-danger">{{ error|escape }}</p>
+                                {% endfor %}
+                        {% endif %}
+                    </td>
+                    <td {% if f.non_field_errors %}class="no-border-top"{% endif %}>
+                        {{ f.exam }}
+                        {% if f.exam.errors %}
+                                {% for error in f.exam.errors %}
                                     <p class="text-danger">{{ error|escape }}</p>
                                 {% endfor %}
                         {% endif %}

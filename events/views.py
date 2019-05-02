@@ -73,7 +73,7 @@ class Calendar(TemplateView):
         context["date"] = date
         context["events"] = Event.objects.filter(
             start__range=(date, date + timedelta(1)),
-            status=Event.APPROVED
+            status__in=(Event.APPROVED, Event.WAITING)
         )
         return context
 

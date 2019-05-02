@@ -22,7 +22,9 @@ app_name = "activities"
 
 urlpatterns = [
     url(r'^detail/(?P<activity_id>[0-9]+)$', DetailActivityView.as_view(), name="details"),
+    url(r'^list/all/(?P<clas>[A-Z]+)$', ListAllActivityView.as_view(), name="listall"),
     url(r'^list/all$', ListAllActivityView.as_view(), name="listall"),
+    url(r'^list/(?P<clas>[A-Z]+)$', ListNotArchivedActivityView.as_view(), name="list"),
     url(r'^list$', ListNotArchivedActivityView.as_view(), name="list"),
 
     url(r'^new$', ActivityAddView.as_view(), name="new"),

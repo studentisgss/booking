@@ -35,6 +35,7 @@ LOGIN_REDIRECT_URL = reverse_lazy("events:calendar")
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
+MAPBOX_TOKEN = ''
 GOOGLE_MAPS_API_KEY = ''
 
 # Application definition

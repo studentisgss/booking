@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from events.views import Calendar
-from base.views import ManagementView, CleanUserView, BackupView, GroupsMembersView
+from base.views import ManagementView, CleanUserView, BackupView, GroupsMembersView, About
 
 app_name = "base"
 
@@ -31,4 +31,5 @@ urlpatterns = [
         kwargs={"operation": "remove"}, name="groups_remove"),
     url(r'^manage/groups/clear/(?P<pk>\d+)$', GroupsMembersView.as_view(),
         kwargs={"operation": "clear"}, name="groups_clear"),
+    url(r'^about$', About.as_view(), name="about")
 ]

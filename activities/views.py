@@ -10,6 +10,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMix
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.admin.models import LogEntry, ADDITION, CHANGE, DELETION
 from django.utils.dateparse import parse_time
+from django.contrib import messages
 
 from events.models import Event
 from events.forms import EventInlineFormSet, RoomChoiceField
@@ -52,8 +53,10 @@ class DetailActivityView(TemplateView):
                 context["is_manager"] = self.request.user.managed_activities.filter(
                     pk=activity_id
                 ).exists()
+
         context["events_list"] = Event.objects.filter(activity_id=activity_id).order_by("start")
         context["message_count"] = Message.objects.filter(activity_id=activity.pk).count()
+        context["has_exams"] = any([e.exam for e in context["events_list"]])
         return context
 
 
@@ -75,6 +78,10 @@ class ListAllActivityView(TemplateView):
                 Q(description__icontains=text) |
                 Q(professor__icontains=text)
             )
+
+        if "clas" in kwargs:
+            activities_list = activities_list.filter(category=kwargs["clas"])
+            context["clas"] = kwargs["clas"]
 
         # If the user is authenticated return the activity for which he is a manager
         if self.request.user.is_authenticated:
@@ -244,6 +251,8 @@ class ActivityManagerEditView(LoginRequiredMixin, PermissionRequiredMixin, Templ
         if (self.check_for_manager or form.is_valid()) and events_form.is_valid():
             # Do not save the activity: managers are not allowed
             # Save the events
+            # Check if there are new or changed events in waiting state
+            waitings_count = 0
             instances = events_form.save(commit=False)
             with transaction.atomic():
                 for i in instances:
@@ -269,6 +278,9 @@ class ActivityManagerEditView(LoginRequiredMixin, PermissionRequiredMixin, Templ
                         i.creator = request.user
                         new = False
                     i.save()
+                    # If the events is in waiting:
+                    if i.status == Event.WAITING:
+                        waitings_count += 1
                     # LOG ACTION
                     LogEntry.objects.log_action(
                         user_id=self.request.user.id,
@@ -288,6 +300,11 @@ class ActivityManagerEditView(LoginRequiredMixin, PermissionRequiredMixin, Templ
                         object_repr=str(o),
                         action_flag=DELETION
                     )
+            # If there are new waiting events send an alert.
+            if waitings_count > 0:
+                messages.warning(self.request,
+                                 "**Attenzione:** Hai inserito %s in attesa di approvazione. Contatta i responsabili per %s confermare." %
+                                 (("una prenotazione", "farla") if waitings_count == 1 else ("%d prenotazioni" % waitings_count, "farle")))
             return HttpResponseRedirect(reverse("activities:list"))
         else:
             return self.get(request, *args, **kwargs)

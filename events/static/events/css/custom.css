@@ -5,3 +5,7 @@
 .top-buffer {
     margin-top: 8px;
 }
+
+.waiting {
+    opacity: 0.6;
+}

@@ -1,0 +1,31 @@
+{% extends "base/layout.html" %}
+{% load staticfiles %}
+
+{% block main %}
+<h1>Booking SGSS</h1>
+<br />
+<div class="container">
+    <div class="row p-2">
+      <p class="text-justify">
+      Questo sito è interamente pensato e realizzato da studenti di varie coorti della Scuola Galieiana di Studi Superiori, la scuola di eccellenza dell'Università di Padova. Nasce dall'esigenza di un sistema di gestione e prenotazione delle aule a disposizione della scuola, nonchè di una interfaccia a cui far riferimento per gli orari, suscettibili a frequenti variazioni, dei corsi e delle attività interne alla scuola. Inoltre, gestisce il monitor che si presenta all'ingresso del collegio e che illustra le attività previste per la giornata.<br/>
+      Diversi studenti si sono succeduti nella gestione e nella gestione del sito, che è stato sviluppato nel linguaggio di programmazione <a href="https://www.python.org/">Python</a> facendo uso del web framework <a href="https://www.djangoproject.com/">Django</a> e del pacchetto grafico <a href="https://getbootstrap.com/">Bootstrap</a>, nonché di altri pacchetti e servizi alla bisogna.<br/>
+      Dopo la sua pubblicazione, interfacciandosi continuamente con i fruitori del sito quali gli studenti tutti della scuola e la segreteria, si è continuato costantemente ad aggiornarlo e migliorarlo per sopperire alle necessità che mano a mano si manifestano.<br/>
+      Alcuni degli studenti che ci hanno lavorato sono Federico Poli, Alexey Vladimirovic Bortoli Saygashev, Daniele Troletti, Federico Soldà, Roberto Albesiano e Leonardo Zampieri.
+      </p>
+    </div>
+    <div class="row">
+      <div class="col-md-6 text-center">
+        <a href="http://www.unipd-scuolagalileiana.it/"><img src="http://www.unipd-scuolagalileiana.it/sites/default/themes/unipd/images/unigalileiana-logo.png" alt="Scuola galileiana">Scuola Galileiana di Studi Superiori</img></a>
+      </div>
+      <div class="col-md-6 text-center">
+        <a href="http://www.unipd.it/"><img style="background: #9b0014" src="https://www.unipd.it/sites/unipd.it/themes/unipd_2017/img/logo-UNIPD-white.png" alt="Università degli studi di Padova" class="p-2"></img></a>
+      </div>
+    </div>
+    <small>
+    <div class="row">
+      <a href="https://www.gnu.org/licenses/gpl-3.0.txt"><img src="https://www.gnu.org/graphics/gplv3-88x31.png" alt="GPLV3">Under GNU GENERAL PUBLIC LICENSE - Version 3, 29 June 2007</a>
+    </div>
+    </small>
+</div>
+
+{% endblock main %}

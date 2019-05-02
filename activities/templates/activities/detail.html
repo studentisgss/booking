@@ -111,15 +111,17 @@
 			<th>Orario</th>
 			<th>Aula</th>
 			<th>Approvazione</th>
+            {% if has_exams %}<th>Tipo</th> <!-- Empty column to mark the exams -->{% endif %}
 		</tr>
 	</thead>
 	<tbody>
 		{% for e in events_list %}
-			<tr {% if e.status == e.WAITING %}class="table-info"{% elif e.status == e.REJECTED %}class="table-danger"{% endif %}>
+			<tr {% if e.status == e.WAITING %}class="table-info"{% elif e.status == e.REJECTED %}class="table-danger"{% elif e.exam %}class="table-dark" title="Esame"{% endif %}>
 				<td><div class="d-none">|{{ e.start | date:'Ymd' }}|</div>{{ e.start | date:'d F Y' }}</td>
 				<td>{{ e.start | date:'H:i' }} - {{ e.end | date:'H:i' }}</td>
 				<td><a href="{% url "rooms:details" e.room.pk %}">{{ e.room.get_full_name }}</a></td>
 				<td>{% if e.status == e.APPROVED %}Confermata{% elif e.status == e.WAITING %}In attesa{% else %}Rifiutata{% endif %}</td>
+					{% if has_exams %}<td class="text-center">{% if e.exam %}Esame{% endif %}</td>{% endif %}
 			</tr>
 		{% empty %}
 			<tr>

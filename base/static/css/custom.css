@@ -102,3 +102,10 @@ div.paging_simple_numbers ul {
 .table.table-striped {
     border-collapse: collapse !important;
 }
+
+/* Avoid the extra margin in the alerts */
+
+.alert p {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+}
