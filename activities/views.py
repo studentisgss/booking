@@ -271,12 +271,13 @@ class ActivityManagerEditView(LoginRequiredMixin, PermissionRequiredMixin, Templ
                     # set it to rejected
                     elif perm == 0:
                         i.status = Event.REJECTED
-                    # Set creator and log the action
+                    # Check if lastEditor is None, then the event is new
                     try:
-                        new = i.creator is not None
-                    except Event.creator.RelatedObjectDoesNotExist:
-                        i.creator = request.user
-                        new = False
+                        not_new = i.lastEditor is not None
+                    except Event.lastEditor.RelatedObjectDoesNotExist:
+                        not_new = False
+                    # Update the last editor
+                    i.lastEditor = request.user
                     i.save()
                     # If the events is in waiting:
                     if i.status == Event.WAITING:
@@ -287,7 +288,7 @@ class ActivityManagerEditView(LoginRequiredMixin, PermissionRequiredMixin, Templ
                         content_type_id=ContentType.objects.get_for_model(i).pk,
                         object_id=i.id,
                         object_repr=str(i),
-                        action_flag=ADDITION if new else CHANGE
+                        action_flag=CHANGE if not_new else ADDITION
                     )
             with transaction.atomic():
                 # Delete the events marked for deletion and log the actions

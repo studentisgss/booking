@@ -29,7 +29,7 @@ class EventsCleanTest(TestCase):
             status=Event.APPROVED,
             start=default_datetime(2016, 5, 3, 14, 0),
             end=default_datetime(2016, 5, 3, 16, 0),
-            creator=self.user
+            lastEditor=self.user
         )
         Event.objects.create(
             room=self.room,
@@ -37,7 +37,7 @@ class EventsCleanTest(TestCase):
             status=Event.REJECTED,
             start=default_datetime(2016, 5, 2, 14, 0),
             end=default_datetime(2016, 5, 2, 16, 0),
-            creator=self.user
+            lastEditor=self.user
         )
         RoomRule.objects.create(
             room=self.room3,
@@ -55,7 +55,7 @@ class EventsCleanTest(TestCase):
                 status=Event.APPROVED,
                 start=default_datetime(2016, 5, 3, 19, 0),
                 end=default_datetime(2016, 5, 3, 17, 0),
-                creator=self.user
+                lastEditor=self.user
             )
             event.clean()
 
@@ -69,7 +69,7 @@ class EventsCleanTest(TestCase):
                 status=Event.APPROVED,
                 start=default_datetime(2016, 5, 3, 17, 0),
                 end=default_datetime(2016, 5, 4, 19, 0),
-                creator=self.user
+                lastEditor=self.user
             )
             event.clean()
 
@@ -81,7 +81,7 @@ class EventsCleanTest(TestCase):
                 status=Event.APPROVED,
                 start=default_datetime(2016, 5, 1, 23, 0),
                 end=default_datetime(2016, 5, 2, 1, 0),
-                creator=self.user
+                lastEditor=self.user
             )
             event.clean()
 
@@ -95,7 +95,7 @@ class EventsCleanTest(TestCase):
                 status=Event.APPROVED,
                 start=default_datetime(2016, 5, 3, 12, 0),
                 end=default_datetime(2016, 5, 3, 14, 1),
-                creator=self.user
+                lastEditor=self.user
             )
             event.clean()
 
@@ -107,7 +107,7 @@ class EventsCleanTest(TestCase):
                 status=Event.APPROVED,
                 start=default_datetime(2016, 5, 3, 15, 59),
                 end=default_datetime(2016, 5, 3, 17, 0),
-                creator=self.user
+                lastEditor=self.user
             )
             event.clean()
 
@@ -119,7 +119,7 @@ class EventsCleanTest(TestCase):
                 status=Event.APPROVED,
                 start=default_datetime(2016, 5, 3, 15, 00),
                 end=default_datetime(2016, 5, 3, 15, 30),
-                creator=self.user
+                lastEditor=self.user
             )
             event.clean()
 
@@ -131,7 +131,7 @@ class EventsCleanTest(TestCase):
                 status=Event.APPROVED,
                 start=default_datetime(2016, 5, 3, 12, 00),
                 end=default_datetime(2016, 5, 3, 18, 00),
-                creator=self.user
+                lastEditor=self.user
             )
             event.clean()
 
@@ -144,7 +144,7 @@ class EventsCleanTest(TestCase):
                 status=Event.WAITING,
                 start=default_datetime(2016, 5, 3, 12, 00),
                 end=default_datetime(2016, 5, 3, 16, 00),
-                creator=self.user
+                lastEditor=self.user
             )
             event.clean()
 
@@ -158,7 +158,7 @@ class EventsCleanTest(TestCase):
                 status=Event.REJECTED,
                 start=default_datetime(2016, 5, 3, 14, 0),
                 end=default_datetime(2016, 5, 3, 16, 0),
-                creator=self.user
+                lastEditor=self.user
             )
             event.clean()
         except ValidationError:
@@ -172,7 +172,7 @@ class EventsCleanTest(TestCase):
                 status=Event.APPROVED,
                 start=default_datetime(2016, 5, 3, 14, 0),
                 end=default_datetime(2016, 5, 3, 16, 0),
-                creator=self.user
+                lastEditor=self.user
             )
             event.clean()
         except ValidationError:
@@ -186,7 +186,7 @@ class EventsCleanTest(TestCase):
                 status=Event.APPROVED,
                 start=default_datetime(2016, 5, 2, 14, 0),
                 end=default_datetime(2016, 5, 2, 16, 0),
-                creator=self.user
+                lastEditor=self.user
             )
             event.clean()
         except ValidationError:
@@ -202,7 +202,7 @@ class EventsCleanTest(TestCase):
                 status=Event.APPROVED,
                 start=default_datetime(2016, 5, 3, 12, 0),
                 end=default_datetime(2016, 5, 3, 14, 0),
-                creator=self.user
+                lastEditor=self.user
             )
             event.clean()
         except ValidationError:
@@ -216,7 +216,7 @@ class EventsCleanTest(TestCase):
                 status=Event.APPROVED,
                 start=default_datetime(2016, 5, 3, 16, 0),
                 end=default_datetime(2016, 5, 3, 18, 0),
-                creator=self.user
+                lastEditor=self.user
             )
             event.clean()
         except ValidationError:
@@ -232,7 +232,7 @@ class EventsCleanTest(TestCase):
                 status=Event.REJECTED,
                 start=None,
                 end=default_datetime(2016, 5, 3, 12, 0),
-                creator=self.user
+                lastEditor=self.user
             )
             event.clean()
 
@@ -244,7 +244,7 @@ class EventsCleanTest(TestCase):
                 status=Event.REJECTED,
                 start=default_datetime(2016, 5, 3, 16, 0),
                 end=None,
-                creator=self.user
+                lastEditor=self.user
             )
             event.clean()
 
@@ -256,7 +256,7 @@ class EventsCleanTest(TestCase):
                 status=Event.REJECTED,
                 start=None,
                 end=None,
-                creator=self.user
+                lastEditor=self.user
             )
             event.clean()
 
@@ -272,7 +272,7 @@ class EventsCleanTest(TestCase):
             "end_0": "11/10/2016",
             "end_1": "18:57:34",
             "status": 0,
-            "creator": 1,
+            "lastEditor": 1,
             "_save": "Salva"
         })
         self.assertEqual(response.status_code, 200)
@@ -288,7 +288,7 @@ class EventsCleanTest(TestCase):
                 status=Event.APPROVED,
                 start=default_datetime(2016, 5, 2, 7, 59),
                 end=default_datetime(2016, 5, 2, 17, 0),
-                creator=self.user
+                lastEditor=self.user
             )
             event.clean()
         # End after closing time
@@ -299,7 +299,7 @@ class EventsCleanTest(TestCase):
                 status=Event.APPROVED,
                 start=default_datetime(2016, 5, 2, 9, 0),
                 end=default_datetime(2016, 5, 2, 18, 1),
-                creator=self.user
+                lastEditor=self.user
             )
             event.clean()
         # Start before opening time and end after clofing time
@@ -310,7 +310,7 @@ class EventsCleanTest(TestCase):
                 status=Event.APPROVED,
                 start=default_datetime(2016, 5, 2, 6, 0),
                 end=default_datetime(2016, 5, 2, 19, 0),
-                creator=self.user
+                lastEditor=self.user
             )
             event.clean()
 
@@ -324,7 +324,7 @@ class EventsCleanTest(TestCase):
                 status=Event.APPROVED,
                 start=default_datetime(2016, 5, 2, 14, 0),
                 end=default_datetime(2016, 5, 2, 16, 0),
-                creator=self.user
+                lastEditor=self.user
             )
             event.clean()
         except ValidationError:
@@ -337,7 +337,7 @@ class EventsCleanTest(TestCase):
                 status=Event.APPROVED,
                 start=default_datetime(2016, 5, 2, 8, 0),
                 end=default_datetime(2016, 5, 2, 18, 0),
-                creator=self.user
+                lastEditor=self.user
             )
             event.clean()
         except ValidationError:
