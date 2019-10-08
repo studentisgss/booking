@@ -21,7 +21,7 @@ class Event(models.Model):
     "exam" is a flag to tell apart lectures from exams
     [WN: we require that beginning and ending are the same date]
     "status" is the state of acceptance of the booking.
-    "creator" is the user that created/required the booking.
+    "lastEditor" is the user that created/last changed the booking.
     """
     class Meta:
         verbose_name = _('evento')
@@ -59,11 +59,11 @@ class Event(models.Model):
     exam = models.BooleanField(default=False, verbose_name=_("esame"))
     status = models.SmallIntegerField(choices=STATUS_CHOICES,
                                       default=APPROVED, verbose_name=_("stato"))
-    creator = models.ForeignKey(
+    lastEditor = models.ForeignKey(
         User,
-        related_name="event_created",
+        related_name="event_modified",
         on_delete=models.CASCADE,
-        verbose_name=_("creatore")
+        verbose_name=_("Richiedente")
     )
 
     def get_full_title(self):

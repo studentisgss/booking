@@ -35,11 +35,11 @@ $(document).ready(function() {
           // Dafault: do not change the order
           "order": [],
           "columnDefs": [
-              { "orderable": false, "targets": 4 },
               { "orderable": false, "targets": 5 },
+              { "orderable": false, "targets": 6 },
               { "searchable": false, "targets": 3 },
-              { "searchable": false, "targets": 4 },
               { "searchable": false, "targets": 5 },
+              { "searchable": false, "targets": 6 },
           ]
       });
     }
