@@ -5,7 +5,7 @@ import os
 import json
 
 # Costant
-creator_id = 1  # Pk of user fixture-loader
+creator_id = [1, 3, 4, 7, 8]  # Pks of users fixture-loader, "segreteria", "rappresentanteSN", "referente" and "galileiano"
 start_time = [time(14, 0), time(16, 0), time(18, 0)]
 
 

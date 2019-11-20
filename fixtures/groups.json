@@ -1,0 +1,7 @@
+[
+{"model": "auth.group", "pk": 1, "fields": {"name": "Segreteria", "permissions": [19, 41, 20, 42, 39, 38, 40, 21, 7, 8, 9, 22, 23, 24, 25, 26, 27, 44, 45, 46, 28, 31, 43, 29, 30, 32, 33, 34, 35, 36, 37]}}, 
+{"model": "auth.group", "pk": 2, "fields": {"name": "Rappresentanti SN", "permissions": [19, 41, 20, 38, 22, 23, 24, 25, 26, 27, 44, 45, 28, 31, 29]}}, 
+{"model": "auth.group", "pk": 3, "fields": {"name": "Rappresentanti SM", "permissions": [19, 41, 20, 39, 22, 23, 24, 25, 26, 27, 44, 45, 28, 31, 29]}}, 
+{"model": "auth.group", "pk": 4, "fields": {"name": "Rappresentanti SS", "permissions": [19, 41, 20, 40, 22, 23, 24, 25, 26, 27, 44, 45, 28, 31, 29]}}, 
+{"model": "auth.group", "pk": 5, "fields": {"name": "Referenti", "permissions": [22, 23, 24, 31]}}
+]
