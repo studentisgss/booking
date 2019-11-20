@@ -1,10 +1,101 @@
 [
-  {
-    "model": "auth.user",
-    "pk": 1,
-    "fields": {
-      "username": "fixture-loader",
-      "is_active": false
-    }
-  }
+	{
+		"model": "auth.user", 
+		"pk": 1, 
+		"fields": {
+			"password": "", 
+			"last_login": null, 
+			"is_superuser": false, 
+			"username": "fixture-loader", 
+			"first_name": "", "last_name": "", 
+			"email": "", 
+			"is_staff": false, 
+			"is_active": false, 
+			"groups": [], 
+			"user_permissions": []
+		}
+	}, 
+	{
+		"model": "auth.user", 
+		"pk": 2, 
+		"fields": {
+			"password": "pbkdf2_sha256$36000$e6i6XnVJTHhB$5iyzhpS3Dl9eVEEHkQXlkOmVnYDMpWO3HJXxpm3r7sQ=", 
+			"is_superuser": true, 
+			"username": "dev", 
+			"first_name": "DevNome", 
+			"last_name": "DevCognome", 
+			"email": "dev@ma.il", 
+			"is_staff": true, 
+			"is_active": true, 
+			"groups": [1], 
+			"user_permissions": [19, 25, 23, 22, 24, 20, 26, 21, 1, 2, 3, 7, 8, 9, 4, 5, 6, 10, 11, 12, 13, 14, 15, 27, 28, 29, 47, 48, 49, 30, 31, 32, 33, 34, 35, 36, 39, 40, 37, 38, 41, 42, 43, 44, 45, 46, 16, 17, 18]
+		}
+	}, 
+	{
+		"model": "auth.user", 
+		"pk": 3, 
+		"fields": {
+			"password": "pbkdf2_sha256$36000$w4UiK0UarEsM$UxT/U7/5g6d5GtqRGMHdwbSVEvtKdK6q/In2SN8fjAk=", 
+			"last_login": null, 
+			"is_superuser": false, 
+			"username": "segreteria", 
+			"first_name": "SegNome", 
+			"last_name": "SegCognome", 
+			"email": "segreteria@ma.il", 
+			"is_staff": false, 
+			"is_active": true, 
+			"groups": [1], 
+			"user_permissions": []
+		}
+	}, 
+	{
+		"model": "auth.user", 
+		"pk": 4, 
+		"fields": {
+			"password": "pbkdf2_sha256$36000$GRJqUyubZNTc$zpFna9iZBVW37SnLsy+Ea8iVVXLmif91P9XZWfRj1l0=", 
+			"last_login": null, 
+			"is_superuser": false, 
+			"username": "rappresentanteSN", 
+			"first_name": "rapSNNome", 
+			"last_name": "rapSNCognome", 
+			"email": "rappresentanteSN@ma.il", 
+			"is_staff": false, 
+			"is_active": true, 
+			"groups": [2], 
+			"user_permissions": []
+		}
+	}, 
+	{
+		"model": "auth.user", 
+		"pk": 7, 
+		"fields": {
+			"password": "pbkdf2_sha256$36000$nujEVJY7mw6s$ebJZFrqE9d1yuXfqiQJMUwLrhmRs8V2Vt7e6eYRlryk=", 
+			"is_superuser": false, 
+			"username": "referente", 
+			"first_name": "RefNome", 
+			"last_name": "RefCognome", 
+			"email": "referente@ma.il", 
+			"is_staff": false, 
+			"is_active": true, 
+			"groups": [2, 5], 
+			"user_permissions": []
+		}
+	}, 
+	{
+		"model": "auth.user", 
+		"pk": 8 
+		"fields": {
+			"password": "pbkdf2_sha256$36000$Sps0yfaBxGUT$fFwbjFOU5maZCPDOoVT1Y0vVQZzwQDfuxbTLXwNuQe4=", 
+			"last_login": null, 
+			"is_superuser": false, 
+			"username": "galileiano", 
+			"first_name": "", 
+			"last_name": "", 
+			"email": "galileiano@ma.il", 
+			"is_staff": false, 
+			"is_active": true, 
+			"groups": [], 
+			"user_permissions": []
+		}
+	}
 ]
