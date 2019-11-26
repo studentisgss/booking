@@ -1,187 +1,186 @@
 [
-  {
-    "model": "activities.activity",
-    "pk": 1,
-    "fields": {
-      "title": "Robotica",
-      "description": "Prof. Livia Conti",
-      "archived": false,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "pk": 2,
-    "fields": {
-      "title": "Fluidodinamica",
-      "description": "Prof. Roberto Turolla",
-      "archived": false,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Advanced English - Prof. Falinska",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Assemblaggio stampante 3D (L. Conti)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Assemblaggio Stampante 3D (L. Conti)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Assemblea Comitato Orientamento",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Assemblea degli studenti",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Assemblea Didattica Scienze Naturali",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Assemblea didattica SM",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Assemblea di Scienze Morali",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Assemblea Rete degli Allievi",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Assemblea Scienze Morali",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Assemblea Scienze Naturali",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Assemblea studenti",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Calcolo 1 - Prof. Guiotto",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Calcolo delle Variazioni - prof. Clarke",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Calcolo delle Variazioni - prof. Piccoli",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Calcolo I - prof. Guiotto",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "pk": 3,
-    "fields": {
-      "title": "Calcolo - prof. Guiotto",
-      "description": "",
-      "archived": false,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Calcolo, prova d'esame - prof. Guiotto",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
+	{
+		"model": "activities.activity",
+	    "pk": 1,
+	    "fields": {
+	    	"category": "SN",
+			"title": "Robotica",
+			"professor": "Livia Conti", 
+			"description": "", 
+			"archived": true, 
+			"brochure": true, 
+			"creator": 1, 
+			"managers": []
+		}
+	},
+	{
+		"model": "activities.activity",
+		"pk": 2,
+		"fields": {
+	    	"category": "SN",
+			"title": "Fluidodinamica",
+			"professor": "Roberto Turolla",
+			"description": "", 
+			"archived": true, 
+			"brochure": true, 
+			"creator": 1, 
+			"managers": []
+		}
+	},
+	{
+		"model": "activities.activity",
+		"pk": 2,
+		"fields": {
+	    	"category": "A",
+			"title": "Advanced English",
+			"professor": "Falinska",
+			"description": "", 
+			"archived": true, 
+			"brochure": true, 
+			"creator": 1, 
+			"managers": []
+		}
+	},
+	{
+		"model": "activities.activity",
+		"pk": 2,
+		"fields": {
+	    	"category": "SN",
+			"title": "Assemblaggio stampante 3D",
+			"professor": "Livia Conti",
+			"description": "", 
+			"archived": true, 
+			"brochure": false, 
+			"creator": 1, 
+			"managers": []
+		}
+	},
+	{
+		"model": "activities.activity",
+		"pk": 2,
+		"fields": {
+	    	"category": "A",
+			"title": "Assemblea Comitato Orientamento",
+			"professor": "",
+			"description": "", 
+			"archived": true, 
+			"brochure": false, 
+			"creator": 1, 
+			"managers": []
+		}
+	},
+	{
+		"model": "activities.activity",
+		"pk": 2,
+		"fields": {
+	    	"category": "A",
+			"title": "Assemblea degli studenti",
+			"professor": "",
+			"description": "", 
+			"archived": true, 
+			"brochure": false, 
+			"creator": 1, 
+			"managers": []
+		}
+	},
+	{
+		"model": "activities.activity",
+		"pk": 2,
+		"fields": {
+	    	"category": "SN",
+			"title": "Assemblea Didattica SN",
+			"professor": "",
+			"description": "", 
+			"archived": true, 
+			"brochure": false, 
+			"creator": 1, 
+			"managers": []
+		}
+	},
+	{
+		"model": "activities.activity",
+		"pk": 2,
+		"fields": {
+	    	"category": "SM",
+			"title": "Assemblea Didattica SM",
+			"professor": "",
+			"description": "", 
+			"archived": true, 
+			"brochure": false, 
+			"creator": 1, 
+			"managers": []
+		}
+	},
+	{
+		"model": "activities.activity",
+		"pk": 2,
+		"fields": {
+	    	"category": "A",
+			"title": "Assemblea Rete degli Allievi",
+			"professor": "",
+			"description": "", 
+			"archived": true, 
+			"brochure": false, 
+			"creator": 1, 
+			"managers": []
+		}
+	},
+	{
+		"model": "activities.activity",
+		"pk": 2,
+		"fields": {
+	    	"category": "SS",
+			"title": "Assemblea studenti SS",
+			"professor": "",
+			"description": "", 
+			"archived": true, 
+			"brochure": false, 
+			"creator": 1, 
+			"managers": []
+		}
+	},
+	{
+		"model": "activities.activity",
+		"pk": 2,
+		"fields": {
+	    	"category": "SN",
+			"title": "Calcolo",
+			"professor": "Paolo Guiotto",
+			"description": "", 
+			"archived": true, 
+			"brochure": true, 
+			"creator": 1, 
+			"managers": []
+		}
+	},
+	{
+		"model": "activities.activity",
+		"pk": 2,
+		"fields": {
+	    	"category": "SN",
+			"title": "Calcolo delle Variazioni",
+			"professor": "Clarke",
+			"description": "", 
+			"archived": true, 
+			"brochure": true, 
+			"creator": 1, 
+			"managers": []
+		}
+	},
+	{
+		"model": "activities.activity",
+		"pk": 2,
+		"fields": {
+	    	"category": "A",
+			"title": "CdA Alumni",
+			"professor": "Clarke",
+			"description": "", 
+			"archived": true, 
+			"brochure": true, 
+			"creator": 1, 
+			"managers": []
+		}
+	},
   {
     "model": "activities.activity",
     "fields": {

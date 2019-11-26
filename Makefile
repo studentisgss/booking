@@ -55,9 +55,12 @@ migrate-db:
 	$(PYTHON) manage.py migrate $(NOINPUT_OPT)
 
 populate-db:
+	$(PYTHON) manage.py loaddata fixtures/groups.json
 	$(PYTHON) manage.py loaddata fixtures/users.json
 	$(PYTHON) manage.py loaddata fixtures/buildings.json
 	$(PYTHON) manage.py loaddata fixtures/rooms.json
+	$(PYTHON) manage.py loaddata fixtures/roomRules.json
+	$(PYTHON) manage.py loaddata fixtures/roomPermissions.json
 	$(PYTHON) manage.py loaddata fixtures/activities.json
 	$(PYTHON) manage.py loaddata fixtures/events.json
 	$(PYTHON) manage.py loaddata fixtures/news.json

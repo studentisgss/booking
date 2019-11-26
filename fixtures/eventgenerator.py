@@ -140,7 +140,7 @@ Usage: python3 eventgenerator.py <number-of-events> <from-date> <to-date>
             print(usage)
 
 
-def get_room_ids():
+def get_rooms_ids():
     with open("rooms.json", "r") as source:
         rooms = json.load(source)
         room_ids = []
@@ -157,6 +157,12 @@ def get_activities_ids():
             if not activity["fields"]["archived"]:
                 activity_ids.append(activity["pk"])
         return activity_ids
+
+def get_roomRules():
+
+def get_users_ids():
+
+def 
 
 
 input_got = get_input()

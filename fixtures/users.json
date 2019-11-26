@@ -12,6 +12,7 @@
 			"email": "", 
 			"is_staff": false, 
 			"is_active": false, 
+			"date_joined": "2019-11-26T21:32:35.047Z", 
 			"groups": [], 
 			"user_permissions": []
 		}
@@ -20,7 +21,8 @@
 		"model": "auth.user", 
 		"pk": 2, 
 		"fields": {
-			"password": "pbkdf2_sha256$36000$e6i6XnVJTHhB$5iyzhpS3Dl9eVEEHkQXlkOmVnYDMpWO3HJXxpm3r7sQ=", 
+			"password": "pbkdf2_sha256$36000$HzEov0h5Qep2$CjMW3aztm1jH2uGsYS3Q2FabCT2VPybUbkuQVPIx6Iw=", 
+			"last_login": null, 
 			"is_superuser": true, 
 			"username": "dev", 
 			"first_name": "DevNome", 
@@ -28,15 +30,16 @@
 			"email": "dev@ma.il", 
 			"is_staff": true, 
 			"is_active": true, 
-			"groups": [1], 
-			"user_permissions": [19, 25, 23, 22, 24, 20, 26, 21, 1, 2, 3, 7, 8, 9, 4, 5, 6, 10, 11, 12, 13, 14, 15, 27, 28, 29, 47, 48, 49, 30, 31, 32, 33, 34, 35, 36, 39, 40, 37, 38, 41, 42, 43, 44, 45, 46, 16, 17, 18]
+			"date_joined": "2019-11-26T21:32:35Z", 
+			"groups": [], 
+			"user_permissions": [19, 25, 23, 22, 24, 20, 26, 21, 1, 2, 3, 7, 8, 9, 4, 5, 6, 10, 11, 12, 13, 14, 15, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 42, 43, 40, 41, 44, 45, 46, 47, 48, 49, 16, 17, 18]
 		}
 	}, 
 	{
 		"model": "auth.user", 
 		"pk": 3, 
 		"fields": {
-			"password": "pbkdf2_sha256$36000$w4UiK0UarEsM$UxT/U7/5g6d5GtqRGMHdwbSVEvtKdK6q/In2SN8fjAk=", 
+			"password": "pbkdf2_sha256$36000$S3WbnPeoptsq$wrqYdIUQBSsbR6d1PiSBBi50OX5/iU6qz/DrggPgJy0=", 
 			"last_login": null, 
 			"is_superuser": false, 
 			"username": "segreteria", 
@@ -45,6 +48,7 @@
 			"email": "segreteria@ma.il", 
 			"is_staff": false, 
 			"is_active": true, 
+			"date_joined": "2019-11-26T21:32:35Z", 
 			"groups": [1], 
 			"user_permissions": []
 		}
@@ -53,16 +57,53 @@
 		"model": "auth.user", 
 		"pk": 4, 
 		"fields": {
-			"password": "pbkdf2_sha256$36000$GRJqUyubZNTc$zpFna9iZBVW37SnLsy+Ea8iVVXLmif91P9XZWfRj1l0=", 
+			"password": "pbkdf2_sha256$36000$2bohFBgpVNBi$sWnkYNC0D3OQB1urf3HHr68OFjeR2OjxyLCD/gkLBV8=", 
+			"last_login": null, 
+			"is_superuser": false, 
+			"username": "rappresentanteSM", 
+			"first_name": "rapSMNome", 
+			"last_name": "RapSMCognome", 
+			"email": "rappresentanteSM@ma.il", 
+			"is_staff": false, 
+			"is_active": true, 
+			"date_joined": "2019-11-26T21:44:16Z", 
+			"groups": [2], 
+			"user_permissions": []
+		}
+	}, 
+	{
+		"model": "auth.user", 
+		"pk": 5, 
+		"fields": {
+			"password": "pbkdf2_sha256$36000$8HLRNwYtKQZt$icUXdyswMYypRtLchLApzXWAlxsZOozEzhsa/p9ua+A=", 
 			"last_login": null, 
 			"is_superuser": false, 
 			"username": "rappresentanteSN", 
-			"first_name": "rapSNNome", 
-			"last_name": "rapSNCognome", 
+			"first_name": "RapSNNome", 
+			"last_name": "RapSNCognome", 
 			"email": "rappresentanteSN@ma.il", 
 			"is_staff": false, 
 			"is_active": true, 
-			"groups": [2], 
+			"date_joined": "2019-11-26T21:32:35Z", 
+			"groups": [3], 
+			"user_permissions": []
+		}
+	}, 
+	{
+		"model": "auth.user", 
+		"pk": 6, 
+		"fields": {
+			"password": "pbkdf2_sha256$36000$C7XgLFY4U0Cc$aqhMphS14Viukw8jCDb3w5rxFc/RwTYryWYGGS9DAOk=", 
+			"last_login": null, 
+			"is_superuser": false, 
+			"username": "rappresentanteSS", 
+			"first_name": "RapSSNome", 
+			"last_name": "RapSNCognome", 
+			"email": "rappresentanteSS@ma.il", 
+			"is_staff": false, 
+			"is_active": true, 
+			"date_joined": "2019-11-26T21:43:04Z", 
+			"groups": [4], 
 			"user_permissions": []
 		}
 	}, 
@@ -70,7 +111,8 @@
 		"model": "auth.user", 
 		"pk": 7, 
 		"fields": {
-			"password": "pbkdf2_sha256$36000$nujEVJY7mw6s$ebJZFrqE9d1yuXfqiQJMUwLrhmRs8V2Vt7e6eYRlryk=", 
+			"password": "pbkdf2_sha256$36000$8sPthwRYvnBs$h1cPwpspSNILdMQVn5OMU2CrJzEU8DKYprnFIcJzaZI=", 
+			"last_login": null, 
 			"is_superuser": false, 
 			"username": "referente", 
 			"first_name": "RefNome", 
@@ -78,24 +120,26 @@
 			"email": "referente@ma.il", 
 			"is_staff": false, 
 			"is_active": true, 
-			"groups": [2, 5], 
+			"date_joined": "2019-11-26T21:32:35Z", 
+			"groups": [5], 
 			"user_permissions": []
 		}
 	}, 
 	{
 		"model": "auth.user", 
-		"pk": 8 
+		"pk": 8, 
 		"fields": {
-			"password": "pbkdf2_sha256$36000$Sps0yfaBxGUT$fFwbjFOU5maZCPDOoVT1Y0vVQZzwQDfuxbTLXwNuQe4=", 
+			"password": "pbkdf2_sha256$36000$0qo0lxYDBVq5$watjKP8QCpHwEE0fJuFz7eA7sQ4Ozlv3hlxYEL5gsMg=", 
 			"last_login": null, 
 			"is_superuser": false, 
 			"username": "galileiano", 
-			"first_name": "", 
-			"last_name": "", 
+			"first_name": "GalNome", 
+			"last_name": "GalCognome", 
 			"email": "galileiano@ma.il", 
 			"is_staff": false, 
 			"is_active": true, 
-			"groups": [], 
+			"date_joined": "2019-11-26T21:32:35Z", 
+			"groups": [5], 
 			"user_permissions": []
 		}
 	}
