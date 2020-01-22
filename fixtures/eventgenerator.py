@@ -4,10 +4,9 @@ import sys
 import os
 import json
 
-# Costant
+# Constant
 creator_id = [1, 3, 4, 7, 8]  # Pks of users fixture-loader, "segreteria", "rappresentanteSN", "referente" and "galileiano"
 start_time = [time(14, 0), time(16, 0), time(18, 0)]
-
 
 class Event:
     # Status choices
@@ -20,12 +19,13 @@ class Event:
         (REJECTED, "Rejected"),
     ]
 
-    def __init__(self, pk, room_id, activity_id, start, end, status, creator_id):
+    def __init__(self, pk, room_id, activity_id, start, end, exam, status, creator_id):
         self.pk = pk
         self.room_id = room_id
         self.activity_id = activity_id
         self.start = start
         self.end = end
+        self.exam = exam
         self.status = status
         self.creator_id = creator_id
 
@@ -38,10 +38,44 @@ class Event:
       "activity_id": {},
       "start": "{}+0100",
       "end": "{}+0100",
+      "exam": {},
       "status": {},
-      "creator_id": {}
+      "lastEditor": {}
     }}
   }}"""  # 2016-03-01 18:00:00
+        return event_json.format(
+            self.pk,
+            self.room_id,
+            self.activity_id,
+            self.start,
+            self.end,
+            self.exam,
+            self.status,
+            self.creator_id
+        )
+
+class News:
+    """docstring for News."""
+    def __init__(self, pk, title, contenst, start, end, ceator_id):
+        self.pk = pk
+        self.title = title
+        self.content = content
+        self.start = start
+        self.end = end
+        self.creator_id = creator_id
+
+    def str_json(self):
+        event_json = """  {{
+    "model": "news.news",
+    "pk": {},
+    "fields": {{
+      "title": {},
+      "content": {},
+      "start": "{}+0100",
+      "end": "{}+0100",
+      "creator_id": {}
+    }}
+    }}"""
         return event_json.format(
             self.pk,
             self.room_id,
@@ -102,6 +136,7 @@ def print_file(events):
 def get_random_events(days_in_period, number_of_events):
     # Generate random event
     events = []
+    activities_ids = get_activities_ids()
     start_time_set = set()
     while len(events) < number_of_events:
         # Random date not weekend
@@ -115,8 +150,13 @@ def get_random_events(days_in_period, number_of_events):
             status = Event.STATUS_CHOICES[1][0]
         else:
             status = Event.STATUS_CHOICES[2][0]
+        if (random.random()<0.1):
+            exam = "true"
+        else:
+            exam = "false"
+        creator = random.choice(creator_id)
         event = Event(len(events) + 1, room_id, activity_id, start, start + timedelta(hours=2),
-                      status, creator_id)
+                      exam, status, creator)
         events.append(event)
     return events
 
@@ -158,12 +198,6 @@ def get_activities_ids():
                 activity_ids.append(activity["pk"])
         return activity_ids
 
-def get_roomRules():
-
-def get_users_ids():
-
-def 
-
 
 input_got = get_input()
 if input_got:
@@ -171,7 +205,7 @@ if input_got:
     days_in_period = (date_interval["end"] - date_interval["start"]).days
     output_file = "events.json"
     activity_ids = get_activities_ids()
-    room_ids = get_room_ids()
+    room_ids = get_rooms_ids()
     print("Generating random events...")
     events = get_random_events(days_in_period, number_of_events)
     print("Saving file...")
