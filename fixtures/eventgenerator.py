@@ -54,39 +54,6 @@ class Event:
             self.creator_id
         )
 
-class News:
-    """docstring for News."""
-    def __init__(self, pk, title, contenst, start, end, ceator_id):
-        self.pk = pk
-        self.title = title
-        self.content = content
-        self.start = start
-        self.end = end
-        self.creator_id = creator_id
-
-    def str_json(self):
-        event_json = """  {{
-    "model": "news.news",
-    "pk": {},
-    "fields": {{
-      "title": {},
-      "content": {},
-      "start": "{}+0100",
-      "end": "{}+0100",
-      "creator_id": {}
-    }}
-    }}"""
-        return event_json.format(
-            self.pk,
-            self.room_id,
-            self.activity_id,
-            self.start,
-            self.end,
-            self.status,
-            self.creator_id
-        )
-
-
 def get_hour_and_room(day, start_time_set):
     start = None
     random.shuffle(start_time)
@@ -164,17 +131,21 @@ def get_random_events(days_in_period, number_of_events):
 def get_input():
     usage = """Random events generator
 
-Usage: python3 eventgenerator.py <number-of-events> <from-date> <to-date>
+Usage: python3 eventgenerator.py <number-of-events> [<from-date> <to-date>]
 
 <from-date> and <to-date> have to be in the format yyyy-mm-dd"""
 
-    if len(sys.argv) != 4:
+    if len(sys.argv) < 2:
         print(usage)
     else:
         try:
             number_of_events = int(sys.argv[1])
-            from_date = datetime.strptime(sys.argv[2], "%Y-%m-%d").date()
-            to_date = datetime.strptime(sys.argv[3], "%Y-%m-%d").date()
+            if (len(sys.argv)<4):
+                from_date = date.today() - timedelta(days=7)
+                to_date = date.today() + timedelta(days=7)
+            else:
+                from_date = datetime.strptime(sys.argv[2], "%Y-%m-%d").date()
+                to_date = datetime.strptime(sys.argv[3], "%Y-%m-%d").date()
             return number_of_events, {"start": from_date, "end": to_date}
         except:
             print(usage)

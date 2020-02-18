@@ -3,10 +3,10 @@
     "model": "events.event",
     "pk": 1,
     "fields": {
-      "room_id": 9,
-      "activity_id": 13,
-      "start": "2020-01-13 14:00:00+0100",
-      "end": "2020-01-13 16:00:00+0100",
+      "room_id": 4,
+      "activity_id": 19,
+      "start": "2020-02-21 18:00:00+0100",
+      "end": "2020-02-21 20:00:00+0100",
       "exam": false,
       "status": 0,
       "lastEditor": 4
@@ -16,49 +16,49 @@
     "model": "events.event",
     "pk": 2,
     "fields": {
-      "room_id": 7,
-      "activity_id": 11,
-      "start": "2020-01-30 14:00:00+0100",
-      "end": "2020-01-30 16:00:00+0100",
+      "room_id": 9,
+      "activity_id": 1,
+      "start": "2020-02-20 18:00:00+0100",
+      "end": "2020-02-20 20:00:00+0100",
       "exam": false,
-      "status": 0,
-      "lastEditor": 7
+      "status": 2,
+      "lastEditor": 8
     }
   },
   {
     "model": "events.event",
     "pk": 3,
     "fields": {
-      "room_id": 5,
-      "activity_id": 29,
-      "start": "2020-01-27 14:00:00+0100",
-      "end": "2020-01-27 16:00:00+0100",
+      "room_id": 1,
+      "activity_id": 1,
+      "start": "2020-02-20 16:00:00+0100",
+      "end": "2020-02-20 18:00:00+0100",
       "exam": false,
       "status": 0,
-      "lastEditor": 4
+      "lastEditor": 1
     }
   },
   {
     "model": "events.event",
     "pk": 4,
     "fields": {
-      "room_id": 3,
-      "activity_id": 6,
-      "start": "2020-01-16 18:00:00+0100",
-      "end": "2020-01-16 20:00:00+0100",
-      "exam": true,
-      "status": 2,
-      "lastEditor": 3
+      "room_id": 7,
+      "activity_id": 15,
+      "start": "2020-02-14 16:00:00+0100",
+      "end": "2020-02-14 18:00:00+0100",
+      "exam": false,
+      "status": 1,
+      "lastEditor": 1
     }
   },
   {
     "model": "events.event",
     "pk": 5,
     "fields": {
-      "room_id": 4,
-      "activity_id": 29,
-      "start": "2020-01-21 16:00:00+0100",
-      "end": "2020-01-21 18:00:00+0100",
+      "room_id": 7,
+      "activity_id": 15,
+      "start": "2020-02-17 14:00:00+0100",
+      "end": "2020-02-17 16:00:00+0100",
       "exam": true,
       "status": 0,
       "lastEditor": 1
@@ -68,39 +68,39 @@
     "model": "events.event",
     "pk": 6,
     "fields": {
-      "room_id": 2,
-      "activity_id": 27,
-      "start": "2020-01-14 16:00:00+0100",
-      "end": "2020-01-14 18:00:00+0100",
+      "room_id": 9,
+      "activity_id": 17,
+      "start": "2020-02-21 16:00:00+0100",
+      "end": "2020-02-21 18:00:00+0100",
       "exam": false,
       "status": 0,
-      "lastEditor": 4
+      "lastEditor": 1
     }
   },
   {
     "model": "events.event",
     "pk": 7,
     "fields": {
-      "room_id": 7,
-      "activity_id": 15,
-      "start": "2020-01-27 18:00:00+0100",
-      "end": "2020-01-27 20:00:00+0100",
+      "room_id": 6,
+      "activity_id": 14,
+      "start": "2020-02-18 18:00:00+0100",
+      "end": "2020-02-18 20:00:00+0100",
       "exam": false,
-      "status": 2,
-      "lastEditor": 4
+      "status": 0,
+      "lastEditor": 1
     }
   },
   {
     "model": "events.event",
     "pk": 8,
     "fields": {
-      "room_id": 2,
-      "activity_id": 18,
-      "start": "2020-01-15 18:00:00+0100",
-      "end": "2020-01-15 20:00:00+0100",
+      "room_id": 6,
+      "activity_id": 2,
+      "start": "2020-02-11 14:00:00+0100",
+      "end": "2020-02-11 16:00:00+0100",
       "exam": false,
       "status": 0,
-      "lastEditor": 7
+      "lastEditor": 8
     }
   },
   {
@@ -108,24 +108,219 @@
     "pk": 9,
     "fields": {
       "room_id": 3,
-      "activity_id": 7,
-      "start": "2020-01-27 14:00:00+0100",
-      "end": "2020-01-27 16:00:00+0100",
-      "exam": false,
-      "status": 1,
-      "lastEditor": 8
+      "activity_id": 11,
+      "start": "2020-02-20 14:00:00+0100",
+      "end": "2020-02-20 16:00:00+0100",
+      "exam": true,
+      "status": 0,
+      "lastEditor": 7
     }
   },
   {
     "model": "events.event",
     "pk": 10,
     "fields": {
-      "room_id": 3,
-      "activity_id": 18,
-      "start": "2020-01-17 14:00:00+0100",
-      "end": "2020-01-17 16:00:00+0100",
-      "exam": true,
+      "room_id": 6,
+      "activity_id": 22,
+      "start": "2020-02-13 14:00:00+0100",
+      "end": "2020-02-13 16:00:00+0100",
+      "exam": false,
       "status": 2,
+      "lastEditor": 4
+    }
+  },
+  {
+    "model": "events.event",
+    "pk": 11,
+    "fields": {
+      "room_id": 3,
+      "activity_id": 12,
+      "start": "2020-02-21 18:00:00+0100",
+      "end": "2020-02-21 20:00:00+0100",
+      "exam": false,
+      "status": 0,
+      "lastEditor": 1
+    }
+  },
+  {
+    "model": "events.event",
+    "pk": 12,
+    "fields": {
+      "room_id": 9,
+      "activity_id": 18,
+      "start": "2020-02-12 14:00:00+0100",
+      "end": "2020-02-12 16:00:00+0100",
+      "exam": true,
+      "status": 0,
+      "lastEditor": 1
+    }
+  },
+  {
+    "model": "events.event",
+    "pk": 13,
+    "fields": {
+      "room_id": 2,
+      "activity_id": 24,
+      "start": "2020-02-20 18:00:00+0100",
+      "end": "2020-02-20 20:00:00+0100",
+      "exam": false,
+      "status": 0,
+      "lastEditor": 8
+    }
+  },
+  {
+    "model": "events.event",
+    "pk": 14,
+    "fields": {
+      "room_id": 9,
+      "activity_id": 27,
+      "start": "2020-02-14 18:00:00+0100",
+      "end": "2020-02-14 20:00:00+0100",
+      "exam": false,
+      "status": 2,
+      "lastEditor": 1
+    }
+  },
+  {
+    "model": "events.event",
+    "pk": 15,
+    "fields": {
+      "room_id": 2,
+      "activity_id": 16,
+      "start": "2020-02-24 16:00:00+0100",
+      "end": "2020-02-24 18:00:00+0100",
+      "exam": false,
+      "status": 2,
+      "lastEditor": 8
+    }
+  },
+  {
+    "model": "events.event",
+    "pk": 16,
+    "fields": {
+      "room_id": 9,
+      "activity_id": 23,
+      "start": "2020-02-18 16:00:00+0100",
+      "end": "2020-02-18 18:00:00+0100",
+      "exam": false,
+      "status": 0,
+      "lastEditor": 8
+    }
+  },
+  {
+    "model": "events.event",
+    "pk": 17,
+    "fields": {
+      "room_id": 6,
+      "activity_id": 17,
+      "start": "2020-02-19 16:00:00+0100",
+      "end": "2020-02-19 18:00:00+0100",
+      "exam": false,
+      "status": 0,
+      "lastEditor": 3
+    }
+  },
+  {
+    "model": "events.event",
+    "pk": 18,
+    "fields": {
+      "room_id": 6,
+      "activity_id": 14,
+      "start": "2020-02-18 16:00:00+0100",
+      "end": "2020-02-18 18:00:00+0100",
+      "exam": false,
+      "status": 2,
+      "lastEditor": 7
+    }
+  },
+  {
+    "model": "events.event",
+    "pk": 19,
+    "fields": {
+      "room_id": 3,
+      "activity_id": 21,
+      "start": "2020-02-12 16:00:00+0100",
+      "end": "2020-02-12 18:00:00+0100",
+      "exam": true,
+      "status": 0,
+      "lastEditor": 1
+    }
+  },
+  {
+    "model": "events.event",
+    "pk": 20,
+    "fields": {
+      "room_id": 6,
+      "activity_id": 13,
+      "start": "2020-02-24 14:00:00+0100",
+      "end": "2020-02-24 16:00:00+0100",
+      "exam": true,
+      "status": 0,
+      "lastEditor": 7
+    }
+  },
+  {
+    "model": "events.event",
+    "pk": 21,
+    "fields": {
+      "room_id": 3,
+      "activity_id": 9,
+      "start": "2020-02-11 18:00:00+0100",
+      "end": "2020-02-11 20:00:00+0100",
+      "exam": true,
+      "status": 1,
+      "lastEditor": 7
+    }
+  },
+  {
+    "model": "events.event",
+    "pk": 22,
+    "fields": {
+      "room_id": 8,
+      "activity_id": 16,
+      "start": "2020-02-17 14:00:00+0100",
+      "end": "2020-02-17 16:00:00+0100",
+      "exam": false,
+      "status": 2,
+      "lastEditor": 4
+    }
+  },
+  {
+    "model": "events.event",
+    "pk": 23,
+    "fields": {
+      "room_id": 6,
+      "activity_id": 17,
+      "start": "2020-02-19 18:00:00+0100",
+      "end": "2020-02-19 20:00:00+0100",
+      "exam": false,
+      "status": 0,
+      "lastEditor": 1
+    }
+  },
+  {
+    "model": "events.event",
+    "pk": 24,
+    "fields": {
+      "room_id": 3,
+      "activity_id": 21,
+      "start": "2020-02-12 14:00:00+0100",
+      "end": "2020-02-12 16:00:00+0100",
+      "exam": false,
+      "status": 1,
+      "lastEditor": 4
+    }
+  },
+  {
+    "model": "events.event",
+    "pk": 25,
+    "fields": {
+      "room_id": 8,
+      "activity_id": 1,
+      "start": "2020-02-13 16:00:00+0100",
+      "end": "2020-02-13 18:00:00+0100",
+      "exam": false,
+      "status": 0,
       "lastEditor": 4
     }
   }
