@@ -4,9 +4,10 @@ import sys
 import os
 import json
 
-# Constant
+# Constants
 creator_id = [1, 3, 4, 7, 8]  # Pks of users fixture-loader, "segreteria", "rappresentanteSN", "referente" and "galileiano"
 start_time = [time(14, 0), time(16, 0), time(18, 0)]
+
 
 class Event:
     # Status choices
@@ -53,6 +54,7 @@ class Event:
             self.status,
             self.creator_id
         )
+
 
 def get_hour_and_room(day, start_time_set):
     start = None
@@ -109,7 +111,7 @@ def get_random_events(days_in_period, number_of_events):
         # Random date not weekend
         day, start, room_id = get_day_hour_and_room(days_in_period, start_time_set)
         start_time_set.add(str(room_id) + start.isoformat())
-        activity_id = random.choice(activity_ids)
+        activity_id = random.choice(activities_ids)
         r = random.random()
         if r < 0.7:
             status = Event.STATUS_CHOICES[0][0]
@@ -117,7 +119,7 @@ def get_random_events(days_in_period, number_of_events):
             status = Event.STATUS_CHOICES[1][0]
         else:
             status = Event.STATUS_CHOICES[2][0]
-        if (random.random()<0.1):
+        if (random.random() < 0.1):
             exam = "true"
         else:
             exam = "false"
@@ -140,7 +142,7 @@ Usage: python3 eventgenerator.py <number-of-events> [<from-date> <to-date>]
     else:
         try:
             number_of_events = int(sys.argv[1])
-            if (len(sys.argv)<4):
+            if (len(sys.argv) < 4):
                 from_date = date.today() - timedelta(days=7)
                 to_date = date.today() + timedelta(days=7)
             else:
