@@ -98,7 +98,7 @@
 			"is_superuser": false, 
 			"username": "rappresentanteSS", 
 			"first_name": "RapSSNome", 
-			"last_name": "RapSNCognome", 
+			"last_name": "RapSSCognome", 
 			"email": "rappresentanteSS@ma.il", 
 			"is_staff": false, 
 			"is_active": true, 
@@ -139,7 +139,7 @@
 			"is_staff": false, 
 			"is_active": true, 
 			"date_joined": "2019-11-26T21:32:35Z", 
-			"groups": [5], 
+			"groups": [], 
 			"user_permissions": []
 		}
 	}
