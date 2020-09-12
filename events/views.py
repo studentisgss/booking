@@ -95,7 +95,7 @@ class Monitor(TemplateView):
             where the sum of the events in each pages is not over the events_per_page
             as soon as there is not a single room with more event than thet numeber
             """
-            events_grouped = groupby(items, lambda e: e.room.get_full_name())
+            events_grouped = groupby(items, lambda e: ( e.room.get_full_name() if e.room else "Lezione online"))
             events_list = []
             page = []
             events_in_current_page = 0
@@ -137,6 +137,10 @@ class Monitor(TemplateView):
             else True
         # Other events
         other_events = Event.objects.filter(
+            start__range=(date, date + timedelta(1)),
+            status=Event.APPROVED,
+            online=True
+        ).order_by("start") | Event.objects.filter(
             start__range=(date, date + timedelta(1)),
             status=Event.APPROVED,
             room__important=False
