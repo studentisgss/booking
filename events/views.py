@@ -71,9 +71,15 @@ class Calendar(TemplateView):
         else:
             date = localnow().replace(hour=0, minute=0, second=0, microsecond=0)
         context["date"] = date
+        context["events_online"] = Event.objects.filter(
+            start__range=(date, date + timedelta(1)),
+            status__in=(Event.APPROVED, Event.WAITING),
+            online=True
+        ) # Separated from online ones, otherwise the view dictsort will fail
         context["events"] = Event.objects.filter(
             start__range=(date, date + timedelta(1)),
-            status__in=(Event.APPROVED, Event.WAITING)
+            status__in=(Event.APPROVED, Event.WAITING),
+            online=False
         )
         return context
 
