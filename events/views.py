@@ -174,7 +174,8 @@ class EventsApprovationView(LoginRequiredMixin, PermissionRequiredMixin, Templat
                             if self.request.user.has_perm("activities.change_" + c[0])]
         context["events_list"] = Event.objects.filter(
             status=Event.WAITING,
-            activity__category__in=managed_category
+            activity__category__in=managed_category,
+            online=False # online lesson does not need approvation
         ).filter(
             room__roompermission__group__in=self.request.user.groups.all(),
             room__roompermission__permission=30
