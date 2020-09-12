@@ -203,7 +203,7 @@ class ActivityManagerEditView(LoginRequiredMixin, PermissionRequiredMixin, Templ
                 if choices:
                     room_choices.append((building.name, choices))
             # Append the empty option at the first place so it will be the default one
-            room_choices = [("", "-------")] + room_choices
+            room_choices = [("", "-------"),("online", "Lezione online")] + room_choices
             f.fields["room"].choices = room_choices
 
         # Fill the choices of the of the empty forms only with the rooms
@@ -217,7 +217,7 @@ class ActivityManagerEditView(LoginRequiredMixin, PermissionRequiredMixin, Templ
             if choices:
                 room_choices.append((building.name, choices))
         # Append the empty option at the first place so it will be the default one
-        room_choices = [("", "-------")] + room_choices
+        room_choices = [("", "-------"),(-1, "Lezione online")] + room_choices
         empty_form = events_form.empty_form
         empty_form.fields["room"].choices = room_choices
 
@@ -256,21 +256,23 @@ class ActivityManagerEditView(LoginRequiredMixin, PermissionRequiredMixin, Templ
             instances = events_form.save(commit=False)
             with transaction.atomic():
                 for i in instances:
-                    # get the maximum permission for the room of the user
-                    perms = []
-                    for g in request.user.groups.all():
-                        perms.append(i.room.get_group_perm(g))
-                    perm = max(perms + [0])
-                    # Set status according to permission
-                    # If the permission is to require only
-                    # and the user set approved the change it to waiting
-                    if perm == 10:
-                        if i.status == Event.APPROVED:
-                            i.status = Event.WAITING
-                    # If the user has no permission and modify an event
-                    # set it to rejected
-                    elif perm == 0:
-                        i.status = Event.REJECTED
+                    # if the lesson is not online, room booking must be checked
+                    if not i.online:
+                        # get the maximum permission for the room of the user
+                        perms = []
+                        for g in request.user.groups.all():
+                            perms.append(i.room.get_group_perm(g))
+                        perm = max(perms + [0])
+                        # Set status according to permission
+                        # If the permission is to require only
+                        # and the user set approved the change it to waiting
+                        if perm == 10:
+                            if i.status == Event.APPROVED:
+                                i.status = Event.WAITING
+                        # If the user has no permission and modify an event
+                        # set it to rejected
+                        elif perm == 0:
+                            i.status = Event.REJECTED
                     # Check if lastEditor is None, then the event is new
                     try:
                         not_new = i.lastEditor is not None
@@ -326,7 +328,7 @@ class ActivityEditView(ActivityManagerEditView):
         events_form = EventInlineFormSet(request.POST, instance=activity)
 
         if form.is_valid() and events_form.is_valid():
-            # Check if the brochure flag is modified and it the user has the permission
+            # Check if the brochure flag is modified and if the user has the permission
             if not self.request.user.has_perm("activities.change_brochure"):
                 if "brochure" in form.changed_data:
                     raise PermissionDenied
