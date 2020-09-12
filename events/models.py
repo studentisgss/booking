@@ -17,6 +17,8 @@ class Event(models.Model):
     Events associated to an "activity" for which a "room" is booked,
     for example lessons of internal courses.
     "room" and "activity" are activity and room associated to the booking.
+    "online" is true if the lesson is online.
+    Either "online" is true or "room" is not null.
     "start" and "end" are time of the beginning and ending
     "exam" is a flag to tell apart lectures from exams
     [WN: we require that beginning and ending are the same date]
@@ -52,7 +54,8 @@ class Event(models.Model):
         (WAITING, _("In attesa")),
         (REJECTED, _("Rifiutato")),
     ]
-    room = models.ForeignKey(Room, on_delete=models.CASCADE, verbose_name=_("aula"))
+    room = models.ForeignKey(Room, on_delete=models.CASCADE, verbose_name=_("aula"), null=True, blank=True)
+    online = models.BooleanField(default=False, verbose_name=_("online"))
     activity = models.ForeignKey(Activity, on_delete=models.CASCADE, verbose_name=_("attività"))
     start = models.DateTimeField(_("ora di inizio"))
     end = models.DateTimeField(_("ora di fine"))
@@ -76,7 +79,7 @@ class Event(models.Model):
         if self.end is None:
             raise ValidationError(_("La data/ora di fine non è corretta"))
 
-        if self.room_id is None:
+        if self.room_id is None and self.online is False:
             raise ValidationError(_("L'aula è obbligatoria"))
 
         # 1. Check that the start time is before the end time
@@ -101,9 +104,9 @@ class Event(models.Model):
         except ObjectDoesNotExist:
             pass
 
-        # 4. If this event is not rejected, check that it does not overlap with all
+        # 4. If this event is not rejected and not online, check that it does not overlap with all
         # the other not-rejected events booked for the same room
-        if self.status != Event.REJECTED:
+        if self.status != Event.REJECTED and self.online is False:
             overlapping_events = Event.objects.filter(
                 ~Q(status=Event.REJECTED),
                 room_id=self.room.pk
@@ -122,3 +125,7 @@ class Event(models.Model):
                 raise ValidationError(
                     _("Non possono esserci due eventi non rifiutati sovrapposti per la stessa aula")
                 )
+
+        # 5. Remove the room if the event is online
+        if self.online is True:
+                self.room_id = None
