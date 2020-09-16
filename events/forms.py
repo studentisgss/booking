@@ -9,14 +9,16 @@ from rooms.models import Room
 from activities.models import Activity
 from booking import settings
 
-import logging
-logger = logging.getLogger(__name__)
-
-
 # This field will rappresent the relationship between rooms and buildings
 class RoomChoiceField(ModelChoiceField):
     def __init__(self, *args, **kwargs):
+        # kwargs['required'] = False
         super(RoomChoiceField, self).__init__(*args, **kwargs)
+
+class RooOrOnlinChoiceField(ChoiceField):
+    def validate(self, value): # No validation needed: field Room and Online validates by itself
+        pass
+
 
 class EventForm(BookingModelForm):
     class Meta:
@@ -53,7 +55,7 @@ class EventForm(BookingModelForm):
         )
     )
 
-    roo_or_onlin = ChoiceField()
+    roo_or_onlin = RooOrOnlinChoiceField()
     # it should be room_or_online, but to prevent confusion with room and online the last letters are removed
 
 class BaseEventInlineFormset(BaseInlineFormSet):
@@ -64,7 +66,6 @@ class BaseEventInlineFormset(BaseInlineFormSet):
         super().clean()
         instances = []
         for form in self.forms:
-            logger.error(form.instance)
             try:
                 if (form.instance.end and
                         form.instance.start and

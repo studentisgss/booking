@@ -261,8 +261,8 @@ allRooms.push("{{r.pk}}");
                             {{ f.online }}
                         </div>
                         {{ f.roo_or_onlin }}
-                        {% if f.room.errors %}
-                            {% for error in f.room.errors %}
+                        {% if f.roo_or_onlin.errors %}
+                            {% for error in f.roo_or_onlin.errors %}
                                 <p class="text-danger">{{ error|escape }}</p>
                             {% endfor %}
                         {% endif %}

@@ -11,10 +11,6 @@ from rooms.models import Room
 from rooms.models import RoomRule
 from activities.models import Activity
 
-
-import logging
-logger = logging.getLogger(__name__)
-
 class Event(models.Model):
     """
     Events associated to an "activity" for which a "room" is booked,
@@ -76,6 +72,7 @@ class Event(models.Model):
         return self.activity.get_full_title(self.exam)
 
     def clean(self):
+
         if self.start is None:
             raise ValidationError(_("La data/ora d'inizio non è corretta"))
 
@@ -129,7 +126,3 @@ class Event(models.Model):
                 raise ValidationError(
                     _("Non possono esserci due eventi non rifiutati sovrapposti per la stessa aula")
                 )
-
-        # # 5. Remove the room if the event is online
-        # if self.online is True:
-        #         self.room_id = None

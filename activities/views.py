@@ -26,9 +26,6 @@ from booking.settings import DATE_INPUT_FORMATS, DATE_FORMAT, TIME_FORMAT
 from datetime import datetime, timedelta
 from calendar import Calendar
 
-import logging
-logger = logging.getLogger(__name__)
-
 class DetailActivityView(TemplateView):
     template_name = "activities/detail.html"
 
@@ -245,9 +242,6 @@ class ActivityManagerEditView(LoginRequiredMixin, PermissionRequiredMixin, Templ
         else:
             raise Http404
         
-        logger.error("Event form is valid?")
-        logger.error(events_form.is_valid())
-
         # Check if the user is a manager if required
         if self.check_for_manager:
             if not self.request.user.managed_activities.filter(pk=kwargs["pk"]).exists():
