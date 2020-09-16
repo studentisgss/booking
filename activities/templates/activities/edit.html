@@ -188,9 +188,13 @@ allRooms.push("{{r.pk}}");
             	</div>
             	<div class="col-sm-6 col-md-7 col-lg-8">
                     <div class="form-group row">
-                        <label for="{{ emptyForm.room.id_for_label }}" class="col-sm-2 col-md-1 control-label">Aula:</label>
+                        <label for="{{ emptyForm.roo_or_onlin.id_for_label }}" class="col-sm-2 col-md-1 control-label">Aula:</label>
                         <div class="col-sm-10 col-md-11">
-                            {{ emptyForm.room }}
+                            <div hidden>
+                                {{ emptyForm.room }}
+                                {{ emptyForm.online }}
+                            </div>
+                            {{ emptyForm.roo_or_onlin }}
                         </div>
                     </div>
                     <div class="form-group row">
@@ -252,7 +256,11 @@ allRooms.push("{{r.pk}}");
                 {% endif %}
                 <tr>
                     <td {% if f.non_field_errors %}class="no-border-top"{% endif %}>
-                        {{ f.room }}
+                        <div hidden>
+                            {{ f.room }}
+                            {{ f.online }}
+                        </div>
+                        {{ f.roo_or_onlin }}
                         {% if f.room.errors %}
                             {% for error in f.room.errors %}
                                 <p class="text-danger">{{ error|escape }}</p>
@@ -318,7 +326,11 @@ allRooms.push("{{r.pk}}");
             </tr>
             <tr class="d-none" id="tr-empty">
                 <td>
-                    {{ emptyForm.room }}
+                    <div hidden>
+                        {{ emptyForm.room }}
+                        {{ emptyForm.online }}
+                    </div>
+                    {{ emptyForm.roo_or_onlin }}
                 </td>
                 <td>
                     {{ emptyForm.start }}

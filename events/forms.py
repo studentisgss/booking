@@ -1,6 +1,6 @@
 from base.forms import BookingModelForm
 from django.forms import inlineformset_factory, BaseInlineFormSet, ModelChoiceField
-from django.forms.fields import SplitDateTimeField
+from django.forms.fields import SplitDateTimeField, ChoiceField
 from django.forms.widgets import SplitDateTimeWidget
 from django.core.exceptions import ValidationError
 
@@ -9,27 +9,30 @@ from rooms.models import Room
 from activities.models import Activity
 from booking import settings
 
+import logging
+logger = logging.getLogger(__name__)
+
 
 # This field will rappresent the relationship between rooms and buildings
 class RoomChoiceField(ModelChoiceField):
     def __init__(self, *args, **kwargs):
         super(RoomChoiceField, self).__init__(*args, **kwargs)
 
-
 class EventForm(BookingModelForm):
     class Meta:
         model = Event
         fields = [
             "room",
+            "online",
             "start",
             "end",
             "status",
-            "exam",
+            "exam"
         ]
         field_classes = {
             "room": RoomChoiceField,
             "start": SplitDateTimeField,
-            "end": SplitDateTimeField,
+            "end": SplitDateTimeField
         }
 
     start = SplitDateTimeField(
@@ -50,12 +53,18 @@ class EventForm(BookingModelForm):
         )
     )
 
+    roo_or_onlin = ChoiceField()
+    # it should be room_or_online, but to prevent confusion with room and online the last letters are removed
 
 class BaseEventInlineFormset(BaseInlineFormSet):
+    def __init__(self, *args, **kwargs):
+        super(BaseEventInlineFormset, self).__init__(*args, **kwargs)
+
     def clean(self):
         super().clean()
         instances = []
         for form in self.forms:
+            logger.error(form.instance)
             try:
                 if (form.instance.end and
                         form.instance.start and
@@ -80,9 +89,10 @@ class BaseEventInlineFormset(BaseInlineFormSet):
     def get_queryset(self):
         return super().get_queryset().order_by("start")
 
-
 EventInlineFormSet = inlineformset_factory(Activity, Event, fields=(
     "room",
+    "online",
+    "roo_or_onlin",
     "start",
     "end",
     "status",

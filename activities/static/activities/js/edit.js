@@ -57,7 +57,7 @@ function addForm(element, before = false) {
         var elementAfter = $("#table-events tr").filter(function() {
             var tr = $(this);
             var filled = false;
-            $("select[name*='room']", tr).each(function() {
+            $("select[name*='roo_or_onlin']", tr).each(function() {
                 filled |= $(this).val() != "";
             });
             if (filled) { // If the form is already filled do not go further
@@ -112,26 +112,49 @@ function checkInput(obj) {
 
 // DOCUMENT READY
 $(document).ready(function() {
-    // Highlight event which cannot be approved
-    $(document).on("change", "select[name*='room'].form-control", function() {
+    // Initialize roo_or_online:
+    $("[name*='roo_or_onlin']").each(function() {
+        room_name = this.name.replace('roo_or_onlin','room')
+        online_name = this.name.replace('roo_or_onlin','online')
+        room = $("[name = '"+room_name+"']").val()
+        online = $("[name = '"+online_name+"']").prop('checked')
+        $(this).val( online ? -1 : room ).change()
+    })
+
+    // Manage roo_or_onlin update:
+    $(document).on("change", "select[name*='roo_or_onlin'].form-control", function() {
+        // Auto update room and online,
+        room_name = this.name.replace('roo_or_onlin','room')
+        online_name = this.name.replace('roo_or_onlin','online')
+        value = this.value
         var tr = $(this).parent().parent();
-        if (waitingRooms.indexOf(this.value) > -1) {
-            setWaitingWarning(tr);
-            if ($(this).data("original-value")) {
-                checkInput(this);
+
+        if( value == -1 ) {
+            $("[name = '"+room_name+"']").val('').change()
+            $("[name = '"+online_name+"']").prop("checked", true)
+            removeWaitingWarning(tr);
+        } else {
+            $("[name = '"+room_name+"']").val(value).change()
+            $("[name = '"+online_name+"']").prop("checked", false)
+
+            // Highlight event which cannot be approved
+            if (waitingRooms.indexOf(value) > -1) {
+                setWaitingWarning(tr);
+                if ($(this).data("original-value")) {
+                    checkInput(this);
+                }
             }
-        }
-        else {
-            if ((allRooms.indexOf(this.value) == -1) && (this.value != "")) {
-                setNoPermissionWarning(tr);
-            } else {
-                removeWaitingWarning(tr);
+            else {
+                if ((allRooms.indexOf(this.value) == -1) && (this.value != "")) {
+                    setNoPermissionWarning(tr);
+                } else {
+                    removeWaitingWarning(tr);
+                }
             }
         }
     });
 
     // Enhanced select control with jquery sumoselect
-
     $("#id_managers").SumoSelect({
     	placeholder: 'Selezionare i referenti',
         captionFormat:'{0} selezionati',
@@ -238,6 +261,7 @@ $(document).ready(function() {
 
         var event = null;
         var room = null;
+        var online = null;
         var status = null;
         while (times > 0) {
             // Add the new event
@@ -245,8 +269,11 @@ $(document).ready(function() {
             event.removeAttr("id");
             room = $("select[name*='room']", repeatTarget).val();
             $("select[name*='room']", event).val(room);
+            online = $("select[name*='online']", repeatTarget).val();
+            $("select[name*='online']", event).val(online);
+            $("select[name*='roo_or_onlin']", event).val( ( online ? -1 : room ));
             status = $("select[name*='status']", repeatTarget).val();
-            if (status == 0 && waitingRooms.indexOf(room) > -1) {
+            if (status == 0 && waitingRooms.indexOf(room) > -1 && !online) {
                 setWaitingWarning(event);
             }
             else {

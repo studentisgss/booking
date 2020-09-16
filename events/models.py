@@ -12,6 +12,9 @@ from rooms.models import RoomRule
 from activities.models import Activity
 
 
+import logging
+logger = logging.getLogger(__name__)
+
 class Event(models.Model):
     """
     Events associated to an "activity" for which a "room" is booked,
@@ -34,7 +37,7 @@ class Event(models.Model):
             "[%(day)s, %(start)s - %(end)s] %(room)s: %(activity)s"
         ) % {
             "activity": self.activity.title,
-            "room": self.room,
+            "room": ( "Lezione online" if self.online else self.room),
             "day": timezone.localtime(self.start).strftime("%m/%d/%Y"),
             "start": timezone.localtime(self.start).strftime("%H:%M"),
             "end": timezone.localtime(self.end).strftime("%H:%M"),
@@ -79,8 +82,9 @@ class Event(models.Model):
         if self.end is None:
             raise ValidationError(_("La data/ora di fine non è corretta"))
 
-        if self.room_id is None and self.online is False:
-            raise ValidationError(_("L'aula è obbligatoria"))
+        if self.room_id is None:
+            if not self.online:
+                raise ValidationError(_("L'aula è obbligatoria"))
 
         # 1. Check that the start time is before the end time
         if self.start >= self.end:
@@ -106,7 +110,7 @@ class Event(models.Model):
 
         # 4. If this event is not rejected and not online, check that it does not overlap with all
         # the other not-rejected events booked for the same room
-        if self.status != Event.REJECTED and self.online is False:
+        if self.status != Event.REJECTED and not self.online:
             overlapping_events = Event.objects.filter(
                 ~Q(status=Event.REJECTED),
                 room_id=self.room.pk
@@ -126,6 +130,6 @@ class Event(models.Model):
                     _("Non possono esserci due eventi non rifiutati sovrapposti per la stessa aula")
                 )
 
-        # 5. Remove the room if the event is online
-        if self.online is True:
-                self.room_id = None
+        # # 5. Remove the room if the event is online
+        # if self.online is True:
+        #         self.room_id = None

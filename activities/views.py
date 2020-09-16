@@ -26,6 +26,8 @@ from booking.settings import DATE_INPUT_FORMATS, DATE_FORMAT, TIME_FORMAT
 from datetime import datetime, timedelta
 from calendar import Calendar
 
+import logging
+logger = logging.getLogger(__name__)
 
 class DetailActivityView(TemplateView):
     template_name = "activities/detail.html"
@@ -123,6 +125,12 @@ class ActivityManagerEditView(LoginRequiredMixin, PermissionRequiredMixin, Templ
     permission_required = ("events.change_event", "rooms.can_book_room")
     check_for_manager = True
 
+    initial_dict = [{
+        'room': '',
+        'roo_or_onlin': '',
+        'online': False
+    }]
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         # Http method
@@ -145,7 +153,7 @@ class ActivityManagerEditView(LoginRequiredMixin, PermissionRequiredMixin, Templ
                 form = ActivityForm(instance=activity)      # the activity will be empty, so do not
             else:                                           # use it. Otherwise use it.
                 form = ActivityForm(self.request.POST, instance=activity)
-            events_form = EventInlineFormSet(self.request.POST, instance=activity)
+            events_form = EventInlineFormSet(self.request.POST, instance=activity, initial=self.initial_dict)
         else:
             raise Http404
 
@@ -203,8 +211,8 @@ class ActivityManagerEditView(LoginRequiredMixin, PermissionRequiredMixin, Templ
                 if choices:
                     room_choices.append((building.name, choices))
             # Append the empty option at the first place so it will be the default one
-            room_choices = [("", "-------"),("online", "Lezione online")] + room_choices
-            f.fields["room"].choices = room_choices
+            f.fields["room"].choices = [(None, "-------")] + room_choices
+            f.fields["roo_or_onlin"].choices = [("", "-------"),(-1, "Lezione online")] + room_choices
 
         # Fill the choices of the of the empty forms only with the rooms
         # that the user can book or require
@@ -216,10 +224,10 @@ class ActivityManagerEditView(LoginRequiredMixin, PermissionRequiredMixin, Templ
                     choices.append([room.id, room.get_full_name()])
             if choices:
                 room_choices.append((building.name, choices))
-        # Append the empty option at the first place so it will be the default one
-        room_choices = [("", "-------"),(-1, "Lezione online")] + room_choices
         empty_form = events_form.empty_form
-        empty_form.fields["room"].choices = room_choices
+        # Append the empty option at the first place so it will be the default one
+        empty_form.fields["room"].choices = [(None, "-------")] + room_choices
+        empty_form.fields["roo_or_onlin"].choices = [("", "-------"),(-1, "Lezione online")] + room_choices
 
         context["form"] = form
         context["eventForm"] = events_form
@@ -233,9 +241,12 @@ class ActivityManagerEditView(LoginRequiredMixin, PermissionRequiredMixin, Templ
             except:
                 raise Http404
             form = ActivityForm(request.POST, instance=activity)
-            events_form = EventInlineFormSet(request.POST, instance=activity)
+            events_form = EventInlineFormSet(request.POST, instance=activity, initial=self.initial_dict)
         else:
             raise Http404
+        
+        logger.error("Event form is valid?")
+        logger.error(events_form.is_valid())
 
         # Check if the user is a manager if required
         if self.check_for_manager:
@@ -421,6 +432,8 @@ class BookedDatesAPI(View):
             fromDate = localnow() - timedelta(days=30)
         if toDate is None:
             toDate = localnow() + timedelta(days=30)
+        if room_id is -1:
+            return JsonResponse("", safe=False)
 
         # Get all day in which the romm is already booked
         dates = Event.objects.all().filter(
@@ -489,6 +502,8 @@ class BookedHoursAPI(View):
 
         if day is None:
             day = localnow().date()
+        if room_id is -1:
+            return JsonResponse({"booked": "", "opening": ""}, safe=False)
 
         # Hours when the room is already booked
         hours = Event.objects.all().filter(
