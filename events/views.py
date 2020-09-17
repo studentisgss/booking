@@ -4,6 +4,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.urlresolvers import reverse
 from django.views.decorators.clickjacking import xframe_options_exempt
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.utils.translation import ugettext_lazy as _
 from datetime import timedelta
 from calendar import monthrange
 from random import shuffle
@@ -95,7 +96,7 @@ class Monitor(TemplateView):
             where the sum of the events in each pages is not over the events_per_page
             as soon as there is not a single room with more event than thet numeber
             """
-            events_grouped = groupby(items, lambda e: (e.room.get_full_name() if e.room else "Lezione online"))
+            events_grouped = groupby(items, lambda e: (e.room.get_full_name() if e.room else _("Lezione online")))
             events_list = []
             page = []
             events_in_current_page = 0

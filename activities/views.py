@@ -6,6 +6,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.exceptions import PermissionDenied
 from django.db.models import Q, Max, Min
 from django.db import transaction
+from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.admin.models import LogEntry, ADDITION, CHANGE, DELETION
@@ -210,7 +211,7 @@ class ActivityManagerEditView(LoginRequiredMixin, PermissionRequiredMixin, Templ
                     room_choices.append((building.name, choices))
             # Append the empty option at the first place so it will be the default one
             f.fields["room"].choices = [(None, "-------")] + room_choices
-            f.fields["roo_or_onlin"].choices = [("", "-------"), (-1, "Lezione online")] + room_choices
+            f.fields["roo_or_onlin"].choices = [("", "-------"), (-1, _("Lezione online"))] + room_choices
 
         # Fill the choices of the of the empty forms only with the rooms
         # that the user can book or require
@@ -225,7 +226,7 @@ class ActivityManagerEditView(LoginRequiredMixin, PermissionRequiredMixin, Templ
         empty_form = events_form.empty_form
         # Append the empty option at the first place so it will be the default one
         empty_form.fields["room"].choices = [(None, "-------")] + room_choices
-        empty_form.fields["roo_or_onlin"].choices = [("", "-------"), (-1, "Lezione online")] + room_choices
+        empty_form.fields["roo_or_onlin"].choices = [("", "-------"), (-1, _("Lezione online"))] + room_choices
 
         context["form"] = form
         context["eventForm"] = events_form
