@@ -1,0 +1,407 @@
+[
+	{
+		"model": "rooms.roompermission", 
+		"pk": 1, 
+		"fields": {
+			"room": 1, 
+			"group": 1, 
+			"permission": 30
+		}
+	}, 
+	{
+		"model": "rooms.roompermission", 
+		"pk": 2, 
+		"fields": {
+			"room": 1, 
+			"group": 2, 
+			"permission": 30
+		}
+	}, 
+	{
+		"model": "rooms.roompermission", 
+		"pk": 3, 
+		"fields": {
+			"room": 1, 
+			"group": 3, 
+			"permission": 30
+		}
+	}, 
+	{
+		"model": "rooms.roompermission", 
+		"pk": 4, 
+		"fields": {
+			"room": 1, 
+			"group": 4, 
+			"permission": 30
+		}
+	}, 
+	{
+		"model": "rooms.roompermission", 
+		"pk": 5, 
+		"fields": {
+			"room": 1, 
+			"group": 5, 
+			"permission": 10
+		}
+	},
+	{
+		"model": "rooms.roompermission", 
+		"pk": 6, 
+		"fields": {
+			"room": 2, 
+			"group": 1, 
+			"permission": 30
+		}
+	}, 
+	{
+		"model": "rooms.roompermission", 
+		"pk": 7, 
+		"fields": {
+			"room": 2, 
+			"group": 2, 
+			"permission": 30
+		}
+	}, 
+	{
+		"model": "rooms.roompermission", 
+		"pk": 8, 
+		"fields": {
+			"room": 2, 
+			"group": 3, 
+			"permission": 30
+		}
+	}, 
+	{
+		"model": "rooms.roompermission", 
+		"pk": 9, 
+		"fields": {
+			"room": 2, 
+			"group": 4, 
+			"permission": 30
+		}
+	}, 
+	{
+		"model": "rooms.roompermission", 
+		"pk": 10, 
+		"fields": {
+			"room": 2, 
+			"group": 5, 
+			"permission": 10
+		}
+	},
+	{
+		"model": "rooms.roompermission", 
+		"pk": 11, 
+		"fields": {
+			"room": 3, 
+			"group": 1, 
+			"permission": 30
+		}
+	}, 
+	{
+		"model": "rooms.roompermission", 
+		"pk": 12, 
+		"fields": {
+			"room": 3, 
+			"group": 2, 
+			"permission": 30
+		}
+	}, 
+	{
+		"model": "rooms.roompermission", 
+		"pk": 13, 
+		"fields": {
+			"room": 3, 
+			"group": 3, 
+			"permission": 30
+		}
+	}, 
+	{
+		"model": "rooms.roompermission", 
+		"pk": 14, 
+		"fields": {
+			"room": 3, 
+			"group": 4, 
+			"permission": 30
+		}
+	}, 
+	{
+		"model": "rooms.roompermission", 
+		"pk": 15, 
+		"fields": {
+			"room": 3, 
+			"group": 5, 
+			"permission": 10
+		}
+	},
+	{
+		"model": "rooms.roompermission", 
+		"pk": 16, 
+		"fields": {
+			"room": 4, 
+			"group": 1, 
+			"permission": 30
+		}
+	}, 
+	{
+		"model": "rooms.roompermission", 
+		"pk": 17, 
+		"fields": {
+			"room": 4, 
+			"group": 2, 
+			"permission": 30
+		}
+	}, 
+	{
+		"model": "rooms.roompermission", 
+		"pk": 18, 
+		"fields": {
+			"room": 4, 
+			"group": 3, 
+			"permission": 30
+		}
+	}, 
+	{
+		"model": "rooms.roompermission", 
+		"pk": 19, 
+		"fields": {
+			"room": 4, 
+			"group": 4, 
+			"permission": 30
+		}
+	}, 
+	{
+		"model": "rooms.roompermission", 
+		"pk": 20, 
+		"fields": {
+			"room": 4, 
+			"group": 5, 
+			"permission": 10
+		}
+	},
+	{
+		"model": "rooms.roompermission", 
+		"pk": 21, 
+		"fields": {
+			"room": 5, 
+			"group": 1, 
+			"permission": 30
+		}
+	}, 
+	{
+		"model": "rooms.roompermission", 
+		"pk": 22, 
+		"fields": {
+			"room": 5, 
+			"group": 2, 
+			"permission": 30
+		}
+	}, 
+	{
+		"model": "rooms.roompermission", 
+		"pk": 23, 
+		"fields": {
+			"room": 5, 
+			"group": 3, 
+			"permission": 30
+		}
+	}, 
+	{
+		"model": "rooms.roompermission", 
+		"pk": 24, 
+		"fields": {
+			"room": 5, 
+			"group": 4, 
+			"permission": 30
+		}
+	}, 
+	{
+		"model": "rooms.roompermission", 
+		"pk": 25, 
+		"fields": {
+			"room": 5, 
+			"group": 5, 
+			"permission": 10
+		}
+	},
+	{
+		"model": "rooms.roompermission", 
+		"pk": 26, 
+		"fields": {
+			"room": 6, 
+			"group": 1, 
+			"permission": 30
+		}
+	}, 
+	{
+		"model": "rooms.roompermission", 
+		"pk": 27, 
+		"fields": {
+			"room": 6, 
+			"group": 2, 
+			"permission": 10
+		}
+	}, 
+	{
+		"model": "rooms.roompermission", 
+		"pk": 28, 
+		"fields": {
+			"room": 6, 
+			"group": 3, 
+			"permission": 10
+		}
+	}, 
+	{
+		"model": "rooms.roompermission", 
+		"pk": 29, 
+		"fields": {
+			"room": 6, 
+			"group": 4, 
+			"permission": 10
+		}
+	}, 
+	{
+		"model": "rooms.roompermission", 
+		"pk": 30, 
+		"fields": {
+			"room": 6, 
+			"group": 5, 
+			"permission": 10
+		}
+	},
+	{
+		"model": "rooms.roompermission", 
+		"pk": 31, 
+		"fields": {
+			"room": 7, 
+			"group": 1, 
+			"permission": 30
+		}
+	}, 
+	{
+		"model": "rooms.roompermission", 
+		"pk": 32, 
+		"fields": {
+			"room": 7, 
+			"group": 2, 
+			"permission": 30
+		}
+	}, 
+	{
+		"model": "rooms.roompermission", 
+		"pk": 33, 
+		"fields": {
+			"room": 7, 
+			"group": 3, 
+			"permission": 30
+		}
+	}, 
+	{
+		"model": "rooms.roompermission", 
+		"pk": 34, 
+		"fields": {
+			"room": 7, 
+			"group": 4, 
+			"permission": 30
+		}
+	}, 
+	{
+		"model": "rooms.roompermission", 
+		"pk": 35, 
+		"fields": {
+			"room": 7, 
+			"group": 5, 
+			"permission": 30
+		}
+	},
+	{
+		"model": "rooms.roompermission", 
+		"pk": 36, 
+		"fields": {
+			"room": 8, 
+			"group": 1, 
+			"permission": 30
+		}
+	}, 
+	{
+		"model": "rooms.roompermission", 
+		"pk": 37, 
+		"fields": {
+			"room": 8, 
+			"group": 2, 
+			"permission": 30
+		}
+	}, 
+	{
+		"model": "rooms.roompermission", 
+		"pk": 38, 
+		"fields": {
+			"room": 8, 
+			"group": 3, 
+			"permission": 30
+		}
+	}, 
+	{
+		"model": "rooms.roompermission", 
+		"pk": 39, 
+		"fields": {
+			"room": 8, 
+			"group": 4, 
+			"permission": 30
+		}
+	}, 
+	{
+		"model": "rooms.roompermission", 
+		"pk": 40, 
+		"fields": {
+			"room": 8, 
+			"group": 5, 
+			"permission": 30
+		}
+	},
+	{
+		"model": "rooms.roompermission", 
+		"pk": 41, 
+		"fields": {
+			"room": 9, 
+			"group": 1, 
+			"permission": 30
+		}
+	}, 
+	{
+		"model": "rooms.roompermission", 
+		"pk": 42, 
+		"fields": {
+			"room": 9, 
+			"group": 2, 
+			"permission": 30
+		}
+	}, 
+	{
+		"model": "rooms.roompermission", 
+		"pk": 43, 
+		"fields": {
+			"room": 9, 
+			"group": 3, 
+			"permission": 30
+		}
+	}, 
+	{
+		"model": "rooms.roompermission", 
+		"pk": 44, 
+		"fields": {
+			"room": 9, 
+			"group": 4, 
+			"permission": 30
+		}
+	}, 
+	{
+		"model": "rooms.roompermission", 
+		"pk": 45, 
+		"fields": {
+			"room": 9, 
+			"group": 5, 
+			"permission": 30
+		}
+	}
+]

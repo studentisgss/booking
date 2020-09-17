@@ -1,3160 +1,404 @@
 [
+	{
+		"model": "activities.activity",
+	    "pk": 1,
+	    "fields": {
+	    "category": "SN",
+			"title": "Robotica",
+			"professor": "Livia Conti",
+			"description": "",
+			"archived": false,
+			"brochure": true,
+			"creator": 1,
+			"managers": []
+		}
+	},
+	{
+		"model": "activities.activity",
+		"pk": 2,
+		"fields": {
+	    "category": "SN",
+			"title": "Fluidodinamica",
+			"professor": "Roberto Turolla",
+			"description": "",
+			"archived": false,
+			"brochure": true,
+			"creator": 1,
+			"managers": []
+		}
+	},
+	{
+		"model": "activities.activity",
+		"pk": 3,
+		"fields": {
+	    "category": "A",
+			"title": "Advanced English",
+			"professor": "Falinska",
+			"description": "",
+			"archived": true,
+			"brochure": true,
+			"creator": 1,
+			"managers": []
+		}
+	},
+	{
+		"model": "activities.activity",
+		"pk": 4,
+		"fields": {
+	    "category": "SN",
+			"title": "Assemblaggio stampante 3D",
+			"professor": "Livia Conti",
+			"description": "",
+			"archived": false,
+			"brochure": false,
+			"creator": 1,
+			"managers": []
+		}
+	},
+	{
+		"model": "activities.activity",
+		"pk": 5,
+		"fields": {
+	    "category": "A",
+			"title": "Assemblea Comitato Orientamento",
+			"professor": "",
+			"description": "",
+			"archived": false,
+			"brochure": false,
+			"creator": 1,
+			"managers": []
+		}
+	},
+	{
+		"model": "activities.activity",
+		"pk": 6,
+		"fields": {
+	    "category": "A",
+			"title": "Assemblea degli studenti",
+			"professor": "",
+			"description": "",
+			"archived": false,
+			"brochure": false,
+			"creator": 1,
+			"managers": []
+		}
+	},
+	{
+		"model": "activities.activity",
+		"pk": 7,
+		"fields": {
+	    "category": "SN",
+			"title": "Assemblea Didattica SN",
+			"professor": "",
+			"description": "",
+			"archived": false,
+			"brochure": false,
+			"creator": 1,
+			"managers": []
+		}
+	},
+	{
+		"model": "activities.activity",
+		"pk": 8,
+		"fields": {
+	    "category": "SM",
+			"title": "Assemblea Didattica SM",
+			"professor": "",
+			"description": "",
+			"archived": false,
+			"brochure": false,
+			"creator": 1,
+			"managers": []
+		}
+	},
+	{
+		"model": "activities.activity",
+		"pk": 9,
+		"fields": {
+	    "category": "A",
+			"title": "Assemblea Rete degli Allievi",
+			"professor": "",
+			"description": "",
+			"archived": false,
+			"brochure": false,
+			"creator": 1,
+			"managers": []
+		}
+	},
+	{
+		"model": "activities.activity",
+		"pk": 10,
+		"fields": {
+	    "category": "SS",
+			"title": "Assemblea studenti SS",
+			"professor": "",
+			"description": "",
+			"archived": false,
+			"brochure": false,
+			"creator": 1,
+			"managers": []
+		}
+	},
+	{
+		"model": "activities.activity",
+		"pk": 11,
+		"fields": {
+	    "category": "SN",
+			"title": "Calcolo",
+			"professor": "Paolo Guiotto",
+			"description": "",
+			"archived": false,
+			"brochure": true,
+			"creator": 1,
+			"managers": []
+		}
+	},
+	{
+		"model": "activities.activity",
+		"pk": 12,
+		"fields": {
+	    "category": "SN",
+			"title": "Calcolo delle Variazioni",
+			"professor": "Clarke",
+			"description": "",
+			"archived": false,
+			"brochure": true,
+			"creator": 1,
+			"managers": []
+		}
+	},
+	{
+		"model": "activities.activity",
+		"pk": 13,
+		"fields": {
+	    "category": "A",
+			"title": "CdA Alumni",
+			"professor": "Clarke",
+			"description": "",
+			"archived": false,
+			"brochure": true,
+			"creator": 1,
+			"managers": []
+		}
+	},
   {
     "model": "activities.activity",
-    "pk": 1,
+		"pk": 14,
     "fields": {
-      "title": "Robotica",
-      "description": "Prof. Livia Conti",
+			"category": "SM",
+      "title": "Introduzione alla lettura di Wittgenstein",
+			"professor": "G. Tomasi",
+      "description": "",
       "archived": false,
-      "creator_id": 1
+			"brochure": true,
+      "creator_id": 1,
+			"managers": []
     }
   },
   {
     "model": "activities.activity",
-    "pk": 2,
+		"pk": 15,
     "fields": {
-      "title": "Fluidodinamica",
-      "description": "Prof. Roberto Turolla",
-      "archived": false,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Advanced English - Prof. Falinska",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Assemblaggio stampante 3D (L. Conti)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Assemblaggio Stampante 3D (L. Conti)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Assemblea Comitato Orientamento",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Assemblea degli studenti",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Assemblea Didattica Scienze Naturali",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Assemblea didattica SM",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Assemblea di Scienze Morali",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Assemblea Rete degli Allievi",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Assemblea Scienze Morali",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Assemblea Scienze Naturali",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Assemblea studenti",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Calcolo 1 - Prof. Guiotto",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Calcolo delle Variazioni - prof. Clarke",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Calcolo delle Variazioni - prof. Piccoli",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Calcolo I - prof. Guiotto",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "pk": 3,
-    "fields": {
-      "title": "Calcolo - prof. Guiotto",
+			"category": "SN",
+      "title": "Complementi di analisi",
+			"professor": "C. Mariconda",
       "description": "",
       "archived": false,
-      "creator_id": 1
+			"brochure": true,
+      "creator_id": 1,
+			"managers": []
     }
   },
   {
     "model": "activities.activity",
+		"pk": 16,
     "fields": {
-      "title": "Calcolo, prova d'esame - prof. Guiotto",
+			"category": "SM",
+      "title": "Conferenza di Filosofia del Diritto",
+			"professor": "Sarra",
       "description": "",
-      "archived": true,
-      "creator_id": 1
+      "archived": false,
+			"brochure": false,
+      "creator_id": 1,
+			"managers": []
     }
   },
   {
     "model": "activities.activity",
+		"pk": 17,
     "fields": {
-      "title": "CdA alumni",
+			"category": "SM",
+      "title": "Conferenza Identità / Immediatezza/ Negazione",
+			"professor": "M.Barison",
       "description": "",
-      "archived": true,
-      "creator_id": 1
+      "archived": false,
+			"brochure": false,
+      "creator_id": 1,
+			"managers": []
     }
   },
   {
     "model": "activities.activity",
+		"pk": 18,
     "fields": {
-      "title": "CdA Alumni",
+			"category": "SM",
+      "title": "Conferenza Il tempo della Sostanza, incontro preliminare",
+			"professor": "A. Brandalise",
       "description": "",
-      "archived": true,
-      "creator_id": 1
+      "archived": false,
+			"brochure": false,
+      "creator_id": 1,
+			"managers": []
     }
   },
   {
     "model": "activities.activity",
+		"pk": 19,
     "fields": {
-      "title": "CdA Associazione Alumni",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "CI SM - Introduzione alla lettura di Wittgenstein (G. Tomasi)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Classical Electrodynamic - Bo Thidè",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Complementi di analisi - prof. Mariconda",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Conferenza Alumni",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Conferenza di Filosofia del Diritto (Sarra)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Conferenza Prof.Pace",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Conferenza SM - Identità / Immediatezza/ Negazione (M.Barison)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Conferenza SM - Il tempo della Sostanza, incontro preliminare (A. Brandalise)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "  Confindustria - Come preparare un Video CV ",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
+			"category": "A",
       "title": "Confindustria - Formazione di soft skills",
       "description": "",
-      "archived": true,
+      "archived": false,
+			"brochure": false,
       "creator_id": 1
     }
   },
   {
     "model": "activities.activity",
+		"pk": 20,
     "fields": {
-      "title": "Confindustria -  Simulazione di colloqui individuali",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Confindustria - Simulazione di colloqui individuali",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Consiglio degli Studenti",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
+			"category": "A",
       "title": "Consiglio Direttivo",
       "description": "",
       "archived": true,
+			"brochure": false,
       "creator_id": 1
     }
   },
   {
     "model": "activities.activity",
+		"pk": 21,
     "fields": {
-      "title": "Corsi Interno SM -  Poesia Tardoantica (Agosti)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso di Civilta' letteraria russa, prof. Aloe, SM",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso di Civiltà  letteraria russa, prof. Aloe, SM",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso di francese A1 Prof. Labastie",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso di Inglese CLA",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso di introduzione all'Algebra, prof. Carnovale",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso di introduzione all'Algebra, prof. Carnovale, SN",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso di Statistica Inferenziale, prof. Pierno, SN",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso di Storia Economica, prof. Tusset",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "pk": 4,
-    "fields": {
-      "title": "Corso Inglese B2",
+			"category": "SM",
+      "title": "Poesia Tardoantica",
+			"professor": "A. Agosti",
       "description": "",
       "archived": false,
-      "creator_id": 1
+			"brochure": true,
+      "creator_id": 1,
+			"managers": []
     }
   },
   {
     "model": "activities.activity",
+		"pk": 22,
     "fields": {
-      "title": "Corso inglese C1",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso Inglese C1",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso Inglese C1 (Prof. Cloke)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso Inglese - Prof. Church",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso Interno di Teoria delle Categorie",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso Interno - Scienze Sociali",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso interno: seminari sull'energia - prof. Lazzarin",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso interno: Econometria - prof. Rettore",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso interno: Aspetti molecolari dei meccanismi biologici - prof. Zanotti",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Assemblea Classe Scienze Naturali",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso di Inglese Avanzato - Prof. Falinska",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Riunione: Missione Cometaria ROSETTA",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Riunione per la Missione BepiColombo a Mercurio",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Esame Teoria dei Giochi",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso interno: Aspetti molecolari dei meccanismi biologici - prof. Zanotti",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Sostenibilità, tra Etica ed Ecologia - Prof. Morandini",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Temi di diritto costituzionale - Prof. Ambrosoli",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Presentazione Progetto Confindustria Alumni",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Lettura di un testo di filosofia moderna - Prof. Menegoni",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Energie Rinnovabili - Prof. AbbottodEnergie Rinnovabili - Prof. Abbotto",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Energie Rinnovabili - Prof.ssa Collini",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Energie Rinnovabili - Prof.sse Bonchio e Di Valentin",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Seminario: \"Vita conosciuta e sconosciuta\" - Prof. Galletta",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso Interno SM - Esame (Zinato)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso Interno SM - Human Rights",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso Interno SM - 'Il giudizio finale' di Michelangelo (V. Romani)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso Interno SM - Il giudizio finale di Michelangelo (V. Romani)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": " Corso Interno SM - Introduzione alla lettura di Wittgenstein (G. Tomasi)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso Interno SM - Introduzione alla lettura di Wittgenstein (G. Tomasi)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso Interno SM - Introduzione alla lettura di Wittgenstein (G. Tomasi) - Esame",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso Interno SM - L'epica d'età  flavia (M. Fucecchi)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso Interno SM - Letteratura Francese; Proust (G. Henrot)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": " Corso Interno SM - Poesia Tardoantica (Agosti)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso Interno SM - Poesia Tardoantica (Agosti)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso Interno SM - Storia dell'arte",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso Interno SN - Analisi Armonica (Ciatti)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso Interno SN - Analisi Armonica (P. Ciatti)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso Interno SN - Analisi Armonica (P.Ciatti)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso Interno SN - Assemblaggio stampante 3D (L. Conti)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso Interno SN - Calcolo delle probabilità  (P. Dai Pra)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso Interno SN - Calcolo (P. Guiotto)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso Interno SN - Calcolo (P. Guiotto) - Esame",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso Interno SN - Complementi di Analisi (C. Mariconda)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso interno SN - Introduzione ai modelli probabilistici (A. Bianchi)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso Interno SN - Introduzione ai modelli probabilistici (A.Bianchi)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso Interno SN - Problemi aperti nella fisica delle interazioni fondamentali (M. Pietroni)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso Interno SN - Processi chimici ed Irreversibilità  (G. Moro)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso Interno SN - Scienze delle Vita (Barcaccia)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso Interno SN - Teoria della misura (P. Ciatti)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso Interno SN - Termodinamica (Baldovin)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": " Corso Interno SN - Termodinamica (Orlandini)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso Interno SN - Termodinamica (Orlandini)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso Interno SS - Introduction to the General Theory of the Social Systems (V. Pace)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso Interno SS - Introduction To the General Theory of the Social Systems (V. Pace)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso interno SS- Microeconomics",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso Interno SS - Principles of Microeconomics (M. Moretto, L. Rocco)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso Lingua Francese B1 (Prof. Labastie)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso Perspectives in Biology - Chiara Romualdi",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso Perspectives in Biology - Elia Stupka ",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso Perspectives in Biology - Elia Stupka",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso Perspectives in Biology - prof. Vallortigara",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso Perspectives in Biology - Silvio Tosatto",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso Processi Chimici ed Irreversibilità ",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso Processi Chimici ed Irreversibilità  - prof. Moro",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso SM - Human Rights and Judaism in Israel (Goldfeder)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso SM -  Human Rights: Le Corti dei diritti (T. Epidendio)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso SM - Human Rights (Pin)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso SM - Human Rights: Universalism and Particularism (Isanga)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "  Corso SM - Inquietudine religiosa nel Cinquecento (Tomasi)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": " Corso SM - Inquietudine religiosa nel Cinquecento (Tomasi)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso SM - Inquietudine religiosa nel Cinquecento (Tomasi)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso SM - La filosofia di Deleuze",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso SM - Letteratura Greca Tardoantica (Agosti)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso SM - Letteratura Latina di epoca imperiale - Esame (Fucecchi)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso SM - Letteratura latina (Esame)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso SM -  Storia religiosa del '500 ",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso SM - Storia religiosa del '500 ",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso SM - Storia religiosa del '500",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso SM - Storia religiosa del '500 (esame)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso SM -  Storia religiosa del '500 (Niccoli)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso SM - Storia religiosa del '500 (Niccoli)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso SN - Analisi Armonica (Ciatti)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso SN - Introduzione ai modelli probabilistici - Esame (Bianchi)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso SN - Nanoscienze (De Cola)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso SN - Nanoscienze (esame)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso SN - Nanoscienze (Mancin)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso SN - Probabilità  (dai Pra)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso  SN - Probabilità  (Dai Pra)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso SN - Probabilità  (Dai Pra)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso SN - Problemi aperti nella fisica delle interazioni fondamentali - Esame (Pietroni)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso SN - Problemi Aperti nella Fisica delle Interazioni Fondamentali (Pietroni)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso SN - Relatività  generale (Lechner)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": " Corso SN - Relatività  Generale (Lechner)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso SN - Relatività  Generale (Lechner)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": " Corso SN - Scienze della Vita - Esame (G. Barcaccia)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso SN - Scienze della Vita - Esame (G. Barcaccia)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso SN - Scienze della Vita (G. Barcaccia)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso SN - Scienze della vita (Zeviani) Esame",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso SN - Teoria della misura (Ciatti)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso SN - Termodinamica (Orlandini)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso SS - Fundamentals and systems of positive law",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso SS \"Fundamentals and systems of positive law\"",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": " Corso SS - Fundamentals of management",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso SS - Fundamentals of management",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso SS- Principles of Microeconomics",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso SS: Principles of Microeconomics",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso SS - Principles of Microeconomics (Moretto)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "  Corso SS - Principles of Microeconomics (Moretto e Rocco)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso SS - Principles of Microeconomics (Moretto e Rocco)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso SS: \"PRINCIPLES OF MICROECONOMICS\" Proff. Michele Moretto e Lorenzo Rocco ",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso SS - Principles of Microeconomics (Rocco)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso SS - Systems of Positive Law",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso SS - The State in Multidisciplinary Perspective (Bortolini)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso Tedesco A2",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso Tedesco B2",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Corso Tedesco C1",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "\"Dall'abolizione del califfato alla sua restaurazione: una missione impossibile?\". Prof. Pace",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Dare+",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Diritto Musulmano - prof. Pin",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Diritto Musulmano - Prof Pin",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Econometria - prof. Rettore",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Econometria - Prof. Rettore",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Economia del lavoro - Prof. Rocco",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Electromagnetic Field Theory - prof. Thidè",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Ermeneutica Filosofica - Prof. Berti",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Ernst Cassirer und die Philosophie des deutschen Idealismus",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Esame",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Esame Ammissione Scienze Sociali",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Esame classical electrodinamic, prof. Bo Thidè",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Esame del corso \"L'illustrazione libraria e la cultura artistica nel Medioevo\"",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Esame di Game Theory - Rocco (SS)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Esame di Miniature",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Esame Diritto Costituzionale - Prof. Ambrosi",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Esame Econometria - Prof. Rettore",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Esame Economia del Lavoro - Prof. Rocco",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Esame Epica Omerica - Prof. Montanari",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Esame Game Theory (Rocco)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Esame Game Theory - SS",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Esame Macroeconomia - Prof. Caggiano",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Esame Storia Moderna - Prof. Viggiano",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Esame Termodinamica",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Filosofia contemporanea - prof. Rametta",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Filosofia del diritto - prof. Todescan",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Filosofia del Diritto - prof. Todescan",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Filosofia della Scienza - Incontro preliminare",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Filosofia della Scienza - Prof. Giaretta",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Filosofia della Scienza - Prof. Giorello",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Filosofia della Scienza - Prof. Pievani",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Francese A1 - prof. Labastie",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Fundamentals and systems of Positive Law  (Proff. Sarra e Moro)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Il fenomeno del consumismo applicato ai mercati finanziari - prof. Lupoi",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Il ruolo delle agenzie di comunicazione (Dott.ssa Beni Francesca)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Incontro Benettin",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Incontro Carnovale - Class. algebre di Lie",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Incontro col tutor del corso di Lettere antiche dott. Bossina",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Incontro con il tutor dott. Bossina",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Incontro con i tutori e il coordinatore di Scienze Naturali",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Incontro di benvenuto ai nuovi studenti",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Incontro di letteratura francese (Mallarmè)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Incontro di letteratura francese - Marangoni",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Incontro per la Rete di Idee",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Incontro per selling proposition",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Incontro prof. Carnovale - Class. algebre di Lie",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Incontro pubblicità ",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Incontro Scienze Naturali",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Incontro SM - Conversazione con Vitaliano Trevisan",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Incontro studenti CSB - SSU - SGSS",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Incontro sulla convivenza in Collegio",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Incontro sulla fisica nucleare - Prof.ssa Conti",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Informazione Quantistica (prof. Villoresi, Vallone)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Introduction to Game Theory (Rocco) ESAME",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Introduzione ai modelli probabilistici - Bianchi-Dai Pra",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "L'Epica greca e l'Epica omerica-Prof. Franco Montanari ",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "L'Epica greca e l'Epica omerica-Prof. Franco Montanari",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "L'epica greca e l'epica omerica - prof. Montanari",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "L'eredità  di Darwin",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Lettura di un testo di filosofia moderna - Prof. Menegoni",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Letture di Dante - Prof. Bellomo",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Letture su Dante - Prof. Bellomo",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Lezioni sul metodo giuridico tenute dal professor Giuseppe Zaccaria",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Macroeconomia",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Mimprendo - Incontro di presentazione",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Modern State in a multidisciplinary approach - Corso SS (Bortolini)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Neuroscienze e filosofia - Prof. Chiereghin",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Perspectives in biology - incontro con il prof. Costa",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Perspectives in biology - Incontro con il prof. Costa",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Presentazione corso Diritti Umani - Prof. Pin",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Presentazione progetto Mimprendo",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Presentazione Volume \"Il fantasma dell'Unità \" - Dott. Favuzzi e Dott. Metlica",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Principles of Microeconomics (Rocco)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Probabilità  - prof. Ciatti",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Processi chimici e irreversibilità  - prof. Moro",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Psicolinguistica",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Public economics - Prof. Greco",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Raccontare lo sport - Stefano Rizzato",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Ricevimento prof.ssa Borg",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Riunione degli studenti per \"Attivamente\"",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Scienze della vita - Prof. Zeviani",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Segnali cellulari - Prof. Mongillo",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": " Seminario Carlo Ginzburg: Pascal, Provinciales VIII-IX",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Seminario Confindustria - Simulazione colloquio di gruppo",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Seminario di Cyber Law - Prof.ssa Sandei",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Seminario di prosa greca classica",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Seminario Filosofia e Neuroscienze, Prof. Chiereghin",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Seminario Filosofia e Neuroscienze, Prof. Chiereghin, SM",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Seminario Giochi e topologia, prof Gaiffi",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Seminario - Guido Mazzoni",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Seminario lucreziano della dott. Lisa Piazzi",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Seminario, Prof. Fenggang Yang, SM",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Seminario Prof. Gereffi",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Seminario prof. Ginzburg",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Seminario Prof. Ivan Foletti",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Seminario - prof. J. Kneller",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Seminario Prof. Nacci",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Seminario Prof. Pozzan",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Seminario - Prof. Zinato",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Seminario SM â€“ Lettura di Nietzsche (P. Gori)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Seminario SM - Conversazione con Franco Buffoni",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Seminario SM - Conversazione con Gabriele  Frasca",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Seminario SM - Conversazione con Giorgio Falco",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Seminario SM - Conversazione con Stefano Dal Bianco",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Seminario SM - Conversazione con Valerio Magrelli",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Seminario SM - Cyber Law (C. Sandei)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Seminario SM - Il ruolo delle emozioni nell'esecuzione e nella fruizione dell'opera d'arte (Chiereghin)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Seminario SM - Incontro con Nicola Lagioia ",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Seminario SM - Lettura di Nietzsche, \"Crepuscolo degli idoli\" (P. Gori)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Seminario SM - Prosa greca",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Seminario SM - Wittgenstein e la tradizione analitica: questioni filosofiche e metafilosofiche",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Seminario SN - Searching for Dark Matter (Dr. Cirelli)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Seminario sui cattolicesimi italiani dopo gli anni '70 - Prof. Bettiolo",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Seminario sui marximi italiani dagli anni '70 a oggi - Prof. Curi",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Seminario sulla fenomenologia italiana contemporanea - Prof. De Natale",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Seminario sulle filosofie analitiche italiane - Prof. Morato",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Seminario su metrica greca e latina - prof. Savignago",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "SM - Dibattito sul metodo nella cultura giuridica (Prof. Zaccaria)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "SM - Filosofia Contemporanea (Prof. Costa)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "SM - Husserl (Prof. Costa)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "SM - Il dibattito sul metodo nella cultura giuridica (Prof. Zaccaria)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "SM - Incontro Prof. Cesaroni",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "SM - Incontro prof. Zinato",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "SM - Incontro tutor storia dlel'arte",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "SM - La storia religiosa del '500 (Prof. Niccoli) [ESAME]",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "SM - Leopardi (Prof. Prete)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "SM - Lettura di Horcynus Orca (Prof. Alfano)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "SM - Lettura di Shakespeare",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "SM - Lettura di Shakespeare [Presentazione]",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "SM - Lettura di Shakespeare (Prof. Coronato)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "SM - Lettura di Shakespeare (Prof. Oboe)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "SM - Lettura di Shakespeare (Prof. Petrina)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "SM - Neoplatonismo (Prof. Zambon)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "SM - Prima Guerra Mondiale (Prof. Isnenghi)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "SM - Seminario \"Lettura di Horcynus Orca\" (Prof. Alfano)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "SM - Storia dell'Arte",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "SM - Storia dell'Arte [incontro preliminare]",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "SM - Storia dell'Arte (Prof.ssa Romani)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "SM - Storiografia greca (Prof. Canfora)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "SN - Equilibrio Chimico ed Irreversibilità  (Prof. Moro)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "SN - Incontro prof. Maritan",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "SN - Incontro Studenti Primo Anno",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "SN - Problemi aperti nella Fisica (Prof. Pietroni) [esame]",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "SN - Processi chimici ed irreversibilità  (Prof. Moro)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "SN - Robotica (Prof. Conti)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "SN - Robotica (Prof. Steil)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "SN - Termodinamica (Esame)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "SN - Termodinamica (Prof. Baldovin) [esame]",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "SS - Fundamentals and systems of positive law (Proff. Sarra e Moro)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "SS - Fundamentals of Management",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "SS - Incontro Prof. Moro e Tutor Provolo",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "SS - Introduction to the General Theory of the Social Systems (Pace)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "SS - Islam and the state (Prof. Pace)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "SS - Law of torts (Prof. Maggiolo)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "SS - Principles of Management",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "pk": 8,
-    "fields": {
-      "title": "SS - Principles of Microeconomics (Proff. Rocco e Moretto)",
+			"category": "SM",
+      "title": "Corso di Civilta' letteraria russa",
+			"professor": "prof. Aloe",
       "description": "",
       "archived": false,
-      "creator_id": 1
+			"brochure": true,
+      "creator_id": 1,
+			"managers": []
     }
   },
   {
     "model": "activities.activity",
+		"pk": 23,
     "fields": {
-      "title": "SS - Principles of Microeconomics (Prof. Rocco)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "SS - Sociologia (Prof. Pace) [esame]",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "pk": 7,
-    "fields": {
-      "title": "SS - The modern State in a multidisciplinary approach (Prof. Bortolini)",
+			"category": "A",
+      "title": "Corso di di francese A1",
+			"professor": "S. Labastie",
       "description": "",
       "archived": false,
-      "creator_id": 1
+			"brochure": false,
+      "creator_id": 1,
+			"managers": []
     }
   },
   {
     "model": "activities.activity",
+		"pk": 24,
     "fields": {
-      "title": "Statistica inferenziale ed analisi dati - prof. Pierno",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Statistica inferenziale per analisi dati - prof. Pierno",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Statistica Inferenziale per Analisi Dati - prof. Pierno",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Statistica inferenziale - Prof. Pierno",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Storia dell'economia - Prof. Tusset",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Storia Globale - prof. Fumian",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Storia Moderna - Prof. Viggiano",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Storia romana - prof. Fezzi",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Storia romana - Prof. Fezzi",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "pk": 6,
-    "fields": {
-      "title": "Storia Romana - prof. Fezzi",
+			"category": "SN",
+      "title": "Introduzione all'Algebra",
+			"professor": "G. Carnovale",
       "description": "",
       "archived": false,
-      "creator_id": 1
+			"brochure": true,
+      "creator_id": 1,
+			"managers": []
     }
   },
   {
     "model": "activities.activity",
+		"pk": 25,
     "fields": {
-      "title": "Temi di diritto costituzionale - Prof. Ambrosi",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Temi di diritto costituzionale - Prof. Ambrosoli",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Temi di Macroeconomia",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "pk": 5,
-    "fields": {
-      "title": "Teoria della Relatività  - prof. Lechner",
+			"category": "SS",
+      "title": "Statistica Inferenziale",
+			"professor": "G. Pierno",
       "description": "",
       "archived": false,
-      "creator_id": 1
+			"brochure": true,
+      "creator_id": 1,
+			"managers": []
     }
   },
   {
     "model": "activities.activity",
+		"pk": 26,
     "fields": {
-      "title": "Teoria delle categorie - prof. Colpi",
+			"category": "SS",
+      "title": "Storia Economica",
+			"professor": "G. Tusset",
       "description": "",
-      "archived": true,
-      "creator_id": 1
+      "archived": false,
+			"brochure": true,
+      "creator_id": 1,
+			"managers": []
     }
   },
   {
     "model": "activities.activity",
+		"pk": 27,
     "fields": {
-      "title": "Termodinamica - prof. Orlandini",
+			"category": "SN",
+      "title": "Teoria delle Categorie",
+			"professor": "G. Tusset",
       "description": "",
-      "archived": true,
-      "creator_id": 1
+      "archived": false,
+			"brochure": true,
+      "creator_id": 1,
+			"managers": []
     }
   },
   {
     "model": "activities.activity",
+		"pk": 28,
     "fields": {
-      "title": "The Geography of Innovation - Prof. Doloreux",
+			"category": "SN",
+      "title": "Aspetti molecolari dei meccanismi biologici",
+			"professor": "S. Zanotti",
       "description": "",
-      "archived": true,
-      "creator_id": 1
+      "archived": false,
+			"brochure": true,
+      "creator_id": 1,
+			"managers": []
     }
   },
   {
     "model": "activities.activity",
+		"pk": 29,
     "fields": {
-      "title": "Tutorato di lingua inglese, prof. Borg",
+			"category": "SM",
+      "title": "Lettura di un testo di filosofia moderna",
+			"professor": "S. Menegoni",
       "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Tutorato d'inglese",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Tutorato fisica - Prof.ssa Conti",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Tutorato lingua inglese",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Tutorato SN - Assemblaggio stampante 3D",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Tutorato SN - Assemblaggio stampante 3D (L.Conti)",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Visita di Brian Schmidt, Premio Nobel per la Fisica 2011",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Workshop Alumni Confindustria",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Workshop: career day",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
-    }
-  },
-  {
-    "model": "activities.activity",
-    "fields": {
-      "title": "Workshop Confindustria",
-      "description": "",
-      "archived": true,
-      "creator_id": 1
+      "archived": false,
+			"brochure": true,
+      "creator_id": 1,
+			"managers": []
     }
   }
 ]
