@@ -9,14 +9,16 @@ from rooms.models import Room
 from activities.models import Activity
 from booking import settings
 
+
 # This field will rappresent the relationship between rooms and buildings
 class RoomChoiceField(ModelChoiceField):
     def __init__(self, *args, **kwargs):
         # kwargs['required'] = False
         super(RoomChoiceField, self).__init__(*args, **kwargs)
 
+
 class RooOrOnlinChoiceField(ChoiceField):
-    def validate(self, value): # No validation needed: field Room and Online validates by itself
+    def validate(self, value):  # No validation needed: field Room and Online validates by itself
         pass
 
 
@@ -58,6 +60,7 @@ class EventForm(BookingModelForm):
     roo_or_onlin = RooOrOnlinChoiceField()
     # it should be room_or_online, but to prevent confusion with room and online the last letters are removed
 
+
 class BaseEventInlineFormset(BaseInlineFormSet):
     def __init__(self, *args, **kwargs):
         super(BaseEventInlineFormset, self).__init__(*args, **kwargs)
@@ -89,6 +92,7 @@ class BaseEventInlineFormset(BaseInlineFormSet):
 
     def get_queryset(self):
         return super().get_queryset().order_by("start")
+
 
 EventInlineFormSet = inlineformset_factory(Activity, Event, fields=(
     "room",

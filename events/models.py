@@ -11,6 +11,7 @@ from rooms.models import Room
 from rooms.models import RoomRule
 from activities.models import Activity
 
+
 class Event(models.Model):
     """
     Events associated to an "activity" for which a "room" is booked,
@@ -33,7 +34,7 @@ class Event(models.Model):
             "[%(day)s, %(start)s - %(end)s] %(room)s: %(activity)s"
         ) % {
             "activity": self.activity.title,
-            "room": ( "Lezione online" if self.online else self.room),
+            "room": ("Lezione online" if self.online else self.room),
             "day": timezone.localtime(self.start).strftime("%m/%d/%Y"),
             "start": timezone.localtime(self.start).strftime("%H:%M"),
             "end": timezone.localtime(self.end).strftime("%H:%M"),

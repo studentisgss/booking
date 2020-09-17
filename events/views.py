@@ -75,7 +75,7 @@ class Calendar(TemplateView):
             start__range=(date, date + timedelta(1)),
             status__in=(Event.APPROVED, Event.WAITING),
             online=True
-        ) # Separated from online ones, otherwise the view dictsort will fail
+        )  # Separated from online ones, otherwise the view dictsort will fail
         context["events"] = Event.objects.filter(
             start__range=(date, date + timedelta(1)),
             status__in=(Event.APPROVED, Event.WAITING),
@@ -95,7 +95,7 @@ class Monitor(TemplateView):
             where the sum of the events in each pages is not over the events_per_page
             as soon as there is not a single room with more event than thet numeber
             """
-            events_grouped = groupby(items, lambda e: ( e.room.get_full_name() if e.room else "Lezione online"))
+            events_grouped = groupby(items, lambda e: (e.room.get_full_name() if e.room else "Lezione online"))
             events_list = []
             page = []
             events_in_current_page = 0
@@ -175,7 +175,7 @@ class EventsApprovationView(LoginRequiredMixin, PermissionRequiredMixin, Templat
         context["events_list"] = Event.objects.filter(
             status=Event.WAITING,
             activity__category__in=managed_category,
-            online=False # online lesson does not need approvation
+            online=False  # online lesson does not need approvation
         ).filter(
             room__roompermission__group__in=self.request.user.groups.all(),
             room__roompermission__permission=30

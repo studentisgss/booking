@@ -26,6 +26,7 @@ from booking.settings import DATE_INPUT_FORMATS, DATE_FORMAT, TIME_FORMAT
 from datetime import datetime, timedelta
 from calendar import Calendar
 
+
 class DetailActivityView(TemplateView):
     template_name = "activities/detail.html"
 
@@ -209,7 +210,7 @@ class ActivityManagerEditView(LoginRequiredMixin, PermissionRequiredMixin, Templ
                     room_choices.append((building.name, choices))
             # Append the empty option at the first place so it will be the default one
             f.fields["room"].choices = [(None, "-------")] + room_choices
-            f.fields["roo_or_onlin"].choices = [("", "-------"),(-1, "Lezione online")] + room_choices
+            f.fields["roo_or_onlin"].choices = [("", "-------"), (-1, "Lezione online")] + room_choices
 
         # Fill the choices of the of the empty forms only with the rooms
         # that the user can book or require
@@ -224,7 +225,7 @@ class ActivityManagerEditView(LoginRequiredMixin, PermissionRequiredMixin, Templ
         empty_form = events_form.empty_form
         # Append the empty option at the first place so it will be the default one
         empty_form.fields["room"].choices = [(None, "-------")] + room_choices
-        empty_form.fields["roo_or_onlin"].choices = [("", "-------"),(-1, "Lezione online")] + room_choices
+        empty_form.fields["roo_or_onlin"].choices = [("", "-------"), (-1, "Lezione online")] + room_choices
 
         context["form"] = form
         context["eventForm"] = events_form
@@ -241,7 +242,7 @@ class ActivityManagerEditView(LoginRequiredMixin, PermissionRequiredMixin, Templ
             events_form = EventInlineFormSet(request.POST, instance=activity, initial=self.initial_dict)
         else:
             raise Http404
-        
+
         # Check if the user is a manager if required
         if self.check_for_manager:
             if not self.request.user.managed_activities.filter(pk=kwargs["pk"]).exists():
