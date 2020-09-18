@@ -22,23 +22,18 @@ table {
 }
 
 table .head {
-  border-top: 1px solid grey;
+  border-top: 2px solid #9b0014;
   padding: 0px;
   font-weight: bold;
 }
 
-.top-image {
-  width: 100%;
-}
-
 h2 {
-  font-style: italic;
   font-size: 160%;
+  font-variant: small-caps;
 }
 
 h3 {
   padding-bottom: 8px;
-  font-style: italic;
   font-size: 125%;
 }
 
@@ -55,6 +50,21 @@ h3 {
     padding-bottom: 5px;
     margin-top: 0px;
     margin-bottom: 0px;
+}
+
+/* UniPd Style */
+.monitor_header {
+    background-color: #9b0014;
+    height: 85px;
+    width: 100%;
+}
+
+.monitor_footer {
+    position: absolute;
+    bottom: 0;
+    height: 20px;
+    background-color: #9b0014;
+    width: 100%;
 }
 
 /* CAROUSEL INDICATOR */

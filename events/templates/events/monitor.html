@@ -45,8 +45,9 @@
 </head>
 
 <body>
-<div>
-    <img src="{% static 'events/img/monitor/top.jpg' %}" class="top-image" alt="Scuola Galileiana di Studi Superiori - Pannello informativo" />
+<div class="monitor_header p-2">
+    <img src="{% static 'events/img/monitor/logo_unipd.png' %}" class="h-100" alt="Università degli studi di Padova" />
+    <img src="{% static 'events/img/monitor/scuola_galileiana.png' %}" class="h-100 float-right" alt="Università degli studi di Padova" />
 </div>
 <div class="container-fluid main-container">
 	<div class="row">
@@ -56,12 +57,12 @@
 		{% else %}
 		<div class="col-md-12">
 		{% endif %}
-    	<h2>Prenotazione Aule - {{ date | date:'d F Y' }} </h2>
+    	<h2>Prenotazione aule - {{ date | date:'d F Y' }} </h2>
 
         {% if eventsImportant %}
             <div class="pt-3">
-                <h3>Aule del Collegio Morgagni</h3>
-                <div id="important-event-carousel" class="carousel slide carousel-fade" data-ride="carousel" data-interval="20000">
+                <h3>Aule interne</h3>
+                <div id="important-event-carousel" class="carousel slide carousel-fade" data-ride="carousel" data-interval="10000">
                 <div class="carousel-inner">
                     {% for page in  eventsImportant %}
                         <div class="carousel-item{% if forloop.first %} active{% endif %}">
@@ -153,7 +154,7 @@
 
         {% if not eventsImportant and not eventsOther and not news %}
             <div class="col-md-12">
-                <h2 class="pb-3">Prenotazione Aule - {{ date | date:'d F Y' }} </h2>
+                <h2 class="pb-3">Prenotazione aule - {{ date | date:'d F Y' }} </h2>
                 <div class="alert alert-default top-buffer" role="alert">
                     Nessuna prenotazione per questo giorno.
                 </div>
@@ -161,6 +162,7 @@
         {% endif %}
 	</div>
 </div>
+<div class="monitor_footer"></div>
 {% block end-body-script %}
 {% endblock %}
 

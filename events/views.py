@@ -114,7 +114,7 @@ class Monitor(TemplateView):
         context = super().get_context_data(**kwargs)
         date = localnow().replace(hour=0, minute=0, second=0, microsecond=0)
         context["date"] = date
-        important_events_per_page = 6
+        important_events_per_page = 2
         other_events_per_page = 1
         # Show only approved event
         # Important room
