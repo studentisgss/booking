@@ -55,16 +55,18 @@ h3 {
 /* UniPd Style */
 .monitor_header {
     background-color: #9b0014;
-    height: 85px;
+    height: 100px;
     width: 100%;
+    border-bottom: 7px solid #454953;
 }
 
 .monitor_footer {
     position: absolute;
     bottom: 0;
-    height: 20px;
+    height: 30px;
     background-color: #9b0014;
     width: 100%;
+    border-top: 7px solid #454953;
 }
 
 /* CAROUSEL INDICATOR */
