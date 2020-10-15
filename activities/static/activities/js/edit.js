@@ -54,7 +54,7 @@ function addForm(element, before = false) {
     el.removeAttr("id");
     if (before) {
         // Find the last filled form
-        var elementAfter = $("#table-events tr").filter(function() {
+        var notNullEvents = $("#table-events tr").filter(function() {
             var tr = $(this);
             var filled = false;
             $("select[name*='roo_or_onlin']", tr).each(function() {
@@ -67,8 +67,13 @@ function addForm(element, before = false) {
                 filled |= $(this).val() != "";
             });
             return filled;
-        }).last();
-        el.insertAfter(elementAfter);
+        });
+        if (notNullEvents.length == 0) { 
+            el.insertAfter($("#table-events tr").first()); // Just after the head row
+        } else {
+            var elementAfter = notNullEvents.last();
+            el.insertAfter(elementAfter);
+        }
     }
     else {
         el.insertBefore($('#tr-button'));

@@ -33,30 +33,30 @@
             </h3>
 		</div>
 		{% if user.is_authenticated %}
-      {% if perms.activities.change_activity and can_manage_activity %}
-				<div class="col-3 col-sm-2">
-					<div class="float-right">
-                        <h1><a id="edit-a" href="{% url "activities:edit" activity.pk %}" class="btn btn-info"><span class="fas fa-edit"></span> Modifica</a></h1>
+            {% if perms.activities.change_activity and can_manage_activity %}
+                    <div class="col-3 col-sm-2">
+                        <div class="float-right">
+                            <h1><a id="edit-a" href="{% url "activities:edit" activity.pk %}" class="btn btn-info"><span class="fas fa-edit"></span> Modifica</a></h1>
+                        </div>
                     </div>
-				</div>
-      {% else %}
-        {% if perms.events.change_event and is_manager %}
-          <div class="col-3 col-sm-2">
-            <h1><a href="{% url "activities:editmanager" activity.pk %}" class="btn btn-info"><span class="fas fa-edit"></span> Modifica</a></h1>
-          </div>
-        {% endif %}
-			{% endif %}
+            {% else %}
+            {% if perms.events.change_event and is_manager %}
+            <div class="col-3 col-sm-2">
+                <h1><a href="{% url "activities:editmanager" activity.pk %}" class="btn btn-info"><span class="fas fa-edit"></span> Modifica</a></h1>
+            </div>
+            {% endif %}
+		{% endif %}
     {% endif %}
 	</div>
 	<div class="row">
         {% if activity.description %}
-        <div class="col-md-7 col-5">
+        <div class="col-sm-7">
             <a id="collapseDescriptionControl" class="btn btn-light border border-secondary mb-3" data-toggle="collapse" href="#collapseDescription" aria-expanded="false" aria-controls="collapseDescription">
                 Mostra/Nascondi descrizione
             </a>
         </div>
         {% if not activity.archived %}
-            <div class="col-md-5 col-7">
+            <div class="col-sm-5">
                 <div class="btn-group float-right">
                     <a href="{% url 'activities:ics' activity.id %}" class="btn btn-sm btn-success feed-link" id="ics-link" tabindex="0" role="button" data-title="Feed iCal" data-content="" data-toggle="popover">
                         <span class="fas fa-calendar-alt" aria-hidden="true"></span>
@@ -130,7 +130,7 @@
 			</tr>
 		{% empty %}
 			<tr>
-				<td>Nessun evento in questa attivit&agrave;.</td>
+				<td id="events_table_empty_row">Nessun evento in questa attivit&agrave;.</td>
 			</tr>
 		{% endfor %}
 	</tbody>
