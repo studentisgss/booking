@@ -19,13 +19,43 @@
 		<div id="calendar" class="top-buffer pb-3"></div>
 	</div>
 	<div class="col-md-6 col-lg-7 col-xl-8" id="events-table">
+		{% if events_online %}
+		<table class="table table-hover table-striped border-top-0">
+			<thead>
+				<tr>
+					<th colspan="2" class="border-top-0"><span class="h2 font-weight-normal">
+						Lezione online
+					</span></th>
+				</tr>
+				<tr>
+					<th class="w-25">Orario</th>
+					<th class="w-75">Attività</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for e in events_online|dictsort:"start" %}
+					<tr class="row-calendar {% if e.status == 1 %} waiting {% endif %}">
+						<td>
+						{% if e.status == 1 %}
+						<span class="fas fa-hourglass-half" aria-hidden="true" title="In attesa di approvazione"></span>
+						{% endif %}
+						{{ e.start|date:"G:i" }} - {{ e.end|date:"G:i" }}</td>
+						<td><a href="{% url "activities:details" e.activity.pk %}">{{ e.get_full_title }}</a>
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+		{% endif %}
 		{% if events %}
 			{% regroup events|dictsort:"room_id" by room as events_by_room %}
 			{% for room_events in events_by_room %}
 				<table class="table table-hover table-striped border-top-0">
 					<thead>
 						<tr>
-							<th colspan="2" class="border-top-0"><span class="h2 font-weight-normal"><a href="{% url "rooms:details" room_events.grouper.pk %}">{{ room_events.grouper.get_full_name }}</a></span></th>
+							<th colspan="2" class="border-top-0"><span class="h2 font-weight-normal">
+								<a href="{% url "rooms:details" room_events.grouper.pk %}">{{ room_events.grouper.get_full_name }}</a>
+							</span></th>
 						</tr>
 						<tr>
 							<th class="w-25">Orario</th>
@@ -47,7 +77,8 @@
 					</tbody>
 				</table>
 			{% endfor %}
-		{% else %}
+		{% endif %}
+		{% if not events and not events_online %}
 			<div class="alert alert-info top-buffer" role="alert">
 				Nessuna prenotazione per questo giorno.
 			</div>

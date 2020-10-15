@@ -17,6 +17,8 @@ class Event(models.Model):
     Events associated to an "activity" for which a "room" is booked,
     for example lessons of internal courses.
     "room" and "activity" are activity and room associated to the booking.
+    "online" is true if the lesson is online.
+    Either "online" is true or "room" is not null.
     "start" and "end" are time of the beginning and ending
     "exam" is a flag to tell apart lectures from exams
     [WN: we require that beginning and ending are the same date]
@@ -32,7 +34,7 @@ class Event(models.Model):
             "[%(day)s, %(start)s - %(end)s] %(room)s: %(activity)s"
         ) % {
             "activity": self.activity.title,
-            "room": self.room,
+            "room": (_("Lezione online") if self.online else self.room),
             "day": timezone.localtime(self.start).strftime("%m/%d/%Y"),
             "start": timezone.localtime(self.start).strftime("%H:%M"),
             "end": timezone.localtime(self.end).strftime("%H:%M"),
@@ -52,7 +54,8 @@ class Event(models.Model):
         (WAITING, _("In attesa")),
         (REJECTED, _("Rifiutato")),
     ]
-    room = models.ForeignKey(Room, on_delete=models.CASCADE, verbose_name=_("aula"))
+    room = models.ForeignKey(Room, on_delete=models.CASCADE, verbose_name=_("aula"), null=True, blank=True)
+    online = models.BooleanField(default=False, verbose_name=_("online"))
     activity = models.ForeignKey(Activity, on_delete=models.CASCADE, verbose_name=_("attività"))
     start = models.DateTimeField(_("ora di inizio"))
     end = models.DateTimeField(_("ora di fine"))
@@ -70,6 +73,7 @@ class Event(models.Model):
         return self.activity.get_full_title(self.exam)
 
     def clean(self):
+
         if self.start is None:
             raise ValidationError(_("La data/ora d'inizio non è corretta"))
 
@@ -77,7 +81,8 @@ class Event(models.Model):
             raise ValidationError(_("La data/ora di fine non è corretta"))
 
         if self.room_id is None:
-            raise ValidationError(_("L'aula è obbligatoria"))
+            if not self.online:
+                raise ValidationError(_("L'aula è obbligatoria"))
 
         # 1. Check that the start time is before the end time
         if self.start >= self.end:
@@ -101,9 +106,9 @@ class Event(models.Model):
         except ObjectDoesNotExist:
             pass
 
-        # 4. If this event is not rejected, check that it does not overlap with all
+        # 4. If this event is not rejected and not online, check that it does not overlap with all
         # the other not-rejected events booked for the same room
-        if self.status != Event.REJECTED:
+        if self.status != Event.REJECTED and not self.online:
             overlapping_events = Event.objects.filter(
                 ~Q(status=Event.REJECTED),
                 room_id=self.room.pk

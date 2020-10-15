@@ -222,6 +222,34 @@ class EventsCleanTest(TestCase):
         except ValidationError:
             self.fail("ValidationError exception raised with not overlapping event")
 
+        # Without room, but online
+        try:
+            event = Event(
+                online=True,
+                activity=self.activity,
+                status=Event.APPROVED,
+                start=default_datetime(2016, 5, 3, 16, 0),
+                end=default_datetime(2016, 5, 3, 18, 0),
+                lastEditor=self.user
+            )
+            event.clean()
+        except ValidationError:
+            self.fail("ValidationError exception raised with online event")
+
+        # Overlapping, but online
+        try:
+            event = Event(
+                online=True,
+                activity=self.activity,
+                status=Event.APPROVED,
+                start=default_datetime(2016, 5, 3, 17, 0),
+                end=default_datetime(2016, 5, 3, 19, 0),
+                lastEditor=self.user
+            )
+            event.clean()
+        except ValidationError:
+            self.fail("ValidationError exception raised with overlapping online events")
+
     def test_none_date_rejected(self):
         """ Test that none dates are rejected """
         # Start date is none
