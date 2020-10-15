@@ -2,15 +2,17 @@
 $(document).ready(function() {
 
     // orderable event's table
-    var dataTable = $("#events_table").DataTable({
-        searching: false,
-        paging: false,
-        info: false,
-        "columnDefs": [
-            { "orderable": false, "targets": 1 },
-            { "type" : "formatteddate", "targets" : 0}
-        ]
-    });
+    if($("#events_table_empty_row").length == 0) {
+        var dataTable = $("#events_table").DataTable({
+            searching: false,
+            paging: false,
+            info: false,
+            "columnDefs": [
+                { "orderable": false, "targets": 1 },
+                { "type" : "formatteddate", "targets" : 0}
+            ]
+        });
+    }
 
 
     // collasable description

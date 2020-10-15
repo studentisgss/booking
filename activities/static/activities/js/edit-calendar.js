@@ -76,6 +76,11 @@ $(document).ready(function() {
             room = $("select[name*='room']", calendarBooking).val();
             $("select[name*='room']", event).val(room);
 
+            online = $("input[name*='online']", calendarBooking).prop('checked');
+            $("input[name*='online']", event).prop('checked',online);
+
+            $("select[name*='roo_or_onlin']", event).val( online ? -1 : room);
+
             status = $("select[name*='status']", calendarBooking).val();
             if (status == 0 && waitingRooms.indexOf(room) > -1) {
                 setWaitingWarning(event);
@@ -95,9 +100,9 @@ $(document).ready(function() {
     });
 
     // If the user can't approve for this room remove the option and alert
-    $("#calendar-booking select[name*='room'].form-control").on("change", function() {
+    $("#calendar-booking select[name*='roo_or_onlin'].form-control").on("change", function() {
         var div = $(this).parent().parent().parent().parent();
-        if (waitingRooms.indexOf(this.value) > -1) {
+        if (waitingRooms.indexOf(this.value) > -1 && this.value != -1) {
             setWaitingWarning(div);
         }
         else {
@@ -111,7 +116,7 @@ $(document).ready(function() {
     calendarBooking.on("change", "select, input", function(){
         var validInput = true;
         $.each($("input, select", calendarBooking), function(i, e){
-            validInput = validInput && (this.value != "");
+            validInput = validInput && ( (this.value != "") || (this.name.indexOf('room') > -1 ));
             return validInput;
         });
 
@@ -164,7 +169,7 @@ $(document).ready(function() {
             toDate.setMonth(toDate.getMonth()+2);
             toDate.setDate(0);
 
-            $.get("/activities/bookeddates", {room: $("#calendar-booking select[name*='room']").val(),
+            $.get("/activities/bookeddates", {room: $("#calendar-booking select[name*='roo_or_onlin']").val(),
                                              start: $("#calendar-booking input[name*='start']").val(),
                                              end: $("#calendar-booking input[name*='end']").val(),
                                              from: strPadding(fromDate.getDate()) + "/" + strPadding(fromDate.getMonth() + 1) + "/" + String(fromDate.getFullYear()),
@@ -219,7 +224,7 @@ $(document).ready(function() {
                     $(el).after("<span class=\"cust-tooltiptext ui-datepicker-unselectable\">" + cachedTooltips[date] + "</span>");
                 }
             } else {
-                $.get("/activities/bookedhours", {room: $("#calendar-booking select[name*='room']").val(),
+                $.get("/activities/bookedhours", {room: $("#calendar-booking select[name*='roo_or_onlin']").val(),
                                                  day: date}).done(function(data){
                                                     var title = "";
                                                     if (data["booked"].length == 0){

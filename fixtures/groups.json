@@ -1,0 +1,127 @@
+[
+	{
+		"model": "auth.group", 
+		"pk": 1, 
+		"fields": {
+			"name": "Segreteria", 
+			"permissions": [
+				["add_activity", "activities", "activity"],
+				["change_A", "activities", "activity"],
+				["change_SM", "activities", "activity"],
+				["change_SN", "activities", "activity"],
+				["change_SS", "activities", "activity"],
+				["change_activity", "activities", "activity"],
+				["change_brochure", "activities", "activity"],
+				["delete_activity", "activities", "activity"],
+				["add_group", "auth", "group"],
+				["change_group", "auth", "group"],
+				["delete_group", "auth", "group"],
+				["add_event", "events", "event"],
+				["change_event", "events", "event"],
+				["delete_event", "events", "event"],
+				["add_news", "news", "news"],
+				["change_news", "news", "news"],
+				["delete_news", "news", "news"],
+				["add_building", "rooms", "building"],
+				["change_building", "rooms", "building"], 
+				["delete_building", "rooms", "building"],
+				["add_room", "rooms", "room"],
+				["can_book_room", "rooms", "room"],
+				["can_change_important", "rooms", "room"],
+				["change_room", "rooms", "room"],
+				["delete_room", "rooms", "room"],
+				["add_roompermission", "rooms", "roompermission"],
+				["change_roompermission", "rooms", "roompermission"],
+				["delete_roompermission", "rooms", "roompermission"],
+				["add_roomrule", "rooms", "roomrule"],
+				["change_roomrule", "rooms", "roomrule"],
+				["delete_roomrule", "rooms", "roomrule"]
+			]
+		}
+	}, 
+	{
+		"model": "auth.group", 
+		"pk": 2, 
+		"fields": {
+			"name": "Rappresentanti SM", 
+			"permissions": [
+				["add_activity", "activities", "activity"],
+				["change_A", "activities", "activity"],
+				["change_SM", "activities", "activity"],
+				["change_activity", "activities", "activity"],
+				["add_event", "events", "event"],
+				["change_event", "events", "event"],
+				["delete_event", "events", "event"],
+				["add_news", "news", "news"],
+				["change_news", "news", "news"],
+				["delete_news", "news", "news"],
+				["add_building", "rooms", "building"],
+				["change_building", "rooms", "building"],
+				["add_room", "rooms", "room"],
+				["can_book_room", "rooms", "room"],
+				["change_room", "rooms", "room"]
+			]
+		}
+	}, 
+	{
+		"model": "auth.group", 
+		"pk": 3, 
+		"fields": {
+			"name": "Rappresentanti SN", 
+			"permissions": [
+				["add_activity", "activities", "activity"],
+				["change_A", "activities", "activity"],
+				["change_SN", "activities", "activity"],
+				["change_activity", "activities", "activity"],
+				["add_event", "events", "event"],
+				["change_event", "events", "event"],
+				["delete_event", "events", "event"],
+				["add_news", "news", "news"],
+				["change_news", "news", "news"],
+				["delete_news", "news", "news"],
+				["add_building", "rooms", "building"],
+				["change_building", "rooms", "building"],
+				["add_room", "rooms", "room"],
+				["can_book_room", "rooms", "room"],
+				["change_room", "rooms", "room"]
+			]
+		}
+	}, 
+	{
+		"model": "auth.group", 
+		"pk": 4, 
+		"fields": {
+			"name": "Rappresentanti SS", 
+			"permissions": [
+				["add_activity", "activities", "activity"],
+				["change_A", "activities", "activity"],
+				["change_SS", "activities", "activity"],
+				["change_activity", "activities", "activity"],
+				["add_event", "events", "event"],
+				["change_event", "events", "event"],
+				["delete_event", "events", "event"],
+				["add_news", "news", "news"],
+				["change_news", "news", "news"],
+				["delete_news", "news", "news"],
+				["add_building", "rooms", "building"],
+				["change_building", "rooms", "building"],
+				["add_room", "rooms", "room"],
+				["can_book_room", "rooms", "room"],
+				["change_room", "rooms", "room"]
+			]
+		}
+	}, 
+	{
+		"model": "auth.group", 
+		"pk": 5, 
+		"fields": {
+			"name": "Referenti", 
+			"permissions": [
+				["add_event", "events", "event"],
+				["change_event", "events", "event"],
+				["delete_event", "events", "event"],
+				["can_book_room", "rooms", "room"]
+			]
+		}
+	}
+]

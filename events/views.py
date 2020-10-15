@@ -4,6 +4,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.urlresolvers import reverse
 from django.views.decorators.clickjacking import xframe_options_exempt
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.utils.translation import ugettext_lazy as _
 from datetime import timedelta
 from calendar import monthrange
 from random import shuffle
@@ -71,9 +72,15 @@ class Calendar(TemplateView):
         else:
             date = localnow().replace(hour=0, minute=0, second=0, microsecond=0)
         context["date"] = date
+        context["events_online"] = Event.objects.filter(
+            start__range=(date, date + timedelta(1)),
+            status__in=(Event.APPROVED, Event.WAITING),
+            online=True
+        )  # Separated from online ones, otherwise the view dictsort will fail
         context["events"] = Event.objects.filter(
             start__range=(date, date + timedelta(1)),
-            status__in=(Event.APPROVED, Event.WAITING)
+            status__in=(Event.APPROVED, Event.WAITING),
+            online=False
         )
         return context
 
@@ -89,7 +96,7 @@ class Monitor(TemplateView):
             where the sum of the events in each pages is not over the events_per_page
             as soon as there is not a single room with more event than thet numeber
             """
-            events_grouped = groupby(items, lambda e: e.room.get_full_name())
+            events_grouped = groupby(items, lambda e: (e.room.get_full_name() if e.room else _("Lezione online")))
             events_list = []
             page = []
             events_in_current_page = 0
@@ -133,6 +140,10 @@ class Monitor(TemplateView):
         other_events = Event.objects.filter(
             start__range=(date, date + timedelta(1)),
             status=Event.APPROVED,
+            online=True
+        ).order_by("start") | Event.objects.filter(
+            start__range=(date, date + timedelta(1)),
+            status=Event.APPROVED,
             room__important=False
         ).order_by("room__name", "start")
         context["eventsOther"] = get_event_list(
@@ -164,7 +175,8 @@ class EventsApprovationView(LoginRequiredMixin, PermissionRequiredMixin, Templat
                             if self.request.user.has_perm("activities.change_" + c[0])]
         context["events_list"] = Event.objects.filter(
             status=Event.WAITING,
-            activity__category__in=managed_category
+            activity__category__in=managed_category,
+            online=False  # online lesson does not need approvation
         ).filter(
             room__roompermission__group__in=self.request.user.groups.all(),
             room__roompermission__permission=30

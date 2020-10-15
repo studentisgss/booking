@@ -1,0 +1,284 @@
+[
+	{
+		"model": "rooms.roomrule", 
+		"pk": 1, 
+		"fields": {
+			"room": 1, 
+			"day": 0, 
+			"opening_time": "08:00:00", 
+			"closing_time": "21:00:00"
+		}
+	}, 	
+	{
+		"model": "rooms.roomrule", 
+		"pk": 2, 
+		"fields": {
+			"room": 1, 
+			"day": 1, 
+			"opening_time": "08:00:00", 
+			"closing_time": "21:00:00"
+		}
+	}, 
+	{
+		"model": "rooms.roomrule", 
+		"pk": 3, 
+		"fields": {
+			"room": 1, 
+			"day": 2, 
+			"opening_time": "08:00:00", 
+			"closing_time": "21:00:00"
+		}
+	}, 
+	{
+		"model": "rooms.roomrule", 
+		"pk": 4, 
+		"fields": {
+			"room": 1, 
+			"day": 3, 
+			"opening_time": "08:00:00", 
+			"closing_time": "21:00:00"
+		}
+	}, 
+	{
+		"model": "rooms.roomrule", 
+		"pk": 5, 
+		"fields": {
+			"room": 1, 
+			"day": 4, 
+			"opening_time": "08:00:00", 
+			"closing_time": "18:00:00"
+		}
+	}, 
+	{
+		"model": "rooms.roomrule", 
+		"pk": 6, 
+		"fields": {
+			"room": 1, 
+			"day": 5, 
+			"opening_time": "08:00:00", 
+			"closing_time": "08:00:00"
+		}
+	},
+	{
+		"model": "rooms.roomrule", 
+		"pk": 7, 
+		"fields": {
+			"room": 1, 
+			"day": 6, 
+			"opening_time": "08:00:00", 
+			"closing_time": "08:00:00"
+		}
+	},
+	{
+		"model": "rooms.roomrule", 
+		"pk": 8, 
+		"fields": {
+			"room": 2, 
+			"day": 0, 
+			"opening_time": "08:00:00", 
+			"closing_time": "21:00:00"
+		}
+	}, 
+	{
+		"model": "rooms.roomrule", 
+		"pk": 9, 
+		"fields": {
+			"room": 2, 
+			"day": 1, 
+			"opening_time": "08:00:00", 
+			"closing_time": "21:00:00"
+		}
+	}, 
+	{
+		"model": "rooms.roomrule", 
+		"pk": 10, 
+		"fields": {
+			"room": 2, 
+			"day": 2, 
+			"opening_time": "08:00:00", 
+			"closing_time": "21:00:00"
+		}
+	}, 
+	{
+		"model": "rooms.roomrule", 
+		"pk": 11, 
+		"fields": {
+			"room": 2, 
+			"day": 3, 
+			"opening_time": "08:00:00", 
+			"closing_time": "21:00:00"
+		}
+	}, 
+	{
+		"model": "rooms.roomrule", 
+		"pk": 12, 
+		"fields": {
+			"room": 2, 
+			"day": 4, 
+			"opening_time": "08:00:00", 
+			"closing_time": "18:00:00"
+		}
+	}, 
+	{
+		"model": "rooms.roomrule", 
+		"pk": 13, 
+		"fields": {
+			"room": 2, 
+			"day": 5, 
+			"opening_time": "08:00:00", 
+			"closing_time": "08:00:00"
+		}
+	},
+	{
+		"model": "rooms.roomrule", 
+		"pk": 14, 
+		"fields": {
+			"room": 2, 
+			"day": 6, 
+			"opening_time": "08:00:00", 
+			"closing_time": "08:00:00"
+		}
+	},
+	{
+		"model": "rooms.roomrule", 
+		"pk": 15, 
+		"fields": {
+			"room": 3, 
+			"day": 0, 
+			"opening_time": "08:00:00", 
+			"closing_time": "21:00:00"
+		}
+	}, 
+	{
+		"model": "rooms.roomrule", 
+		"pk": 16, 
+		"fields": {
+			"room": 3, 
+			"day": 1, 
+			"opening_time": 
+			"08:00:00", 
+			"closing_time": 
+			"21:00:00"
+		}
+	}, 
+	{
+		"model": "rooms.roomrule", 
+		"pk": 17, 
+		"fields": {
+			"room": 3, 
+			"day": 2, 
+			"opening_time": "08:00:00", 
+			"closing_time": "21:00:00"
+		}
+	}, 
+	{
+		"model": "rooms.roomrule", 
+		"pk": 18, 
+		"fields": {
+			"room": 3, 
+			"day": 3, 
+			"opening_time": "08:00:00", 
+			"closing_time": "21:00:00"
+		}
+	}, 
+	{
+		"model": "rooms.roomrule", 
+		"pk": 19, 
+		"fields": {
+			"room": 3, 
+			"day": 4, 
+			"opening_time": "08:00:00", 
+			"closing_time": "18:00:00"
+		}
+	}, 
+	{
+		"model": "rooms.roomrule", 
+		"pk": 20, 
+		"fields": {
+			"room": 3, 
+			"day": 5, 
+			"opening_time": "08:00:00", 
+			"closing_time": "08:00:00"
+		}
+	},
+	{
+		"model": "rooms.roomrule", 
+		"pk": 21, 
+		"fields": {
+			"room": 3, 
+			"day": 6, 
+			"opening_time": "08:00:00", 
+			"closing_time": "08:00:00"
+		}
+	},
+	{
+		"model": "rooms.roomrule", 
+		"pk": 22, 
+		"fields": {
+			"room": 4, 
+			"day": 0, 
+			"opening_time": "08:00:00", 
+			"closing_time": "21:00:00"
+		}
+	}, 
+	{
+		"model": "rooms.roomrule", 
+		"pk": 23, 
+		"fields": {
+			"room": 4, 
+			"day": 1, 
+			"opening_time": "08:00:00", 
+			"closing_time": "21:00:00"
+		}
+	}, 
+	{
+		"model": "rooms.roomrule", 
+		"pk": 24, 
+		"fields": {
+			"room": 4, 
+			"day": 2, 
+			"opening_time": "08:00:00", 
+			"closing_time": "21:00:00"
+		}
+	}, 
+	{
+		"model": "rooms.roomrule", 
+		"pk": 25, 
+		"fields": {
+			"room": 4, 
+			"day": 3, 
+			"opening_time": "08:00:00", 
+			"closing_time": "21:00:00"
+		}
+	}, 
+	{
+		"model": "rooms.roomrule", 
+		"pk": 26, 
+		"fields": {
+			"room": 4, 
+			"day": 4, 
+			"opening_time": "08:00:00", 
+			"closing_time": "18:00:00"
+		}
+	},  
+	{
+		"model": "rooms.roomrule", 
+		"pk": 27, 
+		"fields": {
+			"room": 4, 
+			"day": 5, 
+			"opening_time": "08:00:00", 
+			"closing_time": "08:00:00"
+		}
+	},
+	{
+		"model": "rooms.roomrule", 
+		"pk": 28, 
+		"fields": {
+			"room": 4, 
+			"day": 6, 
+			"opening_time": "08:00:00", 
+			"closing_time": "08:00:00"
+		}
+	}
+]

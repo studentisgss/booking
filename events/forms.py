@@ -1,6 +1,6 @@
 from base.forms import BookingModelForm
 from django.forms import inlineformset_factory, BaseInlineFormSet, ModelChoiceField
-from django.forms.fields import SplitDateTimeField
+from django.forms.fields import SplitDateTimeField, ChoiceField
 from django.forms.widgets import SplitDateTimeWidget
 from django.core.exceptions import ValidationError
 
@@ -13,7 +13,13 @@ from booking import settings
 # This field will rappresent the relationship between rooms and buildings
 class RoomChoiceField(ModelChoiceField):
     def __init__(self, *args, **kwargs):
+        # kwargs['required'] = False
         super(RoomChoiceField, self).__init__(*args, **kwargs)
+
+
+class RooOrOnlinChoiceField(ChoiceField):
+    def validate(self, value):  # No validation needed: field Room and Online validates by itself
+        pass
 
 
 class EventForm(BookingModelForm):
@@ -21,15 +27,16 @@ class EventForm(BookingModelForm):
         model = Event
         fields = [
             "room",
+            "online",
             "start",
             "end",
             "status",
-            "exam",
+            "exam"
         ]
         field_classes = {
             "room": RoomChoiceField,
             "start": SplitDateTimeField,
-            "end": SplitDateTimeField,
+            "end": SplitDateTimeField
         }
 
     start = SplitDateTimeField(
@@ -50,8 +57,14 @@ class EventForm(BookingModelForm):
         )
     )
 
+    roo_or_onlin = RooOrOnlinChoiceField()
+    # it should be room_or_online, but to prevent confusion with room and online the last letters are removed
+
 
 class BaseEventInlineFormset(BaseInlineFormSet):
+    def __init__(self, *args, **kwargs):
+        super(BaseEventInlineFormset, self).__init__(*args, **kwargs)
+
     def clean(self):
         super().clean()
         instances = []
@@ -83,6 +96,8 @@ class BaseEventInlineFormset(BaseInlineFormSet):
 
 EventInlineFormSet = inlineformset_factory(Activity, Event, fields=(
     "room",
+    "online",
+    "roo_or_onlin",
     "start",
     "end",
     "status",
