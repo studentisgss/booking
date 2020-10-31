@@ -23,6 +23,7 @@ from events import urls as events_urls
 from news import urls as news_urls
 from rooms import urls as rooms_urls
 from brochure import urls as brochure_urls
+from attendances import urls as attendances_url
 
 urlpatterns = [
     # Admin site
@@ -34,6 +35,7 @@ urlpatterns = [
     url(r'^rooms/', include(rooms_urls, namespace="rooms")),
     url(r'^auth/', include(auth_urls, namespace="auth")),
     url(r'^brochure/', include(brochure_urls, namespace="brochure")),
+    url(r'^attendances/', include(attendances_url, namespace="attendances")),
     # If none of the above urls matches, then
     url(r'', include(base_urls)),
 ]

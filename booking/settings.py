@@ -55,6 +55,7 @@ INSTALLED_APPS = (
     'rooms',
     'base',
     'brochure.apps.BrochureConfig',
+    'attendances'
 )
 
 MIDDLEWARE_CLASSES = (

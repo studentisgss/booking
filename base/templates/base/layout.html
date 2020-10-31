@@ -55,7 +55,8 @@
 			<li class="nav-item"><a class="nav-link" href="{% url "events:agenda" %}">Agenda</a></li>
 			<li class="nav-item"><a class="nav-link" href="{% url "activities:list" %}">Attività</a></li>
 			<li class="nav-item"><a class="nav-link" href="{% url "rooms:list" %}">Aule</a></li>
-			<li class="nav-item"><a class="nav-link" href="{% url "news:news" %}">Avvisi</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url "news:news" %}">Avvisi</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url "attendances:register" justsaved=0 %}">Presenze</a></li>
             {% if user.is_authenticated and perms.events.change_event and perms.activities.change_activity %}
 			    <li class="nav-item">
                     <a class="nav-link" href="{% url "events:approvation" %}">Approvazioni
