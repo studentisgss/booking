@@ -5,4 +5,4 @@ from attendances.models import *
 
 admin.site.register(GalileianAttendance)
 admin.site.register(ForeignAttendance)
-admin.site.register(Phone)
+admin.site.register(Details)

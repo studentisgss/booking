@@ -11,16 +11,16 @@
         Presenza salvata!
     </div>
     {% endif %}
-    {% if phonesaved_banner %}
+    {% if detailssaved_banner %}
     <div class="alert alert-success" role="alert">
-        Numero di cellulare salvato! Puoi procedere con la registrazione della presenza
+        Dettagli salvati! Puoi procedere con la registrazione della presenza
     </div>
     {% endif %}
 
     {% if step == 0 %}
         <a href="{% url 'authentication:login' %}"><button class="form-control btn btn-primary">Effettua il login come galileiano</button></a>
     {% elif step == 1 %}
-        <h3>Registra il tuo numero di telefono</h3>
+        <h3>Registra i tuoi dettagli</h3>
         Necessario solo la prima volta
         <form method="POST">
             {% csrf_token %}
@@ -33,6 +33,22 @@
                     </ol>
                 </div>
             {% endif %}
+            <!-- Matricola -->
+            <div class="form-group row">
+                {% if form.matricola.errors %}
+                    <div class="col-sm-12 col-md-12">
+                        {% for error in form.matricola.errors %}
+                            <p class="text-danger">{{ error|escape }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                <div class="col-sm-2 col-md-1">
+                <label for="{{ form.matricola.id_for_label }}" class="control-label">{{ form.matricola.label }}:</label>
+                </div>
+                <div class="col-sm-10 col-md-11 {% if form.matricola.errors %}is-invalid{% endif %}">
+                    {{ form.matricola }}
+                </div>
+            </div>
             <!-- Cell number -->
             <div class="form-group row">
                 {% if form.cell_number.errors %}
@@ -101,5 +117,9 @@
     {% endif %}
 
     <a href="{% url 'attendances:foreign_register' %}"><button class="form-control btn btn-secondary mt-3">Registra utente esterno</button></a>
+
+    {% if perms.attendances.get_attendances_data %}
+    <a href="{% url 'attendances:extract_data' %}"><button class="form-control btn btn-secondary mt-3">Estrai dati</button></a>
+    {% endif %}
 </div>
 {% endblock main %}

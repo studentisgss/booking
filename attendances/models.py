@@ -37,7 +37,7 @@ class ForeignAttendance(models.Model):
     A Foreign record represent the attendance of a
     foreign student in a lesson.
     It's referred to an event.
-    Have a chair number, a first name, a last name, a email, a phone number
+    Have a chair number, a first name, a last name, a email, a phone number, a matricola
     """
     class Meta:
         verbose_name = _("presenza esterno")
@@ -55,20 +55,24 @@ class ForeignAttendance(models.Model):
     first_name = models.CharField(max_length=100, verbose_name=_("Nome"))
     last_name = models.CharField(max_length=100, verbose_name=_("Cognome"))
     cell_number = models.CharField(max_length=100, verbose_name=_("Cellulare"))
+    matricola = models.CharField(max_length=100, verbose_name=_("Matricola"))
     email = models.CharField(max_length=100, verbose_name=_("EMail"))
 
-class Phone(models.Model):
+class Details(models.Model):
     """
-    Save the cellular number of registered user.
+    Save the details of registered user.
     It's referred to an user.
-    Have a phone number field.
+    Have a phone number field and a matricola field.
     """
     class Meta:
-        verbose_name = _("numero di cellulare")
-        verbose_name_plural = _("numeri di cellulare")
+        verbose_name = _("dettagli")
+        verbose_name_plural = _("dettagli")
+        permissions = [
+            ('get_attendances_data','Può scaricare i dati sulle presenze')
+        ]
 
     def __str__(self):
-        return self.user.username + ": " + self.cell_number
+        return self.user.username + " (" + self.matricola + ")"
 
     user = models.OneToOneField(
         User,
@@ -77,3 +81,4 @@ class Phone(models.Model):
         primary_key=True
     )
     cell_number = models.CharField(max_length=100, verbose_name=_("Cellulare"))
+    matricola = models.CharField(max_length=100, verbose_name=_("Matricola"))

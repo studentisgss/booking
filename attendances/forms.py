@@ -1,5 +1,5 @@
-from base.forms import BookingModelForm
-from attendances.models import GalileianAttendance, ForeignAttendance, Phone
+from base.forms import BookingModelForm, BookingForm
+from attendances.models import GalileianAttendance, ForeignAttendance, Details
 
 class GalileianAttendanceForm(BookingModelForm):
     class Meta:
@@ -18,12 +18,14 @@ class ForeignAttendanceForm(BookingModelForm):
             "first_name",
             "last_name",
             "cell_number",
+            "matricola",
             "email"
         ]
 
-class PhoneForm(BookingModelForm):
+class DetailsForm(BookingModelForm):
     class Meta:
-        model = Phone
+        model = Details
         fields = [
-            "cell_number"
+            "cell_number",
+            "matricola"
         ]
