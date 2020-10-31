@@ -1,6 +1,7 @@
 from base.forms import BookingModelForm, BookingForm
 from attendances.models import GalileianAttendance, ForeignAttendance, Details
 
+
 class GalileianAttendanceForm(BookingModelForm):
     class Meta:
         model = GalileianAttendance
@@ -8,6 +9,7 @@ class GalileianAttendanceForm(BookingModelForm):
             "event",
             "chair"
         ]
+
 
 class ForeignAttendanceForm(BookingModelForm):
     class Meta:
@@ -21,6 +23,7 @@ class ForeignAttendanceForm(BookingModelForm):
             "matricola",
             "email"
         ]
+
 
 class DetailsForm(BookingModelForm):
     class Meta:

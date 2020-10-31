@@ -6,6 +6,7 @@ from django.core.exceptions import ValidationError
 from string import *
 from events.models import Event
 
+
 class GalileianAttendance(models.Model):
     """
     A Galileian record represent the attendance of a
@@ -31,6 +32,7 @@ class GalileianAttendance(models.Model):
         on_delete=models.CASCADE,
         verbose_name=_("utente")
     )
+
 
 class ForeignAttendance(models.Model):
     """
@@ -58,6 +60,7 @@ class ForeignAttendance(models.Model):
     matricola = models.CharField(max_length=100, verbose_name=_("Matricola"))
     email = models.CharField(max_length=100, verbose_name=_("EMail"))
 
+
 class Details(models.Model):
     """
     Save the details of registered user.
@@ -68,7 +71,7 @@ class Details(models.Model):
         verbose_name = _("dettagli")
         verbose_name_plural = _("dettagli")
         permissions = [
-            ('get_attendances_data','Può scaricare i dati sulle presenze')
+            ('get_attendances_data', 'Può scaricare i dati sulle presenze')
         ]
 
     def __str__(self):

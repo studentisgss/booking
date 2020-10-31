@@ -50,7 +50,7 @@ class GalileianAttendanceRegister(TemplateView):
                 # Only today lessons allowed
                 t = timezone.now()
                 form.fields["event"].queryset = Event.objects \
-                    .filter(online=False, start__year = t.year, start__month = t.month, start__day = t.day) \
+                    .filter(online=False, start__year=t.year, start__month=t.month, start__day=t.day) \
                     .order_by("start")
                 context["form"] = form
 
@@ -115,18 +115,17 @@ class ForeignAttendanceRegister(TemplateView):
         # Only today lessons allowed
         t = timezone.now()
         form.fields["event"].queryset = Event.objects \
-            .filter(online=False, start__year = t.year, start__month = t.month, start__day = t.day) \
+            .filter(online=False, start__year=t.year, start__month=t.month, start__day=t.day) \
             .order_by("start")
         context["form"] = form
         return context
 
-    
     def post(self, request, *args, **kwargs):
         form = ForeignAttendanceForm(request.POST)
 
         if form.is_valid():
             # Create the new presence and save
-            presence = form.save()
+            form.save()
             # Redirect to initial page, with success banner
             return HttpResponseRedirect(reverse("attendances:register", kwargs={"justsaved": 1}))
         else:
@@ -142,12 +141,13 @@ class ExtractData(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
         context = super().get_context_data(**kwargs)
 
         # Lessons with presences list
-        events = Event.objects.annotate(num_presences = Count('galileianattendance') + Count('foreignattendance')) \
+        events = Event.objects.annotate(num_presences=Count('galileianattendance') + Count('foreignattendance')) \
             .order_by('-start') \
-            .filter(num_presences__gt = 0)
+            .filter(num_presences__gt=0)
         context["list"] = events
 
         return context
+
 
 class Extract(LoginRequiredMixin, PermissionRequiredMixin, View):
 
@@ -155,27 +155,28 @@ class Extract(LoginRequiredMixin, PermissionRequiredMixin, View):
 
     def get(self, request, event, *args, **kwargs):
         try:
-            event = Event.objects.get(pk = event)
+            event = Event.objects.get(pk=event)
         except Event.DoesNotExist:
             raise Http404
 
         if event.start.month < 9:
-            accademic_year = str(event.start.year -1) + "/" + str(event.start.year)
+            accademic_year = str(event.start.year - 1) + "/" + str(event.start.year)
         else:
-            accademic_year = str(event.start.year) + "/" + str(event.start.year+1)
+            accademic_year = str(event.start.year) + "/" + str(event.start.year + 1)
         galileian_attendances = GalileianAttendance.objects \
-            .filter(event = event)
+            .filter(event=event)
         foreign_attendances = ForeignAttendance.objects \
-            .filter(event = event)
+            .filter(event=event)
 
         response = HttpResponse(content_type='application/ms-excel')
-        response['Content-Disposition'] = 'attachment; filename="presenze_'+event.start.strftime('%Y_%m_%d_')+event.activity.title.replace(' ','_')+'.xls"'
+        response['Content-Disposition'] = 'attachment; filename="presenze_' + event.start.strftime('%Y_%m_%d_') + event.activity.title.replace(' ', '_') + '.xls"'
 
         wb = xlwt.Workbook(encoding='utf-8')
         ws = wb.add_sheet('Presenze')
 
         # Heading
-        ws.write_merge(0,0, 0,7, 'Scuola Galileiana di Studi Superiori '+accademic_year, xlwt.easyxf("pattern: pattern solid, fore_color yellow; font: bold True; align: horiz center"))
+        ws.write_merge(0, 0, 0, 7, 'Scuola Galileiana di Studi Superiori ' + accademic_year,
+                       xlwt.easyxf("pattern: pattern solid, fore_color yellow; font: bold True; align: horiz center"))
 
         header_font = xlwt.XFStyle()
         header_font.font.bold = True
@@ -216,5 +217,3 @@ class Extract(LoginRequiredMixin, PermissionRequiredMixin, View):
         wb.save(response)
 
         return response
-
-
