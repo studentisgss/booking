@@ -13,15 +13,15 @@
     {% endif %}
     {% if detailssaved_banner %}
     <div class="alert alert-success" role="alert">
-        Dettagli salvati! Puoi procedere con la registrazione della presenza
+        Dettagli salvati! Puoi procedere con la registrazione della presenza.
     </div>
     {% endif %}
 
     {% if step == 0 %}
         <a href="{% url 'authentication:login' %}"><button class="form-control btn btn-primary">Effettua il login come galileiano</button></a>
     {% elif step == 1 %}
-        <h3>Registra i tuoi dettagli</h3>
-        Necessario solo la prima volta
+        <h3>{{ request.user.first_name }}, registra i tuoi dettagli</h3>
+        Sarà necessario solo la prima volta. Poi verranno salvati nel sistema.
         <form method="POST">
             {% csrf_token %}
             {% if form.non_field_errors %}

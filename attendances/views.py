@@ -14,9 +14,6 @@ from attendances.forms import *
 
 import xlwt
 
-import logging
-logger = logging.getLogger(__name__)
-
 
 class GalileianAttendanceRegister(TemplateView):
 
