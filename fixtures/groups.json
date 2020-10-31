@@ -35,7 +35,8 @@
 				["delete_roompermission", "rooms", "roompermission"],
 				["add_roomrule", "rooms", "roomrule"],
 				["change_roomrule", "rooms", "roomrule"],
-				["delete_roomrule", "rooms", "roomrule"]
+				["delete_roomrule", "rooms", "roomrule"],
+				["get_attendances_data", "attendances", "details"]
 			]
 		}
 	}, 
