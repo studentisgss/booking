@@ -25,9 +25,9 @@ class GalileianAttendanceRegister(TemplateView):
         context = super().get_context_data(**kwargs)
 
         # Check if just saved banner
-        if kwargs['justsaved'] == '1':
+        if 'justsaved' in self.request.GET:
             context["justsaved_banner"] = True
-        elif kwargs['justsaved'] == '2':
+        if 'detailssaved' in self.request.GET:
             context["detailssaved_banner"] = True
 
         context["step"] = 0   # 0: not authenticated; 1: authenticated, but without details; 2: can register
@@ -81,7 +81,7 @@ class GalileianAttendanceRegister(TemplateView):
                     attendance.save()
                     form.save_m2m()
                     # Redirect to initial page, with success banner
-                    return HttpResponseRedirect(reverse("attendances:register", kwargs={"justsaved": 1}))
+                    return HttpResponseRedirect(reverse("attendances:register") + "?justsaved")
             else:
                 # Check validity of details form
                 form = DetailsForm(request.POST)
@@ -92,7 +92,7 @@ class GalileianAttendanceRegister(TemplateView):
                     details.save()
                     form.save_m2m()
                     # Redirect to initial page, with success banner
-                    return HttpResponseRedirect(reverse("attendances:register", kwargs={"justsaved": 2}))
+                    return HttpResponseRedirect(reverse("attendances:register") + "?detailssaved")
         return self.get(request, *args, **kwargs)
 
 
@@ -126,7 +126,7 @@ class ForeignAttendanceRegister(TemplateView):
             # Create the new presence and save
             form.save()
             # Redirect to initial page, with success banner
-            return HttpResponseRedirect(reverse("attendances:register", kwargs={"justsaved": 1}))
+            return HttpResponseRedirect(reverse("attendances:register") + "?justsaved")
         else:
             return self.get(request, *args, **kwargs)
 
