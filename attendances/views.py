@@ -7,7 +7,7 @@ from django.template.loader import get_template
 from django.core.cache import cache
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.db.models import Count
-from django.contrib.admin.models import LogEntry, ADDITION 
+from django.contrib.admin.models import LogEntry, ADDITION
 
 from events.models import Event
 from attendances.models import *
@@ -15,9 +15,6 @@ from attendances.forms import *
 import datetime
 
 import xlwt
-
-import logging
-logger = logging.getLogger(__name__)
 
 
 class GalileianAttendanceRegister(TemplateView):
@@ -172,8 +169,7 @@ class Extract(LoginRequiredMixin, PermissionRequiredMixin, View):
         except Event.DoesNotExist:
             raise Http404
         filename = event.start.strftime('%Y_%m_%d_') + event.activity.title.replace(' ', '_')
-        return self.get_xls( [event], filename)
-
+        return self.get_xls([event], filename)
 
     def post(self, request, *args, **kwargs):
         form = ExtractPeriodForm(request.POST)
@@ -186,16 +182,15 @@ class Extract(LoginRequiredMixin, PermissionRequiredMixin, View):
                 return HttpResponseRedirect(reverse("attendances:extract_data") + "?date_ordering_error")
 
             # Extract all events in the period
-            events = Event.objects.filter(start__lt = end_date + datetime.timedelta(days=1), start__gt = start_date)
+            events = Event.objects.filter(start__lt=end_date + datetime.timedelta(days=1), start__gt=start_date)
             if len(events) == 0:
                 return HttpResponseRedirect(reverse("attendances:extract_data") + "?no_events")
 
             # Return excel file
-            filename = start_date.strftime('%Y_%m_%d_') + end_date.strftime('%Y_%m_%d_') 
-            return self.get_xls( events, filename)
+            filename = start_date.strftime('%Y_%m_%d_') + end_date.strftime('%Y_%m_%d_')
+            return self.get_xls(events, filename)
         else:
             return HttpResponseRedirect(reverse("attendances:extract_data") + "?generic_error")
-
 
     def get_xls(self, events, filename):
         # Create .xls file from list of events
@@ -260,7 +255,13 @@ class Extract(LoginRequiredMixin, PermissionRequiredMixin, View):
                 ws.write(row_num, 5, g.event.start.strftime('%d/%m/%Y %h:%m-') + g.event.end.strftime('%h:%m'), foreign_font)
                 ws.write(row_num, 6, g.event.room.name + "(" + g.event.room.building.name + ")", foreign_font)
                 ws.write(row_num, 7, g.chair, foreign_font)
-        
+
+            # Log action
+            ExtractionLog(
+                user=self.request.user,
+                event=event
+            ).save()
+
         wb.save(datafile)
 
         return datafile

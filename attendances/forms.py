@@ -4,6 +4,7 @@ from django.forms import DateField, DateInput
 from booking import settings
 import datetime
 
+
 class GalileianAttendanceForm(BookingModelForm):
     class Meta:
         model = GalileianAttendance
@@ -34,6 +35,7 @@ class DetailsForm(BookingModelForm):
             "cell_number",
             "matricola"
         ]
+
 
 class ExtractPeriodForm(BookingForm):
     start_date = DateField(label='Da',
