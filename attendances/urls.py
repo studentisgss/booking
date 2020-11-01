@@ -8,4 +8,5 @@ urlpatterns = [
     url(r'^foreign_register$', ForeignAttendanceRegister.as_view(), name="foreign_register"),
     url(r'^extract_data$', ExtractData.as_view(), name="extract_data"),
     url(r'^extract/(?P<event>\d+)$', Extract.as_view(), name="extract"),
+    url(r'^extract/$', Extract.as_view(), name="extract")
 ]
