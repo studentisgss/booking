@@ -4,9 +4,14 @@
 
 {% block head-extra %}
 <link href="{% static 'css/datatables.min.css' %}" rel="stylesheet" />
-
 <script type="text/javascript" src="{% static 'js/datatables.min.js' %}" ></script>
 <script type="text/javascript" src="{% static 'js/datatables_custom.js' %}" ></script>
+
+<script type="text/javascript" src="{% static 'js/jquery-ui.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/datepicker-it.js' %}"></script>
+<link href="{% static 'css/jquery-ui.min.css' %}" rel="stylesheet" />
+<link href="{% static 'css/jquery-ui.structure.min.css' %}" rel="stylesheet" />
+<link href="{% static 'css/jquery-ui.theme.min.css' %}" rel="stylesheet" />
 {% endblock head-extra %}
 
 
@@ -14,12 +19,43 @@
 
 <script>
     $( document ).ready(function() {
-        $('#table_events').DataTable();
+        $('#table_events').DataTable({
+            "ordering": false
+        });
+        $('.date').datepicker();
     });
 </script>
 <h1>Estrazione dati</h1>
 Nei file sono riportati in corsivo gli studenti non galileiani.
-
+<h3>Estrazione per periodo</h3>
+{% if generic_error %}
+<div class="alert alert-danger" role="alert">Errore generalizzato.</div>  
+{% endif %}
+{% if date_ordering_error %}
+<div class="alert alert-danger" role="alert">La data di fine non può essere antecedente a quella di inizio.</div>  
+{% endif %}
+{% if no_events %}
+<div class="alert alert-danger" role="alert">Nessun evento nel periodo selezionato.</div>  
+{% endif %}
+<form method="POST" action="{% url 'attendances:extract'%}">
+    {% csrf_token %}
+    <div class="form-group row">
+        <div class="col-md-1 text-right">
+            <label for="{{ form.start_date.id_for_label }}" class="control-label">{{ form.start_date.label }}:</label>
+        </div>
+        <div class="col-md-4">
+            {{ form.start_date }}
+        </div>
+        <div class="col-md-1 text-right">
+            <label for="{{ form.end_date.id_for_label }}" class="control-label">{{ form.end_date.label }}:</label>
+        </div>
+        <div class="col-md-4">
+            {{ form.end_date }}
+        </div>
+        <input type="submit" value="Estrai" class=" col-md-2 form-control btn btn-info">
+    </div>
+</form>
+<h3>Estrazione evento per evento</h3>
 <div>
     <table class="table table-striped table-hover" id="table_events">
         <thead>
