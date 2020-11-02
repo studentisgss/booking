@@ -8,6 +8,8 @@ from django.core.cache import cache
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.db.models import Count
 from django.contrib.admin.models import LogEntry, ADDITION
+from base.utils import localnow
+from datetime import timedelta
 
 from events.models import Event
 from attendances.models import *
@@ -47,10 +49,13 @@ class GalileianAttendanceRegister(TemplateView):
                     raise Http404
 
                 # Only today lessons allowed
-                t = timezone.now()
+                date = localnow().replace(hour=0, minute=0, second=0, microsecond=0)
                 form.fields["event"].queryset = Event.objects \
-                    .filter(online=False, start__year=t.year, start__month=t.month, start__day=t.day) \
-                    .order_by("start")
+                    .filter(
+                    start__range=(date, date + timedelta(1)),
+                    status__in=(Event.APPROVED, Event.WAITING),
+                    online=False
+                ).order_by("start")
                 context["form"] = form
 
             else:
@@ -112,10 +117,13 @@ class ForeignAttendanceRegister(TemplateView):
             raise Http404
 
         # Only today lessons allowed
-        t = timezone.now()
+        date = localnow().replace(hour=0, minute=0, second=0, microsecond=0)
         form.fields["event"].queryset = Event.objects \
-            .filter(online=False, start__year=t.year, start__month=t.month, start__day=t.day) \
-            .order_by("start")
+            .filter(
+            start__range=(date, date + timedelta(1)),
+            status__in=(Event.APPROVED, Event.WAITING),
+            online=False
+        ).order_by("start")
         context["form"] = form
         return context
 
