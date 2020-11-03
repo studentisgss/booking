@@ -164,6 +164,9 @@ class ExtractData(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
         # Form
         context["form"] = ExtractPeriodForm()
 
+        # Log list
+        context["log_list"] = ExtractionLog.objects.all().order_by("-creation")
+
         return context
 
 
