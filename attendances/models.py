@@ -85,3 +85,32 @@ class Details(models.Model):
     )
     cell_number = models.CharField(max_length=100, verbose_name=_("Cellulare"))
     matricola = models.CharField(max_length=100, verbose_name=_("Matricola"))
+
+
+class ExtractionLog(models.Model):
+    """
+    Save the details of each extraction.
+    It's referred to an user and a event.
+    Have a timestamp field.
+    """
+    class Meta:
+        verbose_name = _("log estrazioni")
+        verbose_name_plural = _("log estrazioni")
+
+    def __str__(self):
+        return "(" + self.creation.astimezone().strftime("%x %X") + ") " + self.user.username + " - " + str(self.event)
+
+    user = models.ForeignKey(
+        User,
+        on_delete=models.PROTECT,
+        verbose_name=_("utente")
+    )
+    event = models.ForeignKey(
+        Event,
+        on_delete=models.PROTECT,
+        verbose_name=_("evento")
+    )
+    creation = models.DateTimeField(
+        auto_now_add=True,
+        verbose_name=_("time")
+    )

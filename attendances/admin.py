@@ -6,3 +6,4 @@ from attendances.models import *
 admin.site.register(GalileianAttendance)
 admin.site.register(ForeignAttendance)
 admin.site.register(Details)
+admin.site.register(ExtractionLog)
