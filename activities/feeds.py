@@ -12,6 +12,7 @@ from booking.settings import TIME_ZONE
 import hashlib
 import icalendar
 from datetime import timedelta
+from django.utils.translation import ugettext_lazy as _
 
 
 class RssActivityFeed(Feed):
@@ -93,7 +94,7 @@ class RssActivityFeed(Feed):
     def item_guid(self, item):
         # Unique identifier of the feed's item
         if isinstance(item, Event):
-            return str(item.pk) + str(item.room.pk) + \
+            return str(item.pk) + \
                 item.start.strftime("%H%M") + item.end.strftime("%H%M")
         elif isinstance(item, News):
             return str(item.pk)
@@ -103,7 +104,7 @@ class RssActivityFeed(Feed):
             # Use the guid to check if there is chenges in the events
             guid = "%d" % item.pk
             for e in item.event_set.all().filter(status=0).order_by("id"):
-                guid += str(e.pk) + str(e.room.pk) + e.start.strftime("%Y%m%d%H%M")
+                guid += str(e.pk) + e.start.strftime("%Y%m%d%H%M")
                 guid += e.end.strftime("%Y%m%d%H%M")
             sha1 = hashlib.sha1(guid.encode())
             return sha1.hexdigest()
@@ -153,8 +154,8 @@ class ICalActivityFeed(View):
             event.add("uid", str(e.pk) + "@booking.scuolagalileiana.unipd.it")
             event.add("dtstart", e.start)
             event.add("dtend", e.end)
-            event.add("summary", activity.title + (" - Esame" if e.exam else ""))
-            event.add("location", e.room.get_full_name())
+            event.add("summary", activity.title + (_(" - Esame") if e.exam else ""))
+            event.add("location", (_("Lezione online") if e.online else e.room.get_full_name()))
             event.add("status", "CONFIRMED")
             event.add("url", url)
             cal.add_component(event)
