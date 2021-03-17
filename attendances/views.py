@@ -164,6 +164,9 @@ class ExtractData(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
         # Form
         context["form"] = ExtractPeriodForm()
 
+        # Log list
+        context["log_list"] = ExtractionLog.objects.all().order_by("-creation")
+
         return context
 
 
@@ -222,7 +225,7 @@ class Extract(LoginRequiredMixin, PermissionRequiredMixin, View):
 
         header_font = xlwt.XFStyle()
         header_font.font.bold = True
-        columns = ['Cognome', 'Nome', 'Matricola', 'E-mail', 'Corso', 'Data e orario lezione', 'Aula', 'Posto']
+        columns = ['Cognome', 'Nome', 'Matricola', 'Cellulare', 'E-mail', 'Corso', 'Data e orario lezione', 'Aula', 'Posto']
 
         for col_num in range(len(columns)):
             ws.write(1, col_num, columns[col_num], header_font)
@@ -243,11 +246,12 @@ class Extract(LoginRequiredMixin, PermissionRequiredMixin, View):
                 ws.write(row_num, 0, g.user.last_name, galileian_font)
                 ws.write(row_num, 1, g.user.first_name, galileian_font)
                 ws.write(row_num, 2, g.user.details.matricola, galileian_font)
-                ws.write(row_num, 3, g.user.email, galileian_font)
-                ws.write(row_num, 4, g.event.activity.title, galileian_font)
-                ws.write(row_num, 5, g.event.start.strftime('%d/%m/%Y %h:%m-') + g.event.end.strftime('%h:%m'), galileian_font)
-                ws.write(row_num, 6, g.event.room.name + "(" + g.event.room.building.name + ")", galileian_font)
-                ws.write(row_num, 7, g.chair, galileian_font)
+                ws.write(row_num, 3, g.user.details.cell_number, galileian_font)
+                ws.write(row_num, 4, g.user.email, galileian_font)
+                ws.write(row_num, 5, g.event.activity.title, galileian_font)
+                ws.write(row_num, 6, g.event.start.strftime('%d/%m/%Y %h:%m-') + g.event.end.strftime('%h:%m'), galileian_font)
+                ws.write(row_num, 7, g.event.room.name + "(" + g.event.room.building.name + ")", galileian_font)
+                ws.write(row_num, 8, g.chair, galileian_font)
 
             # Foreign attendances
             foreign_font = xlwt.XFStyle()
@@ -258,11 +262,12 @@ class Extract(LoginRequiredMixin, PermissionRequiredMixin, View):
                 ws.write(row_num, 0, g.last_name, foreign_font)
                 ws.write(row_num, 1, g.first_name, foreign_font)
                 ws.write(row_num, 2, g.matricola, foreign_font)
-                ws.write(row_num, 3, g.email, foreign_font)
-                ws.write(row_num, 4, g.event.activity.title, foreign_font)
-                ws.write(row_num, 5, g.event.start.strftime('%d/%m/%Y %h:%m-') + g.event.end.strftime('%h:%m'), foreign_font)
-                ws.write(row_num, 6, g.event.room.name + "(" + g.event.room.building.name + ")", foreign_font)
-                ws.write(row_num, 7, g.chair, foreign_font)
+                ws.write(row_num, 3, g.cell_number, foreign_font)
+                ws.write(row_num, 4, g.email, foreign_font)
+                ws.write(row_num, 5, g.event.activity.title, foreign_font)
+                ws.write(row_num, 6, g.event.start.strftime('%d/%m/%Y %h:%m-') + g.event.end.strftime('%h:%m'), foreign_font)
+                ws.write(row_num, 7, g.event.room.name + "(" + g.event.room.building.name + ")", foreign_font)
+                ws.write(row_num, 8, g.chair, foreign_font)
 
             # Log action
             ExtractionLog(

@@ -35,7 +35,7 @@ class Event(models.Model):
         ) % {
             "activity": self.activity.title,
             "room": (_("Lezione online") if self.online else self.room),
-            "day": timezone.localtime(self.start).strftime("%m/%d/%Y"),
+            "day": timezone.localtime(self.start).strftime("%d/%m/%Y"),
             "start": timezone.localtime(self.start).strftime("%H:%M"),
             "end": timezone.localtime(self.end).strftime("%H:%M"),
         }

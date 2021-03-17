@@ -154,7 +154,7 @@ class ICalActivityFeed(View):
             event.add("uid", str(e.pk) + "@booking.scuolagalileiana.unipd.it")
             event.add("dtstart", e.start)
             event.add("dtend", e.end)
-            event.add("summary", activity.title + (_(" - Esame") if e.exam else ""))
+            event.add("summary", activity.title + (str(_(" - Esame")) if e.exam else ""))
             event.add("location", (_("Lezione online") if e.online else e.room.get_full_name()))
             event.add("status", "CONFIRMED")
             event.add("url", url)

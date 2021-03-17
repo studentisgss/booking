@@ -22,6 +22,7 @@
         $('#table_events').DataTable({
             "ordering": false
         });
+        $('#table_log').DataTable();
         $('.date').datepicker();
     });
 </script>
@@ -100,8 +101,31 @@ Nei file sono riportati in corsivo gli studenti non galileiani.
         {% endfor %}
         </tbody>
     </table>
-    {% for e in event_list %}
-        {{e}} {{e.num_presences}} <br/>
-    {% endfor %}
+</div>
+<h3>Log estrazioni</h3>
+<div>
+    <table class="table table-striped" id="table_log">
+        <thead>
+            <tr>
+                <th>Evento</th>
+                <th>Data estrazione</th>
+                <th>Utente estrazione</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for e in log_list %}
+            <tr>
+                <td>
+                    {{ e.event }}
+                </td>
+                <td>
+                    {{ e.creation  | date:'d/m/Y H:i' }}
+                </td>
+                <td>
+                    {{ e.user.email }}
+                </td>
+        {% endfor %}
+        </tbody>
+    </table>
 </div>
 {% endblock main %}
