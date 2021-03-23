@@ -10,13 +10,22 @@ from news.models import News, Message
 from news.forms import NewsForm, MessageForm
 from activities.models import Activity
 
+import datetime
+
 
 class NewsView(TemplateView):
     template_name = "news/list.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        news = News.objects.all().order_by("-start")
+        if(self.request.user.is_authenticated and
+           self.request.user.has_perm('news.change_news')):
+            news = News.objects.all().order_by("-start")
+        else:
+            # Hide, for non news.change_news users, news expired
+            # from more than a week
+            oneweekago = datetime.date.today() - datetime.timedelta(days=7)
+            news = News.objects.filter(end__gt=oneweekago).order_by("-start")
         context["news_list"] = news
         return context
 
