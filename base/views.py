@@ -59,7 +59,8 @@ def server_error(request):
 class ManagementView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
     template_name = "base/manage.html"
 
-    permission_required = ("auth.add_user", "auth.change_user", "auth.delete_user")
+    permission_required = ("auth.add_user", "auth.change_user", "auth.delete_user",
+                           "activities.change_activity", "activities.change_brochure")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -78,6 +79,12 @@ class ManagementView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
                     "clean_users_success", False
                 )
                 context["clean_users_error"] = self.request.session.pop("clean_users_error", None)
+            if "clean_activities_success" in self.request.session:
+                context["clean_activities_alert"] = True
+                context["clean_activities_success"] = self.request.session.pop(
+                    "clean_activities_success", False
+                )
+                context["clean_activities_error"] = self.request.session.pop("clean_activities_error", None)
             if "backup_success" in self.request.session:
                 context["backup_alert"] = True
                 context["backup_success"] = self.request.session.pop("backup_success", False)
@@ -109,6 +116,20 @@ class CleanUserView(LoginRequiredMixin, PermissionRequiredMixin, View):
         except CommandError as e:
             self.request.session["clean_users_success"] = False
             self.request.session["clean_users_error"] = str(e)
+        return HttpResponseRedirect(reverse("base:management"))
+
+
+class CleanActivitiesView(LoginRequiredMixin, PermissionRequiredMixin, View):
+
+    permission_required = ("activities.change_activity", "activities.change_brochure")
+
+    def get(self, *args, **kwargs):
+        self.request.session["clean_activities_success"] = True
+        try:
+            management.call_command("cleanactivities")
+        except CommandError as e:
+            self.request.session["clean_activities_success"] = False
+            self.request.session["clean_activities_error"] = str(e)
         return HttpResponseRedirect(reverse("base:management"))
 
 

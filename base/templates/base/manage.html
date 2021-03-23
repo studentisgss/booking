@@ -73,7 +73,7 @@
             {% endif %}
         {% endif %}
         <div class="col-sm-4 offset-sm-4">
-            <a href={% url "base:clean" %} class="form-control btn btn-warning">Esegui</a>
+            <a href={% url "base:clean_users" %} class="form-control btn btn-warning">Esegui</a>
         </div>
     </div>
 </div>
@@ -96,5 +96,28 @@
     </div>
 </div>
 {% endif %}
+
+<div class="card bg-light mb-3">
+    <div class="card-header">
+        Pulizia attività
+    </div>
+    <div class="card-body">
+        {% if clean_activities_alert %}
+            {% if clean_activities_success %}
+                <div class="alert alert-success">
+                    Pulizia attività eseguita con successo.
+                </div>
+            {% else %}
+                <div class="alert alert-danger">
+                    Errore durante l'operazione:<br /> {{ clean_activities_error }}.
+                </div>
+            {% endif %}
+        {% endif %}
+        <div class="col-sm-4 offset-sm-4">
+            Tutte le attività verranno archiviate e rimosse dalle brochure.
+            <a href={% url "base:clean_activities" %} class="form-control btn btn-warning">Esegui</a>
+        </div>
+    </div>
+</div>
 
 {% endblock main %}
