@@ -118,6 +118,19 @@ class CleanUserView(LoginRequiredMixin, PermissionRequiredMixin, View):
             self.request.session["clean_users_error"] = str(e)
         return HttpResponseRedirect(reverse("base:management"))
 
+class CleanActivitiesView(LoginRequiredMixin, PermissionRequiredMixin, View):
+
+    permission_required = ("activities.change_activity", "activities.change_brochure")
+
+    def get(self, *args, **kwargs):
+        self.request.session["clean_activities_success"] = True
+        try:
+            management.call_command("cleanactivities")
+        except CommandError as e:
+            self.request.session["clean_activities_success"] = False
+            self.request.session["clean_activities_error"] = str(e)
+        return HttpResponseRedirect(reverse("base:management"))
+
 
 class CleanActivitiesView(LoginRequiredMixin, PermissionRequiredMixin, View):
 
