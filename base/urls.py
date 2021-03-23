@@ -15,14 +15,15 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from events.views import Calendar
-from base.views import ManagementView, CleanUserView, BackupView, GroupsMembersView, About
+from base.views import ManagementView, CleanUserView, CleanActivitiesView, BackupView, GroupsMembersView, About
 
 app_name = "base"
 
 urlpatterns = [
     url(r'^$', Calendar.as_view()),
     url(r'^manage$', ManagementView.as_view(), name="management"),
-    url(r'^manage/clean$', CleanUserView.as_view(), name="clean"),
+    url(r'^manage/clean_users$', CleanUserView.as_view(), name="clean_users"),
+    url(r'^manage/clean_activities$', CleanActivitiesView.as_view(), name="clean_activities"),
     url(r'^manage/backup$', BackupView.as_view(), name="backup"),
     url(r'^manage/groups$', GroupsMembersView.as_view(), name="groups"),
     url(r'^manage/groups/add/(?P<pk>\d+)$', GroupsMembersView.as_view(),
