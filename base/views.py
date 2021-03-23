@@ -118,6 +118,7 @@ class CleanUserView(LoginRequiredMixin, PermissionRequiredMixin, View):
             self.request.session["clean_users_error"] = str(e)
         return HttpResponseRedirect(reverse("base:management"))
 
+
 class CleanActivitiesView(LoginRequiredMixin, PermissionRequiredMixin, View):
 
     permission_required = ("activities.change_activity", "activities.change_brochure")
