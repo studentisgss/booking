@@ -77,6 +77,9 @@
       <a href="{% url 'activities:list' "SN" %}" class="btn {% if clas == 'SN' %}btn-info{% else %}btn-secondary{% endif %}">SN</a>
       <a href="{% url 'activities:list' "SS" %}" class="btn {% if clas == 'SS' %}btn-info{% else %}btn-secondary{% endif %}">SS</a>
       <a href="{% url 'activities:list' "A" %}" class="btn {% if clas == 'A' %}btn-info{% else %}btn-secondary{% endif %}">Altro</a>
+      {% if clas == 'SM' or clas == 'SN' or clas == 'SS' %}
+        <a href="{% url 'brochure:pdf' clas %}" class="btn btn-primary"><span class="fas fa-book"></span> Brochure</a>
+      {% endif %}
     {% endif %}
     </div>
   </div>
